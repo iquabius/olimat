@@ -1,0 +1,9 @@
+{
+  "name": "olimat-frontend",
+  "version": "0.0.1",
+  "license": "AGPL-3.0",
+  "description": "Aplicação Web Frontend (cliente) para gerenciamento das Olímpiadas de Matemática da UNEMAT",
+  "repository": "iquabius/olimat-frontend",
+  "author": "Josias Duarte Busiquia <iquabius@gmail.com>",
+  "main": "index.js"
+}
