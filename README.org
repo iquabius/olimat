@@ -1,0 +1,42 @@
+#+TITLE: Olimat Frontend
+
+Este repositório contém a aplicação web /frontend/ (cliente) do projeto Olimat.
+
+* Contribuindo com o projeto
+** Pré-requisitos
+*** Node
+    Para ser executada, a aplicação depende do *Node.js 6* — ou superior. Node é
+    baseado no interpretador de JavaScript *V8*, criado pelo Google e utilizado
+    no navegador Chrome.
+
+*** Yarn
+    O Node vem com o gerenciador de dependências *npm*, mas neste projeto é
+    utilizado o [[https://yarnpkg.com/pt-BR/][Yarn]], pois possui algumas vantagens, como cache de pacotes,
+    melhor segurança, e determinismo na instalação de dependências.
+
+    O Yarn pode ser instalado globalmente com o npm:
+
+    #+BEGIN_SRC sh
+    npm install --global yarn@0.23.3
+    #+END_SRC
+
+*** Git
+    O *Git 2* é usado como sistema de controle de versão para o código.
+
+** Clone o repositório
+   #+BEGIN_SRC sh
+   git clone git@github.com:iquabius/olimat-frontend.git
+   #+END_SRC
+
+** Instale as dependências
+   #+BEGIN_SRC sh
+   cd olimat-frontend
+   yarn install
+   #+END_SRC
+
+** Execute a aplicação em ambiente de desenvolvimento
+   #+BEGIN_SRC sh
+   yarn run dev
+   #+END_SRC
+
+   Acesse a aplicação em [[http://localhost:3000][http://localhost:3000]].
