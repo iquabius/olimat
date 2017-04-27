@@ -6,6 +6,11 @@
   "repository": "iquabius/olimat-frontend",
   "author": "Josias Duarte Busiquia <iquabius@gmail.com>",
   "main": "index.js",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
   "dependencies": {
     "next": "^2.2.0",
     "react": "^15.5.4",
