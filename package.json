@@ -5,5 +5,10 @@
   "description": "Aplicação Web Frontend (cliente) para gerenciamento das Olímpiadas de Matemática da UNEMAT",
   "repository": "iquabius/olimat-frontend",
   "author": "Josias Duarte Busiquia <iquabius@gmail.com>",
-  "main": "index.js"
+  "main": "index.js",
+  "dependencies": {
+    "next": "^2.2.0",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4"
+  }
 }
