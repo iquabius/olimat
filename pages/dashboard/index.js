@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import Typography from 'material-ui/Typography'
-import Dashboard from '../../components/Dashboard'
+import DashboardFrame from '../../components/DashboardFrame'
 
 const styles = {
   container: {
@@ -12,12 +12,12 @@ const styles = {
 class Index extends Component {
   render () {
     return (
-      <Dashboard>
+      <DashboardFrame>
         <div style={styles.container}>
           <Typography type='display1' gutterBottom>Painel de Administração do Olimat</Typography>
           <Typography type='subheading' gutterBottom>Material-UI</Typography>
         </div>
-      </Dashboard>
+      </DashboardFrame>
     )
   }
 }

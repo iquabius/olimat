@@ -4,7 +4,7 @@ import Head from 'next/head'
 import PropTypes from 'prop-types'
 import App from './App'
 
-class Dashboard extends Component {
+class DashboardFrame extends Component {
   render () {
     let { children, title = 'Olimat 🔥' } = this.props
 
@@ -29,8 +29,8 @@ class Dashboard extends Component {
   }
 }
 
-Dashboard.propTypes = {
+DashboardFrame.propTypes = {
   children: PropTypes.node.isRequired
 }
 
-export default Dashboard
+export default DashboardFrame
