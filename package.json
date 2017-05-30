@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "material-ui": "next",
+    "material-ui-icons": "^1.0.0-alpha.3",
     "next": "^2.2.0",
     "react": "^15.5.4",
     "react-dom": "^15.5.4"

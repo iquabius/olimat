@@ -2540,6 +2540,12 @@ lru-cache@^4.0.1:
     pseudomap "^1.0.1"
     yallist "^2.0.0"
 
+material-ui-icons@^1.0.0-alpha.3:
+  version "1.0.0-alpha.3"
+  resolved "https://registry.yarnpkg.com/material-ui-icons/-/material-ui-icons-1.0.0-alpha.3.tgz#c970c643d51ae57718381e83149fcf1ee77ec6f0"
+  dependencies:
+    recompose "^0.22.0"
+
 material-ui@next:
   version "1.0.0-alpha.15"
   resolved "https://registry.yarnpkg.com/material-ui/-/material-ui-1.0.0-alpha.15.tgz#afc6ddcab8d2497dd9826c68fddd8c6008cd9a78"
@@ -3313,6 +3319,15 @@ rechoir@^0.6.2:
   resolved "https://registry.yarnpkg.com/rechoir/-/rechoir-0.6.2.tgz#85204b54dba82d5742e28c96756ef43af50e3384"
   dependencies:
     resolve "^1.1.6"
+
+recompose@^0.22.0:
+  version "0.22.0"
+  resolved "https://registry.yarnpkg.com/recompose/-/recompose-0.22.0.tgz#f099d18385882ca41d9eec891718dadddc3204ef"
+  dependencies:
+    change-emitter "^0.1.2"
+    fbjs "^0.8.1"
+    hoist-non-react-statics "^1.0.0"
+    symbol-observable "^1.0.4"
 
 recompose@^0.23.4:
   version "0.23.4"
