@@ -39,17 +39,17 @@ class DashboardFrame extends Component {
   }
 
   render () {
-    let { children, title = 'Olimat 🔥' } = this.props
+    let { children, title = 'Painel' } = this.props
 
     return (
-      <App>
+      <App title={title}>
         <div style={styles.dashboardFrame}>
           <AppBar style={styles.appBar}>
             <Toolbar>
               <IconButton contrast onClick={this.handleDrawerToggle}>
                 <MenuIcon />
               </IconButton>
-              <Typography type='title' colorInherit style={styles.flex}>Olimat</Typography>
+              <Typography type='title' colorInherit style={styles.flex}>{title}</Typography>
               <IconButton contrast>
                 <MoreVert />
               </IconButton>
