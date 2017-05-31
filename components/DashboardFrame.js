@@ -9,6 +9,7 @@ import IconButton from 'material-ui/IconButton'
 import MenuIcon from 'material-ui-icons/Menu'
 import MoreVert from 'material-ui-icons/MoreVert'
 import App from './App'
+import DashboardDrawer from './DashboardDrawer'
 
 const styles = {
   dashboardFrame: {
@@ -25,6 +26,18 @@ const styles = {
 }
 
 class DashboardFrame extends Component {
+  state = {
+    drawerOpen: false,
+  }
+
+  handleDrawerClose = () => {
+    this.setState({ drawerOpen: false });
+  }
+
+  handleDrawerToggle = () => {
+    this.setState({ drawerOpen: !this.state.drawerOpen });
+  }
+
   render () {
     let { children, title = 'Olimat 🔥' } = this.props
 
@@ -38,7 +51,7 @@ class DashboardFrame extends Component {
         <div style={styles.dashboardFrame}>
           <AppBar style={styles.appBar}>
             <Toolbar>
-              <IconButton contrast>
+              <IconButton contrast onClick={this.handleDrawerToggle}>
                 <MenuIcon />
               </IconButton>
               <Typography type='title' colorInherit style={styles.flex}>Olimat</Typography>
@@ -47,6 +60,10 @@ class DashboardFrame extends Component {
               </IconButton>
             </Toolbar>
           </AppBar>
+          <DashboardDrawer
+             onRequestClose={this.handleDrawerClose}
+             open={this.state.drawerOpen}
+             />
         </div>
 
         { children }
