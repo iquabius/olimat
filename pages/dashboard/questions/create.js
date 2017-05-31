@@ -1,9 +1,7 @@
 import DashboardFrame from '../../../components/DashboardFrame'
 
 export default () => (
-  <DashboardFrame>
-    <h1>Criar Questão</h1>
-
+  <DashboardFrame title='Criar Questão'>
     <form>
       Título:<br />
       <input type='text' name='title' /><br />

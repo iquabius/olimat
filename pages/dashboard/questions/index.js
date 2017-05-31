@@ -3,9 +3,7 @@ import questions from '../../../data/questions'
 import Link from 'next/link'
 
 export default () => (
-  <DashboardFrame>
-    <h1>Questões</h1>
-
+  <DashboardFrame title='Questões'>
     <Link href='/dashboard/questions/create'><a>Criar Questão</a></Link>
     <ul>
       {questions.map((question) =>
