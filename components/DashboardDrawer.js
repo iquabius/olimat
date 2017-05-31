@@ -21,7 +21,7 @@ export default class DashboardDrawer extends React.Component {
         <List style={styles.list} disablePadding>
           <ListItem
             component='a'
-            href='/questions'
+            href='/dashboard/questions'
             onClick={this.props.onRequestClose}
           >
             <ListItemText primary='Questões' />
