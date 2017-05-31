@@ -1,7 +1,7 @@
-import Layout from '../../components/layout'
+import DashboardFrame from '../../../components/DashboardFrame'
 
 export default () => (
-  <Layout>
+  <DashboardFrame>
     <h1>Criar Questão</h1>
 
     <form>
@@ -11,5 +11,5 @@ export default () => (
       <textarea name='wording' value='Qual a raiz quadrada de 81?' /><br />
       <input type='submit' value='Salvar' />
     </form>
-  </Layout>
+  </DashboardFrame>
 )
