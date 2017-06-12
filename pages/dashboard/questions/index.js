@@ -1,6 +1,16 @@
 import DashboardFrame from '../../../components/DashboardFrame'
 import questions from '../../../data/questions'
 import Link from 'next/link'
+import Button from 'material-ui/Button'
+import AddIcon from 'material-ui-icons/Add'
+
+const styles = {
+  createQuestionButton: {
+    position: 'fixed',
+    bottom: 23,
+    right: 23
+  }
+}
 
 export default () => (
   <DashboardFrame title='Questões'>
@@ -11,5 +21,10 @@ export default () => (
           {question.title}: {question.wording}
         </li>)}
     </ul>
+    <Link href='/dashboard/questions/create'>
+      <Button fab primary style={styles.createQuestionButton}>
+        <AddIcon />
+      </Button>
+    </Link>
   </DashboardFrame>
 )
