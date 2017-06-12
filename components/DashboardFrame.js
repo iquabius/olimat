@@ -46,11 +46,11 @@ class DashboardFrame extends Component {
         <div style={styles.dashboardFrame}>
           <AppBar style={styles.appBar}>
             <Toolbar>
-              <IconButton contrast onClick={this.handleDrawerToggle}>
+              <IconButton color='contrast' onClick={this.handleDrawerToggle}>
                 <MenuIcon />
               </IconButton>
-              <Typography type='title' colorInherit style={styles.flex}>{title}</Typography>
-              <IconButton contrast>
+              <Typography type='title' color='inherit' style={styles.flex}>{title}</Typography>
+              <IconButton color='contrast'>
                 <MoreVert />
               </IconButton>
             </Toolbar>

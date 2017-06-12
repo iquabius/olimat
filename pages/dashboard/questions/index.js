@@ -22,7 +22,7 @@ export default () => (
         </li>)}
     </ul>
     <Link href='/dashboard/questions/create'>
-      <Button fab primary style={styles.createQuestionButton}>
+      <Button fab color='primary' style={styles.createQuestionButton}>
         <AddIcon />
       </Button>
     </Link>

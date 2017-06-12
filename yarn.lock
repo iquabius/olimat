@@ -2547,8 +2547,8 @@ material-ui-icons@^1.0.0-alpha.3:
     recompose "^0.22.0"
 
 material-ui@next:
-  version "1.0.0-alpha.15"
-  resolved "https://registry.yarnpkg.com/material-ui/-/material-ui-1.0.0-alpha.15.tgz#afc6ddcab8d2497dd9826c68fddd8c6008cd9a78"
+  version "1.0.0-alpha.17"
+  resolved "https://registry.yarnpkg.com/material-ui/-/material-ui-1.0.0-alpha.17.tgz#6ba78bc00f2244be37664c08635f0402544b469c"
   dependencies:
     babel-runtime "^6.23.0"
     classnames "^2.2.5"
@@ -2561,7 +2561,7 @@ material-ui@next:
     object-assign "^4.1.1"
     prop-types "^15.5.10"
     react-event-listener "^0.4.5"
-    react-scrollbar-size "^1.0.1"
+    react-scrollbar-size "^2.0.0"
     react-transition-group "^1.1.3"
     recompose "^0.23.4"
     scroll "^2.0.0"
@@ -3122,13 +3122,13 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@15.5.7:
+prop-types@15.5.7, prop-types@^15.5.4, prop-types@^15.5.7, prop-types@~15.5.7:
   version "15.5.7"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.5.7.tgz#231c4f29cdd82e355011d4889386ca9059544dd1"
   dependencies:
     fbjs "^0.8.9"
 
-prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.6, prop-types@^15.5.7, prop-types@~15.5.7:
+prop-types@^15.5.10, prop-types@^15.5.6:
   version "15.5.10"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.5.10.tgz#2797dfc3126182e3a95e3dfbb2e893ddd7456154"
   dependencies:
@@ -3242,22 +3242,21 @@ react-proxy@^3.0.0-alpha.0:
   dependencies:
     lodash "^4.6.1"
 
-react-scrollbar-size@^1.0.1:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/react-scrollbar-size/-/react-scrollbar-size-1.0.2.tgz#1bfda0595223feb75edf5cdc6d0f062f3221ff4e"
+react-scrollbar-size@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/react-scrollbar-size/-/react-scrollbar-size-2.0.0.tgz#611215f4105db28f1f56ccace627c3fce137a2f3"
   dependencies:
     babel-runtime "^6.23.0"
-    lodash "^4.17.4"
     prop-types "^15.5.10"
-    react "^15.5.4"
     react-event-listener "^0.4.5"
 
 react-transition-group@^1.1.3:
-  version "1.1.3"
-  resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-1.1.3.tgz#5e02cf6e44a863314ff3c68a0c826c2d9d70b221"
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-1.2.0.tgz#b51fc921b0c3835a7ef7c571c79fc82c73e9204f"
   dependencies:
     chain-function "^1.0.0"
     dom-helpers "^3.2.0"
+    loose-envify "^1.3.1"
     prop-types "^15.5.6"
     warning "^3.0.0"
 
@@ -3330,8 +3329,8 @@ recompose@^0.22.0:
     symbol-observable "^1.0.4"
 
 recompose@^0.23.4:
-  version "0.23.4"
-  resolved "https://registry.yarnpkg.com/recompose/-/recompose-0.23.4.tgz#af09e4e08424effa449c9b793037166f7b30644a"
+  version "0.23.5"
+  resolved "https://registry.yarnpkg.com/recompose/-/recompose-0.23.5.tgz#72ac8261246bec378235d187467d02a721e8b1de"
   dependencies:
     change-emitter "^0.1.2"
     fbjs "^0.8.1"
