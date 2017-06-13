@@ -2,6 +2,8 @@ import { Component } from 'react'
 import Link from 'next/link'
 import Head from 'next/head'
 import PropTypes from 'prop-types'
+import Paper from 'material-ui/Paper'
+import Grid from 'material-ui/Grid'
 import AppBar from 'material-ui/AppBar'
 import Toolbar from 'material-ui/Toolbar'
 import Typography from 'material-ui/Typography'
@@ -22,7 +24,15 @@ const styles = {
   },
   flex: {
     flex: 1
-  }
+  },
+  main: {
+    flexGrow: 1,
+    marginTop: 30,
+    justifyContent: 'center'
+  },
+  paper: {
+    padding: '16px 32px',
+  },
 }
 
 class DashboardFrame extends Component {
@@ -61,8 +71,13 @@ class DashboardFrame extends Component {
              />
         </div>
 
-        { children }
-
+        <Grid container style={styles.main}>
+          <Grid item xs={12}>
+            <Paper style={styles.paper}>
+              { children }
+            </Paper>
+          </Grid>
+        </Grid>
       </App>
     )
   }
