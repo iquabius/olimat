@@ -2,6 +2,25 @@
 
 Este repositório contém a aplicação web /frontend/ (cliente) do projeto Olimat.
 
+* Discussões sobre o Projeto
+  As [[https://github.com/iquabius/olimat/issues?utf8=%25E2%259C%2593&q=is%253Aissue%2520is%253Aopen%2520][discussões (issues) em aberto]] dão uma visão geral do desenvolvimento e
+  manutenção do projeto, elas informam atividades relacionadas a implementação
+  de [[https://github.com/iquabius/olimat/issues?q=is%253Aopen+is%253Aissue+label%253AFun%25C3%25A7%25C3%25A3o][novas funcionalidades]], conserto de [[https://github.com/iquabius/olimat/issues?q=is%253Aopen+is%253Aissue+label%253ABug][falhas (bugs)]], [[https://github.com/iquabius/olimat/issues?q=is%253Aopen+is%253Aissue+label%253AManuten%25C3%25A7%25C3%25A3o][manutenção]] e [[https://github.com/iquabius/olimat/issues?q=is%253Aopen+is%253Aissue+label%253AMelhoria][melhoria]] de
+  funções já disponíveis, configuração de [[https://github.com/iquabius/olimat/issues?q=is%253Aopen+label%253ADevTools][ferramentas de desenvolvimento]], ou até
+  mesmo [[https://github.com/iquabius/olimat/issues?q=is%253Aopen+is%253Aissue+label%253AManuten%25C3%25A7%25C3%25A3o+label%253AD%25C3%25BAvida][dúvidas sobre alguma parte do código fonte]].
+
+  As discussões também estão organizadas de acordo com o status:
+
+  - [[https://github.com/iquabius/olimat/issues?q=is%253Aopen+is%253Aissue+label%253AAbandonada][Abandonada]]
+  - [[https://github.com/iquabius/olimat/issues?q=is%253Aopen+is%253Aissue+label%253A%2522Em+Andamento%2522][Em Andamento]]
+  - [[https://github.com/iquabius/olimat/issues?q=is%253Aopen+is%253Aissue+label%253A%2522Em+Espera%2522][Em Espera]]
+  - [[https://github.com/iquabius/olimat/issues?q=is%253Aopen+is%253Aissue+label%253A%2522Precisa+de+Revis%25C3%25A3o%2522][Precisa de Revisão]]
+  - [[https://github.com/iquabius/olimat/issues?q=is%253Aopen+is%253Aissue+label%253A%2522Precisa+de+Ajuda%2522][Precisa de Ajuda]]
+
+  Para iniciar uma discussão basta clicar em “New issue” na [[https://github.com/iquabius/olimat/issues?q=is%253Aopen+is%253Aissue+label%253A%2522Precisa+de+Ajuda%2522][página de
+  discussões]]. Se possível rotule a discução com um tipo apropriado: *Bug*,
+  *Dúvida*, *Melhoria*, *Função*, *Manutenção*, ou *DevTools*.
+
 * Contribuindo com o projeto
 ** Pré-requisitos
 *** Node
