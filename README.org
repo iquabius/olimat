@@ -1,6 +1,8 @@
-#+TITLE: Olimat Frontend
+# -*- ispell-local-dictionary: "portugues"; -*-
+#+TITLE: Aplicação OliMAT
 
-Este repositório contém a aplicação web /frontend/ (cliente) do projeto Olimat.
+Este repositório contém a aplicação web cliente (/frontend/) e a aplicação
+servidor (/backend/) do projeto OliMAT.
 
 * Discussões sobre o Projeto
   As [[https://github.com/iquabius/olimat/issues?utf8=%25E2%259C%2593&q=is%253Aissue%2520is%253Aopen%2520][discussões (issues) em aberto]] dão uma visão geral do desenvolvimento e
