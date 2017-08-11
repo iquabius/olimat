@@ -27,8 +27,8 @@ servidor (/backend/) do projeto OliMAT.
   acompanhadas na [[https://github.com/iquabius/olimat/projects/1][página de gerenciamento do projeto]].
 
 * Contribuindo com o projeto
-** Pré-requisitos
-*** Node
+** Dependências
+*** Node.js
     Para ser executada, a aplicação depende do *Node.js 6* — ou superior. Node é
     baseado no interpretador de JavaScript *V8*, criado pelo Google e utilizado
     no navegador Chrome.
@@ -49,12 +49,16 @@ servidor (/backend/) do projeto OliMAT.
 
 ** Clone o repositório
    #+BEGIN_SRC sh
-   git clone git@github.com:iquabius/olimat-frontend.git
+   # SSH
+   git clone git@github.com:iquabius/olimat.git
+
+   # HTTPS
+   git clone https://github.com/iquabius/olimat.git
    #+END_SRC
 
 ** Instale as dependências
    #+BEGIN_SRC sh
-   cd olimat-frontend
+   cd olimat
    yarn install
    #+END_SRC
 
