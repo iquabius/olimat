@@ -35,13 +35,13 @@ servidor (/backend/) do projeto OliMAT.
 
 *** Yarn
     O Node vem com o gerenciador de dependências *npm*, mas neste projeto é
-    utilizado o [[https://yarnpkg.com/pt-BR/][Yarn]], pois possui algumas vantagens, como cache de pacotes,
-    melhor segurança, e determinismo na instalação de dependências.
+    utilizado o [[https://yarnpkg.com/pt-BR/][Yarn]], pois possui algumas vantagens, como cache local de
+    pacotes, melhor segurança, e determinismo na instalação de dependências.
 
     O Yarn pode ser instalado globalmente com o npm:
 
     #+BEGIN_SRC sh
-    npm install --global yarn@0.23.3
+    npm install --global yarn
     #+END_SRC
 
 *** Git
