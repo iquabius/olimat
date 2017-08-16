@@ -5,6 +5,17 @@ import Divider from 'material-ui/Divider'
 import Link from 'next/link'
 
 const styles = {
+  logo: {
+    cursor: 'pointer',
+    fontSize: 35,
+    color: '#063d01',
+    textAlign: 'center',
+    lineHeight: 1.6,
+    fontWeight: 'bold',
+    // backgroundColor: cyan500,
+    // paddingLeft: spacing.desktopGutter,
+    marginBottom: 8
+  },
   list: {
     width: 250,
     flex: 'initial'
@@ -19,6 +30,10 @@ export default class DashboardDrawer extends React.Component {
         open={this.props.open}
         onRequestClose={this.props.onRequestClose}
         >
+        <div style={styles.logo}>
+          OliMAT
+        </div>
+
         <List style={styles.list} disablePadding>
           <ListItem
             component='a'
