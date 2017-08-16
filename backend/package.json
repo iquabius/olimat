@@ -1,0 +1,21 @@
+{
+  "name": "olimat-backend",
+  "version": "0.0.1",
+  "license": "AGPL-3.0",
+  "description": "Aplicação Web (servidor) para gerenciamento das Olímpiadas de Matemática da UNEMAT",
+  "repository": "iquabius/olimat",
+  "author": "Josias Duarte Busiquia <iquabius@gmail.com>",
+  "main": "qewd.js",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "ewd-redis-globals": "^0.5.0",
+    "qewd": "^2.16.0",
+    "qewd-monitor": "^2.2.0",
+    "tcp-netx": "^1.0.7-a"
+  },
+  "devDependencies": {}
+}
