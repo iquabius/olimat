@@ -54,6 +54,9 @@ class DashboardFrame extends Component {
 
     return (
       <div style={styles.dashboardFrame}>
+        <Head>
+          <title>{ title }</title>
+        </Head>
         <AppBar style={styles.appBar}>
           <Toolbar>
             <Typography type='title' color='inherit' style={styles.flex}>{title}</Typography>
