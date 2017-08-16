@@ -16,7 +16,8 @@ import DashboardDrawer from './DashboardDrawer'
 const styles = {
   dashboardFrame: {
     position: 'relative',
-    width: '100%'
+    //width: '100%'
+    marginLeft: 250,
   },
   appBar: {
     backgroundColor: '#063d01',
@@ -37,16 +38,16 @@ const styles = {
 
 class DashboardFrame extends Component {
   state = {
-    drawerOpen: false,
+    drawerOpen: true,
   }
 
-  handleDrawerClose = () => {
-    this.setState({ drawerOpen: false });
-  }
+  // handleDrawerClose = () => {
+  //   this.setState({ drawerOpen: false });
+  // }
 
-  handleDrawerToggle = () => {
-    this.setState({ drawerOpen: !this.state.drawerOpen });
-  }
+  // handleDrawerToggle = () => {
+  //   this.setState({ drawerOpen: !this.state.drawerOpen });
+  // }
 
   render () {
     let { children, title = 'Painel' } = this.props
@@ -56,9 +57,10 @@ class DashboardFrame extends Component {
         <div style={styles.dashboardFrame}>
           <AppBar style={styles.appBar}>
             <Toolbar>
-              <IconButton color='contrast' onClick={this.handleDrawerToggle}>
-                <MenuIcon />
-              </IconButton>
+              {// <IconButton color='contrast' onClick={this.handleDrawerToggle}>
+              //   <MenuIcon />
+              // </IconButton>
+              }
               <Typography type='title' color='inherit' style={styles.flex}>{title}</Typography>
               <IconButton color='contrast'>
                 <MoreVert />
@@ -66,18 +68,18 @@ class DashboardFrame extends Component {
             </Toolbar>
           </AppBar>
           <DashboardDrawer
-             onRequestClose={this.handleDrawerClose}
+             docked={true}
              open={this.state.drawerOpen}
              />
-        </div>
 
-        <Grid container style={styles.main}>
-          <Grid item xs={12}>
-            <Paper style={styles.paper}>
-              { children }
-            </Paper>
-          </Grid>
-        </Grid>
+         <Grid container style={styles.main}>
+           <Grid item xs={12}>
+             <Paper style={styles.paper}>
+               { children }
+             </Paper>
+           </Grid>
+         </Grid>
+        </div>
       </App>
     )
   }
