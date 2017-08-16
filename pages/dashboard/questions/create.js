@@ -12,6 +12,7 @@ export default () => (
       <TextField
         id='wording'
         label='Enunciado'
+        multiline
         />
       <Button raised color='primary'>Salvar</Button>
     </form>
