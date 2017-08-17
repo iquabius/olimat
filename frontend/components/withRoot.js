@@ -55,7 +55,10 @@ function withRoot (BaseComponent) {
     }
   }
 
-  WithRoot.displayName = `withRoot(${BaseComponent.displayName})`
+  if (process.env.NODE_ENV !== 'production') {
+    let baseComponentName = BaseComponent.displayName || BaseComponent.name
+    WithRoot.displayName = `withRoot(${baseComponentName})`
+  }
 
   return WithRoot
 }
