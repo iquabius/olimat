@@ -12,15 +12,21 @@ const styles = {
   }
 }
 
-export default () => (
-  <DashboardFrame title='Questões'>
-    <Link href='/dashboard/questions/create'><a>Criar Questão</a></Link>
+const renderQuestionsList = (questions) => {
+  return (
     <ul>
       {questions.map((question) =>
         <li key={question.id.toString()}>
           {question.title}: {question.wording}
         </li>)}
     </ul>
+  )
+}
+
+export default () => (
+  <DashboardFrame title='Questões'>
+    <Link href='/dashboard/questions/create'><a>Criar Questão</a></Link>
+    {renderQuestionsList(questions)}
     <Link href='/dashboard/questions/create'>
       <Button fab color='primary' style={styles.createQuestionButton}>
         <AddIcon />
