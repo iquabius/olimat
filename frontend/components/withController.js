@@ -36,7 +36,10 @@ const withController = BaseComponent => {
     }
   }
 
-  WithController.displayName = `withController(${BaseComponent.displayName})`
+  if (process.env.NODE_ENV !== 'production') {
+    let baseComponentName = BaseComponent.displayName || BaseComponent.name
+    WithController.displayName = `withController(${baseComponentName})`
+  }
 
   return WithController
 }
