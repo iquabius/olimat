@@ -1,5 +1,6 @@
 import {Component} from 'react'
 import questions from '../../data/questions'
+import withController from '../../components/withController'
 
 class QuestionList extends Component {
   render () {
@@ -14,4 +15,4 @@ class QuestionList extends Component {
   }
 }
 
-export default QuestionList
+export default withController(QuestionList)
