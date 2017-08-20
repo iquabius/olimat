@@ -21,14 +21,19 @@ class QuestionList extends Component {
     controller.send(message, handleGetQuestions)
   }
 
+  renderQuestion (question) {
+    return (
+      <li key={question.id.toString()}>
+        {question.title}: {question.wording}
+      </li>
+    )
+  }
+
   render () {
     const { questions } = this.state
     return (
       <ul>
-        {questions.map((question) =>
-          <li key={question.id.toString()}>
-            {question.title}: {question.wording}
-          </li>)}
+        {questions.map(this.renderQuestion)}
       </ul>
     )
   }
