@@ -1,4 +1,5 @@
 // Setup ES2017 for the server?
+const path = require('path')
 const qewd = require('qewd').master
 
 const config = {
@@ -8,6 +9,9 @@ const config = {
   poolSize: 2,
   database: {
     type: 'redis'
+  },
+  moduleMap: {
+    'OliMAT': path.resolve(__dirname, 'olimat-module')
   }
 }
 

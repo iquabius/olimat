@@ -1,11 +1,28 @@
 import {Component} from 'react'
-// The questions are not coming from the database yet, they're currently being
-// statically loaded as JSON data from 'frontend/data/questions.js'.
-import questions from '../../data/questions'
+// Now the questions are being dynamically loaded from the backend through the
+// controller
 import withController from '../../components/withController'
 
 class QuestionList extends Component {
+  constructor (props) {
+    super(props)
+    this.state = {questions: []}
+  }
+
+  componentWillMount () {
+    const { controller } = this.props
+    const message = { type: 'getQuestions' }
+    const handleGetQuestions = messageObj => {
+      this.setState({
+        questions: messageObj.message.data
+      })
+    }
+
+    controller.send(message, handleGetQuestions)
+  }
+
   render () {
+    const { questions } = this.state
     return (
       <ul>
         {questions.map((question) =>
