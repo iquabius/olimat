@@ -3,10 +3,11 @@ import sockIo from 'socket.io-client'
 
 let backendStatus = 'waiting'
 
-export default function connectToServer (component) {
+// Returns the controller as an argument to the callback
+// connectToServer(controller => {})
+export default function connectToServer (callback) {
   if (backendStatus === 'connected') {
-    // Also keep state on component to trigger rendering when the status change
-    component.setState({ backendStatus: backendStatus })
+    callback(EWD)
 
     if (EWD.log) {
       console.log('[EWD] already connected to QEWD server')
@@ -16,14 +17,14 @@ export default function connectToServer (component) {
 
   EWD.on('ewd-registered', function () {
     backendStatus = 'connected'
-    component.setState({ backendStatus: backendStatus })
+    callback(EWD)
     if (EWD.log) console.log('[EWD] connected to QEWD server')
   })
 
   EWD.on('ewd-reregistered', function () {
     if (backendStatus === 'waiting') {
       backendStatus = 'connected'
-      component.setState({ backendStatus: backendStatus })
+      callback(EWD)
 
       if (EWD.log) console.log('[EWD] reconnected to QEWD server')
     }
@@ -32,7 +33,7 @@ export default function connectToServer (component) {
   EWD.on('socketDisconnected', function () {
     if (backendStatus === 'waiting') {
       backendStatus = 'disconnected'
-      component.setState({ backendStatus: backendStatus })
+      callback(null)
 
       if (EWD.log) console.log('[EWD] disconnected from QEWD server')
     }
@@ -51,6 +52,4 @@ export default function connectToServer (component) {
 
   if (EWD.log) console.log('[EWD] starting')
   EWD.start(ewdConfig)
-
-  return EWD
 }
