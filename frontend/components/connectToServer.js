@@ -1,4 +1,4 @@
-import {EWD} from 'ewd-client'
+import { EWD as controller } from 'ewd-client'
 import sockIo from 'socket.io-client'
 
 let backendStatus = 'waiting'
@@ -7,35 +7,41 @@ let backendStatus = 'waiting'
 // connectToServer(controller => {})
 export default function connectToServer (callback) {
   if (backendStatus === 'connected') {
-    callback(EWD)
+    callback(controller)
 
-    if (EWD.log) {
+    if (controller.log) {
       console.log('[EWD] already connected to QEWD server')
     }
     return
   }
 
-  EWD.on('ewd-registered', function () {
+  controller.on('ewd-registered', function () {
     backendStatus = 'connected'
-    callback(EWD)
-    if (EWD.log) console.log('[EWD] connected to QEWD server')
-  })
-
-  EWD.on('ewd-reregistered', function () {
-    if (backendStatus === 'waiting') {
-      backendStatus = 'connected'
-      callback(EWD)
-
-      if (EWD.log) console.log('[EWD] reconnected to QEWD server')
+    callback(controller)
+    if (controller.log) {
+      console.log('[EWD] connected to QEWD server')
     }
   })
 
-  EWD.on('socketDisconnected', function () {
+  controller.on('ewd-reregistered', function () {
+    if (backendStatus === 'waiting') {
+      backendStatus = 'connected'
+      callback(controller)
+
+      if (controller.log) {
+        console.log('[EWD] reconnected to QEWD server')
+      }
+    }
+  })
+
+  controller.on('socketDisconnected', function () {
     if (backendStatus === 'waiting') {
       backendStatus = 'disconnected'
       callback(null)
 
-      if (EWD.log) console.log('[EWD] disconnected from QEWD server')
+      if (controller.log) {
+        console.log('[EWD] disconnected from QEWD server')
+      }
     }
   })
 
@@ -48,8 +54,10 @@ export default function connectToServer (callback) {
     url: 'http://localhost:8080'
   }
 
-  EWD.log = true
+  controller.log = true
 
-  if (EWD.log) console.log('[EWD] starting')
-  EWD.start(ewdConfig)
+  if (controller.log) {
+    console.log('[EWD] starting')
+  }
+  controller.start(ewdConfig)
 }
