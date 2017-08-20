@@ -5,7 +5,7 @@ const withController = BaseComponent => {
   class WithController extends Component {
     constructor (props) {
       super(props)
-      this.state = {backendStatus: 'waiting'}
+      this.state = { controller: null }
     }
 
     static getInitialProps (ctx) {
@@ -17,14 +17,16 @@ const withController = BaseComponent => {
     }
 
     componentDidMount () {
-      let controller = connectToServer(this) // Maybe this can be in the
-      this.setState({controller})            // constructor?
+      connectToServer(controller => {
+        // Trigger a re-rendering after the connection is established
+        this.setState({controller})
+      })
     }
 
     render () {
       // The controller only has the send() method after the connection is
       // established (backendStatus === 'connected')
-      if (this.state.backendStatus === 'waiting') {
+      if (this.state.controller === null) {
         return (<div>Connectando ao servidor...</div>)
       } else {
         return (
