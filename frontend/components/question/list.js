@@ -31,11 +31,12 @@ class QuestionList extends Component {
 
   render () {
     const { questions } = this.state
-    return (
-      <ul>
-        {questions.map(this.renderQuestion)}
-      </ul>
-    )
+
+    if (questions.length === 0) {
+      return (<div>Carregando questões...</div>)
+    } else {
+      return (<ul>{questions.map(this.renderQuestion)}</ul>)
+    }
   }
 }
 
