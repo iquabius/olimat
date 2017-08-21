@@ -1,7 +1,16 @@
 import { EWD as controller } from 'ewd-client'
 import sockIo from 'socket.io-client'
 
-let backendStatus = 'waiting'
+const ewdConfig = {
+  application: 'OliMAT',
+  mode: 'development',
+  log: true,
+  io: sockIo,
+  url: 'http://localhost:8080'
+}
+
+let backendStatus = 'disconnected'
+controller.log = process.env.NODE_ENV !== 'production'
 
 // Returns the controller as an argument to the callback
 // connectToServer(controller => {})
@@ -45,19 +54,10 @@ export default function connectToServer (callback) {
     }
   })
 
-  // TODO: handle this configuration in a better way
-  const ewdConfig = {
-    application: 'OliMAT',
-    mode: 'development',
-    log: true,
-    io: sockIo,
-    url: 'http://localhost:8080'
-  }
-
-  controller.log = true
+  backendStatus = 'waiting'
+  controller.start(ewdConfig)
 
   if (controller.log) {
     console.log('[EWD] starting')
   }
-  controller.start(ewdConfig)
 }
