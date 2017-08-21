@@ -9,7 +9,7 @@ class QuestionList extends Component {
     this.state = {questions: []}
   }
 
-  componentWillMount () {
+  componentDidMount () {
     const { controller } = this.props
     const message = { type: 'getQuestions' }
     const handleGetQuestions = messageObj => {
