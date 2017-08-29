@@ -1,0 +1,34 @@
+version: '3'
+
+services:
+  frontend:
+    build: ./frontend
+    command: npm run dev
+    volumes:
+      - ./frontend:/usr/src/frontend
+    ports:
+      - 9000:3000
+    links:
+      - backend
+    environment:
+      - NODE_ENV=development
+  backend:
+    build: ./backend
+    volumes:
+      - ./backend:/usr/src/backend
+    ports:
+      - 9001:8080
+    links:
+      - db
+      - redis
+    environment:
+      - NODE_ENV=development
+      - POSTGRES_PASSWORD=dev12345
+  db:
+    image: postgres:9.6.4-alpine
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=dev12345
+  redis:
+    image: redis:4.0.1-alpine

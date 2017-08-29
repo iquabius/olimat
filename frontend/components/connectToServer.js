@@ -1,12 +1,17 @@
 import { EWD as controller } from 'ewd-client'
 import sockIo from 'socket.io-client'
 
+// Check if is running on the browser
+const apiUrl = typeof window !== 'undefined'
+        ? 'http://localhost:9001' // on browser
+        : 'http://backend:9001'   // on server
+
 const ewdConfig = {
   application: 'OliMAT',
   mode: 'development',
   log: true,
   io: sockIo,
-  url: 'http://localhost:8080'
+  url: apiUrl
 }
 
 let backendStatus = 'disconnected'

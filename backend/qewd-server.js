@@ -8,7 +8,11 @@ const config = {
   port: 8080,
   poolSize: 2,
   database: {
-    type: 'redis'
+    type: 'redis',
+    params: {
+      host: 'redis',
+      port: 6379
+    }
   },
   moduleMap: {
     'OliMAT': path.resolve(__dirname, 'olimat-module')
