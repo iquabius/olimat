@@ -27,8 +27,11 @@ services:
   db:
     image: postgres:9.6.4-alpine
     volumes:
-      - ./data/postgres:/var/lib/postgresql/data
+      - dbdata:/var/lib/postgresql/data
     environment:
       - POSTGRES_PASSWORD=dev12345
   redis:
     image: redis:4.0.1-alpine
+
+volumes:
+  dbdata:
