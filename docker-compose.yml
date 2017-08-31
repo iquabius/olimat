@@ -7,9 +7,11 @@ services:
       dockerfile: Dockerfile.dev
     volumes:
       - ./app/src:/olimat/app/src
+    networks:
+      - frontend
     ports:
       - 9000:3000
-    links:
+    depends_on:
       - api
     environment:
       - NODE_ENV=development
@@ -21,7 +23,10 @@ services:
       - ./api/src:/olimat/api/src
     ports:
       - 9001:8080
-    links:
+    networks:
+      - frontend
+      - backend
+    depends_on:
       - db
       - redis
     environment:
@@ -31,10 +36,18 @@ services:
     image: postgres:9.6.4-alpine
     volumes:
       - dbdata:/var/lib/postgresql/data
+    networks:
+      - backend
     environment:
       - POSTGRES_PASSWORD=dev12345
   redis:
     image: redis:4.0.1-alpine
+    networks:
+      - backend
 
 volumes:
   dbdata:
+
+networks:
+  frontend:
+  backend:
