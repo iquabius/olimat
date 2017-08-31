@@ -5,6 +5,8 @@ services:
     build:
       context: ./app
       dockerfile: Dockerfile.dev
+    env_file:
+      - .env/app.dev
     volumes:
       - ./app/src:/olimat/app/src
     networks:
@@ -13,12 +15,13 @@ services:
       - 3000:3000
     depends_on:
       - api
-    environment:
-      - NODE_ENV=development
   api:
     build:
       context: ./api
       dockerfile: Dockerfile.dev
+    env_file:
+      - .env/api.dev
+      - .env/db.dev
     volumes:
       - ./api/src:/olimat/api/src
     ports:
@@ -29,17 +32,14 @@ services:
     depends_on:
       - db
       - redis
-    environment:
-      - NODE_ENV=development
-      - POSTGRES_PASSWORD=dev12345
   db:
+    env_file:
+      - .env/db.dev
     image: postgres:9.6.4-alpine
     volumes:
       - dbdata:/var/lib/postgresql/data
     networks:
       - backend
-    environment:
-      - POSTGRES_PASSWORD=dev12345
   redis:
     image: redis:4.0.1-alpine
     networks:
