@@ -1,4 +1,4 @@
-import DashboardFrame from '../../../components/DashboardFrame'
+import DashboardFrame from '../../../components/dashboard-frame'
 import TextField from 'material-ui/TextField'
 import Button from 'material-ui/Button'
 
@@ -8,13 +8,18 @@ export default () => (
       <TextField
         id='title'
         label='Título'
+        fullWidth
+        margin='normal'
         />
       <TextField
         id='wording'
         label='Enunciado'
+        fullWidth
         multiline
+        rows='4'
+        margin='normal'
         />
-      <Button raised color='primary'>Salvar</Button>
+      <Button raised color='accent'>Salvar</Button>
     </form>
   </DashboardFrame>
 )

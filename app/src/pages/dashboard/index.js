@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
+import Button from 'material-ui/Button'
 import Typography from 'material-ui/Typography'
-import DashboardFrame from '../../components/DashboardFrame'
+import DashboardFrame from '../../components/dashboard-frame'
 
 const styles = {
   container: {
@@ -10,11 +11,15 @@ const styles = {
 }
 
 class Index extends Component {
+  state = {
+    open: false
+  };
+
   render () {
     return (
       <DashboardFrame>
         <div style={styles.container}>
-          <Typography type='display1' gutterBottom>Painel de Administração do Olimat</Typography>
+          <Typography type='display1' gutterBottom>Painel de Administração do OliMAT</Typography>
           <Typography type='subheading' gutterBottom>Material-UI</Typography>
         </div>
       </DashboardFrame>

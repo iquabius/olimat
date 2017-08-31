@@ -1,0 +1,14 @@
+FROM node:8.4.0
+MAINTAINER Josias Iquabius <iquabius@gmail.com>
+
+WORKDIR /olimat/api
+
+COPY package.json package-lock.json ./
+
+RUN npm install
+
+COPY ./www ./www
+
+COPY ./src ./src
+
+CMD npm start

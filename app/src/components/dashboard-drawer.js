@@ -2,7 +2,6 @@ import React from 'react'
 import Drawer from 'material-ui/Drawer'
 import List, { ListItem, ListItemText } from 'material-ui/List'
 import Divider from 'material-ui/Divider'
-import Link from 'next/link'
 
 const styles = {
   logo: {
@@ -26,7 +25,7 @@ export default class DashboardDrawer extends React.Component {
   render () {
     return (
       <Drawer
-        docked={false}
+        docked={true}
         open={this.props.open}
         onRequestClose={this.props.onRequestClose}
         >

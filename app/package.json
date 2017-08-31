@@ -1,0 +1,24 @@
+{
+  "name": "olimat-frontend",
+  "version": "0.0.1",
+  "license": "AGPL-3.0",
+  "description": "Aplicação Web (cliente) para gerenciamento das Olímpiadas de Matemática da UNEMAT",
+  "repository": "iquabius/olimat",
+  "author": "Josias Duarte Busiquia <iquabius@gmail.com>",
+  "main": "pages/index.js",
+  "scripts": {
+    "dev": "next ./src",
+    "build": "next build ./src",
+    "start": "next start ./src"
+  },
+  "dependencies": {
+    "ewd-client": "^1.17.0",
+    "material-ui": "^1.0.0-beta.5",
+    "material-ui-icons": "^1.0.0-alpha.19",
+    "next": "^3.0.3",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "socket.io-client": "^2.0.3"
+  },
+  "devDependencies": {}
+}

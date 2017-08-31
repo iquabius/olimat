@@ -1,0 +1,61 @@
+version: '3.2'
+
+services:
+  app:
+    build:
+      context: ./app
+      dockerfile: Dockerfile.dev
+    depends_on:
+      - api
+    env_file:
+      - .env/app.dev
+    networks:
+      - frontend
+    ports:
+      - 3000:3000
+    volumes:
+      - type: bind
+        source: ./app/src
+        target: /olimat/app/src
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile.dev
+    depends_on:
+      - db
+      - redis
+    env_file:
+      - .env/api.dev
+      - .env/db.dev
+    networks:
+      - frontend
+      - backend
+    ports:
+      - 3001:3001
+    volumes:
+      - type: bind
+        source: ./api/src
+        target: /olimat/api/src
+  db:
+    env_file:
+      - .env/db.dev
+    image: postgres:9.6.4-alpine
+    networks:
+      - backend
+    volumes:
+      - type: volume
+        source: db-data
+        target: /var/lib/postgresql/data
+        volume:
+          nocopy: true
+  redis:
+    image: redis:4.0.1-alpine
+    networks:
+      - backend
+
+networks:
+  frontend:
+  backend:
+
+volumes:
+  db-data:

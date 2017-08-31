@@ -10,8 +10,8 @@ import Typography from 'material-ui/Typography'
 import IconButton from 'material-ui/IconButton'
 import MenuIcon from 'material-ui-icons/Menu'
 import MoreVert from 'material-ui-icons/MoreVert'
-import App from './App'
-import DashboardDrawer from './DashboardDrawer'
+import withRoot from './withRoot'
+import DashboardDrawer from './dashboard-drawer'
 
 const styles = {
   dashboardFrame: {
@@ -53,34 +53,31 @@ class DashboardFrame extends Component {
     let { children, title = 'Painel' } = this.props
 
     return (
-      <App title={title}>
-        <div style={styles.dashboardFrame}>
-          <AppBar style={styles.appBar}>
-            <Toolbar>
-              {// <IconButton color='contrast' onClick={this.handleDrawerToggle}>
-              //   <MenuIcon />
-              // </IconButton>
-              }
-              <Typography type='title' color='inherit' style={styles.flex}>{title}</Typography>
-              <IconButton color='contrast'>
-                <MoreVert />
-              </IconButton>
-            </Toolbar>
-          </AppBar>
-          <DashboardDrawer
-             docked={true}
-             open={this.state.drawerOpen}
-             />
+      <div style={styles.dashboardFrame}>
+        <Head>
+          <title>{ title }</title>
+        </Head>
+        <AppBar style={styles.appBar}>
+          <Toolbar>
+            <Typography type='title' color='inherit' style={styles.flex}>{title}</Typography>
+            <IconButton color='contrast'>
+              <MoreVert />
+            </IconButton>
+          </Toolbar>
+        </AppBar>
+        <DashboardDrawer
+           docked={true}
+           open={this.state.drawerOpen}
+           />
 
-         <Grid container style={styles.main}>
-           <Grid item xs={12}>
-             <Paper style={styles.paper}>
-               { children }
-             </Paper>
-           </Grid>
-         </Grid>
-        </div>
-      </App>
+        <Grid container style={styles.main}>
+          <Grid item xs={12}>
+            <Paper style={styles.paper}>
+              { children }
+            </Paper>
+          </Grid>
+        </Grid>
+      </div>
     )
   }
 }
@@ -89,4 +86,4 @@ DashboardFrame.propTypes = {
   children: PropTypes.node.isRequired
 }
 
-export default DashboardFrame
+export default withRoot(DashboardFrame)
