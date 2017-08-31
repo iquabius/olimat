@@ -5,49 +5,49 @@ services:
     build:
       context: ./app
       dockerfile: Dockerfile.dev
+    depends_on:
+      - api
     env_file:
       - .env/app.dev
-    volumes:
-      - ./app/src:/olimat/app/src
     networks:
       - frontend
     ports:
       - 3000:3000
-    depends_on:
-      - api
+    volumes:
+      - ./app/src:/olimat/app/src
   api:
     build:
       context: ./api
       dockerfile: Dockerfile.dev
-    env_file:
-      - .env/api.dev
-      - .env/db.dev
-    volumes:
-      - ./api/src:/olimat/api/src
-    ports:
-      - 3001:3001
-    networks:
-      - frontend
-      - backend
     depends_on:
       - db
       - redis
+    env_file:
+      - .env/api.dev
+      - .env/db.dev
+    networks:
+      - frontend
+      - backend
+    ports:
+      - 3001:3001
+    volumes:
+      - ./api/src:/olimat/api/src
   db:
     env_file:
       - .env/db.dev
     image: postgres:9.6.4-alpine
-    volumes:
-      - dbdata:/var/lib/postgresql/data
     networks:
       - backend
+    volumes:
+      - dbdata:/var/lib/postgresql/data
   redis:
     image: redis:4.0.1-alpine
     networks:
       - backend
 
-volumes:
-  dbdata:
-
 networks:
   frontend:
   backend:
+
+volumes:
+  dbdata:
