@@ -5,7 +5,7 @@ const qewd = require('qewd').master
 const config = {
   managementPassword: 'keepThisSecret!',
   serverName: 'OliMAT Backend (QEWD Server)',
-  port: 8080,
+  port: 3001,
   webServerRootPath: path.resolve(__dirname, '../www'),
   poolSize: 2,
   database: {
