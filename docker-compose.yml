@@ -1,4 +1,4 @@
-version: '3'
+version: '3.2'
 
 services:
   app:
@@ -14,7 +14,9 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - ./app/src:/olimat/app/src
+      - type: bind
+        source: ./app/src
+        target: /olimat/app/src
   api:
     build:
       context: ./api
@@ -31,7 +33,9 @@ services:
     ports:
       - 3001:3001
     volumes:
-      - ./api/src:/olimat/api/src
+      - type: bind
+        source: ./api/src
+        target: /olimat/api/src
   db:
     env_file:
       - .env/db.dev
@@ -39,7 +43,11 @@ services:
     networks:
       - backend
     volumes:
-      - dbdata:/var/lib/postgresql/data
+      - type: volume
+        source: db-data
+        target: /var/lib/postgresql/data
+        volume:
+          nocopy: true
   redis:
     image: redis:4.0.1-alpine
     networks:
@@ -50,4 +58,4 @@ networks:
   backend:
 
 volumes:
-  dbdata:
+  db-data:
