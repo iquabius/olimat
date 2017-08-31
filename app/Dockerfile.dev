@@ -1,7 +1,7 @@
-FROM node:8.4.0
+FROM node:8.4.0-alpine
 MAINTAINER Josias Iquabius <iquabius@gmail.com>
 
-WORKDIR /usr/src/backend
+WORKDIR /olimat/app
 
 COPY package.json package-lock.json ./
 
@@ -9,4 +9,4 @@ RUN npm install
 
 COPY ./src ./src
 
-CMD npm start
+CMD npm run dev
