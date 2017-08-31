@@ -7,6 +7,8 @@ COPY package.json package-lock.json ./
 
 RUN npm install
 
+COPY ./www ./www
+
 COPY ./src ./src
 
 CMD npm start
