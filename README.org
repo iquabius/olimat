@@ -4,7 +4,7 @@
 Este repositório contém a aplicação web cliente (/frontend/) e a aplicação
 servidor (/backend/) do projeto OliMAT.
 
-* Discussões sobre o Projeto
+* Discussões
   As [[https://github.com/iquabius/olimat/issues?utf8=%25E2%259C%2593&q=is%253Aissue%2520is%253Aopen%2520][discussões (issues) em aberto]] dão uma visão geral do desenvolvimento e
   manutenção do projeto, elas informam atividades relacionadas a implementação
   de [[https://github.com/iquabius/olimat/issues?q=is%253Aopen+is%253Aissue+label%253AFun%25C3%25A7%25C3%25A3o][novas funcionalidades]], conserto de [[https://github.com/iquabius/olimat/issues?q=is%253Aopen+is%253Aissue+label%253ABug][falhas (bugs)]], [[https://github.com/iquabius/olimat/issues?q=is%253Aopen+is%253Aissue+label%253AManuten%25C3%25A7%25C3%25A3o][manutenção]] e [[https://github.com/iquabius/olimat/issues?q=is%253Aopen+is%253Aissue+label%253AMelhoria][melhoria]] de
@@ -21,34 +21,28 @@ servidor (/backend/) do projeto OliMAT.
 
   Para iniciar uma discussão basta clicar em “New issue” na [[https://github.com/iquabius/olimat/issues?q=is%253Aopen+is%253Aissue+label%253A%2522Precisa+de+Ajuda%2522][página de
   discussões]]. Se possível rotule a discussão com um tipo apropriado: *Bug*,
-  *Dúvida*, *Melhoria*, *Função*, *Manutenção*, ou *DevTools*.
+  *Docs*, *Dúvida*, *Melhoria*, *Função*, *Manutenção*, ou *DevTools*.
 
   O andamento e a priorização das atividades de desenvolvimento podem ser
   acompanhadas na [[https://github.com/iquabius/olimat/projects/1][página de gerenciamento do projeto]].
 
-* Contribuindo com o projeto
-** Dependências
-*** Node.js
-    Para ser executada, a aplicação depende do *Node.js 6* — ou superior. Node é
-    baseado no interpretador de JavaScript *V8*, criado pelo Google e utilizado
-    no navegador Chrome.
+* Aplicação Web
+  Esta aplicação é arquitetada com /microsserviços/:
 
-*** Yarn
-    O Node vem com o gerenciador de dependências *npm*, mas neste projeto é
-    utilizado o [[https://yarnpkg.com/pt-BR/][Yarn]], pois possui algumas vantagens, como cache local de
-    pacotes, melhor segurança, e determinismo na instalação de dependências.
+  - Aplicação /frontend/ :: interface web com a qual os usuários interagem
+       através de um navegador. Implementada com Next.js e React.js e servido
+       como Node.js.
+  - API /backend/ :: aplicação que media a comunicação entre a interface web e o
+                     banco de dados. Implementada com o framework QEWD e servido
+                     com Node.js.
+  - Banco de dados :: o armazenamento de dados é feito com *PostgreSQL*.
+  - Redis :: Usado pelo processo /master/ do QEWD para enfileirar requisições para
+             os /workers/ processarem.
 
-    O Yarn pode ser instalado globalmente com o npm:
+** Desenvolvimento
+   Clone este repositório:
 
-    #+BEGIN_SRC sh
-    npm install --global yarn
-    #+END_SRC
-
-*** Git
-    O *Git 2* é usado como sistema de controle de versão para o código.
-
-** Clone o repositório
-   #+BEGIN_SRC sh
+   #+BEGIN_SRC bash
    # SSH
    git clone git@github.com:iquabius/olimat.git
 
@@ -56,15 +50,69 @@ servidor (/backend/) do projeto OliMAT.
    git clone https://github.com/iquabius/olimat.git
    #+END_SRC
 
-** Instale as dependências
-   #+BEGIN_SRC sh
-   cd olimat
-   yarn install
-   #+END_SRC
+*** Com Docker
+    Levante o ambiente iniciando os contâiners:
 
-** Execute a aplicação em ambiente de desenvolvimento
-   #+BEGIN_SRC sh
-   yarn run dev
-   #+END_SRC
+    #+BEGIN_SRC bash
+    cd olimat
 
-   Acesse a aplicação em [[http://localhost:3000][http://localhost:3000]].
+    # -d para execução no plano de fundo
+    docker-compose up [-d]
+    #+END_SRC
+
+    Acesse a interface da aplicação em [[http://localhost:3000][http://localhost:3000]]. A API é servida na
+    porta 3001, e um monitor do servidor QEWD pode ser acessado em
+    http://localhost:3001/qewd-monitor/.
+
+    Para derrubar o ambiente e parar os contâiners:
+    #+BEGIN_SRC bash
+    docker-compose down
+    #+END_SRC
+
+    Lista os contâiners:
+    #+BEGIN_SRC bash
+    docker-compose ps
+    #+END_SRC
+
+    Mostra as mensagens registradas pelos serviços
+    #+BEGIN_SRC bash
+    # -f para seguir (follow) a emissão dos registros
+    docker-compose logs [-f]
+
+    # para ver os registros de um serviço específico
+    docker-compose logs -f [app|api|db|redis]
+    #+END_SRC
+
+*** Sem Docker
+
+    Dependências:
+    - Node.js v8.4.0;
+    - PostgreSQL v9.6.4;
+    - Redis v4.0.1.
+
+    Certifique-se de que o PostgreSQL está respondendo na porta 5432, e o Redis
+    na porta 6379.
+
+    Inicie o servidor da API:
+    #+BEGIN_SRC bash
+    cd api
+
+    # Instale as dependências
+    npm install
+
+    # Execute a aplicação
+    npm start
+    #+END_SRC
+
+    Inicie o servidor da interface web
+    #+BEGIN_SRC bash
+    cd app
+    npm install
+    npm run dev
+    #+END_SRC
+
+** Testes
+   /O ambiente de testes ainda não está configurado./
+
+** Implantação e Ambiente de Produção
+   …
