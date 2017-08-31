@@ -1,24 +1,24 @@
 version: '3'
 
 services:
-  frontend:
+  app:
     build:
-      context: ./frontend
+      context: ./app
       dockerfile: Dockerfile.dev
     volumes:
-      - ./frontend/src:/usr/src/frontend/src
+      - ./app/src:/olimat/app/src
     ports:
       - 9000:3000
     links:
-      - backend
+      - api
     environment:
       - NODE_ENV=development
-  backend:
+  api:
     build:
-      context: ./backend
+      context: ./api
       dockerfile: Dockerfile.dev
     volumes:
-      - ./backend/src:/usr/src/backend/src
+      - ./api/src:/olimat/api/src
     ports:
       - 9001:8080
     links:
