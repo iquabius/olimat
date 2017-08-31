@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "",
     "build": "",
-    "start": "node qewd-server"
+    "start": "node ./src/qewd-server"
   },
   "dependencies": {
     "ewd-redis-globals": "^0.5.0",

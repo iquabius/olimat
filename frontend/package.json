@@ -7,9 +7,9 @@
   "author": "Josias Duarte Busiquia <iquabius@gmail.com>",
   "main": "pages/index.js",
   "scripts": {
-    "dev": "next",
-    "build": "next build",
-    "start": "next start"
+    "dev": "next ./src",
+    "build": "next build ./src",
+    "start": "next start ./src"
   },
   "dependencies": {
     "ewd-client": "^1.17.0",
