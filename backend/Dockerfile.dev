@@ -7,7 +7,6 @@ COPY package.json package-lock.json ./
 
 RUN npm install
 
-COPY . .
+COPY ./src ./src
 
-EXPOSE 8080
-CMD node qewd-server
+CMD npm start

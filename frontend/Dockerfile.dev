@@ -7,7 +7,6 @@ COPY package.json package-lock.json ./
 
 RUN npm install
 
-COPY . .
+COPY ./src ./src
 
-EXPOSE 3000
-CMD npm run build && npm start
+CMD npm run dev

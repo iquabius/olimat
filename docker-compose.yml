@@ -2,10 +2,11 @@ version: '3'
 
 services:
   frontend:
-    build: ./frontend
-    command: npm run dev
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
     volumes:
-      - ./frontend:/usr/src/frontend
+      - ./frontend/src:/usr/src/frontend/src
     ports:
       - 9000:3000
     links:
@@ -13,9 +14,11 @@ services:
     environment:
       - NODE_ENV=development
   backend:
-    build: ./backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev
     volumes:
-      - ./backend:/usr/src/backend
+      - ./backend/src:/usr/src/backend/src
     ports:
       - 9001:8080
     links:

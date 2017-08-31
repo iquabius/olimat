@@ -6,6 +6,7 @@ const config = {
   managementPassword: 'keepThisSecret!',
   serverName: 'OliMAT Backend (QEWD Server)',
   port: 8080,
+  webServerRootPath: path.resolve(__dirname, '../www'),
   poolSize: 2,
   database: {
     type: 'redis',
