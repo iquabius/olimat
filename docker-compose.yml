@@ -10,7 +10,7 @@ services:
     networks:
       - frontend
     ports:
-      - 9000:3000
+      - 3000:3000
     depends_on:
       - api
     environment:
@@ -22,7 +22,7 @@ services:
     volumes:
       - ./api/src:/olimat/api/src
     ports:
-      - 9001:8080
+      - 3001:3001
     networks:
       - frontend
       - backend

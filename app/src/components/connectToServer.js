@@ -2,9 +2,10 @@ import { EWD as controller } from 'ewd-client'
 import sockIo from 'socket.io-client'
 
 // Check if is running on the browser
+// TODO Get host and port from environment variables
 const apiUrl = typeof window !== 'undefined'
-        ? 'http://localhost:9001' // on browser
-        : 'http://backend:9001'   // on server
+        ? 'http://localhost:3001' // on browser
+        : 'http://backend:3001'   // on server
 
 const ewdConfig = {
   application: 'OliMAT',
