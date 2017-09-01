@@ -61,7 +61,7 @@ servidor (/backend/) do projeto OliMAT.
 
     Acesse a interface da aplicação em [[http://localhost:3000][http://localhost:3000]]. A API é servida na
     porta 3001, e um monitor do servidor QEWD pode ser acessado em
-    http://localhost:3001/qewd-monitor/.
+    [[http://localhost:3001/qewd-monitor/][http://localhost:3001/qewd-monitor/]].
 
     Para derrubar o ambiente e parar os contâiners:
     #+BEGIN_SRC bash
