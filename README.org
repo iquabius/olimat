@@ -29,15 +29,14 @@ servidor (/backend/) do projeto OliMAT.
 * Aplicação Web
   Esta aplicação é arquitetada com /microsserviços/:
 
-  - Aplicação /frontend/ :: interface web com a qual os usuários interagem
-       através de um navegador. Implementada com Next.js e React.js e servido
-       como Node.js.
-  - API /backend/ :: aplicação que media a comunicação entre a interface web e o
-                     banco de dados. Implementada com o framework QEWD e servido
+  - Aplicação /frontend/ :: Interface web para interação através do navegador.
+       Implementada com [[https://github.com/zeit/next.js/][Next.js]] e [[https://facebook.github.io/react/][React.js]], e servido com Node.js.
+  - API /backend/ :: Aplicação que media a comunicação entre a interface web e o
+                     banco de dados. Implementada com o framework [[https://github.com/robtweed/qewd][QEWD]] e servido
                      com Node.js.
-  - Banco de dados :: o armazenamento de dados é feito com *PostgreSQL*.
-  - Redis :: Usado pelo processo /master/ do QEWD para enfileirar requisições para
-             os /workers/ processarem.
+  - Banco de dados :: O armazenamento de dados é feito com *PostgreSQL*.
+  - Redis :: Usado pelo QEWD para enfileirar requisições. No futuro poderá ser
+             usado para implementar cache na aplicação.
 
 ** Desenvolvimento
    Clone este repositório:
