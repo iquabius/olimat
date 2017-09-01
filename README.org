@@ -71,12 +71,12 @@ servidor (/backend/) do projeto OliMAT.
     docker-compose down
     #+END_SRC
 
-    Lista os contâiners:
+    Listar os contâiners:
     #+BEGIN_SRC bash
     docker-compose ps
     #+END_SRC
 
-    Mostra as mensagens registradas pelos serviços
+    Mostrar as mensagens registradas (logs) pelos serviços:
     #+BEGIN_SRC bash
     # -f para seguir (follow) a emissão dos registros
     docker-compose logs [-f]
@@ -106,7 +106,7 @@ servidor (/backend/) do projeto OliMAT.
     npm start
     #+END_SRC
 
-    Inicie o servidor da interface web
+    Inicie o servidor da interface web:
     #+BEGIN_SRC bash
     cd app
     npm install
