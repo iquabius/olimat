@@ -35,8 +35,11 @@ servidor (/backend/) do projeto OliMAT.
                      banco de dados. Implementada com o framework [[https://github.com/robtweed/qewd][QEWD]] e servido
                      com Node.js.
   - Banco de dados :: O armazenamento de dados é feito com *PostgreSQL*.
-  - Redis :: Usado pelo QEWD para enfileirar requisições. No futuro poderá ser
-             usado para implementar cache na aplicação.
+  - Redis :: Usado pelo QEWD para enfileirar requisições. Os motivos por trás do
+             do QEWD são explicados no artigo [[https://medium.com/the-node-js-collection/having-your-node-js-cake-and-eating-it-too-799e90d40186]["Having your Node.js Cake and
+             Eating It Too: Removing the Technical Limitations and Developer
+             Complexities of Node.js"]]. Redis também poderá ser usado para
+             implementar cache na aplicação.
 
 ** Desenvolvimento
    Clone este repositório:
