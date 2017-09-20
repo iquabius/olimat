@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "",
     "build": "",
-    "start": "node ./src/qewd-server"
+    "start": "nodemon ./src/qewd-server"
   },
   "dependencies": {
     "ewd-redis-globals": "^0.5.0",
@@ -17,5 +17,7 @@
     "qewd-monitor": "^2.2.0",
     "tcp-netx": "^1.0.7-a"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
 }
