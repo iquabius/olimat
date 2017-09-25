@@ -1,6 +1,7 @@
 const path = require('path')
 
 // docker-compose run api npx knex migrate:latest --env development
+// docker-compose run api npx knex seed:run --env development
 // TODO: find a way to automatically create databases on Docker initialization
 module.exports = {
   development: {
