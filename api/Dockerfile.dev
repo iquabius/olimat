@@ -11,4 +11,7 @@ COPY ./www ./www
 
 COPY ./src ./src
 
+COPY ./knexfile.js ./knexfile.js
+COPY ./db ./db
+
 CMD npm start

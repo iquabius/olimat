@@ -1,15 +1,40 @@
+const path = require('path')
+
+// docker-compose run api npx knex migrate:latest --env development
+// TODO: find a way to automatically create databases on Docker initialization
 module.exports = {
   development: {
     client: 'postgresql',
     connection: {
       host: 'db',
-      database: 'postgres',
+      database: 'olimat_dev',
       user: 'postgres',
-      password: 'dev12345'
+      password: 'dev123'
     },
     pool: {
       min: 2,
       max: 10
+    },
+    migrations: {
+      directory: path.resolve(__dirname, 'db', 'migrations')
+    },
+    seeds: {
+      directory: path.resolve(__dirname, 'db', 'seeds')
+    }
+  },
+  test: {
+    client: 'postgresql',
+    connection: {
+      host: 'db',
+      database: 'olimat_testing',
+      user: 'postgres',
+      password: 'dev123'
+    },
+    migrations: {
+      directory: path.resolve(__dirname, 'db', 'migrations')
+    },
+    seeds: {
+      directory: path.resolve(__dirname, 'db', 'seeds')
     }
   },
   production: {
