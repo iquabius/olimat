@@ -1,0 +1,6 @@
+FROM postgres:9.6.4-alpine
+MAINTAINER Josias Iquabius <iquabius@gmail.com>
+
+WORKDIR /docker-entrypoint-initdb.d
+
+COPY ./dev.sql ./

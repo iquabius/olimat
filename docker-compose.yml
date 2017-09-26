@@ -37,9 +37,11 @@ services:
         source: ./api/src
         target: /olimat/api/src
   db:
+    build:
+      context: ./db
+      dockerfile: Dockerfile.dev
     env_file:
       - .env/db.dev
-    image: postgres:9.6.4-alpine
     networks:
       - backend
     volumes:
