@@ -1,12 +1,21 @@
-// Now it's coming from QEWD server, but not from the database yet
-const questions = require('./data/questions')
+// Now it's coming from the PostgreSQL database
+const knex = require('../db/knex')
 
 module.exports = {
   handlers: {
     getQuestions: function (_msg, _session, _send, finished) {
-      finished({
-        data: questions
-      })
+      knex('questions').select('*')
+        .then(questions => {
+          finished({
+            status: 'success',
+            data: questions
+          })
+        }).catch(err => {
+          finished({
+            status: 'error',
+            data: err
+          })
+        })
     }
   }
 }
