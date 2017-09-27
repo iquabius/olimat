@@ -31,7 +31,8 @@
     "knex": "^0.13.0",
     "pg": "^7.3.0",
     "serve-favicon": "^2.4.5",
-    "winston": "^2.3.1"
+    "winston": "^2.3.1",
+    "ws": "^3.2.0"
   },
   "devDependencies": {
     "jest": "^21.1.0",
