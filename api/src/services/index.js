@@ -1,5 +1,7 @@
-module.exports = function () {
-  const app = this // eslint-disable-line no-unused-vars
+const questions = require('./questions/questions.service.js')
 
-  app.use('/questions')
+module.exports = function () {
+  const app = this
+
+  app.configure(questions)
 }

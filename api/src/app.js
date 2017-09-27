@@ -17,6 +17,8 @@ const middleware = require('./middleware')
 const services = require('./services')
 const appHooks = require('./app.hooks')
 
+const knex = require('./knex')
+
 const app = feathers()
 
 // Load app configuration
@@ -33,6 +35,7 @@ app.use('/', feathers.static(app.get('public')))
 
 // Set up Plugins and providers
 app.configure(hooks())
+app.configure(knex)
 
 app.configure(primus({ transformer: 'websockets' }))
 // Configure other middleware (see `middleware/index.js`)
