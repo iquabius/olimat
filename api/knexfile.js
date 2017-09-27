@@ -12,6 +12,7 @@ module.exports = {
       user: 'postgres',
       password: 'dev123'
     },
+    debug: true,
     pool: {
       min: 2,
       max: 10
