@@ -13,12 +13,24 @@
     "test": "jest"
   },
   "dependencies": {
+    "body-parser": "^1.18.2",
+    "compression": "^1.7.1",
+    "cors": "^2.8.4",
     "ewd-redis-globals": "^0.5.0",
+    "feathers": "^2.2.1",
+    "feathers-configuration": "^0.4.1",
+    "feathers-errors": "^2.9.2",
+    "feathers-hooks": "^2.0.4",
+    "feathers-hooks-common": "^3.7.3",
+    "feathers-primus": "^2.2.0",
+    "helmet": "^3.8.1",
     "knex": "^0.13.0",
     "pg": "^7.3.0",
     "qewd": "^2.16.0",
     "qewd-monitor": "^2.2.0",
-    "tcp-netx": "^1.0.7-a"
+    "serve-favicon": "^2.4.5",
+    "tcp-netx": "^1.0.7-a",
+    "winston": "^2.3.1"
   },
   "devDependencies": {
     "jest": "^21.1.0",
