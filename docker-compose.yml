@@ -31,7 +31,7 @@ services:
       - frontend
       - backend
     ports:
-      - 3001:3001
+      - 3001:3030
     volumes:
       - type: bind
         source: ./api/src

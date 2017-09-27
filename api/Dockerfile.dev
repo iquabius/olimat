@@ -7,7 +7,8 @@ COPY package.json package-lock.json ./
 
 RUN npm install
 
-COPY ./www ./www
+COPY ./public ./public
+COPY ./config ./config
 
 COPY ./src ./src
 

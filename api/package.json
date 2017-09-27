@@ -5,11 +5,11 @@
   "description": "Aplicação Web (servidor) para gerenciamento das Olímpiadas de Matemática da UNEMAT",
   "repository": "iquabius/olimat",
   "author": "Josias Duarte Busiquia <iquabius@gmail.com>",
-  "main": "qewd.js",
+  "main": "src/index.js",
   "scripts": {
     "dev": "",
     "build": "",
-    "start": "nodemon ./src/qewd-server",
+    "start": "nodemon ./src/index.js",
     "test": "jest"
   },
   "dependencies": {
