@@ -9,7 +9,7 @@ const feathers = require('feathers')
 const configuration = require('feathers-configuration')
 const hooks = require('feathers-hooks')
 
-const primus = require('feathers-primus')
+const socketio = require('feathers-socketio')
 const handler = require('feathers-errors/handler')
 const notFound = require('feathers-errors/not-found')
 
@@ -37,7 +37,7 @@ app.use('/', feathers.static(app.get('public')))
 app.configure(hooks())
 app.configure(knex)
 
-app.configure(primus({ transformer: 'websockets' }))
+app.configure(socketio())
 // Configure other middleware (see `middleware/index.js`)
 app.configure(middleware)
 // Set up our services (see `services/index.js`)

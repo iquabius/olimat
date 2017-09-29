@@ -26,13 +26,12 @@
     "feathers-hooks": "^2.0.4",
     "feathers-hooks-common": "^3.7.3",
     "feathers-knex": "^2.8.1",
-    "feathers-primus": "^2.2.0",
+    "feathers-socketio": "^2.0.0",
     "helmet": "^3.8.1",
     "knex": "^0.13.0",
     "pg": "^7.3.0",
     "serve-favicon": "^2.4.5",
-    "winston": "^2.3.1",
-    "ws": "^3.2.0"
+    "winston": "^2.3.1"
   },
   "devDependencies": {
     "jest": "^21.1.0",
