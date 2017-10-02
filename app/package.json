@@ -12,7 +12,9 @@
     "start": "next start ./src"
   },
   "dependencies": {
-    "ewd-client": "^1.17.0",
+    "feathers": "^2.2.1",
+    "feathers-hooks": "^2.1.0",
+    "feathers-socketio": "^2.0.0",
     "material-ui": "^1.0.0-beta.5",
     "material-ui-icons": "^1.0.0-alpha.19",
     "next": "^3.0.3",

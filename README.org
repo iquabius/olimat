@@ -30,16 +30,12 @@ servidor (/backend/) do projeto OliMAT.
   Esta aplicação é arquitetada com /microsserviços/:
 
   - Aplicação /frontend/ :: Interface web para interação através do navegador.
-       Implementada com [[https://github.com/zeit/next.js/][Next.js]] e [[https://facebook.github.io/react/][React.js]], e servido com Node.js.
+       Implementada com [[https://github.com/zeit/next.js/][Next.js]] e [[https://facebook.github.io/react/][React.js]], e servida com Node.js.
   - API /backend/ :: Aplicação que media a comunicação entre a interface web e o
-                     banco de dados. Implementada com o framework [[https://github.com/robtweed/qewd][QEWD]] e servido
-                     com Node.js.
+                     banco de dados. API implementada com o framework [[https://feathersjs.com/][Feathers]] e
+                     servida com Node.js usando [[https://socket.io/][Socket.IO]] como meio de
+                     transporte entre cliente e servidor.
   - Banco de dados :: O armazenamento de dados é feito com *PostgreSQL*.
-  - Redis :: Usado pelo QEWD para enfileirar requisições. Os motivos por trás do
-             do QEWD são explicados no artigo [[https://medium.com/the-node-js-collection/having-your-node-js-cake-and-eating-it-too-799e90d40186]["Having your Node.js Cake and
-             Eating It Too: Removing the Technical Limitations and Developer
-             Complexities of Node.js"]]. Redis também poderá ser usado para
-             implementar cache na aplicação.
 
 ** Desenvolvimento
    Clone este repositório:
@@ -63,8 +59,7 @@ servidor (/backend/) do projeto OliMAT.
     #+END_SRC
 
     Acesse a interface da aplicação em [[http://localhost:3000][http://localhost:3000]]. A API é servida na
-    porta 3001, e um monitor do servidor QEWD pode ser acessado em
-    [[http://localhost:3001/qewd-monitor/][http://localhost:3001/qewd-monitor/]].
+    porta 3001.
 
     Para derrubar o ambiente e parar os contâiners:
     #+BEGIN_SRC bash
@@ -82,7 +77,7 @@ servidor (/backend/) do projeto OliMAT.
     docker-compose logs [-f]
 
     # para ver os registros de um serviço específico
-    docker-compose logs -f [app|api|db|redis]
+    docker-compose logs -f [app|api|db]
     #+END_SRC
 
 *** Sem Docker
@@ -90,10 +85,8 @@ servidor (/backend/) do projeto OliMAT.
     Dependências:
     - Node.js v8.4.0;
     - PostgreSQL v9.6.4;
-    - Redis v4.0.1.
 
-    Certifique-se de que o PostgreSQL está respondendo na porta 5432, e o Redis
-    na porta 6379.
+    Certifique-se de que o PostgreSQL está respondendo na porta 5432.
 
     Inicie o servidor da API:
     #+BEGIN_SRC bash

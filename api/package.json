@@ -5,20 +5,33 @@
   "description": "Aplicação Web (servidor) para gerenciamento das Olímpiadas de Matemática da UNEMAT",
   "repository": "iquabius/olimat",
   "author": "Josias Duarte Busiquia <iquabius@gmail.com>",
-  "main": "qewd.js",
+  "main": "src/index.js",
+  "directories": {
+    "lib": "src",
+    "test": "test/"
+  },
   "scripts": {
     "dev": "",
     "build": "",
-    "start": "nodemon ./src/qewd-server",
+    "start": "nodemon ./src/index.js",
     "test": "jest"
   },
   "dependencies": {
-    "ewd-redis-globals": "^0.5.0",
+    "body-parser": "^1.18.2",
+    "compression": "^1.7.1",
+    "cors": "^2.8.4",
+    "feathers": "^2.2.1",
+    "feathers-configuration": "^0.4.1",
+    "feathers-errors": "^2.9.2",
+    "feathers-hooks": "^2.0.4",
+    "feathers-hooks-common": "^3.7.3",
+    "feathers-knex": "^2.8.1",
+    "feathers-socketio": "^2.0.0",
+    "helmet": "^3.8.1",
     "knex": "^0.13.0",
     "pg": "^7.3.0",
-    "qewd": "^2.16.0",
-    "qewd-monitor": "^2.2.0",
-    "tcp-netx": "^1.0.7-a"
+    "serve-favicon": "^2.4.5",
+    "winston": "^2.3.1"
   },
   "devDependencies": {
     "jest": "^21.1.0",

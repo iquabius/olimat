@@ -1,13 +1,14 @@
-FROM node:8.4.0
+FROM node:8.4.0-alpine
 MAINTAINER Josias Iquabius <iquabius@gmail.com>
 
 WORKDIR /olimat/api
 
 COPY package.json package-lock.json ./
 
-RUN npm install
+RUN npm install --quiet
 
-COPY ./www ./www
+COPY ./public ./public
+COPY ./config ./config
 
 COPY ./src ./src
 

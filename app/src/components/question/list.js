@@ -1,7 +1,6 @@
 import {Component} from 'react'
-// Now the questions are being dynamically loaded from the backend through the
-// controller
-import withController from '../../components/withController'
+
+import client from '../../feathers'
 
 class QuestionList extends Component {
   constructor (props) {
@@ -10,15 +9,15 @@ class QuestionList extends Component {
   }
 
   componentDidMount () {
-    const { controller } = this.props
-    const message = { type: 'getQuestions' }
-    const handleGetQuestions = messageObj => {
+    const handleQuestions = questionsPage => {
       this.setState({
-        questions: messageObj.message.data
+        questions: questionsPage.data
       })
     }
 
-    controller.send(message, handleGetQuestions)
+    client.service('questions')
+      .find()
+      .then(handleQuestions)
   }
 
   renderQuestion (question) {
@@ -40,4 +39,4 @@ class QuestionList extends Component {
   }
 }
 
-export default withController(QuestionList)
+export default QuestionList
