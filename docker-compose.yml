@@ -25,7 +25,6 @@ services:
       - db
     env_file:
       - .env/api.dev
-      - .env/db.dev
     networks:
       - frontend
       - backend
