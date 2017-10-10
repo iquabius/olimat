@@ -16,6 +16,9 @@
     "start": "nodemon ./src/index.js",
     "test": "jest"
   },
+  "jest": {
+    "rootDir": "src"
+  },
   "dependencies": {
     "body-parser": "^1.18.2",
     "compression": "^1.7.1",
