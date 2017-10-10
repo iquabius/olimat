@@ -1,4 +1,6 @@
 /* global afterEach, beforeEach, describe, expect, test */
+process.env.NODE_ENV = 'test'
+
 const assert = require('assert')
 const app = require('../../app')
 

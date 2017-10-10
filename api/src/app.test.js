@@ -1,4 +1,5 @@
 /* global describe, test */
+process.env.NODE_ENV = 'test'
 
 const assert = require('assert')
 const rp = require('request-promise')
