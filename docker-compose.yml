@@ -21,6 +21,7 @@ services:
     build:
       context: ./api
       dockerfile: Dockerfile.dev
+    command: npm run dev
     depends_on:
       - db
     env_file:

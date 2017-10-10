@@ -11,9 +11,9 @@
     "test": "test/"
   },
   "scripts": {
-    "dev": "",
+    "dev": "nodemon ./src/index.js",
     "build": "",
-    "start": "nodemon ./src/index.js",
+    "start": "node ./src/index.js",
     "test": "jest"
   },
   "jest": {

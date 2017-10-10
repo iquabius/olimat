@@ -13,5 +13,3 @@ COPY ./config ./config
 COPY ./src ./src
 
 COPY ./db ./db
-
-CMD npm start
