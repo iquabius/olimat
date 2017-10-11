@@ -5,7 +5,7 @@ module.exports = {
     client: 'postgresql',
     connection: {
       host: 'db',
-      database: 'olimat_testing',
+      database: 'postgres',
       user: 'postgres',
       password: 'dev123'
     },
