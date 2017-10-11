@@ -2,7 +2,7 @@
 const createService = require('feathers-knex')
 const createModel = require('../../models/questions.model')
 const hooks = require('./questions.hooks')
-const filters = require('./questions.filters')
+// const filters = require('./questions.filters')
 
 module.exports = function () {
   const app = this
@@ -23,7 +23,7 @@ module.exports = function () {
 
   service.hooks(hooks)
 
-  if (service.filter) {
-    service.filter(filters)
-  }
+  // if (service.filter) {
+  //   service.filter(filters)
+  // }
 }

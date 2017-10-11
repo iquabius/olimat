@@ -7,8 +7,8 @@ services:
       dockerfile: Dockerfile.dev
     depends_on:
       - api
-    env_file:
-      - .env/app.dev
+    environment:
+      - NODE_ENV=development
     networks:
       - frontend
     ports:
@@ -21,11 +21,11 @@ services:
     build:
       context: ./api
       dockerfile: Dockerfile.dev
+    command: npm run dev
     depends_on:
       - db
-    env_file:
-      - .env/api.dev
-      - .env/db.dev
+    environment:
+      - NODE_ENV=development
     networks:
       - frontend
       - backend
@@ -39,8 +39,9 @@ services:
     build:
       context: ./db
       dockerfile: Dockerfile.dev
-    env_file:
-      - .env/db.dev
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=dev123
     networks:
       - backend
     volumes:
