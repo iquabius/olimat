@@ -1,5 +1,6 @@
 FROM node:8.4.0-alpine
-MAINTAINER Josias Iquabius <iquabius@gmail.com>
+
+ENV NODE_ENV=production
 
 WORKDIR /olimat/api
 
@@ -9,7 +10,6 @@ RUN npm install --quiet
 
 COPY ./public ./public
 COPY ./config ./config
-
 COPY ./src ./src
 
-COPY ./db ./db
+CMD npm start

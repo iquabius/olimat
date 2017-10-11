@@ -108,6 +108,25 @@ servidor (/backend/) do projeto OliMAT.
 
 ** Testes
    /O ambiente de testes ainda não está configurado./
+*** Backend
+    O backend pode ser testado de duas formas. Se os serviços já estiverem de pé
+    (=docker-compose up -d=):
+
+    #+BEGIN_SRC bash
+    docker-compose run api npm test
+    #+END_SRC
+
+    Para testar o backend de forma isolada:
+
+    #+BEGIN_SRC bash
+    cd api
+    docker-compose -f docker-compose.test.yml up --build --abort-on-container-exit
+    #+END_SRC
+
+    O arquivo =api/docker-compose.test.yml= é usado pelo Docker Cloud para
+    testar o serviço backend sempre que houver uma solicitação de alteração
+    neste repositório. Acesse o [[https://cloud.docker.com/swarm/unemat/repository/docker/unemat/olimat-backend/general][repositório da aplicação backend no Docker
+    Cloud.]]
 
 ** Implantação e Ambiente de Produção
    …
