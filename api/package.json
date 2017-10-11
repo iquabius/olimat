@@ -11,10 +11,13 @@
     "test": "test/"
   },
   "scripts": {
-    "dev": "",
+    "dev": "nodemon ./src/index.js",
     "build": "",
-    "start": "nodemon ./src/index.js",
+    "start": "node ./src/index.js",
     "test": "jest"
+  },
+  "jest": {
+    "rootDir": "src"
   },
   "dependencies": {
     "body-parser": "^1.18.2",
@@ -35,6 +38,8 @@
   },
   "devDependencies": {
     "jest": "^21.1.0",
-    "nodemon": "^1.11.0"
+    "nodemon": "^1.11.0",
+    "request": "^2.83.0",
+    "request-promise": "^4.2.2"
   }
 }
