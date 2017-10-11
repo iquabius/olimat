@@ -13,18 +13,9 @@ services:
   api:
     build:
       context: ./
-      dockerfile: Dockerfile.dev
-    command: npm start
+      dockerfile: Dockerfile
     depends_on:
       - db
-    environment:
-      NODE_ENV: test
-    ports:
-      - 3030
-    volumes:
-      - type: bind
-        source: ./src
-        target: /olimat/api/src
   db:
     environment:
       POSTGRES_USER: postgres
