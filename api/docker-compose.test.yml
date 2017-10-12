@@ -1,0 +1,23 @@
+version: '3.2'
+
+services:
+  sut:
+    build:
+      context: ./
+      dockerfile: Dockerfile.dev
+    command: npm test
+    depends_on:
+      - api
+    environment:
+      NODE_ENV: test
+  api:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+  db:
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: dev123
+    image: postgres:9.6.4-alpine
