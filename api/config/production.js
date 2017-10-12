@@ -1,8 +1,8 @@
 const path = require('path')
 
 module.exports = {
-  host: 'olimat.feathersjs.com',
-  port: 'PORT',
+  host: 'localhost',
+  port: '3030',
   knex: {
     client: 'postgresql',
     connection: {
