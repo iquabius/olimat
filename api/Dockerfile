@@ -6,7 +6,8 @@ WORKDIR /olimat/api
 
 COPY package.json package-lock.json ./
 
-RUN npm install --quiet
+RUN npm install --quiet && \
+    npm cache clean --force
 
 COPY ./public ./public
 COPY ./config ./config
