@@ -9,6 +9,8 @@ before_install:
   - sudo service postgresql stop
   # wait for postgresql to shutdown
   - while sudo lsof -Pi :5432 -sTCP:LISTEN -t; do sleep 1; done
+  - docker version
+  - docker-compose version
 
 install:
   - docker-compose -f api/docker-compose.test.yml build
