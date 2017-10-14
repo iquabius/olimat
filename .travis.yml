@@ -1,0 +1,21 @@
+sudo: required
+
+services:
+  - docker
+
+before_install:
+  # stop built-in postgres service, so the one in the db container can bind to
+  # port 5432 properly
+  - sudo service postgresql stop
+  # wait for postgresql to shutdown
+  - while sudo lsof -Pi :5432 -sTCP:LISTEN -t; do sleep 1; done
+
+install:
+  - docker-compose -f api/docker-compose.test.yml build
+
+before_script:
+  - docker-compose -f api/docker-compose.test.yml up --abort-on-container-exit sut
+  - docker-compose -f api/docker-compose.test.yml ps -a
+
+script:
+  - docker wait api_sut_1
