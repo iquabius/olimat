@@ -12,5 +12,6 @@ RUN npm install --quiet && \
 COPY ./public ./public
 COPY ./config ./config
 COPY ./src ./src
+COPY ./bin ./bin
 
 CMD npm start
