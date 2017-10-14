@@ -11,7 +11,7 @@ module.exports = {
       user: 'postgres',
       password: 'dev123'
     },
-    debug: true,
+    debug: false,
     migrations: {
       directory: path.resolve(__dirname, '..', 'db', 'migrations')
     },

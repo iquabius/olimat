@@ -1,4 +1,4 @@
-FROM node:8.4.0-alpine
+FROM node:8.7.0-alpine
 
 ENV NODE_ENV=production
 
@@ -6,7 +6,8 @@ WORKDIR /olimat/api
 
 COPY package.json package-lock.json ./
 
-RUN npm install --quiet
+RUN npm install --quiet && \
+    npm cache clean --force
 
 COPY ./public ./public
 COPY ./config ./config
