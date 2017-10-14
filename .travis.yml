@@ -1,5 +1,8 @@
 sudo: required
 
+env:
+  - DOCKER_COMPOSE_VERSION=1.16.1
+
 services:
   - docker
 
@@ -9,6 +12,10 @@ before_install:
   - sudo service postgresql stop
   # wait for postgresql to shutdown
   - while sudo lsof -Pi :5432 -sTCP:LISTEN -t; do sleep 1; done
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
   - docker version
   - docker-compose version
 
@@ -16,4 +23,4 @@ install:
   - docker-compose -f api/docker-compose.test.yml build
 
 script:
-  - ./bin/docker-compose.sh -f api/docker-compose.test.yml up --abort-on-container-exit sut
+  - docker-compose -f api/docker-compose.test.yml up --exit-code-from sut
