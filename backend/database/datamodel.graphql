@@ -1,0 +1,16 @@
+type Test {
+  id: ID! @unique
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  title: String!
+  description: String!
+  author: User!
+}
+
+type User {
+  id: ID! @unique
+  email: String! @unique
+  password: String!
+  name: String!
+  tests: [Test!]!
+}
