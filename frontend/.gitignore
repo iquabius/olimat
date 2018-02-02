@@ -1,0 +1,5 @@
+# Diretório onde as dependências são instaladas
+node_modules/
+
+# Diretório onde a aplicação é 'compilada'
+.next/
