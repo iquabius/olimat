@@ -1,42 +1,154 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { MuiThemeProvider } from 'material-ui/styles';
-import Reboot from 'material-ui/Reboot';
-import getPageContext from './getPageContext';
+import find from 'lodash/find';
+import AppWrapper from '../components/AppWrapper';
+
+const pages = [
+  {
+    pathname: '/material-didatico',
+    children: [
+      {
+        pathname: '/material-didatico/provas',
+        title: 'Provas e Soluções',
+      },
+      {
+        pathname: '/material-didatico/questoes',
+        title: 'Banco de Questões',
+      },
+      {
+        pathname: '/material-didatico/simulados',
+      },
+    ],
+  },
+  {
+    pathname: '/style',
+    children: [
+      {
+        pathname: '/style/reboot',
+      },
+      {
+        pathname: '/style/color',
+      },
+      {
+        pathname: '/style/icons',
+      },
+      {
+        pathname: '/style/typography',
+      },
+    ],
+  },
+  {
+    pathname: '/layout',
+    children: [
+      {
+        pathname: '/layout/basics',
+      },
+      {
+        pathname: '/layout/grid',
+      },
+      {
+        pathname: '/layout/hidden',
+      },
+      {
+        pathname: '/layout/css-in-js',
+        title: 'CSS in JS',
+      },
+      {
+        pathname: '/layout/portal',
+      },
+    ],
+  },
+  {
+    pathname: '/programas-e-portais',
+    children: [
+      {
+        pathname: '/programas/poti',
+        title: 'POTI',
+      },
+      {
+        pathname: '/programas/portal-da-matematica',
+        title: 'Portal da Matemática'
+      },
+    ],
+  },
+  {
+    pathname: '/edicoes-anteriores',
+    children: [
+      {
+        pathname: '/edicoes-anteriores/2017',
+      },
+      {
+        pathname: '/edicoes-anteriores/2016',
+      },
+      {
+        pathname: '/edicoes-anteriores/2015',
+      },
+      {
+        pathname: '/edicoes-anteriores/2014',
+      },
+      {
+        pathname: '/edicoes-anteriores/mais-antigas',
+      },
+    ],
+  },
+  {
+    pathname: '/',
+    title: false,
+  },
+];
+
+function findActivePage(currentPages, url) {
+  const activePage = find(currentPages, page => {
+    if (page.children) {
+      return url.pathname.indexOf(page.pathname) === 0;
+    }
+
+    // Should be an exact match if no children
+    return url.pathname === page.pathname;
+  });
+
+  if (!activePage) {
+    return null;
+  }
+
+  // We need to drill down
+  if (activePage.pathname !== url.pathname) {
+    return findActivePage(activePage.children, url);
+  }
+
+  return activePage;
+}
 
 function withRoot(Component) {
   class WithRoot extends React.Component {
-    componentWillMount() {
-      this.pageContext = this.props.pageContext || getPageContext();
+    getChildContext() {
+      return {
+        url: this.props.url ? this.props.url : null,
+        pages,
+        activePage: findActivePage(pages, this.props.url),
+      };
     }
-
-    componentDidMount() {
-      // Remove the server-side injected CSS.
-      const jssStyles = document.querySelector('#jss-server-side');
-      if (jssStyles && jssStyles.parentNode) {
-        jssStyles.parentNode.removeChild(jssStyles);
-      }
-    }
-
-    pageContext = null;
 
     render() {
-      // MuiThemeProvider makes the theme available down the React tree thanks to React context.
+      const { pageContext, ...other } = this.props;
+
       return (
-        <MuiThemeProvider
-          theme={this.pageContext.theme}
-          sheetsManager={this.pageContext.sheetsManager}
-        >
-          {/* Reboot kickstart an elegant, consistent, and simple baseline to build upon. */}
-          <Reboot />
-          <Component {...this.props} />
-        </MuiThemeProvider>
+        <AppWrapper pageContext={pageContext}>
+          <Component initialProps={other} />
+        </AppWrapper>
       );
     }
   }
 
   WithRoot.propTypes = {
     pageContext: PropTypes.object,
+    url: PropTypes.object,
+  };
+
+  WithRoot.childContextTypes = {
+    url: PropTypes.object,
+    pages: PropTypes.array,
+    activePage: PropTypes.object,
   };
 
   WithRoot.getInitialProps = ctx => {
