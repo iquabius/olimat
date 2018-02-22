@@ -79,8 +79,6 @@ function reduceChildRoutes(props, activePage, items, childPage, index) {
   return items;
 }
 
-const GITHUB_RELEASE_BASE_URL = 'https://github.com/mui-org/material-ui/releases/tag/';
-
 function AppDrawer(props, context) {
   const { classes, className, disablePermanent, mobileOpen, onClose } = props;
 
@@ -93,14 +91,6 @@ function AppDrawer(props, context) {
               OliMAT
             </Typography>
           </Link>
-          {process.env.MATERIAL_UI_VERSION ? (
-            <Link
-              className={classes.anchor}
-              href={`${GITHUB_RELEASE_BASE_URL}v${process.env.MATERIAL_UI_VERSION}`}
-            >
-              <Typography variant="caption">{`v${process.env.MATERIAL_UI_VERSION}`}</Typography>
-            </Link>
-          ) : null}
           <Divider absolute />
         </Toolbar>
       </div>
