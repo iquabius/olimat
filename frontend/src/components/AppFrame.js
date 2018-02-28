@@ -10,6 +10,7 @@ import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui-icons/Menu';
 import Button from 'material-ui/Button';
 import AppDrawer from './AppDrawer';
+import Link from '../components/Link';
 import { pageToTitle } from '../utils/helpers';
 
 // Disaply a progress bar between route transitions
@@ -168,7 +169,19 @@ class AppFrame extends React.Component {
               </Typography>
             )}
             <div className={classes.grow} />
-            <Button color="inherit">Login</Button>
+            <Button
+              color="inherit"
+              component={buttonProps => (
+                <Link
+                  variant="button"
+                  prefetch
+                  href="/login"
+                  {...buttonProps}
+                />
+              )}
+            >
+              Login
+            </Button>
           </Toolbar>
         </AppBar>
         <AppDrawer
