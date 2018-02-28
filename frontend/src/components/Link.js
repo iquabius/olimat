@@ -87,8 +87,7 @@ function Link(props, context) {
       prefetch,
       passHref: true,
     };
-    // const active = context.url.pathname === href;
-    const active = true;
+    const active = context.url.pathname === href;
     children = (
       <OnClick
         component="a"
