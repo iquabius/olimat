@@ -10,7 +10,6 @@ import { FormGroup, FormControl, FormControlLabel } from 'material-ui/Form';
 import Switch from 'material-ui/Switch';
 import Button from 'material-ui/Button';
 import Divider from 'material-ui/Divider';
-import AppContent from '../components/AppContent';
 // import Link from '../components/Link';
 
 const styles = theme => ({
