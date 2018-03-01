@@ -15,20 +15,20 @@ import Visibility from 'material-ui-icons/Visibility';
 import VisibilityOff from 'material-ui-icons/VisibilityOff';
 
 const styles = theme => ({
-  loginBox: {
+  signUpBox: {
     position: 'relative',
     width: 350,
-    maxHeight: 390,
+    // maxHeight: 390,
     padding: theme.spacing.unit * 4,
   },
-  loginHead: {
+  signUpHead: {
     marginBottom: theme.spacing.unit * 2,
     textAlign: 'center',
   },
   passwordInput: {
     height: 'inherit',
   },
-  loginButton: {
+  signUpButton: {
     marginTop: theme.spacing.unit * 2,
   },
   helpMessage: {
@@ -36,12 +36,13 @@ const styles = theme => ({
   },
 });
 
-class LoginForm extends React.Component {
+class SignUpForm extends React.Component {
   state = {
+    name: '',
     email: '',
+    confirmEmail: '',
     password: '',
     showPassword: false,
-    keepLoggedIn: false,
   };
 
   handleChange = prop => event => {
@@ -56,23 +57,31 @@ class LoginForm extends React.Component {
     this.setState({ showPassword: !this.state.showPassword });
   };
 
-  handleCheckbox = event => {
-    this.setState({ keepLoggedIn: event.target.checked });
-  }
-
   render() {
     const { classes } = this.props;
     return (
-      <Paper className={classes.loginBox}>
-        <Typography className={classes.loginHead} variant="headline">
-          Acesse sua Conta
+      <Paper className={classes.signUpBox}>
+        <Typography className={classes.signUpHead} variant="headline">
+          Crie uma conta!
         </Typography>
         <Divider />
+        <TextField
+          label="Nome"
+          margin="normal"
+          fullWidth
+          onChange={this.handleChange('name')}
+        />
         <TextField
           label="Email"
           margin="normal"
           fullWidth
           onChange={this.handleChange('email')}
+        />
+        <TextField
+          label="Confirmar email"
+          margin="normal"
+          fullWidth
+          onChange={this.handleChange('confirmEmail')}
         />
         <FormControl fullWidth margin="normal">
           <InputLabel htmlFor="password">Senha</InputLabel>
@@ -94,41 +103,25 @@ class LoginForm extends React.Component {
             }
           />
         </FormControl>
-        <FormGroup row>
-          <FormControlLabel
-            control={
-              <Switch
-                checked={this.state.keepLoggedIn}
-                onChange={this.handleCheckbox}
-                value="keepLoggedIn"
-                color="primary"
-              />
-            }
-            label="Manter acesso"
-          />
-        </FormGroup>
-        {/* <Typography variant="caption">
-          <Link href="#">Esqueceu a senha?</Link>
-        </Typography> */}
         <Button
-          className={classes.loginButton}
+          className={classes.signUpButton}
           fullWidth 
           variant="raised"
           color="secondary"
           size="large"
         >
-          Entrar
+          Criar conta
         </Button>
         <Typography
           className={classes.helpMessage}
           variant="caption"
           align="center"
         >
-          Ainda não tem uma conta? <Link variant="secondary" href="/criar_conta">Crie a sua aqui.</Link>
+          Já possui uma conta? <Link variant="secondary" href="/login">Faça login aqui.</Link>
         </Typography>
       </Paper>
     );
   }
 }
 
-export default withStyles(styles)(LoginForm);
+export default withStyles(styles)(SignUpForm);
