@@ -25,6 +25,9 @@ const styles = theme => ({
     marginBottom: theme.spacing.unit * 2,
     textAlign: 'center',
   },
+  passwordInput: {
+    height: 'inherit',
+  },
   loginButton: {
     marginTop: theme.spacing.unit * 2,
   },
@@ -71,6 +74,7 @@ class LoginForm extends React.Component {
         <FormControl fullWidth margin="normal">
           <InputLabel htmlFor="password">Senha</InputLabel>
           <Input
+            inputProps={{className: classes.passwordInput}}
             type={this.state.showPassword ? 'text' : 'password'}
             value={this.state.password}
             onChange={this.handleChange('password')}
