@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import withRoot from '../utils/withRoot';
 import Head from 'next/head';
 import OnlyFormFrame from '../components/OnlyFormFrame';
@@ -14,10 +13,6 @@ function PageSignUp(props) {
       <SignUpForm />
     </OnlyFormFrame>
   );
-};
-
-PageSignUp.propTypes = {
-  classes: PropTypes.object.isRequired,
 };
 
 export default withRoot(PageSignUp);
