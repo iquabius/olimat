@@ -97,6 +97,10 @@ const pages = [
     pathname: '/',
     title: false,
   },
+  {
+    pathname: '/admin',
+    title: 'Painel de Administração',
+  },
 ];
 
 function findActivePage(currentPages, url) {
