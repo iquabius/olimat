@@ -10,6 +10,9 @@
     "start": "next start ./src"
   },
   "dependencies": {
+    "apollo-boost": "^0.1.1",
+    "graphql": "^0.13.1",
+    "isomorphic-unfetch": "^2.0.0",
     "jss": "^9.6.0",
     "material-ui": "^1.0.0-beta.35",
     "material-ui-icons": "^1.0.0-beta.17",
@@ -17,6 +20,7 @@
     "nprogress": "^0.2.0",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
+    "react-apollo": "^2.1.0-beta.3",
     "react-dom": "^16.2.0"
   },
   "devDependencies": {}
