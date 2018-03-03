@@ -1,8 +1,18 @@
 import React from 'react'
+import cookie from 'cookie'
 import PropTypes from 'prop-types'
 import { ApolloProvider, getDataFromTree } from 'react-apollo'
 import Head from 'next/head'
 import initApollo from './initApollo'
+
+function parseCookies(context = {}, options = {}) {
+  return cookie.parse(
+    context.req && context.req.headers.cookie
+      ? context.req.headers.cookie
+      : document.cookie,
+    options
+  )
+}
 
 // Gets the display name of a JSX component for dev tools
 function getComponentDisplayName(Component) {
@@ -18,37 +28,48 @@ export default ComposedComponent => {
       serverState: PropTypes.object.isRequired
     }
 
-    static async getInitialProps(ctx) {
-      // Initial serverState with apollo (empty)
-      let serverState = {
-        apollo: {
-          data: {}
-        }
-      }
+    static async getInitialProps(context) {
+      let serverState = {}
+
+      // Setup a server-side one-time-use apollo client for initial props and
+      // rendering (on server)
+      let apollo = initApollo({}, {
+        getToken: () => parseCookies(context).token
+      })
 
       // Evaluate the composed component's getInitialProps()
       let composedInitialProps = {}
       if (ComposedComponent.getInitialProps) {
-        composedInitialProps = await ComposedComponent.getInitialProps(ctx)
+        console.log("AQUI")
+        console.log(apollo)
+        composedInitialProps = await ComposedComponent.getInitialProps(context, apollo)
       }
 
       // Run all GraphQL queries in the component tree
       // and extract the resulting data
-      const apollo = initApollo()
+      if (!process.browser) {
+        if (context.res && context.res.finished) {
+          // When redirecting, the response is finished.
+          // No point in continuing to render
+          return
+        }
+
+        // Provide the `url` prop data in case a graphql query uses it
+        const url = { query: context.query, pathname: context.pathname }
       try {
         // Run all GraphQL queries
-        await getDataFromTree(
+          const app = (
           <ApolloProvider client={apollo}>
-            <ComposedComponent {...composedInitialProps} />
-          </ApolloProvider>,
-          {
+              <ComposedComponent url={url} {...composedInitialProps} />
+            </ApolloProvider>
+          )
+          await getDataFromTree(app, {
             router: {
-              asPath: ctx.asPath,
-              pathname: ctx.pathname,
-              query: ctx.query
-            }
+              query: context.query,
+              pathname: context.pathname,
+              asPath: context.asPath
           }
-        )
+          })
       } catch (error) {
         // Prevent Apollo Client GraphQL errors from crashing SSR.
         // Handle them in components via the data.error prop:
@@ -61,11 +82,8 @@ export default ComposedComponent => {
         Head.rewind()
       }
 
-      // Extract query data from the Apollo store
-      serverState = {
-        apollo: {
-          data: apollo.cache.extract()
-        }
+        // Extract query data from the Apollo's store
+        serverState = apollo.cache.extract()
       }
 
       return {
@@ -76,7 +94,13 @@ export default ComposedComponent => {
 
     constructor(props) {
       super(props)
-      this.apollo = initApollo(this.props.serverState.apollo.data)
+      // Note: Apollo should never be used on the server side beyond the initial
+      // render within `getInitialProps()` above (since the entire prop tree
+      // will be initialized there), meaning the below will only ever be
+      // executed on the client.
+      this.apollo = initApollo(this.props.serverState, {
+        getToken: () => parseCookies().token
+      })
     }
 
     render() {

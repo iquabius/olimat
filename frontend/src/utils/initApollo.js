@@ -1,6 +1,7 @@
 import { ApolloClient } from 'apollo-client'
-import { HttpLink } from 'apollo-link-http'
+import { createHttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory'
+import { setContext } from 'apollo-link-context'
 import fetch from 'isomorphic-unfetch'
 
 let apolloClient = null
@@ -10,29 +11,40 @@ if (!process.browser) {
   global.fetch = fetch
 }
 
-function create(initialState) {
+function create(initialState, { getToken }) {
+  const httpLink = createHttpLink({
+    uri: 'http://localhost:4000',
+    credentials: 'same-origin'
+  })
+
+  const authLink = setContext((_, { headers }) => {
+    const token = getToken()
+    return {
+      headers: {
+        ...headers,
+        authorization: token ? `Bearer ${token}` : null
+      }
+    }
+  })
+
   return new ApolloClient({
     connectToDevTools: process.browser,
     ssrMode: !process.browser, // Disables forceFetch on the server (so queries are only run once)
-    link: new HttpLink({
-      // uri: 'https://api.graph.cool/simple/v1/cixmkt2ul01q00122mksg82pn', // Server URL (must be absolute)
-      uri: 'http://localhost:4000',
-      credentials: 'same-origin' // Additional fetch() options like `credentials` or `headers`
-    }),
+    link: authLink.concat(httpLink),
     cache: new InMemoryCache().restore(initialState || {})
   })
 }
 
-export default function initApollo(initialState) {
+export default function initApollo(initialState, options) {
   // Make sure to create a new client for every server-side request so that data
   // isn't shared between connections (which would be bad)
   if (!process.browser) {
-    return create(initialState)
+    return create(initialState, options)
   }
 
   // Reuse client on the client-side
   if (!apolloClient) {
-    apolloClient = create(initialState)
+    apolloClient = create(initialState, options)
   }
 
   return apolloClient
