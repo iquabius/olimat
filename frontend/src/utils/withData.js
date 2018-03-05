@@ -40,8 +40,6 @@ export default ComposedComponent => {
       // Evaluate the composed component's getInitialProps()
       let composedInitialProps = {}
       if (ComposedComponent.getInitialProps) {
-        console.log("AQUI")
-        console.log(apollo)
         composedInitialProps = await ComposedComponent.getInitialProps(context, apollo)
       }
 
