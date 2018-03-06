@@ -12,6 +12,7 @@ import Button from 'material-ui/Button';
 import AppDrawer from './AppDrawer';
 import Link from '../components/Link';
 import { pageToTitle } from '../utils/helpers';
+import UserMenuAppBar from './UserMenuAppBar';
 
 // Disaply a progress bar between route transitions
 NProgress.configure({
@@ -169,19 +170,7 @@ class AppFrame extends React.Component {
               </Typography>
             )}
             <div className={classes.grow} />
-            <Button
-              color="inherit"
-              component={buttonProps => (
-                <Link
-                  variant="button"
-                  prefetch
-                  href="/login"
-                  {...buttonProps}
-                />
-              )}
-            >
-              Login
-            </Button>
+            <UserMenuAppBar />
           </Toolbar>
         </AppBar>
         <AppDrawer
