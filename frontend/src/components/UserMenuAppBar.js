@@ -6,6 +6,9 @@ import IconButton from 'material-ui/IconButton';
 import AccountCircle from 'material-ui-icons/AccountCircle';
 import Menu, { MenuItem } from 'material-ui/Menu';
 import Divider from 'material-ui';
+import cookie from 'cookie';
+import { withApollo } from 'react-apollo';
+import redirect from '../utils/redirect';
 
 class UserMenuAppBar extends React.Component {
   state = {
@@ -18,6 +21,19 @@ class UserMenuAppBar extends React.Component {
 
   handleClose = () => {
     this.setState({ anchorEl: null });
+  };
+
+  logout = () => {
+    document.cookie = cookie.serialize('token', '', {
+      maxAge: -1 // Expire the cookie immediately
+    });
+
+    // Force a reload of all the current queries now that the user is
+    // logged out, so we don't accidentally leave any state around.
+    this.props.client.cache.reset().then(() => {
+      // Redirect to a more useful page when signed out
+      redirect({}, '/login');
+    });
   };
 
   render() {
@@ -51,7 +67,7 @@ class UserMenuAppBar extends React.Component {
           >
             <MenuItem onClick={this.handleClose}>Perfil</MenuItem>
             <MenuItem onClick={this.handleClose}>Minha Conta</MenuItem>
-            <MenuItem onClick={this.handleClose}>Sair</MenuItem>
+            <MenuItem onClick={this.logout}>Sair</MenuItem>
           </Menu>
         </div>
       );
@@ -78,4 +94,4 @@ UserMenuAppBar.contextTypes = {
   loggedInUser: PropTypes.object,
 };
 
-export default UserMenuAppBar;
+export default withApollo(UserMenuAppBar);
