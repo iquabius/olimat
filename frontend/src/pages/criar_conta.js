@@ -3,6 +3,8 @@ import withRoot from '../utils/withRoot';
 import Head from 'next/head';
 import OnlyFormFrame from '../components/OnlyFormFrame';
 import SignUpForm from '../components/SignUpForm';
+import checkLoggedIn from '../utils/checkLoggedIn';
+import redirect from '../utils/redirect';
 
 function PageSignUp(props) {
   return (
@@ -13,6 +15,18 @@ function PageSignUp(props) {
       <SignUpForm />
     </OnlyFormFrame>
   );
+};
+
+PageSignUp.getInitialProps = async (context, apolloClient) => {
+  const { loggedInUser } = await checkLoggedIn(context, apolloClient)
+
+  if (loggedInUser.me) {
+    // Already signed in? No need to continue.
+    // Throw them back to the main page
+    redirect(context, '/')
+  }
+
+  return {}
 };
 
 export default withRoot(PageSignUp);
