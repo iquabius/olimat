@@ -4,6 +4,8 @@ import find from 'lodash/find';
 import { MuiThemeProvider } from 'material-ui/styles';
 import Reboot from 'material-ui/Reboot';
 import getPageContext from './getPageContext';
+import checkLoggedIn from '../utils/checkLoggedIn';
+import withData from './withData';
 
 const pages = [
   {
@@ -132,6 +134,7 @@ function withRoot(Component) {
         url: this.props.url ? this.props.url : null,
         pages,
         activePage: findActivePage(pages, this.props.url),
+        loggedInUser: this.props.loggedInUser,
       };
     }
 
@@ -172,17 +175,21 @@ function withRoot(Component) {
     url: PropTypes.object,
     pages: PropTypes.array,
     activePage: PropTypes.object,
+    loggedInUser: PropTypes.object,
   };
 
-  WithRoot.getInitialProps = ctx => {
+  WithRoot.getInitialProps = async (ctx, apollo) => {
+    const { loggedInUser } = await checkLoggedIn(ctx, apollo);
+
+    let composedInitialProps = {}
     if (Component.getInitialProps) {
-      return Component.getInitialProps(ctx);
+      composedInitialProps = Component.getInitialProps(ctx, apollo);
     }
 
-    return {};
+    return {loggedInUser, ...composedInitialProps};
   };
 
-  return WithRoot;
+  return withData(WithRoot);
 }
 
 export default withRoot;

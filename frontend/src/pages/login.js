@@ -36,5 +36,5 @@ PageLogin.getInitialProps = async (context, apolloClient) => {
 export default compose(
   withRoot,
   // withData gives us server-side graphql queries before rendering
-  withData,
+  // withData,
 )(PageLogin);
