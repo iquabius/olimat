@@ -15,7 +15,7 @@
     "cookie": "^0.3.1",
     "graphql": "^0.13.1",
     "isomorphic-unfetch": "^2.0.0",
-    "jss": "^9.6.0",
+    "jss": "^9.8.0",
     "material-ui": "^1.0.0-beta.36",
     "material-ui-icons": "^1.0.0-beta.36",
     "next": "^5.0.0",
