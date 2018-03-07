@@ -1,6 +1,6 @@
 import React from 'react';
-import withRoot from '../utils/withRoot';
 import Head from 'next/head';
+import withRoot from '../utils/withRoot';
 import OnlyFormFrame from '../components/OnlyFormFrame';
 import SignUpForm from '../components/SignUpForm';
 import checkLoggedIn from '../utils/checkLoggedIn';

@@ -13,9 +13,9 @@ import TextField from 'material-ui/TextField';
 import { FormControl, FormGroup, FormControlLabel } from 'material-ui/Form';
 import Switch from 'material-ui/Switch';
 import Button from 'material-ui/Button';
-import Link from '../components/Link';
 import Visibility from 'material-ui-icons/Visibility';
 import VisibilityOff from 'material-ui-icons/VisibilityOff';
+import Link from '../components/Link';
 import redirect from '../utils/redirect';
 
 const styles = theme => ({

@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Link from './Link';
 import classNames from 'classnames';
 import { withStyles } from 'material-ui/styles';
 import { ListItem } from 'material-ui/List';
 import Button from 'material-ui/Button';
 import Collapse from 'material-ui/transitions/Collapse';
+import Link from './Link';
 
 const styles = theme => ({
   button: theme.mixins.gutters({
