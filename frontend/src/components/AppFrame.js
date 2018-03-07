@@ -8,9 +8,7 @@ import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui-icons/Menu';
-import Button from 'material-ui/Button';
 import AppDrawer from './AppDrawer';
-import Link from '../components/Link';
 import { pageToTitle } from '../utils/helpers';
 import UserMenuAppBar from './UserMenuAppBar';
 

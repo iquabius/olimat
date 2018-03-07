@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { graphql, withApollo, compose } from 'react-apollo';
 import cookie from 'cookie';
 import gql from 'graphql-tag';

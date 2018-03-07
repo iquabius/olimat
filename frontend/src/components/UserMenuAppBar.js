@@ -4,7 +4,6 @@ import Button from 'material-ui/Button';
 import IconButton from 'material-ui/IconButton';
 import AccountCircle from 'material-ui-icons/AccountCircle';
 import Menu, { MenuItem } from 'material-ui/Menu';
-import Divider from 'material-ui';
 import cookie from 'cookie';
 import { withApollo } from 'react-apollo';
 import Link from '../components/Link';

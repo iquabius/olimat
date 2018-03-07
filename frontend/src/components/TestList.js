@@ -4,7 +4,7 @@ import ErrorMessage from './ErrorMessage';
 
 function TestList({ data: { loading, error, tests } }) {
   if (error) return <ErrorMessage message="Error loading tests." />;
-  if (tests && tests.length) {
+  if (!loading) {
     return (
       <section>
         <ul>

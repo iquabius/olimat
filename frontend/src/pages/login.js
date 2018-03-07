@@ -1,15 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { compose } from 'react-apollo';
 import Head from 'next/head';
 import OnlyFormFrame from '../components/OnlyFormFrame';
 import LoginForm from '../components/LoginForm';
 import withRoot from '../utils/withRoot';
-import withData from '../utils/withData';
 import checkLoggedIn from '../utils/checkLoggedIn';
 import redirect from '../utils/redirect';
 
-function PageLogin(props) {
+function PageLogin() {
   return (
     <OnlyFormFrame>
       <Head>

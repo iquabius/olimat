@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { graphql, withApollo, compose } from 'react-apollo';
 import cookie from 'cookie';
 import gql from 'graphql-tag';
@@ -10,8 +9,7 @@ import Divider from 'material-ui/Divider';
 import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
 import TextField from 'material-ui/TextField';
-import { FormControl, FormGroup, FormControlLabel } from 'material-ui/Form';
-import Switch from 'material-ui/Switch';
+import { FormControl } from 'material-ui/Form';
 import Button from 'material-ui/Button';
 import Visibility from 'material-ui-icons/Visibility';
 import VisibilityOff from 'material-ui-icons/VisibilityOff';
