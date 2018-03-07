@@ -15,7 +15,7 @@ class UserMenuAppBar extends React.Component {
     anchorEl: null,
   };
 
-  handleMenu = (event) => {
+  handleMenu = event => {
     this.setState({ anchorEl: event.currentTarget });
   };
 
@@ -75,14 +75,7 @@ class UserMenuAppBar extends React.Component {
     return (
       <Button
         color="inherit"
-        component={buttonProps => (
-          <Link
-            variant="button"
-            prefetch
-            href="/login"
-            {...buttonProps}
-          />
-        )}
+        component={buttonProps => <Link variant="button" prefetch href="/login" {...buttonProps} />}
       >
         Login
       </Button>

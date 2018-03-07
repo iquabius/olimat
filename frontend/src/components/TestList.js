@@ -2,7 +2,7 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import ErrorMessage from './ErrorMessage';
 
-function TestList({ data: { loading, error, tests }}) {
+function TestList({ data: { loading, error, tests } }) {
   if (error) return <ErrorMessage message="Error loading tests." />;
   if (tests && tests.length) {
     return (

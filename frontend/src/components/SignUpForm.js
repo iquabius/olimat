@@ -49,11 +49,11 @@ class SignUpForm extends React.Component {
     showPassword: false,
   };
 
-  handleChange = prop => (event) => {
+  handleChange = prop => event => {
     this.setState({ [prop]: event.target.value });
   };
 
-  handleMouseDownPassword = (event) => {
+  handleMouseDownPassword = event => {
     event.preventDefault();
   };
 
@@ -95,14 +95,14 @@ class SignUpForm extends React.Component {
             <InputLabel htmlFor="password">Senha</InputLabel>
             <Input
               name="password"
-              inputProps={{className: classes.passwordInput}}
+              inputProps={{ className: classes.passwordInput }}
               type={this.state.showPassword ? 'text' : 'password'}
               value={this.state.password}
               onChange={this.handleChange('password')}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
-                    style={{width: 'auto'}}
+                    style={{ width: 'auto' }}
                     onClick={this.handleClickShowPasssword}
                     onMouseDown={this.handleMouseDownPassword}
                   >
@@ -123,12 +123,11 @@ class SignUpForm extends React.Component {
             Criar conta
           </Button>
         </form>
-        <Typography
-          className={classes.helpMessage}
-          variant="caption"
-          align="center"
-        >
-          Já possui uma conta? <Link variant="secondary" href="/login">Faça login aqui.</Link>
+        <Typography className={classes.helpMessage} variant="caption" align="center">
+          Já possui uma conta?{' '}
+          <Link variant="secondary" href="/login">
+            Faça login aqui.
+          </Link>
         </Typography>
       </Paper>
     );
@@ -160,7 +159,7 @@ export default compose(
         ownProps: { client },
       }) => ({
         // `createUser` is the name of the prop passed to the component
-        createUser: (event) => {
+        createUser: event => {
           /* global FormData */
           const data = new FormData(event.target);
 
@@ -173,23 +172,25 @@ export default compose(
               password: data.get('password'),
               name: data.get('name'),
             },
-          }).then(({ data: { signup: { token } } }) => {
-            // Store the token in cookie
-            document.cookie = cookie.serialize('token', token, {
-              maxAge: 30 * 24 * 60 * 60, // 30 days
-            });
+          })
+            .then(({ data: { signup: { token } } }) => {
+              // Store the token in cookie
+              document.cookie = cookie.serialize('token', token, {
+                maxAge: 30 * 24 * 60 * 60, // 30 days
+              });
 
-            // Force a reload of all the current queries now that the user is
-            // logged in
-            client.resetStore().then(() => {
-              // Now redirect to the homepage
-              redirect({}, '/');
+              // Force a reload of all the current queries now that the user is
+              // logged in
+              client.resetStore().then(() => {
+                // Now redirect to the homepage
+                redirect({}, '/');
+              });
+            })
+            .catch(error => {
+              // Something went wrong, such as incorrect password, or no network
+              // available, etc.
+              console.error(error);
             });
-          }).catch((error) => {
-            // Something went wrong, such as incorrect password, or no network
-            // available, etc.
-            console.error(error);
-          });
         },
       }),
     },

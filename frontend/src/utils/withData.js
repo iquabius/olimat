@@ -7,9 +7,7 @@ import initApollo from './initApollo';
 
 function parseCookies(context = {}, options = {}) {
   return cookie.parse(
-    context.req && context.req.headers.cookie
-      ? context.req.headers.cookie
-      : document.cookie,
+    context.req && context.req.headers.cookie ? context.req.headers.cookie : document.cookie,
     options,
   );
 }
@@ -19,21 +17,24 @@ function getComponentDisplayName(Component) {
   return Component.displayName || Component.name || 'Unknown';
 }
 
-export default (ComposedComponent) => {
+export default ComposedComponent => {
   return class WithData extends React.Component {
-    static displayName = `WithData(${getComponentDisplayName(ComposedComponent)})`
+    static displayName = `WithData(${getComponentDisplayName(ComposedComponent)})`;
     static propTypes = {
       serverState: PropTypes.object.isRequired,
-    }
+    };
 
     static async getInitialProps(context) {
       let serverState = {};
 
       // Setup a server-side one-time-use apollo client for initial props and
       // rendering (on server)
-      const apollo = initApollo({}, {
-        getToken: () => parseCookies(context).token,
-      });
+      const apollo = initApollo(
+        {},
+        {
+          getToken: () => parseCookies(context).token,
+        },
+      );
 
       // Evaluate the composed component's getInitialProps()
       let composedInitialProps = {};
@@ -53,11 +54,11 @@ export default (ComposedComponent) => {
         // Provide the `url` prop data in case a graphql query uses it
         const url = { query: context.query, pathname: context.pathname };
         try {
-        // Run all GraphQL queries
+          // Run all GraphQL queries
           const app = (
-          <ApolloProvider client={apollo}>
+            <ApolloProvider client={apollo}>
               <ComposedComponent url={url} {...composedInitialProps} />
-          </ApolloProvider>
+            </ApolloProvider>
           );
           await getDataFromTree(app, {
             router: {
@@ -67,14 +68,14 @@ export default (ComposedComponent) => {
             },
           });
         } catch (error) {
-        // Prevent Apollo Client GraphQL errors from crashing SSR.
-        // Handle them in components via the data.error prop:
-        // http://dev.apollodata.com/react/api-queries.html#graphql-query-data-error
+          // Prevent Apollo Client GraphQL errors from crashing SSR.
+          // Handle them in components via the data.error prop:
+          // http://dev.apollodata.com/react/api-queries.html#graphql-query-data-error
         }
 
         if (!process.browser) {
-        // getDataFromTree does not call componentWillUnmount
-        // head side effect therefore need to be cleared manually
+          // getDataFromTree does not call componentWillUnmount
+          // head side effect therefore need to be cleared manually
           Head.rewind();
         }
 

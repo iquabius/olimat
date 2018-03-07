@@ -37,7 +37,7 @@ class MyDocument extends Document {
   }
 }
 
-MyDocument.getInitialProps = (ctx) => {
+MyDocument.getInitialProps = ctx => {
   // Resolution order
   //
   // On the server:

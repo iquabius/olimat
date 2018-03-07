@@ -81,9 +81,7 @@ function reduceChildRoutes(props, activePage, items, childPage, index) {
 }
 
 function AppDrawer(props, context) {
-  const {
-    classes, className, disablePermanent, mobileOpen, onClose,
-  } = props;
+  const { classes, className, disablePermanent, mobileOpen, onClose } = props;
 
   const drawer = (
     <div className={classes.nav}>

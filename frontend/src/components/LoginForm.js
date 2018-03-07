@@ -49,11 +49,11 @@ class LoginForm extends React.Component {
     keepLoggedIn: false,
   };
 
-  handleChange = prop => (event) => {
+  handleChange = prop => event => {
     this.setState({ [prop]: event.target.value });
   };
 
-  handleMouseDownPassword = (event) => {
+  handleMouseDownPassword = event => {
     event.preventDefault();
   };
 
@@ -61,9 +61,9 @@ class LoginForm extends React.Component {
     this.setState({ showPassword: !this.state.showPassword });
   };
 
-  handleCheckbox = (event) => {
+  handleCheckbox = event => {
     this.setState({ keepLoggedIn: event.target.checked });
-  }
+  };
 
   render() {
     const { classes } = this.props;
@@ -85,14 +85,14 @@ class LoginForm extends React.Component {
             <InputLabel htmlFor="password">Senha</InputLabel>
             <Input
               name="password"
-              inputProps={{className: classes.passwordInput}}
+              inputProps={{ className: classes.passwordInput }}
               type={this.state.showPassword ? 'text' : 'password'}
               value={this.state.password}
               onChange={this.handleChange('password')}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
-                    style={{width: 'auto'}}
+                    style={{ width: 'auto' }}
                     onClick={this.handleClickShowPasssword}
                     onMouseDown={this.handleMouseDownPassword}
                   >
@@ -129,12 +129,11 @@ class LoginForm extends React.Component {
             Entrar
           </Button>
         </form>
-        <Typography
-          className={classes.helpMessage}
-          variant="caption"
-          align="center"
-        >
-          Ainda não tem uma conta? <Link variant="secondary" href="/criar_conta">Crie a sua aqui.</Link>
+        <Typography className={classes.helpMessage} variant="caption" align="center">
+          Ainda não tem uma conta?{' '}
+          <Link variant="secondary" href="/criar_conta">
+            Crie a sua aqui.
+          </Link>
         </Typography>
       </Paper>
     );
@@ -164,7 +163,7 @@ export default compose(
         ownProps: { client },
       }) => ({
         // `signin` is the name of the prop passed to the component
-        signin: (event) => {
+        signin: event => {
           /* global FormData */
           const data = new FormData(event.target);
           console.log(data);
@@ -177,23 +176,25 @@ export default compose(
               email: data.get('email'),
               password: data.get('password'),
             },
-          }).then(({ data: { login: { token } } }) => {
-            // Store the token in cookie
-            document.cookie = cookie.serialize('token', token, {
-              maxAge: 30 * 24 * 60 * 60, // 30 days
-            });
+          })
+            .then(({ data: { login: { token } } }) => {
+              // Store the token in cookie
+              document.cookie = cookie.serialize('token', token, {
+                maxAge: 30 * 24 * 60 * 60, // 30 days
+              });
 
-            // Force a reload of all the current queries now that the user is
-            // logged in
-            client.resetStore().then(() => {
-              // Now redirect to the homepage
-              redirect({}, '/');
+              // Force a reload of all the current queries now that the user is
+              // logged in
+              client.resetStore().then(() => {
+                // Now redirect to the homepage
+                redirect({}, '/');
+              });
+            })
+            .catch(error => {
+              // Something went wrong, such as incorrect password, or no network
+              // available, etc.
+              console.error(error);
             });
-          }).catch((error) => {
-            // Something went wrong, such as incorrect password, or no network
-            // available, etc.
-            console.error(error);
-          });
         },
       }),
     },

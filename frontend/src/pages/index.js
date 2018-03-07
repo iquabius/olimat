@@ -110,9 +110,7 @@ function PageHome(props) {
             </div>
           </div>
         </div>
-        <div className={classes.backers}>
-          Here were the NoSSR and MarkdownElement components...
-        </div>
+        <div className={classes.backers}>Here were the NoSSR and MarkdownElement components...</div>
         <AppFooter />
       </div>
     </AppFrame>

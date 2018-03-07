@@ -62,9 +62,7 @@ class AppDrawerNavItem extends React.Component {
   };
 
   render() {
-    const {
-      children, classes, href, openImmediately, title,
-    } = this.props;
+    const { children, classes, href, openImmediately, title } = this.props;
 
     if (href) {
       return (

@@ -106,7 +106,7 @@ const pages = [
 ];
 
 function findActivePage(currentPages, url) {
-  const activePage = find(currentPages, (page) => {
+  const activePage = find(currentPages, page => {
     if (page.children) {
       return url.pathname.indexOf(page.pathname) === 0;
     }
@@ -186,7 +186,7 @@ function withRoot(Component) {
       composedInitialProps = Component.getInitialProps(ctx, apollo);
     }
 
-    return {loggedInUser, ...composedInitialProps};
+    return { loggedInUser, ...composedInitialProps };
   };
 
   return withData(WithRoot);
