@@ -7,7 +7,9 @@
   "scripts": {
     "dev": "next ./src",
     "build": "next build ./src",
-    "start": "next start ./src"
+    "start": "next start ./src",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --cache --fix && echo \"eslint: no lint errors\""
   },
   "dependencies": {
     "apollo-boost": "^0.1.1",
@@ -25,5 +27,12 @@
     "react-apollo": "^2.1.0-beta.3",
     "react-dom": "^16.2.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "babel-eslint": "^8.2.2",
+    "eslint": "^4.18.2",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.9.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.7.0"
+  }
 }
