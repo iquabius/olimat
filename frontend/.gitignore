@@ -3,3 +3,6 @@ node_modules/
 
 # Diretório onde a aplicação é 'compilada'
 .next/
+
+# Cache files
+.eslintcache
