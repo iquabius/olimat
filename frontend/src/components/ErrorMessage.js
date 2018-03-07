@@ -8,6 +8,7 @@ export default ({ message }) => (
         color: white;
         background-color: red;
       }
-    `}</style>
+    `}
+    </style>
   </aside>
-)
+);

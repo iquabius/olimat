@@ -1,9 +1,9 @@
-import { graphql } from 'react-apollo'
-import gql from 'graphql-tag'
-import ErrorMessage from './ErrorMessage'
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
+import ErrorMessage from './ErrorMessage';
 
-function TestList ({ data: { loading, error, tests }}) {
-  if (error) return <ErrorMessage message='Error loading tests.' />
+function TestList({ data: { loading, error, tests }}) {
+  if (error) return <ErrorMessage message="Error loading tests." />;
   if (tests && tests.length) {
     return (
       <section>
@@ -18,10 +18,10 @@ function TestList ({ data: { loading, error, tests }}) {
           ))}
         </ul>
       </section>
-    )
+    );
   }
-  return <div>Loading</div>
-};
+  return <div>Loading</div>;
+}
 
 export const allTests = gql`
   query allTests {
@@ -31,6 +31,6 @@ export const allTests = gql`
       description
     }
   }
-`
+`;
 
 export default graphql(allTests)(TestList);

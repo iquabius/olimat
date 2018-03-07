@@ -29,7 +29,7 @@ const styles = theme => ({
 });
 
 class OnClick extends React.Component {
-  handleClick = event => {
+  handleClick = (event) => {
     if (this.props.onClick) {
       this.props.onClick(event);
     }

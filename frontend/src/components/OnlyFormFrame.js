@@ -21,7 +21,7 @@ const styles = theme => ({
     '& div': {
       backgroundColor: theme.palette.primary.main,
       height: '50vh',
-    }
+    },
   },
   logo: {
     fontFamily: theme.typography.fontFamily,
@@ -29,7 +29,7 @@ const styles = theme => ({
     '& h1': {
       fontSize: theme.typography.display1.fontSize,
       fontWeight: 400,
-    }
+    },
   },
 });
 
@@ -38,7 +38,7 @@ const OnlyFormFrame = (props) => {
   return (
     <React.Fragment>
       <section className={classes.halfBg}>
-        <div></div>
+        <div />
       </section>
       <section className={classes.loginContent}>
         <div className={classes.logo}>
@@ -48,7 +48,7 @@ const OnlyFormFrame = (props) => {
       </section>
     </React.Fragment>
   );
-}
+};
 
 OnlyFormFrame.propTypes = {
   children: PropTypes.node.isRequired,

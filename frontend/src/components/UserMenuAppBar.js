@@ -15,7 +15,7 @@ class UserMenuAppBar extends React.Component {
     anchorEl: null,
   };
 
-  handleMenu = event => {
+  handleMenu = (event) => {
     this.setState({ anchorEl: event.currentTarget });
   };
 
@@ -25,7 +25,7 @@ class UserMenuAppBar extends React.Component {
 
   logout = () => {
     document.cookie = cookie.serialize('token', '', {
-      maxAge: -1 // Expire the cookie immediately
+      maxAge: -1, // Expire the cookie immediately
     });
 
     // Force a reload of all the current queries now that the user is
@@ -88,7 +88,7 @@ class UserMenuAppBar extends React.Component {
       </Button>
     );
   }
-};
+}
 
 UserMenuAppBar.contextTypes = {
   loggedInUser: PropTypes.object,

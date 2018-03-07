@@ -196,4 +196,4 @@ AppFrame.contextTypes = {
   }).isRequired,
 };
 
-export default withStyles(styles, { name: 'AppFrame', })(AppFrame);
+export default withStyles(styles, { name: 'AppFrame' })(AppFrame);

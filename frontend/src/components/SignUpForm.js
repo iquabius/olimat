@@ -49,11 +49,11 @@ class SignUpForm extends React.Component {
     showPassword: false,
   };
 
-  handleChange = prop => event => {
+  handleChange = prop => (event) => {
     this.setState({ [prop]: event.target.value });
   };
 
-  handleMouseDownPassword = event => {
+  handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
 
@@ -114,7 +114,7 @@ class SignUpForm extends React.Component {
           </FormControl>
           <Button
             className={classes.signUpButton}
-            fullWidth 
+            fullWidth
             variant="raised"
             color="secondary"
             size="large"
@@ -157,41 +157,41 @@ export default compose(
       props: ({
         createWithEmail,
         // `client` is provided by the `withApollo` HOC
-        ownProps: { client }
+        ownProps: { client },
       }) => ({
         // `createUser` is the name of the prop passed to the component
         createUser: (event) => {
           /* global FormData */
-          const data = new FormData(event.target)
+          const data = new FormData(event.target);
 
-          event.preventDefault()
-          event.stopPropagation()
+          event.preventDefault();
+          event.stopPropagation();
 
           createWithEmail({
             variables: {
               email: data.get('email'),
               password: data.get('password'),
-              name: data.get('name')
-            }
+              name: data.get('name'),
+            },
           }).then(({ data: { signup: { token } } }) => {
             // Store the token in cookie
             document.cookie = cookie.serialize('token', token, {
-              maxAge: 30 * 24 * 60 * 60 // 30 days
-            })
+              maxAge: 30 * 24 * 60 * 60, // 30 days
+            });
 
             // Force a reload of all the current queries now that the user is
             // logged in
             client.resetStore().then(() => {
               // Now redirect to the homepage
-              redirect({}, '/')
-            })
+              redirect({}, '/');
+            });
           }).catch((error) => {
             // Something went wrong, such as incorrect password, or no network
             // available, etc.
-            console.error(error)
-          })
-        }
-      })
-    }
-  )
+            console.error(error);
+          });
+        },
+      }),
+    },
+  ),
 )(SignUpForm);

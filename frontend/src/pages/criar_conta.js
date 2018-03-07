@@ -15,18 +15,18 @@ function PageSignUp(props) {
       <SignUpForm />
     </OnlyFormFrame>
   );
-};
+}
 
 PageSignUp.getInitialProps = async (context, apolloClient) => {
-  const { loggedInUser } = await checkLoggedIn(context, apolloClient)
+  const { loggedInUser } = await checkLoggedIn(context, apolloClient);
 
   if (loggedInUser.me) {
     // Already signed in? No need to continue.
     // Throw them back to the main page
-    redirect(context, '/')
+    redirect(context, '/');
   }
 
-  return {}
+  return {};
 };
 
 export default withRoot(PageSignUp);

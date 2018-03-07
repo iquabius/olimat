@@ -71,7 +71,7 @@ const pages = [
       },
       {
         pathname: '/programas/portal-da-matematica',
-        title: 'Portal da Matemática'
+        title: 'Portal da Matemática',
       },
     ],
   },
@@ -106,7 +106,7 @@ const pages = [
 ];
 
 function findActivePage(currentPages, url) {
-  const activePage = find(currentPages, page => {
+  const activePage = find(currentPages, (page) => {
     if (page.children) {
       return url.pathname.indexOf(page.pathname) === 0;
     }
@@ -141,7 +141,7 @@ function withRoot(Component) {
     componentWillMount() {
       this.pageContext = this.props.pageContext || getPageContext();
     }
-  
+
     componentDidMount() {
       // Remove the server-side injected CSS.
       const jssStyles = document.querySelector('#jss-server-side');
@@ -149,9 +149,9 @@ function withRoot(Component) {
         jssStyles.parentNode.removeChild(jssStyles);
       }
     }
-  
+
     pageContext = null;
-  
+
     render() {
       // MuiThemeProvider makes the theme available down the React tree thanks to React context.
       return (
@@ -181,7 +181,7 @@ function withRoot(Component) {
   WithRoot.getInitialProps = async (ctx, apollo) => {
     const { loggedInUser } = await checkLoggedIn(ctx, apollo);
 
-    let composedInitialProps = {}
+    let composedInitialProps = {};
     if (Component.getInitialProps) {
       composedInitialProps = Component.getInitialProps(ctx, apollo);
     }

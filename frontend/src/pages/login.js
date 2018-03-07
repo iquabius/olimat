@@ -6,8 +6,8 @@ import Head from 'next/head';
 import OnlyFormFrame from '../components/OnlyFormFrame';
 import LoginForm from '../components/LoginForm';
 import withData from '../utils/withData';
-import checkLoggedIn from '../utils/checkLoggedIn'
-import redirect from '../utils/redirect'
+import checkLoggedIn from '../utils/checkLoggedIn';
+import redirect from '../utils/redirect';
 
 function PageLogin(props) {
   return (
@@ -18,23 +18,22 @@ function PageLogin(props) {
       <LoginForm />
     </OnlyFormFrame>
   );
-};
+}
 
 PageLogin.getInitialProps = async (context, apolloClient) => {
-  const { loggedInUser } = await checkLoggedIn(context, apolloClient)
+  const { loggedInUser } = await checkLoggedIn(context, apolloClient);
 
   // if (loggedInUser.user) {
   if (loggedInUser.me) {
     // Already signed in? No need to continue.
     // Throw them back to the main page
-    redirect(context, '/')
+    redirect(context, '/');
   }
 
-  return {}
+  return {};
 };
 
-export default compose(
-  withRoot,
+export default compose(withRoot,
   // withData gives us server-side graphql queries before rendering
   // withData,
 )(PageLogin);

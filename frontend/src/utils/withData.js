@@ -1,46 +1,44 @@
-import React from 'react'
-import cookie from 'cookie'
-import PropTypes from 'prop-types'
-import { ApolloProvider, getDataFromTree } from 'react-apollo'
-import Head from 'next/head'
-import initApollo from './initApollo'
+import React from 'react';
+import cookie from 'cookie';
+import PropTypes from 'prop-types';
+import { ApolloProvider, getDataFromTree } from 'react-apollo';
+import Head from 'next/head';
+import initApollo from './initApollo';
 
 function parseCookies(context = {}, options = {}) {
   return cookie.parse(
     context.req && context.req.headers.cookie
       ? context.req.headers.cookie
       : document.cookie,
-    options
-  )
+    options,
+  );
 }
 
 // Gets the display name of a JSX component for dev tools
 function getComponentDisplayName(Component) {
-  return Component.displayName || Component.name || 'Unknown'
+  return Component.displayName || Component.name || 'Unknown';
 }
 
-export default ComposedComponent => {
+export default (ComposedComponent) => {
   return class WithData extends React.Component {
-    static displayName = `WithData(${getComponentDisplayName(
-      ComposedComponent
-    )})`
+    static displayName = `WithData(${getComponentDisplayName(ComposedComponent)})`
     static propTypes = {
-      serverState: PropTypes.object.isRequired
+      serverState: PropTypes.object.isRequired,
     }
 
     static async getInitialProps(context) {
-      let serverState = {}
+      let serverState = {};
 
       // Setup a server-side one-time-use apollo client for initial props and
       // rendering (on server)
-      let apollo = initApollo({}, {
-        getToken: () => parseCookies(context).token
-      })
+      const apollo = initApollo({}, {
+        getToken: () => parseCookies(context).token,
+      });
 
       // Evaluate the composed component's getInitialProps()
-      let composedInitialProps = {}
+      let composedInitialProps = {};
       if (ComposedComponent.getInitialProps) {
-        composedInitialProps = await ComposedComponent.getInitialProps(context, apollo)
+        composedInitialProps = await ComposedComponent.getInitialProps(context, apollo);
       }
 
       // Run all GraphQL queries in the component tree
@@ -49,56 +47,56 @@ export default ComposedComponent => {
         if (context.res && context.res.finished) {
           // When redirecting, the response is finished.
           // No point in continuing to render
-          return
+          return;
         }
 
         // Provide the `url` prop data in case a graphql query uses it
-        const url = { query: context.query, pathname: context.pathname }
-      try {
+        const url = { query: context.query, pathname: context.pathname };
+        try {
         // Run all GraphQL queries
           const app = (
           <ApolloProvider client={apollo}>
               <ComposedComponent url={url} {...composedInitialProps} />
-            </ApolloProvider>
-          )
+          </ApolloProvider>
+          );
           await getDataFromTree(app, {
             router: {
               query: context.query,
               pathname: context.pathname,
-              asPath: context.asPath
-          }
-          })
-      } catch (error) {
+              asPath: context.asPath,
+            },
+          });
+        } catch (error) {
         // Prevent Apollo Client GraphQL errors from crashing SSR.
         // Handle them in components via the data.error prop:
         // http://dev.apollodata.com/react/api-queries.html#graphql-query-data-error
-      }
+        }
 
-      if (!process.browser) {
+        if (!process.browser) {
         // getDataFromTree does not call componentWillUnmount
         // head side effect therefore need to be cleared manually
-        Head.rewind()
-      }
+          Head.rewind();
+        }
 
         // Extract query data from the Apollo's store
-        serverState = apollo.cache.extract()
+        serverState = apollo.cache.extract();
       }
 
       return {
         serverState,
-        ...composedInitialProps
-      }
+        ...composedInitialProps,
+      };
     }
 
     constructor(props) {
-      super(props)
+      super(props);
       // Note: Apollo should never be used on the server side beyond the initial
       // render within `getInitialProps()` above (since the entire prop tree
       // will be initialized there), meaning the below will only ever be
       // executed on the client.
       this.apollo = initApollo(this.props.serverState, {
-        getToken: () => parseCookies().token
-      })
+        getToken: () => parseCookies().token,
+      });
     }
 
     render() {
@@ -106,7 +104,7 @@ export default ComposedComponent => {
         <ApolloProvider client={this.apollo}>
           <ComposedComponent {...this.props} />
         </ApolloProvider>
-      )
+      );
     }
-  }
-}
+  };
+};

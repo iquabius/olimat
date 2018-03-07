@@ -91,7 +91,7 @@ function PageHome(props) {
                 color="inherit"
                 className={classes.headline}
               >
-                {"Inscrições abertas de 21 de fevereiro a 2 de abril."}
+                {'Inscrições abertas de 21 de fevereiro a 2 de abril.'}
               </Typography>
               <Button
                 component={buttonProps => (
