@@ -1,6 +1,4 @@
-import { ApolloClient } from 'apollo-client';
-import { createHttpLink } from 'apollo-link-http';
-import { InMemoryCache } from 'apollo-cache-inmemory';
+import { ApolloClient, InMemoryCache, HttpLink } from 'apollo-boost';
 import { setContext } from 'apollo-link-context';
 import fetch from 'isomorphic-unfetch';
 
@@ -12,7 +10,7 @@ if (!process.browser) {
 }
 
 function create(initialState, { getToken }) {
-  const httpLink = createHttpLink({
+  const httpLink = new HttpLink({
     uri: 'http://localhost:4000',
     credentials: 'same-origin',
   });
