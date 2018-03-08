@@ -48,7 +48,7 @@ export default ComposedComponent => {
         if (context.res && context.res.finished) {
           // When redirecting, the response is finished.
           // No point in continuing to render
-          return;
+          return {};
         }
 
         // Provide the `url` prop data in case a graphql query uses it
