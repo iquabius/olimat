@@ -12,11 +12,14 @@
     "lint:fix": "eslint src --cache --fix && echo \"eslint: no lint errors\""
   },
   "dependencies": {
-    "apollo-boost": "^0.1.1",
+    "apollo-cache-inmemory": "^1.1.10",
+    "apollo-client": "^2.2.6",
     "apollo-link-context": "^1.0.7",
+    "apollo-link-http": "^1.5.3",
     "classnames": "^2.2.5",
     "cookie": "^0.3.1",
     "graphql": "^0.13.1",
+    "graphql-tag": "^2.8.0",
     "isomorphic-unfetch": "^2.0.0",
     "jss": "^9.8.0",
     "lodash": "^4.17.5",

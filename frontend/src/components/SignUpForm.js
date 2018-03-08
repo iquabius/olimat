@@ -1,7 +1,7 @@
 import React from 'react';
 import { graphql, withApollo, compose } from 'react-apollo';
 import cookie from 'cookie';
-import gql from 'apollo-boost';
+import gql from 'graphql-tag';
 import { withStyles } from 'material-ui/styles';
 import IconButton from 'material-ui/IconButton';
 import Input, { InputLabel, InputAdornment } from 'material-ui/Input';
