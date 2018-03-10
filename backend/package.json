@@ -5,8 +5,8 @@
   "author": "Josias Iquabius <iquabius@gmail.com>",
   "main": "src/index.js",
   "scripts": {
-    "start": "nodemon -e js,graphql -x node -r dotenv/config src/index.js",
-    "debug": "nodemon -e js,graphql -x node --inspect -r dotenv/config src/index.js",
+    "start": "nodemon -e ts,graphql -x ts-node -r dotenv/config src/index.ts",
+    "debug": "nodemon -e ts,graphql -x ts-node --inspect -r dotenv/config src/index.ts",
     "playground": "graphql playground --port 3001",
     "dev": "npm-run-all --parallel start playground"
   },
@@ -21,6 +21,8 @@
     "graphql-cli": "2.13.0",
     "nodemon": "1.14.12",
     "npm-run-all": "4.1.2",
-    "prisma": "1.1.2"
+    "prisma": "1.1.2",
+    "ts-node": "^5.0.1",
+    "typescript": "^2.7.2"
   }
 }

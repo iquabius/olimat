@@ -1,7 +1,7 @@
-const { getUserId, Context } = require('../../utils')
+import { getUserId, Context } from '../../utils'
 
-const tests = {
-  async createTest(parent, { title, description }, ctx, info) {
+export const tests = {
+  async createTest(parent, { title, description }, ctx: Context, info) {
     const userId = getUserId(ctx)
     return ctx.db.mutation.createTest(
       {
@@ -17,7 +17,7 @@ const tests = {
     )
   },
 
-  async deleteTest(parent, { id }, ctx, info) {
+  async deleteTest(parent, { id }, ctx: Context, info) {
     const userId = getUserId(ctx)
     const testExists = await ctx.db.exists.Test({
       id,
@@ -30,5 +30,3 @@ const tests = {
     return ctx.db.mutation.deleteTest({ where: { id } })
   },
 }
-
-module.exports = { tests }
