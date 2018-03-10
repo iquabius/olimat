@@ -17,6 +17,7 @@
     "prisma-binding": "1.5.0"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.1",
     "dotenv": "5.0.0",
     "graphql-cli": "2.13.0",
     "nodemon": "1.14.12",
