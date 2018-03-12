@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import find from 'lodash/find';
 import { MuiThemeProvider } from 'material-ui/styles';
-import Reboot from 'material-ui/Reboot';
+import CssBaseline from 'material-ui/CssBaseline';
 import getPageContext from './getPageContext';
 import checkLoggedIn from '../utils/checkLoggedIn';
 import withData from './withData';
@@ -159,7 +159,7 @@ function withRoot(Component) {
           theme={this.pageContext.theme}
           sheetsManager={this.pageContext.sheetsManager}
         >
-          <Reboot />
+          <CssBaseline />
           <Component {...this.props} />
         </MuiThemeProvider>
       );
