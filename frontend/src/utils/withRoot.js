@@ -102,6 +102,12 @@ const pages = [
   {
     pathname: '/admin',
     title: 'Painel de Administração',
+    children: [
+      {
+        pathname: '/admin/escolas',
+        title: 'Escolas',
+      },
+    ],
   },
 ];
 
