@@ -12,6 +12,7 @@ import Paper from 'material-ui/Paper';
 import Checkbox from 'material-ui/Checkbox';
 import EnhancedTableHead from './EnhancedTableHead';
 import EnhancedTableToolbar from './EnhancedTableToolbar';
+import SchoolAddDialog from './SchoolAddDialog';
 
 let counter = 0;
 function createData(name, city, phone) {
@@ -37,6 +38,7 @@ class SchoolTable extends React.Component {
     super(props, context);
 
     this.state = {
+      addDialogOpen: false,
       order: 'asc',
       orderBy: 'name',
       selected: [],
@@ -70,6 +72,14 @@ class SchoolTable extends React.Component {
       rowsPerPage: 5,
     };
   }
+
+  handleOpenAddSchool = () => {
+    this.setState({ addDialogOpen: true });
+  };
+
+  handleCloseAddSchool = () => {
+    this.setState({ addDialogOpen: false });
+  };
 
   handleRequestSort = (event, property) => {
     const orderBy = property;
@@ -133,7 +143,11 @@ class SchoolTable extends React.Component {
 
     return (
       <Paper className={classes.root}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <EnhancedTableToolbar
+          onOpenAddSchool={this.handleOpenAddSchool}
+          numSelected={selected.length}
+        />
+        <SchoolAddDialog open={this.state.addDialogOpen} onClose={this.handleCloseAddSchool} />
         <div className={classes.tableWrapper}>
           <Table className={classes.table}>
             <EnhancedTableHead

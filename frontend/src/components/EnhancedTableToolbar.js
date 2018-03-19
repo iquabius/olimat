@@ -37,7 +37,7 @@ const toolbarStyles = theme => ({
 });
 
 const EnhancedTableToolbar = props => {
-  const { numSelected, classes } = props;
+  const { numSelected, classes, onOpenAddSchool } = props;
 
   return (
     <Toolbar
@@ -51,7 +51,12 @@ const EnhancedTableToolbar = props => {
             {numSelected} selected
           </Typography>
         ) : (
-          <Button variant="raised" color="primary" className={classes.button}>
+          <Button
+            onClick={onOpenAddSchool}
+            variant="raised"
+            color="primary"
+            className={classes.button}
+          >
             Adicionar
           </Button>
         )}
@@ -79,6 +84,7 @@ const EnhancedTableToolbar = props => {
 EnhancedTableToolbar.propTypes = {
   classes: PropTypes.object.isRequired,
   numSelected: PropTypes.number.isRequired,
+  onOpenAddSchool: PropTypes.func.isRequired,
 };
 
 export default withStyles(toolbarStyles)(EnhancedTableToolbar);
