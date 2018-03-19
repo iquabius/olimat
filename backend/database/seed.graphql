@@ -1,7 +1,8 @@
 mutation {
   createUser(data: {
     email: "dev@example.com"
-    password: "$2a$10$hACwQ5/HQI6FhbIISOUVeusy3sKyUDhSq36fF5d/54aAdiygJPFzm" # plaintext password: "nooneknows"
+    # plaintext password: "nooneknows"
+    password: "$2a$10$hACwQ5/HQI6FhbIISOUVeusy3sKyUDhSq36fF5d/54aAdiygJPFzm"
     name: "Pafúncio"
     tests: {
       create: [{
@@ -14,6 +15,51 @@ mutation {
         title: "Solving World Hunger"
         description: "This is a draft..."
       }]
+    }
+  }) {
+    id
+  }
+  createSchool1: createSchool(data: {
+    name: "Escola Adventista de 1º Grau Cáceres"
+    email: "escola_adventista@email.com"
+    phone: "(65) 3372-9999"
+    olympiadCoordinator: {
+      connect: {
+        email: "dev@example.com"
+      }
+    }
+    city: {
+      create: { name: "Cáceres" }
+    }
+  }) {
+    id
+  }
+  createSchool2: createSchool(data: {
+    name: "Escola Estadual de 1º e 2º Graus Júlio Müller"
+    email: "escola.julio.muller@email.com"
+    phone: "(65) 3361-9999"
+    olympiadCoordinator: {
+      connect: {
+        email: "dev@example.com"
+      }
+    }
+    city: {
+      create: { name: "Barra do Bugres" }
+    }
+  }) {
+    id
+  }
+  createSchool3: createSchool(data: {
+    name: "Escola Estadual 15 de Outubro"
+    email: "15.outubro@email.com"
+    phone: "(65) 3361-6666"
+    olympiadCoordinator: {
+      connect: {
+        email: "dev@example.com"
+      }
+    }
+    city: {
+      connect: { name: "Barra do Bugres" }
     }
   }) {
     id
