@@ -1,6 +1,14 @@
 import { getUserId, Context } from '../utils';
 
 export const Query = {
+  schools(parent, args, ctx: Context, info) {
+    return ctx.db.query.schools({}, info);
+  },
+
+  school(parent, { id }, ctx: Context, info) {
+    return ctx.db.query.school({ where: { id } }, info);
+  },
+
   tests(parent, args, ctx: Context, info) {
     return ctx.db.query.tests({}, info);
   },

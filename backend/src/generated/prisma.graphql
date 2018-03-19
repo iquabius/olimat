@@ -5,6 +5,23 @@
 # Model Types
 #
 
+type City implements Node {
+  id: ID!
+  name: String!
+}
+
+type School implements Node {
+  id: ID!
+  name: String!
+  email: String!
+  phone: String
+  olympiadCoordinator(where: UserWhereInput): User!
+  pedagogicalCoordinator: String
+  director: String
+  city(where: CityWhereInput): City!
+  address: String
+}
+
 type Test implements Node {
   id: ID!
   createdAt: DateTime!
@@ -27,6 +44,14 @@ type User implements Node {
 # Other Types
 #
 
+type AggregateCity {
+  count: Int!
+}
+
+type AggregateSchool {
+  count: Int!
+}
+
 type AggregateTest {
   count: Int!
 }
@@ -42,6 +67,239 @@ type BatchPayload {
   count: Long!
 }
 
+"""
+A connection to a list of items.
+"""
+type CityConnection {
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+  """
+  A list of edges.
+  """
+  edges: [CityEdge]!
+  aggregate: AggregateCity!
+}
+
+input CityCreateInput {
+  name: String!
+}
+
+input CityCreateOneInput {
+  create: CityCreateInput
+  connect: CityWhereUniqueInput
+}
+
+"""
+An edge in a connection.
+"""
+type CityEdge {
+  """
+  The item at the end of the edge.
+  """
+  node: City!
+  """
+  A cursor for use in pagination.
+  """
+  cursor: String!
+}
+
+enum CityOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type CityPreviousValues {
+  id: ID!
+  name: String!
+}
+
+type CitySubscriptionPayload {
+  mutation: MutationType!
+  node: City
+  updatedFields: [String!]
+  previousValues: CityPreviousValues
+}
+
+input CitySubscriptionWhereInput {
+  """
+  Logical AND on all given filters.
+  """
+  AND: [CitySubscriptionWhereInput!]
+  """
+  Logical OR on all given filters.
+  """
+  OR: [CitySubscriptionWhereInput!]
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: CityWhereInput
+}
+
+input CityUpdateDataInput {
+  name: String
+}
+
+input CityUpdateInput {
+  name: String
+}
+
+input CityUpdateOneInput {
+  create: CityCreateInput
+  connect: CityWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: CityUpdateDataInput
+  upsert: CityUpsertNestedInput
+}
+
+input CityUpsertNestedInput {
+  update: CityUpdateDataInput!
+  create: CityCreateInput!
+}
+
+input CityWhereInput {
+  """
+  Logical AND on all given filters.
+  """
+  AND: [CityWhereInput!]
+  """
+  Logical OR on all given filters.
+  """
+  OR: [CityWhereInput!]
+  id: ID
+  """
+  All values that are not equal to given value.
+  """
+  id_not: ID
+  """
+  All values that are contained in given list.
+  """
+  id_in: [ID!]
+  """
+  All values that are not contained in given list.
+  """
+  id_not_in: [ID!]
+  """
+  All values less than the given value.
+  """
+  id_lt: ID
+  """
+  All values less than or equal the given value.
+  """
+  id_lte: ID
+  """
+  All values greater than the given value.
+  """
+  id_gt: ID
+  """
+  All values greater than or equal the given value.
+  """
+  id_gte: ID
+  """
+  All values containing the given string.
+  """
+  id_contains: ID
+  """
+  All values not containing the given string.
+  """
+  id_not_contains: ID
+  """
+  All values starting with the given string.
+  """
+  id_starts_with: ID
+  """
+  All values not starting with the given string.
+  """
+  id_not_starts_with: ID
+  """
+  All values ending with the given string.
+  """
+  id_ends_with: ID
+  """
+  All values not ending with the given string.
+  """
+  id_not_ends_with: ID
+  name: String
+  """
+  All values that are not equal to given value.
+  """
+  name_not: String
+  """
+  All values that are contained in given list.
+  """
+  name_in: [String!]
+  """
+  All values that are not contained in given list.
+  """
+  name_not_in: [String!]
+  """
+  All values less than the given value.
+  """
+  name_lt: String
+  """
+  All values less than or equal the given value.
+  """
+  name_lte: String
+  """
+  All values greater than the given value.
+  """
+  name_gt: String
+  """
+  All values greater than or equal the given value.
+  """
+  name_gte: String
+  """
+  All values containing the given string.
+  """
+  name_contains: String
+  """
+  All values not containing the given string.
+  """
+  name_not_contains: String
+  """
+  All values starting with the given string.
+  """
+  name_starts_with: String
+  """
+  All values not starting with the given string.
+  """
+  name_not_starts_with: String
+  """
+  All values ending with the given string.
+  """
+  name_ends_with: String
+  """
+  All values not ending with the given string.
+  """
+  name_not_ends_with: String
+}
+
+input CityWhereUniqueInput {
+  id: ID
+  name: String
+}
+
 scalar DateTime
 
 """
@@ -51,16 +309,28 @@ Long can represent values between -(2^63) and 2^63 - 1.
 scalar Long
 
 type Mutation {
+  createCity(data: CityCreateInput!): City!
+  createSchool(data: SchoolCreateInput!): School!
   createTest(data: TestCreateInput!): Test!
   createUser(data: UserCreateInput!): User!
+  updateCity(data: CityUpdateInput!, where: CityWhereUniqueInput!): City
+  updateSchool(data: SchoolUpdateInput!, where: SchoolWhereUniqueInput!): School
   updateTest(data: TestUpdateInput!, where: TestWhereUniqueInput!): Test
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
+  deleteCity(where: CityWhereUniqueInput!): City
+  deleteSchool(where: SchoolWhereUniqueInput!): School
   deleteTest(where: TestWhereUniqueInput!): Test
   deleteUser(where: UserWhereUniqueInput!): User
+  upsertCity(where: CityWhereUniqueInput!, create: CityCreateInput!, update: CityUpdateInput!): City!
+  upsertSchool(where: SchoolWhereUniqueInput!, create: SchoolCreateInput!, update: SchoolUpdateInput!): School!
   upsertTest(where: TestWhereUniqueInput!, create: TestCreateInput!, update: TestUpdateInput!): Test!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
+  updateManyCities(data: CityUpdateInput!, where: CityWhereInput!): BatchPayload!
+  updateManySchools(data: SchoolUpdateInput!, where: SchoolWhereInput!): BatchPayload!
   updateManyTests(data: TestUpdateInput!, where: TestWhereInput!): BatchPayload!
   updateManyUsers(data: UserUpdateInput!, where: UserWhereInput!): BatchPayload!
+  deleteManyCities(where: CityWhereInput!): BatchPayload!
+  deleteManySchools(where: SchoolWhereInput!): BatchPayload!
   deleteManyTests(where: TestWhereInput!): BatchPayload!
   deleteManyUsers(where: UserWhereInput!): BatchPayload!
 }
@@ -104,10 +374,16 @@ type PageInfo {
 }
 
 type Query {
+  cities(where: CityWhereInput, orderBy: CityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [City]!
+  schools(where: SchoolWhereInput, orderBy: SchoolOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [School]!
   tests(where: TestWhereInput, orderBy: TestOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Test]!
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
+  city(where: CityWhereUniqueInput!): City
+  school(where: SchoolWhereUniqueInput!): School
   test(where: TestWhereUniqueInput!): Test
   user(where: UserWhereUniqueInput!): User
+  citiesConnection(where: CityWhereInput, orderBy: CityOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CityConnection!
+  schoolsConnection(where: SchoolWhereInput, orderBy: SchoolOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SchoolConnection!
   testsConnection(where: TestWhereInput, orderBy: TestOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TestConnection!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   """
@@ -119,7 +395,515 @@ type Query {
   id: ID!): Node
 }
 
+"""
+A connection to a list of items.
+"""
+type SchoolConnection {
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+  """
+  A list of edges.
+  """
+  edges: [SchoolEdge]!
+  aggregate: AggregateSchool!
+}
+
+input SchoolCreateInput {
+  name: String!
+  email: String!
+  phone: String
+  pedagogicalCoordinator: String
+  director: String
+  address: String
+  olympiadCoordinator: UserCreateOneInput!
+  city: CityCreateOneInput!
+}
+
+"""
+An edge in a connection.
+"""
+type SchoolEdge {
+  """
+  The item at the end of the edge.
+  """
+  node: School!
+  """
+  A cursor for use in pagination.
+  """
+  cursor: String!
+}
+
+enum SchoolOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  email_ASC
+  email_DESC
+  phone_ASC
+  phone_DESC
+  pedagogicalCoordinator_ASC
+  pedagogicalCoordinator_DESC
+  director_ASC
+  director_DESC
+  address_ASC
+  address_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type SchoolPreviousValues {
+  id: ID!
+  name: String!
+  email: String!
+  phone: String
+  pedagogicalCoordinator: String
+  director: String
+  address: String
+}
+
+type SchoolSubscriptionPayload {
+  mutation: MutationType!
+  node: School
+  updatedFields: [String!]
+  previousValues: SchoolPreviousValues
+}
+
+input SchoolSubscriptionWhereInput {
+  """
+  Logical AND on all given filters.
+  """
+  AND: [SchoolSubscriptionWhereInput!]
+  """
+  Logical OR on all given filters.
+  """
+  OR: [SchoolSubscriptionWhereInput!]
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: SchoolWhereInput
+}
+
+input SchoolUpdateInput {
+  name: String
+  email: String
+  phone: String
+  pedagogicalCoordinator: String
+  director: String
+  address: String
+  olympiadCoordinator: UserUpdateOneInput
+  city: CityUpdateOneInput
+}
+
+input SchoolWhereInput {
+  """
+  Logical AND on all given filters.
+  """
+  AND: [SchoolWhereInput!]
+  """
+  Logical OR on all given filters.
+  """
+  OR: [SchoolWhereInput!]
+  id: ID
+  """
+  All values that are not equal to given value.
+  """
+  id_not: ID
+  """
+  All values that are contained in given list.
+  """
+  id_in: [ID!]
+  """
+  All values that are not contained in given list.
+  """
+  id_not_in: [ID!]
+  """
+  All values less than the given value.
+  """
+  id_lt: ID
+  """
+  All values less than or equal the given value.
+  """
+  id_lte: ID
+  """
+  All values greater than the given value.
+  """
+  id_gt: ID
+  """
+  All values greater than or equal the given value.
+  """
+  id_gte: ID
+  """
+  All values containing the given string.
+  """
+  id_contains: ID
+  """
+  All values not containing the given string.
+  """
+  id_not_contains: ID
+  """
+  All values starting with the given string.
+  """
+  id_starts_with: ID
+  """
+  All values not starting with the given string.
+  """
+  id_not_starts_with: ID
+  """
+  All values ending with the given string.
+  """
+  id_ends_with: ID
+  """
+  All values not ending with the given string.
+  """
+  id_not_ends_with: ID
+  name: String
+  """
+  All values that are not equal to given value.
+  """
+  name_not: String
+  """
+  All values that are contained in given list.
+  """
+  name_in: [String!]
+  """
+  All values that are not contained in given list.
+  """
+  name_not_in: [String!]
+  """
+  All values less than the given value.
+  """
+  name_lt: String
+  """
+  All values less than or equal the given value.
+  """
+  name_lte: String
+  """
+  All values greater than the given value.
+  """
+  name_gt: String
+  """
+  All values greater than or equal the given value.
+  """
+  name_gte: String
+  """
+  All values containing the given string.
+  """
+  name_contains: String
+  """
+  All values not containing the given string.
+  """
+  name_not_contains: String
+  """
+  All values starting with the given string.
+  """
+  name_starts_with: String
+  """
+  All values not starting with the given string.
+  """
+  name_not_starts_with: String
+  """
+  All values ending with the given string.
+  """
+  name_ends_with: String
+  """
+  All values not ending with the given string.
+  """
+  name_not_ends_with: String
+  email: String
+  """
+  All values that are not equal to given value.
+  """
+  email_not: String
+  """
+  All values that are contained in given list.
+  """
+  email_in: [String!]
+  """
+  All values that are not contained in given list.
+  """
+  email_not_in: [String!]
+  """
+  All values less than the given value.
+  """
+  email_lt: String
+  """
+  All values less than or equal the given value.
+  """
+  email_lte: String
+  """
+  All values greater than the given value.
+  """
+  email_gt: String
+  """
+  All values greater than or equal the given value.
+  """
+  email_gte: String
+  """
+  All values containing the given string.
+  """
+  email_contains: String
+  """
+  All values not containing the given string.
+  """
+  email_not_contains: String
+  """
+  All values starting with the given string.
+  """
+  email_starts_with: String
+  """
+  All values not starting with the given string.
+  """
+  email_not_starts_with: String
+  """
+  All values ending with the given string.
+  """
+  email_ends_with: String
+  """
+  All values not ending with the given string.
+  """
+  email_not_ends_with: String
+  phone: String
+  """
+  All values that are not equal to given value.
+  """
+  phone_not: String
+  """
+  All values that are contained in given list.
+  """
+  phone_in: [String!]
+  """
+  All values that are not contained in given list.
+  """
+  phone_not_in: [String!]
+  """
+  All values less than the given value.
+  """
+  phone_lt: String
+  """
+  All values less than or equal the given value.
+  """
+  phone_lte: String
+  """
+  All values greater than the given value.
+  """
+  phone_gt: String
+  """
+  All values greater than or equal the given value.
+  """
+  phone_gte: String
+  """
+  All values containing the given string.
+  """
+  phone_contains: String
+  """
+  All values not containing the given string.
+  """
+  phone_not_contains: String
+  """
+  All values starting with the given string.
+  """
+  phone_starts_with: String
+  """
+  All values not starting with the given string.
+  """
+  phone_not_starts_with: String
+  """
+  All values ending with the given string.
+  """
+  phone_ends_with: String
+  """
+  All values not ending with the given string.
+  """
+  phone_not_ends_with: String
+  pedagogicalCoordinator: String
+  """
+  All values that are not equal to given value.
+  """
+  pedagogicalCoordinator_not: String
+  """
+  All values that are contained in given list.
+  """
+  pedagogicalCoordinator_in: [String!]
+  """
+  All values that are not contained in given list.
+  """
+  pedagogicalCoordinator_not_in: [String!]
+  """
+  All values less than the given value.
+  """
+  pedagogicalCoordinator_lt: String
+  """
+  All values less than or equal the given value.
+  """
+  pedagogicalCoordinator_lte: String
+  """
+  All values greater than the given value.
+  """
+  pedagogicalCoordinator_gt: String
+  """
+  All values greater than or equal the given value.
+  """
+  pedagogicalCoordinator_gte: String
+  """
+  All values containing the given string.
+  """
+  pedagogicalCoordinator_contains: String
+  """
+  All values not containing the given string.
+  """
+  pedagogicalCoordinator_not_contains: String
+  """
+  All values starting with the given string.
+  """
+  pedagogicalCoordinator_starts_with: String
+  """
+  All values not starting with the given string.
+  """
+  pedagogicalCoordinator_not_starts_with: String
+  """
+  All values ending with the given string.
+  """
+  pedagogicalCoordinator_ends_with: String
+  """
+  All values not ending with the given string.
+  """
+  pedagogicalCoordinator_not_ends_with: String
+  director: String
+  """
+  All values that are not equal to given value.
+  """
+  director_not: String
+  """
+  All values that are contained in given list.
+  """
+  director_in: [String!]
+  """
+  All values that are not contained in given list.
+  """
+  director_not_in: [String!]
+  """
+  All values less than the given value.
+  """
+  director_lt: String
+  """
+  All values less than or equal the given value.
+  """
+  director_lte: String
+  """
+  All values greater than the given value.
+  """
+  director_gt: String
+  """
+  All values greater than or equal the given value.
+  """
+  director_gte: String
+  """
+  All values containing the given string.
+  """
+  director_contains: String
+  """
+  All values not containing the given string.
+  """
+  director_not_contains: String
+  """
+  All values starting with the given string.
+  """
+  director_starts_with: String
+  """
+  All values not starting with the given string.
+  """
+  director_not_starts_with: String
+  """
+  All values ending with the given string.
+  """
+  director_ends_with: String
+  """
+  All values not ending with the given string.
+  """
+  director_not_ends_with: String
+  address: String
+  """
+  All values that are not equal to given value.
+  """
+  address_not: String
+  """
+  All values that are contained in given list.
+  """
+  address_in: [String!]
+  """
+  All values that are not contained in given list.
+  """
+  address_not_in: [String!]
+  """
+  All values less than the given value.
+  """
+  address_lt: String
+  """
+  All values less than or equal the given value.
+  """
+  address_lte: String
+  """
+  All values greater than the given value.
+  """
+  address_gt: String
+  """
+  All values greater than or equal the given value.
+  """
+  address_gte: String
+  """
+  All values containing the given string.
+  """
+  address_contains: String
+  """
+  All values not containing the given string.
+  """
+  address_not_contains: String
+  """
+  All values starting with the given string.
+  """
+  address_starts_with: String
+  """
+  All values not starting with the given string.
+  """
+  address_not_starts_with: String
+  """
+  All values ending with the given string.
+  """
+  address_ends_with: String
+  """
+  All values not ending with the given string.
+  """
+  address_not_ends_with: String
+  olympiadCoordinator: UserWhereInput
+  city: CityWhereInput
+}
+
+input SchoolWhereUniqueInput {
+  id: ID
+  email: String
+}
+
 type Subscription {
+  city(where: CitySubscriptionWhereInput): CitySubscriptionPayload
+  school(where: SchoolSubscriptionWhereInput): SchoolSubscriptionPayload
   test(where: TestSubscriptionWhereInput): TestSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
 }
@@ -511,6 +1295,11 @@ input UserCreateInput {
   tests: TestCreateManyWithoutAuthorInput
 }
 
+input UserCreateOneInput {
+  create: UserCreateInput
+  connect: UserWhereUniqueInput
+}
+
 input UserCreateOneWithoutTestsInput {
   create: UserCreateWithoutTestsInput
   connect: UserWhereUniqueInput
@@ -593,11 +1382,27 @@ input UserSubscriptionWhereInput {
   node: UserWhereInput
 }
 
+input UserUpdateDataInput {
+  email: String
+  password: String
+  name: String
+  tests: TestUpdateManyWithoutAuthorInput
+}
+
 input UserUpdateInput {
   email: String
   password: String
   name: String
   tests: TestUpdateManyWithoutAuthorInput
+}
+
+input UserUpdateOneInput {
+  create: UserCreateInput
+  connect: UserWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: UserUpdateDataInput
+  upsert: UserUpsertNestedInput
 }
 
 input UserUpdateOneWithoutTestsInput {
@@ -613,6 +1418,11 @@ input UserUpdateWithoutTestsDataInput {
   email: String
   password: String
   name: String
+}
+
+input UserUpsertNestedInput {
+  update: UserUpdateDataInput!
+  create: UserCreateInput!
 }
 
 input UserUpsertWithoutTestsInput {

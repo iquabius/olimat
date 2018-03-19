@@ -1,6 +1,7 @@
 import { Query } from './Query';
 import { auth } from './Mutation/auth';
 import { tests } from './Mutation/tests';
+import { schools } from './Mutation/schools';
 import { AuthPayload } from './AuthPayload';
 
 export default {
@@ -8,6 +9,7 @@ export default {
   Mutation: {
     ...auth,
     ...tests,
+    ...schools,
   },
   AuthPayload,
 };

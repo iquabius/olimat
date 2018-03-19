@@ -1,6 +1,10 @@
 # import Test from "./generated/prisma.graphql"
+# import School from "./generated/prisma.graphql"
+# import City from "./generated/prisma.graphql"
 
 type Query {
+  schools: [School!]!
+  school(id: ID!): School!
   tests: [Test!]!
   test(id: ID!): Test!
   me: User
@@ -11,6 +15,16 @@ type Mutation {
   login(email: String!, password: String!): AuthPayload!
   createTest(title: String!, description: String!): Test!
   deleteTest(id: ID!): Test!
+  createSchool(
+    name: String!
+    email: String!
+    phone: String
+    pedagogicalCoordinator: String
+    director: String
+    city: String!
+    address: String
+  ): School!
+  deleteSchool(id: ID!): School!
 }
 
 type AuthPayload {

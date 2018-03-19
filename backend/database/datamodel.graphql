@@ -1,3 +1,20 @@
+type City {
+  id: ID! @unique
+  name: String! @unique
+}
+
+type School {
+  id: ID! @unique
+  name: String!
+  email: String! @unique
+  phone: String
+  olympiadCoordinator: User!
+  pedagogicalCoordinator: String
+  director: String
+  city: City!
+  address: String
+}
+
 type Test {
   id: ID! @unique
   createdAt: DateTime!
