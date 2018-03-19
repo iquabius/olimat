@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { compose, graphql } from 'react-apollo';
+import gql from 'graphql-tag';
 import { withStyles } from 'material-ui/styles';
 import Table, {
   TableBody,
@@ -13,12 +15,6 @@ import Checkbox from 'material-ui/Checkbox';
 import EnhancedTableHead from './EnhancedTableHead';
 import EnhancedTableToolbar from './EnhancedTableToolbar';
 import SchoolAddDialog from './SchoolAddDialog';
-
-let counter = 0;
-function createData(name, city, phone) {
-  counter += 1;
-  return { id: counter, name, city, phone };
-}
 
 const styles = theme => ({
   root: {
@@ -42,32 +38,9 @@ class SchoolTable extends React.Component {
       order: 'asc',
       orderBy: 'name',
       selected: [],
-      data: [
-        createData('Escola de I e II Grau Júlio Müller', 'Barra do Bugres', '(65) 3361-9999'),
-        createData('Escola Estadual 15 de Outubro', 'Barra do Bugres', '(65) 3361-9999'),
-        createData(
-          'Escola Estadual de 1º e 2º Graus Júlio Müller',
-          'Barra do Bugres',
-          '(65) 3361-9999',
-        ),
-        createData(
-          'Escola Estadual de 1º Grau Evangélica Assembléia de Deus',
-          'Barra do Bugres',
-          '(65) 3361-9999',
-        ),
-        createData(
-          'Escola Estadual de 1º Grau Prof Julieta Xavier Borges',
-          'Barra do Bugres',
-          '(65) 3361-9999',
-        ),
-        createData('Escola Estadual João Catarino de Souza', 'Barra do Bugres', '(65) 3361-9999'),
-        createData('Escola Estadual João de Campos Borges', 'Barra do Bugres', '(65) 3361-9999'),
-        createData('Escola Estadual José Ourives', 'Barra do Bugres', '(65) 3361-9999'),
-        createData('Escola Municipal Guiomar Campos Miranda', 'Barra do Bugres', '(65) 3361-9999'),
-        createData('Escola Municipal Herculano Borges', 'Barra do Bugres', '(65) 3361-9999'),
-        createData('Escola Adventista de 1º Grau Cáceres', 'Cáceres', '(65) 3361-9999'),
-        createData('Instituto Educacional de Cáceres', 'Cáceres', '(65) 3361-9999'),
-      ].sort((a, b) => (a.name.toUpperCase() < b.name.toUpperCase() ? -1 : 1)),
+      schools: props.data.schools
+        .slice()
+        .sort((a, b) => (a.name.toUpperCase() < b.name.toUpperCase() ? -1 : 1)),
       page: 0,
       rowsPerPage: 5,
     };
@@ -89,17 +62,17 @@ class SchoolTable extends React.Component {
       order = 'asc';
     }
 
-    const data =
+    const schools =
       order === 'desc'
-        ? this.state.data.sort((a, b) => (b[orderBy] < a[orderBy] ? -1 : 1))
-        : this.state.data.sort((a, b) => (a[orderBy] < b[orderBy] ? -1 : 1));
+        ? this.state.schools.sort((a, b) => (b[orderBy] < a[orderBy] ? -1 : 1))
+        : this.state.schools.sort((a, b) => (a[orderBy] < b[orderBy] ? -1 : 1));
 
-    this.setState({ data, order, orderBy });
+    this.setState({ schools, order, orderBy });
   };
 
   handleSelectAllClick = (event, checked) => {
     if (checked) {
-      this.setState({ selected: this.state.data.map(n => n.id) });
+      this.setState({ selected: this.state.schools.map(n => n.id) });
       return;
     }
     this.setState({ selected: [] });
@@ -138,8 +111,8 @@ class SchoolTable extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { data, order, orderBy, selected, rowsPerPage, page } = this.state;
-    const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
+    const { schools, order, orderBy, selected, rowsPerPage, page } = this.state;
+    const emptyRows = rowsPerPage - Math.min(rowsPerPage, schools.length - page * rowsPerPage);
 
     return (
       <Paper className={classes.root}>
@@ -156,27 +129,27 @@ class SchoolTable extends React.Component {
               orderBy={orderBy}
               onSelectAllClick={this.handleSelectAllClick}
               onRequestSort={this.handleRequestSort}
-              rowCount={data.length}
+              rowCount={schools.length}
             />
             <TableBody>
-              {data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(n => {
-                const isSelected = this.isSelected(n.id);
+              {schools.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(school => {
+                const isSelected = this.isSelected(school.id);
                 return (
                   <TableRow
                     hover
-                    onClick={event => this.handleClick(event, n.id)}
+                    onClick={event => this.handleClick(event, school.id)}
                     role="checkbox"
                     aria-checked={isSelected}
                     tabIndex={-1}
-                    key={n.id}
+                    key={school.id}
                     selected={isSelected}
                   >
                     <TableCell padding="checkbox">
                       <Checkbox checked={isSelected} />
                     </TableCell>
-                    <TableCell padding="none">{n.name}</TableCell>
-                    <TableCell>{n.city}</TableCell>
-                    <TableCell>{n.phone}</TableCell>
+                    <TableCell padding="none">{school.name}</TableCell>
+                    <TableCell>{school.city.name}</TableCell>
+                    <TableCell>{school.phone}</TableCell>
                   </TableRow>
                 );
               })}
@@ -190,7 +163,7 @@ class SchoolTable extends React.Component {
               <TableRow>
                 <TablePagination
                   colSpan={6}
-                  count={data.length}
+                  count={schools.length}
                   labelRowsPerPage="Linhas por página:"
                   rowsPerPage={rowsPerPage}
                   page={page}
@@ -214,6 +187,29 @@ class SchoolTable extends React.Component {
 
 SchoolTable.propTypes = {
   classes: PropTypes.object.isRequired,
+  data: PropTypes.shape({
+    schools: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        city: PropTypes.shape({ name: PropTypes.string.isRequired }),
+        phone: PropTypes.string,
+      }),
+    ).isRequired,
+  }).isRequired,
 };
 
-export default withStyles(styles)(SchoolTable);
+export const allSchools = gql`
+  query allSchools {
+    schools {
+      id
+      name
+      city {
+        name
+      }
+      phone
+    }
+  }
+`;
+
+export default compose(graphql(allSchools), withStyles(styles))(SchoolTable);
