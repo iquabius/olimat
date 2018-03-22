@@ -8,7 +8,8 @@ export interface Context {
 
 export function getUserId(ctx: Context) {
   const Authorization = ctx.request.get('Authorization');
-  if (Authorization) {
+  // Apollo Client sets header to the string 'null' when not logged in
+  if (Authorization && Authorization !== 'null') {
     const token = Authorization.replace('Bearer ', '');
     const { userId } = jwt.verify(token, process.env.APP_SECRET) as { userId: string };
     return userId;
