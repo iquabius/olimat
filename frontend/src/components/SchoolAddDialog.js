@@ -3,30 +3,76 @@ import PropTypes from 'prop-types';
 import Button from 'material-ui/Button';
 import TextField from 'material-ui/TextField';
 import Dialog, { DialogActions, DialogContent, DialogTitle } from 'material-ui/Dialog';
-import { graphql } from 'react-apollo';
+import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
+import { withFormik } from 'formik';
 
-const SchoolAddDialog = ({ open, onClose, handleAddSchool }) => (
+const SchoolAddDialog = ({
+  open,
+  onClose,
+  handleSubmit,
+  handleChange,
+  handleBlur,
+  isSubmitting,
+  values,
+}) => (
   <Dialog open={open} onClose={onClose} aria-labelledby="school-add-dialog">
     <DialogTitle id="school-add-dialog">Adicione uma escola</DialogTitle>
-    <form onSubmit={handleAddSchool}>
+    <form onSubmit={handleSubmit}>
       <DialogContent>
-        <TextField name="name" autoFocus margin="dense" label="Nome" fullWidth />
-        <TextField name="email" margin="dense" label="Email" type="email" fullWidth />
-        <TextField name="phone" margin="dense" label="Telefone" fullWidth />
+        <TextField
+          name="name"
+          autoFocus
+          margin="dense"
+          label="Nome"
+          fullWidth
+          value={values.name}
+          onChange={handleChange}
+          onBlur={handleBlur}
+        />
+        <TextField
+          name="email"
+          margin="dense"
+          label="Email"
+          type="email"
+          fullWidth
+          value={values.email}
+          onChange={handleChange}
+          onBlur={handleBlur}
+        />
+        <TextField
+          name="phone"
+          margin="dense"
+          label="Telefone"
+          fullWidth
+          value={values.phone}
+          onChange={handleChange}
+          onBlur={handleBlur}
+        />
         <TextField
           name="pedagogicalCoordinator"
           margin="dense"
           label="Coordenador pedagógico"
           fullWidth
+          value={values.pedagogicalCoordinator}
+          onChange={handleChange}
+          onBlur={handleBlur}
         />
-        <TextField name="director" margin="dense" label="Diretor" fullWidth />
+        <TextField
+          name="director"
+          margin="dense"
+          label="Diretor"
+          fullWidth
+          value={values.director}
+          onChange={handleChange}
+          onBlur={handleBlur}
+        />
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose} color="primary">
+        <Button disabled={isSubmitting} onClick={onClose} color="primary">
           Cancelar
         </Button>
-        <Button type="submit" color="primary">
+        <Button disabled={isSubmitting} type="submit" color="primary">
           Adicionar
         </Button>
       </DialogActions>
@@ -35,9 +81,21 @@ const SchoolAddDialog = ({ open, onClose, handleAddSchool }) => (
 );
 
 SchoolAddDialog.propTypes = {
-  handleAddSchool: PropTypes.func.isRequired,
+  handleBlur: PropTypes.func.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  isSubmitting: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
+  values: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    phone: PropTypes.string.isRequired,
+    pedagogicalCoordinator: PropTypes.string,
+    director: PropTypes.string,
+    city: PropTypes.string.isRequired,
+    address: PropTypes.string,
+  }).isRequired,
 };
 
 export const newSchoolMutation = gql`
@@ -70,34 +128,36 @@ export const newSchoolMutation = gql`
   }
 `;
 
-export default graphql(newSchoolMutation, {
-  // Use an unambiguous name for use in the `props` section below
-  name: 'newSchool',
-  // Apollo's way of injecting new props which are passed to the component
-  props: ({ newSchool, ownProps: { onClose } }) => ({
-    // `handleAddSchool` is the name of the prop passed to the component
-    handleAddSchool: event => {
-      /* global FormData */
-      const data = new FormData(event.target);
-      console.log(data);
-
-      event.preventDefault();
-      event.stopPropagation();
-
+export default compose(
+  graphql(newSchoolMutation, {
+    // Use an unambiguous name for use in the `props` section below
+    name: 'newSchool',
+  }),
+  withFormik({
+    mapPropsToValues: () => ({
+      name: '',
+      email: '',
+      phone: '',
+      pedagogicalCoordinator: '',
+      director: '',
+      city: '',
+      address: '',
+    }),
+    handleSubmit: (values, { props: { newSchool, onClose }, setSubmitting }) => {
       newSchool({
         variables: {
-          name: data.get('name'),
-          email: data.get('email'),
-          phone: data.get('phone'),
-          pedagogicalCoordinator: data.get('pedagogicalCoordinator'),
-          director: data.get('director'),
+          name: values.name,
+          email: values.email,
+          phone: values.phone,
+          pedagogicalCoordinator: values.pedagogicalCoordinator,
+          director: values.director,
           city: 'Barra do Bugres',
-          address: data.get('address'),
+          address: values.address,
         },
       })
-        .then(({ data: { createSchool: { id, name, email, phone, city } } }) => {
-          // This is React's SyntheticEvent wrapper, we can't use 'event.target'
-          // event.target.reset();
+        .then(response => {
+          console.log(response);
+          setSubmitting(false);
           onClose();
         })
         .catch(error => {
@@ -107,4 +167,4 @@ export default graphql(newSchoolMutation, {
         });
     },
   }),
-})(SchoolAddDialog);
+)(SchoolAddDialog);
