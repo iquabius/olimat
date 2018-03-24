@@ -38,9 +38,7 @@ class SchoolTable extends React.Component {
       order: 'asc',
       orderBy: 'name',
       selected: [],
-      schools: props.data.schools
-        .slice()
-        .sort((a, b) => (a.name.toUpperCase() < b.name.toUpperCase() ? -1 : 1)),
+      schools: [],
       page: 0,
       rowsPerPage: 5,
     };
@@ -111,7 +109,10 @@ class SchoolTable extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { schools, order, orderBy, selected, rowsPerPage, page } = this.state;
+    const { order, orderBy, selected, rowsPerPage, page } = this.state;
+    const schools = this.props.data.schools
+      .slice()
+      .sort((a, b) => (a.name.toUpperCase() < b.name.toUpperCase() ? -1 : 1));
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, schools.length - page * rowsPerPage);
 
     return (
@@ -199,8 +200,8 @@ SchoolTable.propTypes = {
   }).isRequired,
 };
 
-export const allSchools = gql`
-  query allSchools {
+export const allSchoolsQuery = gql`
+  query allSchoolsQuery {
     schools {
       id
       name
@@ -212,4 +213,4 @@ export const allSchools = gql`
   }
 `;
 
-export default compose(graphql(allSchools), withStyles(styles))(SchoolTable);
+export default compose(graphql(allSchoolsQuery), withStyles(styles))(SchoolTable);

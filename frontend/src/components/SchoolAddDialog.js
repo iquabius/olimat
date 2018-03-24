@@ -6,6 +6,7 @@ import Dialog, { DialogActions, DialogContent, DialogTitle } from 'material-ui/D
 import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
 import { withFormik } from 'formik';
+import { allSchoolsQuery } from './SchoolTable';
 
 const SchoolAddDialog = ({
   open,
@@ -154,8 +155,15 @@ export default compose(
           city: 'Barra do Bugres',
           address: values.address,
         },
+        update: (proxy, { data: { createSchool } }) => {
+          const data = proxy.readQuery({ query: allSchoolsQuery });
+          data.schools.push(createSchool);
+
+          proxy.writeQuery({ query: allSchoolsQuery, data });
+        },
       })
         .then(response => {
+          console.log(`Mutation response: `);
           console.log(response);
           setSubmitting(false);
           onClose();
