@@ -20,6 +20,7 @@ const styles = theme => ({
   root: {
     width: '100%',
     marginTop: theme.spacing.unit * 3,
+    marginBottom: theme.spacing.unit * 6,
   },
   table: {
     minWidth: 800,
@@ -40,7 +41,7 @@ class SchoolTable extends React.Component {
       selected: [],
       schools: [],
       page: 0,
-      rowsPerPage: 5,
+      rowsPerPage: 10,
     };
   }
 
