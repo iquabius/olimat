@@ -51,11 +51,11 @@ const SchoolAddDialog = ({
           onBlur={handleBlur}
         />
         <TextField
-          name="pedagogicalCoordinator"
+          name="pedagogyCoord"
           margin="dense"
           label="Coordenador pedagógico"
           fullWidth
-          value={values.pedagogicalCoordinator}
+          value={values.pedagogyCoord}
           onChange={handleChange}
           onBlur={handleBlur}
         />
@@ -92,7 +92,7 @@ SchoolAddDialog.propTypes = {
     name: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
     phone: PropTypes.string.isRequired,
-    pedagogicalCoordinator: PropTypes.string,
+    pedagogyCoord: PropTypes.string,
     director: PropTypes.string,
     city: PropTypes.string.isRequired,
     address: PropTypes.string,
@@ -104,7 +104,7 @@ export const newSchoolMutation = gql`
     $name: String!
     $email: String!
     $phone: String
-    $pedagogicalCoordinator: String
+    $pedagogyCoord: String
     $director: String
     $city: String!
     $address: String
@@ -113,7 +113,7 @@ export const newSchoolMutation = gql`
       name: $name
       email: $email
       phone: $phone
-      pedagogicalCoordinator: $pedagogicalCoordinator
+      pedagogyCoord: $pedagogyCoord
       director: $director
       city: $city
       address: $address
@@ -139,7 +139,7 @@ export default compose(
       name: '',
       email: '',
       phone: '',
-      pedagogicalCoordinator: '',
+      pedagogyCoord: '',
       director: '',
       city: '',
       address: '',
@@ -150,7 +150,7 @@ export default compose(
           name: values.name,
           email: values.email,
           phone: values.phone,
-          pedagogicalCoordinator: values.pedagogicalCoordinator,
+          pedagogyCoord: values.pedagogyCoord,
           director: values.director,
           city: 'Barra do Bugres',
           address: values.address,

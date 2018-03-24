@@ -8,8 +8,8 @@ type School {
   name: String!
   email: String! @unique
   phone: String
-  olympiadCoordinator: User!
-  pedagogicalCoordinator: String
+  olympiadCood: User!
+  pedagogyCoord: String
   director: String
   city: City!
   address: String

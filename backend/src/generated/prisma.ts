@@ -12,8 +12,8 @@ type School implements Node {
   name: String!
   email: String!
   phone: String
-  olympiadCoordinator(where: UserWhereInput): User!
-  pedagogicalCoordinator: String
+  olympiadCood(where: UserWhereInput): User!
+  pedagogyCoord: String
   director: String
   city(where: CityWhereInput): City!
   address: String
@@ -357,10 +357,10 @@ input SchoolCreateInput {
   name: String!
   email: String!
   phone: String
-  pedagogicalCoordinator: String
+  pedagogyCoord: String
   director: String
   address: String
-  olympiadCoordinator: UserCreateOneInput!
+  olympiadCood: UserCreateOneInput!
   city: CityCreateOneInput!
 }
 
@@ -387,8 +387,8 @@ enum SchoolOrderByInput {
   email_DESC
   phone_ASC
   phone_DESC
-  pedagogicalCoordinator_ASC
-  pedagogicalCoordinator_DESC
+  pedagogyCoord_ASC
+  pedagogyCoord_DESC
   director_ASC
   director_DESC
   address_ASC
@@ -404,7 +404,7 @@ type SchoolPreviousValues {
   name: String!
   email: String!
   phone: String
-  pedagogicalCoordinator: String
+  pedagogyCoord: String
   director: String
   address: String
 }
@@ -448,10 +448,10 @@ input SchoolUpdateInput {
   name: String
   email: String
   phone: String
-  pedagogicalCoordinator: String
+  pedagogyCoord: String
   director: String
   address: String
-  olympiadCoordinator: UserUpdateOneInput
+  olympiadCood: UserUpdateOneInput
   city: CityUpdateOneInput
 }
 
@@ -676,59 +676,59 @@ input SchoolWhereInput {
   All values not ending with the given string.
   """
   phone_not_ends_with: String
-  pedagogicalCoordinator: String
+  pedagogyCoord: String
   """
   All values that are not equal to given value.
   """
-  pedagogicalCoordinator_not: String
+  pedagogyCoord_not: String
   """
   All values that are contained in given list.
   """
-  pedagogicalCoordinator_in: [String!]
+  pedagogyCoord_in: [String!]
   """
   All values that are not contained in given list.
   """
-  pedagogicalCoordinator_not_in: [String!]
+  pedagogyCoord_not_in: [String!]
   """
   All values less than the given value.
   """
-  pedagogicalCoordinator_lt: String
+  pedagogyCoord_lt: String
   """
   All values less than or equal the given value.
   """
-  pedagogicalCoordinator_lte: String
+  pedagogyCoord_lte: String
   """
   All values greater than the given value.
   """
-  pedagogicalCoordinator_gt: String
+  pedagogyCoord_gt: String
   """
   All values greater than or equal the given value.
   """
-  pedagogicalCoordinator_gte: String
+  pedagogyCoord_gte: String
   """
   All values containing the given string.
   """
-  pedagogicalCoordinator_contains: String
+  pedagogyCoord_contains: String
   """
   All values not containing the given string.
   """
-  pedagogicalCoordinator_not_contains: String
+  pedagogyCoord_not_contains: String
   """
   All values starting with the given string.
   """
-  pedagogicalCoordinator_starts_with: String
+  pedagogyCoord_starts_with: String
   """
   All values not starting with the given string.
   """
-  pedagogicalCoordinator_not_starts_with: String
+  pedagogyCoord_not_starts_with: String
   """
   All values ending with the given string.
   """
-  pedagogicalCoordinator_ends_with: String
+  pedagogyCoord_ends_with: String
   """
   All values not ending with the given string.
   """
-  pedagogicalCoordinator_not_ends_with: String
+  pedagogyCoord_not_ends_with: String
   director: String
   """
   All values that are not equal to given value.
@@ -835,7 +835,7 @@ input SchoolWhereInput {
   All values not ending with the given string.
   """
   address_not_ends_with: String
-  olympiadCoordinator: UserWhereInput
+  olympiadCood: UserWhereInput
   city: CityWhereInput
 }
 
@@ -1663,8 +1663,8 @@ export type SchoolOrderByInput =
   'email_DESC' |
   'phone_ASC' |
   'phone_DESC' |
-  'pedagogicalCoordinator_ASC' |
-  'pedagogicalCoordinator_DESC' |
+  'pedagogyCoord_ASC' |
+  'pedagogyCoord_DESC' |
   'director_ASC' |
   'director_DESC' |
   'address_ASC' |
@@ -1820,20 +1820,20 @@ export interface SchoolWhereInput {
   phone_not_starts_with?: String
   phone_ends_with?: String
   phone_not_ends_with?: String
-  pedagogicalCoordinator?: String
-  pedagogicalCoordinator_not?: String
-  pedagogicalCoordinator_in?: String[] | String
-  pedagogicalCoordinator_not_in?: String[] | String
-  pedagogicalCoordinator_lt?: String
-  pedagogicalCoordinator_lte?: String
-  pedagogicalCoordinator_gt?: String
-  pedagogicalCoordinator_gte?: String
-  pedagogicalCoordinator_contains?: String
-  pedagogicalCoordinator_not_contains?: String
-  pedagogicalCoordinator_starts_with?: String
-  pedagogicalCoordinator_not_starts_with?: String
-  pedagogicalCoordinator_ends_with?: String
-  pedagogicalCoordinator_not_ends_with?: String
+  pedagogyCoord?: String
+  pedagogyCoord_not?: String
+  pedagogyCoord_in?: String[] | String
+  pedagogyCoord_not_in?: String[] | String
+  pedagogyCoord_lt?: String
+  pedagogyCoord_lte?: String
+  pedagogyCoord_gt?: String
+  pedagogyCoord_gte?: String
+  pedagogyCoord_contains?: String
+  pedagogyCoord_not_contains?: String
+  pedagogyCoord_starts_with?: String
+  pedagogyCoord_not_starts_with?: String
+  pedagogyCoord_ends_with?: String
+  pedagogyCoord_not_ends_with?: String
   director?: String
   director_not?: String
   director_in?: String[] | String
@@ -1862,7 +1862,7 @@ export interface SchoolWhereInput {
   address_not_starts_with?: String
   address_ends_with?: String
   address_not_ends_with?: String
-  olympiadCoordinator?: UserWhereInput
+  olympiadCood?: UserWhereInput
   city?: CityWhereInput
 }
 
@@ -2043,10 +2043,10 @@ export interface SchoolCreateInput {
   name: String
   email: String
   phone?: String
-  pedagogicalCoordinator?: String
+  pedagogyCoord?: String
   director?: String
   address?: String
-  olympiadCoordinator: UserCreateOneInput
+  olympiadCood: UserCreateOneInput
   city: CityCreateOneInput
 }
 
@@ -2106,10 +2106,10 @@ export interface SchoolUpdateInput {
   name?: String
   email?: String
   phone?: String
-  pedagogicalCoordinator?: String
+  pedagogyCoord?: String
   director?: String
   address?: String
-  olympiadCoordinator?: UserUpdateOneInput
+  olympiadCood?: UserUpdateOneInput
   city?: CityUpdateOneInput
 }
 
@@ -2245,8 +2245,8 @@ export interface School extends Node {
   name: String
   email: String
   phone?: String
-  olympiadCoordinator: User
-  pedagogicalCoordinator?: String
+  olympiadCood: User
+  pedagogyCoord?: String
   director?: String
   city: City
   address?: String
@@ -2358,7 +2358,7 @@ export interface SchoolPreviousValues {
   name: String
   email: String
   phone?: String
-  pedagogicalCoordinator?: String
+  pedagogyCoord?: String
   director?: String
   address?: String
 }

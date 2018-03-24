@@ -19,7 +19,7 @@ type Mutation {
     name: String!
     email: String!
     phone: String
-    pedagogicalCoordinator: String
+    pedagogyCoord: String
     director: String
     city: String!
     address: String

@@ -3,7 +3,7 @@ import { getUserId, Context } from '../../utils';
 export const schools = {
   async createSchool(
     parent,
-    { name, email, phone, pedagogicalCoordinator, director, city, address },
+    { name, email, phone, pedagogyCoord, director, city, address },
     ctx: Context,
     info,
   ) {
@@ -14,10 +14,10 @@ export const schools = {
           name,
           email,
           phone,
-          olympiadCoordinator: {
+          olympiadCood: {
             connect: { id: userId },
           },
-          pedagogicalCoordinator,
+          pedagogyCoord,
           director,
           city: { connect: { name: city } },
           address,
@@ -31,7 +31,7 @@ export const schools = {
     const userId = getUserId(ctx);
     const schoolExists = await ctx.db.exists.School({
       id,
-      olympiadCoordinator: { id: userId },
+      olympiadCood: { id: userId },
     });
     if (!schoolExists) {
       throw new Error(`School not found or you're not authorized`);
