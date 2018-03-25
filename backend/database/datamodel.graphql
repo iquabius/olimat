@@ -3,6 +3,16 @@ type City {
   name: String! @unique
 }
 
+type Olympiad {
+  id: ID! @unique
+  name: String!
+  isPublished: Boolean @default(value: "false")
+  year: DateTime!
+  createdBy: User!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
 type School {
   id: ID! @unique
   name: String!
