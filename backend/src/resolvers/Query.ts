@@ -1,6 +1,14 @@
 import { getUserId, Context } from '../utils';
 
 export const Query = {
+  olympiad(parent, { id }, ctx: Context, info) {
+    return ctx.db.query.olympiad({ where: { id } }, info);
+  },
+
+  olympiads(parent, args, ctx: Context, info) {
+    return ctx.db.query.olympiads({}, info);
+  },
+
   schools(parent, args, ctx: Context, info) {
     return ctx.db.query.schools({}, info);
   },

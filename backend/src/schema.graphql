@@ -1,8 +1,11 @@
 # import Test from "./generated/prisma.graphql"
 # import School from "./generated/prisma.graphql"
 # import City from "./generated/prisma.graphql"
+# import Olympiad from "./generated/prisma.graphql"
 
 type Query {
+  olympiad: Olympiad!
+  olympiads: [Olympiad!]!
   schools: [School!]!
   school(id: ID!): School!
   tests: [Test!]!
