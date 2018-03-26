@@ -107,6 +107,10 @@ const pages = [
         pathname: '/admin/escolas',
         title: 'Escolas',
       },
+      {
+        pathname: '/admin/olimpiadas',
+        title: 'Olimpíadas',
+      },
     ],
   },
 ];
