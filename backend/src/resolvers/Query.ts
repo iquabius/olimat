@@ -1,4 +1,5 @@
 import { getUserId, Context } from '../utils';
+import { OlympiadConnection } from '../generated/prisma';
 
 export const Query = {
   olympiad(parent, { id }, ctx: Context, info) {
@@ -7,6 +8,10 @@ export const Query = {
 
   olympiads(parent, args, ctx: Context, info) {
     return ctx.db.query.olympiads({}, info);
+  },
+
+  olympiadsFeed(parent, { first, after }, ctx: Context, info) {
+    return ctx.db.query.olympiadsConnection({ first, after }, info);
   },
 
   schools(parent, args, ctx: Context, info) {

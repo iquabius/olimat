@@ -1,11 +1,12 @@
 # import Test from "./generated/prisma.graphql"
 # import School from "./generated/prisma.graphql"
 # import City from "./generated/prisma.graphql"
-# import Olympiad from "./generated/prisma.graphql"
+# import Olympiad, OlympiadEdge, PageInfo from "./generated/prisma.graphql"
 
 type Query {
   olympiad: Olympiad!
   olympiads: [Olympiad!]!
+  olympiadsFeed(first: Int, after: String): OlympiadFeed!
   schools: [School!]!
   school(id: ID!): School!
   tests: [Test!]!
@@ -33,6 +34,20 @@ type Mutation {
 type AuthPayload {
   token: String!
   user: User!
+}
+
+"""
+A connection to a list of items.
+"""
+type OlympiadFeed {
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+  """
+  A list of edges.
+  """
+  edges: [OlympiadEdge]!
 }
 
 type User {
