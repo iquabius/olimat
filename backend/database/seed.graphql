@@ -59,6 +59,66 @@ mutation {
   ) {
     id
   }
+  createOlympiad5: createOlympiad(
+    data: {
+      name: "6ª Olimpíada de Matemática da UNEMAT"
+      isPublished: true
+      year: "2014"
+      createdBy: { connect: { email: "dev@example.com" } }
+    }
+  ) {
+    id
+  }
+  createOlympiad6: createOlympiad(
+    data: {
+      name: "5ª Olimpíada de Matemática da UNEMAT"
+      isPublished: true
+      year: "2013"
+      createdBy: { connect: { email: "dev@example.com" } }
+    }
+  ) {
+    id
+  }
+  createOlympiad7: createOlympiad(
+    data: {
+      name: "4ª Olimpíada de Matemática da UNEMAT"
+      isPublished: true
+      year: "2012"
+      createdBy: { connect: { email: "dev@example.com" } }
+    }
+  ) {
+    id
+  }
+  createOlympiad8: createOlympiad(
+    data: {
+      name: "3ª Olimpíada de Matemática da UNEMAT"
+      isPublished: true
+      year: "2011"
+      createdBy: { connect: { email: "dev@example.com" } }
+    }
+  ) {
+    id
+  }
+  createOlympiad9: createOlympiad(
+    data: {
+      name: "2ª Olimpíada de Matemática da UNEMAT"
+      isPublished: true
+      year: "2010"
+      createdBy: { connect: { email: "dev@example.com" } }
+    }
+  ) {
+    id
+  }
+  createOlympiad10: createOlympiad(
+    data: {
+      name: "1ª Olimpíada de Matemática da UNEMAT"
+      isPublished: true
+      year: "2009"
+      createdBy: { connect: { email: "dev@example.com" } }
+    }
+  ) {
+    id
+  }
   createSchool1: createSchool(
     data: {
       name: "Escola Adventista de 1º Grau Cáceres"
