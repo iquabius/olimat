@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { compose, graphql } from 'react-apollo';
+import { withState } from 'recompose';
 import gql from 'graphql-tag';
 import { withStyles } from 'material-ui/styles';
 import ExpansionPanel, {
@@ -9,6 +10,10 @@ import ExpansionPanel, {
 } from 'material-ui/ExpansionPanel';
 import Typography from 'material-ui/Typography';
 import ExpandMoreIcon from 'material-ui-icons/ExpandMore';
+import Button from 'material-ui/Button';
+import Paper from 'material-ui/Paper';
+import Toolbar from 'material-ui/Toolbar';
+import OlympiadAddDialog from './OlympiadAddDialog';
 
 const styles = theme => ({
   root: {
@@ -30,14 +35,27 @@ const styles = theme => ({
 });
 
 function OlympiadList(props) {
-  const { classes, data: { loading, olympiads } } = props;
+  const { addDialogOpen, setAddDialogOpen, classes, data: { loading, olympiads } } = props;
+  const handleOpenAddOlympiad = () => setAddDialogOpen(true);
+  const handleCloseAddOlympiad = () => setAddDialogOpen(false);
 
   if (loading) {
     return <div className={classes.root}>Loading</div>;
   }
 
   return (
-    <div className={classes.root}>
+    <Paper className={classes.root}>
+      <Toolbar>
+        <Button
+          onClick={handleOpenAddOlympiad}
+          variant="raised"
+          color="primary"
+          className={classes.button}
+        >
+          Adicionar
+        </Button>
+      </Toolbar>
+      <OlympiadAddDialog open={addDialogOpen} onClose={handleCloseAddOlympiad} />
       {olympiads.map(olympiad => (
         <ExpansionPanel key={olympiad.id}>
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
@@ -57,7 +75,7 @@ function OlympiadList(props) {
           </ExpansionPanelDetails>
         </ExpansionPanel>
       ))}
-    </div>
+    </Paper>
   );
 }
 
@@ -91,4 +109,8 @@ export const allOlympiadsQuery = gql`
   }
 `;
 
-export default compose(graphql(allOlympiadsQuery), withStyles(styles))(OlympiadList);
+export default compose(
+  withState('addDialogOpen', 'setAddDialogOpen', false),
+  graphql(allOlympiadsQuery),
+  withStyles(styles),
+)(OlympiadList);
