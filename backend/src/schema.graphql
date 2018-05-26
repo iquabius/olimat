@@ -19,6 +19,7 @@ type Mutation {
   login(email: String!, password: String!): AuthPayload!
   createTest(title: String!, description: String!): Test!
   deleteTest(id: ID!): Test!
+  createOlympiad(name: String!, year: DateTime!): Olympiad!
   createSchool(
     name: String!
     email: String!
@@ -28,6 +29,7 @@ type Mutation {
     city: String!
     address: String
   ): School!
+  deleteOlympiad(id: ID!): Olympiad!
   deleteSchool(id: ID!): School!
 }
 
