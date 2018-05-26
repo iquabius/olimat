@@ -13,6 +13,7 @@ if (!process.browser) {
 
 function create(initialState, { getToken }) {
   const httpLink = createHttpLink({
+    // TODO: Fix this to work on intranet
     uri: 'http://localhost:4000',
     credentials: 'same-origin',
   });
