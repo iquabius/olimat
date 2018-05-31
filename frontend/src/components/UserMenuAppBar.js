@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Button from 'material-ui/Button';
-import IconButton from 'material-ui/IconButton';
-import AccountCircle from 'material-ui-icons/AccountCircle';
-import Menu, { MenuItem } from 'material-ui/Menu';
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import { Menu, MenuItem } from '@material-ui/core';
 import cookie from 'cookie';
 import { withApollo } from 'react-apollo';
 import Link from '../components/Link';

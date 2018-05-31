@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Button from 'material-ui/Button';
-import TextField from 'material-ui/TextField';
-import Dialog, { DialogActions, DialogContent, DialogTitle } from 'material-ui/Dialog';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import { Dialog, DialogActions, DialogContent, DialogTitle } from '@material-ui/core';
 import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
 import { withFormik } from 'formik';

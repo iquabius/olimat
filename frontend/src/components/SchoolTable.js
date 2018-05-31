@@ -2,16 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { compose, graphql } from 'react-apollo';
 import gql from 'graphql-tag';
-import { withStyles } from 'material-ui/styles';
-import Table, {
+import { withStyles } from '@material-ui/core/styles';
+import {
+  Table,
   TableBody,
   TableCell,
   TableFooter,
   TablePagination,
   TableRow,
-} from 'material-ui/Table';
-import Paper from 'material-ui/Paper';
-import Checkbox from 'material-ui/Checkbox';
+} from '@material-ui/core';
+import Paper from '@material-ui/core/Paper';
+import Checkbox from '@material-ui/core/Checkbox';
 import EnhancedTableHead from './EnhancedTableHead';
 import EnhancedTableToolbar from './EnhancedTableToolbar';
 import SchoolAddDialog from './SchoolAddDialog';
