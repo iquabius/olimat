@@ -12,6 +12,8 @@
     "lint:fix": "eslint src --cache --fix && echo \"eslint: no lint errors\""
   },
   "dependencies": {
+    "@material-ui/core": "^1.1.0",
+    "@material-ui/icons": "^1.1.0",
     "apollo-cache-inmemory": "^1.1.10",
     "apollo-client": "^2.2.6",
     "apollo-link-context": "^1.0.7",
@@ -24,8 +26,6 @@
     "isomorphic-unfetch": "^2.0.0",
     "jss": "^9.8.0",
     "lodash": "^4.17.5",
-    "material-ui": "^1.0.0-beta.47",
-    "material-ui-icons": "^1.0.0-beta.36",
     "next": "^6.0.3",
     "nprogress": "^0.2.0",
     "prop-types": "^15.6.0",
