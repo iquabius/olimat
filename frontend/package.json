@@ -24,7 +24,7 @@
     "graphql": "^0.13.1",
     "graphql-tag": "^2.8.0",
     "isomorphic-unfetch": "^2.0.0",
-    "jss": "^9.8.0",
+    "jss": "^9.8.7",
     "lodash": "^4.17.5",
     "next": "^6.0.3",
     "nprogress": "^0.2.0",
