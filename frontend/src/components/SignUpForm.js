@@ -63,7 +63,7 @@ class SignUpForm extends React.Component {
     const { classes } = this.props;
     return (
       <Paper className={classes.signUpBox}>
-        <Typography className={classes.signUpHead} variant="headline">
+        <Typography className={classes.signUpHead} variant="h5">
           Crie uma conta!
         </Typography>
         <Divider />
@@ -113,7 +113,7 @@ class SignUpForm extends React.Component {
           <Button
             className={classes.signUpButton}
             fullWidth
-            variant="raised"
+            variant="contained"
             color="secondary"
             size="large"
             type="submit"

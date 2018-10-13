@@ -82,15 +82,10 @@ function PageHome(props) {
               className={classes.logo}
             />
             <div className={classes.text}>
-              <Typography variant="display2" component="h1" color="inherit" gutterBottom>
+              <Typography variant="h3" component="h1" color="inherit" gutterBottom>
                 {'Olimpíadas de Matemática da UNEMAT'}
               </Typography>
-              <Typography
-                variant="headline"
-                component="h2"
-                color="inherit"
-                className={classes.headline}
-              >
+              <Typography variant="h5" component="h2" color="inherit" className={classes.headline}>
                 {'Inscrições abertas de 21 de fevereiro a 2 de abril.'}
               </Typography>
               <Button
@@ -103,7 +98,7 @@ function PageHome(props) {
                   />
                 )}
                 className={classes.button}
-                variant="raised"
+                variant="contained"
               >
                 {'Inscreva-se'}
               </Button>

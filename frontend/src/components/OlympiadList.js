@@ -45,7 +45,7 @@ function OlympiadList(props) {
       <Toolbar>
         <Button
           onClick={handleOpenAddOlympiad}
-          variant="raised"
+          variant="contained"
           color="primary"
           className={classes.button}
         >

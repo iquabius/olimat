@@ -47,13 +47,13 @@ const EnhancedTableToolbar = props => {
     >
       <div className={classes.title}>
         {numSelected > 0 ? (
-          <Typography color="inherit" variant="subheading">
+          <Typography color="inherit" variant="subtitle1">
             {numSelected} selected
           </Typography>
         ) : (
           <Button
             onClick={onOpenAddSchool}
-            variant="raised"
+            variant="contained"
             color="primary"
             className={classes.button}
           >

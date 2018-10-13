@@ -67,7 +67,7 @@ class LoginForm extends React.Component {
     const { classes } = this.props;
     return (
       <Paper className={classes.loginBox}>
-        <Typography className={classes.loginHead} variant="headline">
+        <Typography className={classes.loginHead} variant="h5">
           Acesse sua Conta
         </Typography>
         <Divider />
@@ -119,7 +119,7 @@ class LoginForm extends React.Component {
           <Button
             className={classes.loginButton}
             fullWidth
-            variant="raised"
+            variant="contained"
             color="secondary"
             size="large"
             type="submit"
