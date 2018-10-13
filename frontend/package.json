@@ -26,7 +26,7 @@
     "isomorphic-unfetch": "^2.0.0",
     "jss": "^9.8.7",
     "lodash": "^4.17.5",
-    "next": "^6.0.3",
+    "next": "^7.0.2",
     "nprogress": "^0.2.0",
     "prop-types": "^15.6.2",
     "react": "^16.5.2",
