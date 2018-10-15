@@ -1,8 +1,5 @@
-# the name for the service (will be part of the service's HTTP endpoint)
-service: olimat-backend
-
-# the cluster and stage the service is deployed to
-stage: ${env:PRISMA_STAGE}
+# The endpoint property encodes the information of service, stage and cluster.
+endpoint: ${env:PRISMA_ENDPOINT}
 
 # to disable authentication:
 # disableAuth: true
@@ -14,5 +11,3 @@ datamodel: datamodel.graphql
 # seed your service with initial data based on seed.graphql
 seed:
   import: seed.graphql
-
-cluster: ${env:PRISMA_CLUSTER}
