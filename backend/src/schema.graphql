@@ -4,6 +4,8 @@
 # import Olympiad, OlympiadEdge, PageInfo from "./generated/prisma.graphql"
 
 type Query {
+  city: City!
+  cities: [City!]!
   olympiad: Olympiad!
   olympiads: [Olympiad!]!
   olympiadsFeed(first: Int, after: String): OlympiadFeed!

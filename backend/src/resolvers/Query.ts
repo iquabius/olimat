@@ -2,6 +2,14 @@ import { getUserId, Context } from '../utils';
 import { OlympiadConnection } from '../generated/prisma';
 
 export const Query = {
+  city(parent, { id }, ctx: Context, info) {
+    return ctx.db.query.city({ where: { id } }, info);
+  },
+
+  cities(parent, args, ctx: Context, info) {
+    return ctx.db.query.cities({}, info);
+  },
+
   olympiad(parent, { id }, ctx: Context, info) {
     return ctx.db.query.olympiad({ where: { id } }, info);
   },
