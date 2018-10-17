@@ -11,8 +11,10 @@ import Paper from '@material-ui/core/Paper';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
-import { Query } from 'react-apollo';
+import { compose, Query } from 'react-apollo';
 import gql from 'graphql-tag';
+import { withState } from 'recompose';
+import CityAddDialog from './CityAddDialog';
 
 const styles = theme => ({
   root: {
@@ -52,15 +54,23 @@ class CityList extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { addDialogOpen, setAddDialogOpen, classes } = this.props;
+    const handleOpenAddCity = () => setAddDialogOpen(true);
+    const handleCloseAddCity = () => setAddDialogOpen(false);
 
     return (
       <Paper className={classes.root}>
         <Toolbar>
-          <Button onClick={() => {}} variant="contained" color="primary" className={classes.button}>
+          <Button
+            onClick={handleOpenAddCity}
+            variant="contained"
+            color="primary"
+            className={classes.button}
+          >
             Adicionar
           </Button>
         </Toolbar>
+        <CityAddDialog open={addDialogOpen} onClose={handleCloseAddCity} />
         <Query query={allCitiesQuery}>
           {({ loading, error, data }) => {
             if (loading) return <p>Loading...</p>;
@@ -102,4 +112,6 @@ CityList.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(CityList);
+export default compose(withState('addDialogOpen', 'setAddDialogOpen', false), withStyles(styles))(
+  CityList,
+);
