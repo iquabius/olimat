@@ -22,4 +22,18 @@ export const cities = {
 
     return ctx.db.mutation.deleteCity({ where: { id } });
   },
+
+  async updateCity(parent, { id, name }, ctx: Context, info) {
+    return ctx.db.mutation.updateCity(
+      {
+        data: {
+          name,
+        },
+        where: {
+          id,
+        }
+      },
+      info,
+    );
+  },
 };
