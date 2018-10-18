@@ -15,11 +15,13 @@ import { compose, Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import { withState } from 'recompose';
 import CityAddDialog from './CityAddDialog';
+import CityEditListItem from './CityEditListItem';
 
 const styles = theme => ({
   root: {
     width: '100%',
     backgroundColor: theme.palette.background.paper,
+    marginBottom: 32,
   },
 });
 
@@ -34,7 +36,8 @@ export const allCitiesQuery = gql`
 
 class CityList extends React.Component {
   state = {
-    checked: [0],
+    checked: [],
+    editing: null,
   };
 
   handleToggle = value => () => {
@@ -55,8 +58,11 @@ class CityList extends React.Component {
 
   render() {
     const { addDialogOpen, setAddDialogOpen, classes } = this.props;
+    const { editing } = this.state;
     const handleOpenAddCity = () => setAddDialogOpen(true);
     const handleCloseAddCity = () => setAddDialogOpen(false);
+    const handleEditCity = id => () => this.setState({ editing: id });
+    const handleCloseEditCity = () => this.setState({ editing: null });
 
     return (
       <Paper className={classes.root}>
@@ -78,25 +84,25 @@ class CityList extends React.Component {
             return (
               <List>
                 {data.cities.map(({ id, name }) => (
-                  <ListItem
-                    key={id}
-                    role={undefined}
-                    dense
-                    button
-                    onClick={this.handleToggle(id)}
-                    className={classes.listItem}
-                  >
+                  <ListItem key={id} role={undefined} dense button className={classes.listItem}>
                     <Checkbox
+                      onChange={this.handleToggle(id)}
                       checked={this.state.checked.indexOf(id) !== -1}
                       tabIndex={-1}
                       disableRipple
                     />
-                    <ListItemText primary={name} />
-                    <ListItemSecondaryAction>
-                      <IconButton aria-label="Comments">
-                        <EditIcon />
-                      </IconButton>
-                    </ListItemSecondaryAction>
+                    {editing === id ? (
+                      <CityEditListItem handleCloseEdit={handleCloseEditCity} city={{ id, name }} />
+                    ) : (
+                      <React.Fragment>
+                        <ListItemText primary={name} />
+                        <ListItemSecondaryAction>
+                          <IconButton onClick={handleEditCity(id)} aria-label="Editar cidade">
+                            <EditIcon />
+                          </IconButton>
+                        </ListItemSecondaryAction>
+                      </React.Fragment>
+                    )}
                   </ListItem>
                 ))}
               </List>
