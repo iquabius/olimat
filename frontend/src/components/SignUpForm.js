@@ -4,12 +4,11 @@ import cookie from 'cookie';
 import gql from 'graphql-tag';
 import { withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
-import { Input, InputLabel, InputAdornment } from '@material-ui/core';
+import { FormControl, Input, InputLabel, InputAdornment } from '@material-ui/core';
 import Divider from '@material-ui/core/Divider';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
-import { FormControl } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
@@ -40,9 +39,6 @@ const styles = theme => ({
 
 class SignUpForm extends React.Component {
   state = {
-    name: '',
-    email: '',
-    confirmEmail: '',
     password: '',
     showPassword: false,
   };
