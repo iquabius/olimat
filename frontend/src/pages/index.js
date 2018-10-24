@@ -116,4 +116,7 @@ PageHome.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default compose(withRoot, withStyles(styles))(PageHome);
+export default compose(
+  withRoot,
+  withStyles(styles),
+)(PageHome);

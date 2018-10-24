@@ -14,7 +14,7 @@ import Switch from '@material-ui/core/Switch';
 import Button from '@material-ui/core/Button';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import Link from '../components/Link';
+import Link from './Link';
 import redirect from '../utils/redirect';
 
 const styles = theme => ({
@@ -96,7 +96,7 @@ class LoginForm extends React.Component {
                   >
                     {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
                   </IconButton>
-                </InputAdornment>
+</InputAdornment>
               }
             />
           </FormControl>
@@ -104,11 +104,11 @@ class LoginForm extends React.Component {
             <FormControlLabel
               control={
                 <Switch
-                  checked={this.state.keepLoggedIn}
-                  onChange={this.handleCheckbox}
-                  value="keepLoggedIn"
-                  color="primary"
-                />
+  checked={this.state.keepLoggedIn}
+  onChange={this.handleCheckbox}
+  value="keepLoggedIn"
+  color="primary"
+/>
               }
               label="Manter acesso"
             />

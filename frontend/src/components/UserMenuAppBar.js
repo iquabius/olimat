@@ -6,7 +6,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import { Menu, MenuItem } from '@material-ui/core';
 import cookie from 'cookie';
 import { withApollo } from 'react-apollo';
-import Link from '../components/Link';
+import Link from './Link';
 import redirect from '../utils/redirect';
 
 class UserMenuAppBar extends React.Component {

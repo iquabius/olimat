@@ -4,7 +4,7 @@ import find from 'lodash/find';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import getPageContext from './getPageContext';
-import checkLoggedIn from '../utils/checkLoggedIn';
+import checkLoggedIn from './checkLoggedIn';
 import withData from './withData';
 
 const pages = [

@@ -32,7 +32,12 @@ const styles = theme => ({
 });
 
 function OlympiadList(props) {
-  const { addDialogOpen, setAddDialogOpen, classes, data: { loading, olympiads } } = props;
+  const {
+    addDialogOpen,
+    setAddDialogOpen,
+    classes,
+    data: { loading, olympiads },
+  } = props;
   const handleOpenAddOlympiad = () => setAddDialogOpen(true);
   const handleCloseAddOlympiad = () => setAddDialogOpen(false);
 
@@ -67,8 +72,9 @@ function OlympiadList(props) {
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
             <Typography>
-              Olimpíada criada por <em>{olympiad.createdBy.email}</em>.
-            </Typography>
+              Olimpíada criada por <em>{olympiad.createdBy.email}</em>
+.
+</Typography>
           </ExpansionPanelDetails>
         </ExpansionPanel>
       ))}
@@ -82,11 +88,11 @@ OlympiadList.propTypes = {
     loading: PropTypes.bool.isRequired,
     olympiads: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        isPublished: PropTypes.bool,
-        year: PropTypes.string.isRequired,
         createdBy: PropTypes.shape({ email: PropTypes.string.isRequired }),
+        id: PropTypes.string.isRequired,
+        isPublished: PropTypes.bool,
+        name: PropTypes.string.isRequired,
+        year: PropTypes.string.isRequired,
       }),
     ),
   }).isRequired,

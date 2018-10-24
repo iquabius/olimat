@@ -12,7 +12,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import Link from '../components/Link';
+import Link from './Link';
 import redirect from '../utils/redirect';
 
 const styles = theme => ({
@@ -102,7 +102,7 @@ class SignUpForm extends React.Component {
                   >
                     {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
                   </IconButton>
-                </InputAdornment>
+</InputAdornment>
               }
             />
           </FormControl>

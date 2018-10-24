@@ -16,4 +16,7 @@ const PageAdmin = () => (
   </AppFrame>
 );
 
-export default compose(withRoot, withData)(PageAdmin);
+export default compose(
+  withRoot,
+  withData,
+)(PageAdmin);

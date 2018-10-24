@@ -118,6 +118,7 @@ CityList.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default compose(withState('addDialogOpen', 'setAddDialogOpen', false), withStyles(styles))(
-  CityList,
-);
+export default compose(
+  withState('addDialogOpen', 'setAddDialogOpen', false),
+  withStyles(styles),
+)(CityList);

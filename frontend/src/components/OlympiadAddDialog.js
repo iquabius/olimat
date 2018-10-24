@@ -64,13 +64,13 @@ OlympiadAddDialog.propTypes = {
   onClose: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
   values: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    isPublished: PropTypes.bool.isRequired,
-    year: PropTypes.string.isRequired,
     createdBy: PropTypes.shape({
       email: PropTypes.string.isRequired,
     }),
+    id: PropTypes.string.isRequired,
+    isPublished: PropTypes.bool.isRequired,
+    name: PropTypes.string.isRequired,
+    year: PropTypes.string.isRequired,
   }).isRequired,
 };
 

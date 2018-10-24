@@ -193,9 +193,9 @@ SchoolTable.propTypes = {
   data: PropTypes.shape({
     schools: PropTypes.arrayOf(
       PropTypes.shape({
+        city: PropTypes.shape({ name: PropTypes.string.isRequired }),
         id: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
-        city: PropTypes.shape({ name: PropTypes.string.isRequired }),
         phone: PropTypes.string,
       }),
     ).isRequired,
@@ -215,4 +215,7 @@ export const allSchoolsQuery = gql`
   }
 `;
 
-export default compose(graphql(allSchoolsQuery), withStyles(styles))(SchoolTable);
+export default compose(
+  graphql(allSchoolsQuery),
+  withStyles(styles),
+)(SchoolTable);

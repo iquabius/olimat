@@ -89,13 +89,13 @@ SchoolAddDialog.propTypes = {
   onClose: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
   values: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    email: PropTypes.string.isRequired,
-    phone: PropTypes.string.isRequired,
-    pedagogyCoord: PropTypes.string,
-    director: PropTypes.string,
-    city: PropTypes.string.isRequired,
     address: PropTypes.string,
+    city: PropTypes.string.isRequired,
+    director: PropTypes.string,
+    email: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    pedagogyCoord: PropTypes.string,
+    phone: PropTypes.string.isRequired,
   }).isRequired,
 };
 
