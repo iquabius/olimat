@@ -31,7 +31,7 @@ export const cities = {
         },
         where: {
           id,
-        }
+        },
       },
       info,
     );
