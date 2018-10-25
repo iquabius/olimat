@@ -6,7 +6,7 @@ import { Dialog, DialogActions, DialogContent, DialogTitle } from '@material-ui/
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 import { Formik } from 'formik';
-import { allCitiesQuery } from './CityList';
+import { allCitiesQuery } from '.';
 
 export const newCityMutation = gql`
   mutation newCityMutation($name: String!) {
@@ -36,7 +36,7 @@ const onSubmitCity = (newCity, onClose) => (values, { resetForm }) => {
     });
 };
 
-const CityAddDialog = ({ open, onClose }) => (
+const AddDialog = ({ open, onClose }) => (
   <Mutation
     mutation={newCityMutation}
     update={(proxy, { data: { createCity } }) => {
@@ -80,9 +80,9 @@ const CityAddDialog = ({ open, onClose }) => (
   </Mutation>
 );
 
-CityAddDialog.propTypes = {
+AddDialog.propTypes = {
   onClose: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
 };
 
-export default CityAddDialog;
+export default AddDialog;

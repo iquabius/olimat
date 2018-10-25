@@ -9,7 +9,7 @@ import { Formik } from 'formik';
 import { withStyles } from '@material-ui/core/styles';
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
-import { allCitiesQuery } from './CityList';
+import { allCitiesQuery } from '.';
 
 const styles = theme => ({
   textField: {
@@ -52,7 +52,7 @@ const onSubmitEdit = (updateCity, handleCloseEdit) => (values, { setSubmitting }
     });
 };
 
-const CityEditListItem = ({ city, handleCloseEdit, classes }) => {
+const EditListItem = ({ city, handleCloseEdit, classes }) => {
   return (
     <Mutation
       mutation={updateCityMutation}
@@ -108,4 +108,4 @@ const CityEditListItem = ({ city, handleCloseEdit, classes }) => {
   );
 };
 
-export default withStyles(styles)(CityEditListItem);
+export default withStyles(styles)(EditListItem);

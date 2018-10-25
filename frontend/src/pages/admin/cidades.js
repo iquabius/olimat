@@ -4,7 +4,7 @@ import AppFrame from '../../components/AppFrame';
 import AppContent from '../../components/AppContent';
 import CityList from '../../components/CityList';
 
-const PageOlympiads = () => (
+const PageCities = () => (
   <AppFrame>
     <AppContent>
       <CityList />
@@ -12,4 +12,4 @@ const PageOlympiads = () => (
   </AppFrame>
 );
 
-export default withRoot(PageOlympiads);
+export default withRoot(PageCities);

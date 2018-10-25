@@ -6,9 +6,9 @@ import { Dialog, DialogActions, DialogContent, DialogTitle } from '@material-ui/
 import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
 import { withFormik } from 'formik';
-import { allOlympiadsQuery } from './OlympiadList';
+import { allSchoolsQuery } from '.';
 
-const OlympiadAddDialog = ({
+const SchoolAddDialog = ({
   open,
   onClose,
   handleSubmit,
@@ -32,14 +32,39 @@ const OlympiadAddDialog = ({
           onBlur={handleBlur}
         />
         <TextField
-          name="year"
+          name="email"
           margin="dense"
-          label="Ano"
-          type="number"
-          min="1999"
-          max="2018"
+          label="Email"
+          type="email"
           fullWidth
-          value={values.year}
+          value={values.email}
+          onChange={handleChange}
+          onBlur={handleBlur}
+        />
+        <TextField
+          name="phone"
+          margin="dense"
+          label="Telefone"
+          fullWidth
+          value={values.phone}
+          onChange={handleChange}
+          onBlur={handleBlur}
+        />
+        <TextField
+          name="pedagogyCoord"
+          margin="dense"
+          label="Coordenador pedagógico"
+          fullWidth
+          value={values.pedagogyCoord}
+          onChange={handleChange}
+          onBlur={handleBlur}
+        />
+        <TextField
+          name="director"
+          margin="dense"
+          label="Diretor"
+          fullWidth
+          value={values.director}
           onChange={handleChange}
           onBlur={handleBlur}
         />
@@ -56,7 +81,7 @@ const OlympiadAddDialog = ({
   </Dialog>
 );
 
-OlympiadAddDialog.propTypes = {
+SchoolAddDialog.propTypes = {
   handleBlur: PropTypes.func.isRequired,
   handleChange: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
@@ -64,51 +89,77 @@ OlympiadAddDialog.propTypes = {
   onClose: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
   values: PropTypes.shape({
-    createdBy: PropTypes.shape({
-      email: PropTypes.string.isRequired,
-    }),
-    id: PropTypes.string.isRequired,
-    isPublished: PropTypes.bool.isRequired,
+    address: PropTypes.string,
+    city: PropTypes.string.isRequired,
+    director: PropTypes.string,
+    email: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    year: PropTypes.string.isRequired,
+    pedagogyCoord: PropTypes.string,
+    phone: PropTypes.string.isRequired,
   }).isRequired,
 };
 
-export const newOlympiadMutation = gql`
-  mutation newOlympiadMutation($name: String!, $year: DateTime!) {
-    createOlympiad(name: $name, year: $year) {
+export const newSchoolMutation = gql`
+  mutation newSchoolMutation(
+    $name: String!
+    $email: String!
+    $phone: String
+    $pedagogyCoord: String
+    $director: String
+    $city: String!
+    $address: String
+  ) {
+    createSchool(
+      name: $name
+      email: $email
+      phone: $phone
+      pedagogyCoord: $pedagogyCoord
+      director: $director
+      city: $city
+      address: $address
+    ) {
       id
       name
-      isPublished
-      year
-      createdBy {
-        email
+      email
+      phone
+      city {
+        name
       }
     }
   }
 `;
 
 export default compose(
-  graphql(newOlympiadMutation, {
+  graphql(newSchoolMutation, {
     // Use an unambiguous name for use in the `props` section below
-    name: 'newOlympiad',
+    name: 'newSchool',
   }),
   withFormik({
     mapPropsToValues: () => ({
       name: '',
-      year: '',
+      email: '',
+      phone: '',
+      pedagogyCoord: '',
+      director: '',
+      city: '',
+      address: '',
     }),
-    handleSubmit: (values, { props: { newOlympiad, onClose }, setSubmitting }) => {
-      newOlympiad({
+    handleSubmit: (values, { props: { newSchool, onClose }, setSubmitting }) => {
+      newSchool({
         variables: {
           name: values.name,
-          year: new Date(values.year),
+          email: values.email,
+          phone: values.phone,
+          pedagogyCoord: values.pedagogyCoord,
+          director: values.director,
+          city: 'Barra do Bugres',
+          address: values.address,
         },
-        update: (proxy, { data: { createOlympiad } }) => {
-          const data = proxy.readQuery({ query: allOlympiadsQuery });
-          data.olympiads.push(createOlympiad);
+        update: (proxy, { data: { createSchool } }) => {
+          const data = proxy.readQuery({ query: allSchoolsQuery });
+          data.schools.push(createSchool);
 
-          proxy.writeQuery({ query: allOlympiadsQuery, data });
+          proxy.writeQuery({ query: allSchoolsQuery, data });
         },
       })
         .then(response => {
@@ -124,4 +175,4 @@ export default compose(
         });
     },
   }),
-)(OlympiadAddDialog);
+)(SchoolAddDialog);

@@ -14,9 +14,9 @@ import EditIcon from '@material-ui/icons/Edit';
 import { compose, Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import { withState } from 'recompose';
-import CityAddDialog from './CityAddDialog';
-import CityEditListItem from './CityEditListItem';
-import CityDeleteItemButton from './CityDeleteItemButton';
+import AddDialog from './AddDialog';
+import EditListItem from './EditListItem';
+import DeleteItemButton from './DeleteItemButton';
 
 const styles = theme => ({
   root: {
@@ -77,7 +77,7 @@ class CityList extends React.Component {
             Adicionar
           </Button>
         </Toolbar>
-        <CityAddDialog open={addDialogOpen} onClose={handleCloseAddCity} />
+        <AddDialog open={addDialogOpen} onClose={handleCloseAddCity} />
         <Query query={allCitiesQuery}>
           {({ loading, error, data }) => {
             if (loading) return <p>Loading...</p>;
@@ -94,12 +94,12 @@ class CityList extends React.Component {
                       disableRipple
                     />
                     {editing === id ? (
-                      <CityEditListItem handleCloseEdit={handleCloseEditCity} city={{ id, name }} />
+                      <EditListItem handleCloseEdit={handleCloseEditCity} city={{ id, name }} />
                     ) : (
                       <React.Fragment>
                         <ListItemText primary={name} />
                         <ListItemSecondaryAction>
-                          <CityDeleteItemButton city={{ id, name }} />
+                          <DeleteItemButton city={{ id, name }} />
                           <IconButton onClick={handleEditCity(id)} aria-label="Editar cidade">
                             <EditIcon />
                           </IconButton>
