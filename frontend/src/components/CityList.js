@@ -16,6 +16,7 @@ import gql from 'graphql-tag';
 import { withState } from 'recompose';
 import CityAddDialog from './CityAddDialog';
 import CityEditListItem from './CityEditListItem';
+import CityDeleteItemButton from './CityDeleteItemButton';
 
 const styles = theme => ({
   root: {
@@ -98,6 +99,7 @@ class CityList extends React.Component {
                       <React.Fragment>
                         <ListItemText primary={name} />
                         <ListItemSecondaryAction>
+                          <CityDeleteItemButton city={{ id, name }} />
                           <IconButton onClick={handleEditCity(id)} aria-label="Editar cidade">
                             <EditIcon />
                           </IconButton>
