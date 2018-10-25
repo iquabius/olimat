@@ -5,6 +5,7 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import gql from 'graphql-tag';
 import { allCitiesQuery } from './CityList';
+import { Formik } from 'formik';
 
 export const deleteCityMutation = gql`
   mutation deleteCityMutation($id: ID!) {
@@ -32,6 +33,7 @@ const onSubmitDelete = (deleteCity, city) => () => {
     });
 };
 
+// TODO: While deleting the edit button should also be disabled
 const CityDeleteItemButton = ({ city }) => (
   <Mutation
     mutation={deleteCityMutation}
@@ -45,9 +47,13 @@ const CityDeleteItemButton = ({ city }) => (
     }}
   >
     {deleteCity => (
-      <IconButton onClick={onSubmitDelete(deleteCity, city)} aria-label="Excluir cidade">
-        <DeleteIcon />
-      </IconButton>
+      <Formik onSubmit={onSubmitDelete(deleteCity, city)}>
+        {({ handleSubmit, isSubmitting }) => (
+          <IconButton disabled={isSubmitting} onClick={handleSubmit} aria-label="Excluir cidade">
+            <DeleteIcon />
+          </IconButton>
+        )}
+      </Formik>
     )}
   </Mutation>
 );
