@@ -85,7 +85,7 @@ class CityList extends React.Component {
             return (
               <List>
                 {data.cities.map(({ id, name }) => (
-                  <ListItem key={id} role={undefined} dense button className={classes.listItem}>
+                  <ListItem key={id} role={undefined} dense className={classes.listItem}>
                     <Checkbox
                       disabled={editing === id}
                       onChange={this.handleToggle(id)}
