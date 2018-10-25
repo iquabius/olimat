@@ -78,6 +78,7 @@ const EditListItem = ({ city, handleCloseEdit, classes }) => {
                   variant="outlined"
                   inputProps={{
                     className: classes.textFieldInput,
+                    autoFocus: true,
                   }}
                   value={values.name}
                   onChange={handleChange}
