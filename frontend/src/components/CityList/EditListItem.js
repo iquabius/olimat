@@ -33,6 +33,7 @@ export const updateCityMutation = gql`
 `;
 
 const onSubmitEdit = (updateCity, handleCloseEdit) => (values, { setSubmitting }) => {
+  // TODO: Don't call the graphql server if value is unchanged
   updateCity({
     variables: {
       id: values.id,
@@ -68,7 +69,7 @@ const EditListItem = ({ city, handleCloseEdit, classes }) => {
       {updateCity => (
         <Formik initialValues={city} onSubmit={onSubmitEdit(updateCity, handleCloseEdit)}>
           {({ handleSubmit, handleChange, handleBlur, isSubmitting, values }) => (
-            <React.Fragment>
+            <form onSubmit={handleSubmit}>
               <ListItemText>
                 <TextField
                   name="name"
@@ -86,11 +87,7 @@ const EditListItem = ({ city, handleCloseEdit, classes }) => {
                 />
               </ListItemText>
               <ListItemSecondaryAction>
-                <IconButton
-                  onClick={handleSubmit}
-                  disabled={isSubmitting}
-                  aria-label="Salvar cidade"
-                >
+                <IconButton type="submit" disabled={isSubmitting} aria-label="Salvar cidade">
                   <SaveIcon color="primary" />
                 </IconButton>
                 <IconButton
@@ -101,7 +98,7 @@ const EditListItem = ({ city, handleCloseEdit, classes }) => {
                   <CloseIcon />
                 </IconButton>
               </ListItemSecondaryAction>
-            </React.Fragment>
+            </form>
           )}
         </Formik>
       )}
