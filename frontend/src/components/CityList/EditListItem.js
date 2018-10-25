@@ -15,11 +15,11 @@ const styles = theme => ({
   textField: {
     marginLeft: -theme.spacing.unit,
     // marginRight: theme.spacing.unit,
-    marginBottom: 0,
-    marginTop: 0,
+    marginBottom: -7,
+    marginTop: -7,
   },
   textFieldInput: {
-    padding: '14px 14px',
+    padding: '10px 10px',
   },
 });
 

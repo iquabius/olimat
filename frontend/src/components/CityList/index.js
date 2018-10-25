@@ -85,14 +85,7 @@ class CityList extends React.Component {
             return (
               <List>
                 {data.cities.map(({ id, name }) => (
-                  <ListItem key={id} role={undefined} dense className={classes.listItem}>
-                    <Checkbox
-                      disabled={editing === id}
-                      onChange={this.handleToggle(id)}
-                      checked={checked.indexOf(id) !== -1}
-                      tabIndex={-1}
-                      disableRipple
-                    />
+                  <ListItem key={id} role={undefined} className={classes.listItem}>
                     {editing === id ? (
                       <EditListItem handleCloseEdit={handleCloseEditCity} city={{ id, name }} />
                     ) : (
