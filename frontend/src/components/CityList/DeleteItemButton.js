@@ -6,6 +6,15 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import gql from 'graphql-tag';
 import { allCitiesQuery } from '.';
 import { Formik } from 'formik';
+import { withState } from 'recompose';
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+  Button,
+} from '@material-ui/core';
 
 export const deleteCityMutation = gql`
   mutation deleteCityMutation($id: ID!) {
@@ -15,6 +24,13 @@ export const deleteCityMutation = gql`
     }
   }
 `;
+
+const onCancelDelete = (setDeleteWarningOpen, setSubmitting) => () => {
+  setSubmitting(false);
+  setDeleteWarningOpen(false);
+};
+
+const openDeleteWarningDialog = setDeleteWarningOpen => () => setDeleteWarningOpen(true);
 
 const onSubmitDelete = (deleteCity, city) => () => {
   deleteCity({
@@ -34,7 +50,7 @@ const onSubmitDelete = (deleteCity, city) => () => {
 };
 
 // TODO: While deleting the edit button should also be disabled
-const CityDeleteItemButton = ({ city }) => (
+const CityDeleteItemButton = ({ city, deleteWarningOpen, setDeleteWarningOpen }) => (
   <Mutation
     mutation={deleteCityMutation}
     update={(cache, { data: { deleteCity } }) => {
@@ -47,11 +63,37 @@ const CityDeleteItemButton = ({ city }) => (
     }}
   >
     {deleteCity => (
-      <Formik onSubmit={onSubmitDelete(deleteCity, city)}>
-        {({ handleSubmit, isSubmitting }) => (
-          <IconButton disabled={isSubmitting} onClick={handleSubmit} aria-label="Excluir cidade">
-            <DeleteIcon />
-          </IconButton>
+      <Formik onSubmit={openDeleteWarningDialog(setDeleteWarningOpen)}>
+        {({ handleSubmit, isSubmitting, setSubmitting }) => (
+          <React.Fragment>
+            <IconButton disabled={isSubmitting} onClick={handleSubmit} aria-label="Excluir cidade">
+              <DeleteIcon />
+            </IconButton>
+            <Dialog
+              open={deleteWarningOpen}
+              onClose={onCancelDelete(setDeleteWarningOpen, setSubmitting)}
+              aria-labelledby="alert-dialog-title"
+              aria-describedby="alert-dialog-description"
+            >
+              <DialogTitle id="alert-dialog-title">{`Excluir ${city.name}?`}</DialogTitle>
+              <DialogContent>
+                <DialogContentText id="alert-dialog-description">
+                  A cidade de {city.name} será apagada permanentemente.
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Button
+                  onClick={onCancelDelete(setDeleteWarningOpen, setSubmitting)}
+                  color="secondary"
+                >
+                  Cancelar
+                </Button>
+                <Button onClick={onSubmitDelete(deleteCity, city)} color="secondary" autoFocus>
+                  Excluir
+                </Button>
+              </DialogActions>
+            </Dialog>
+          </React.Fragment>
         )}
       </Formik>
     )}
@@ -65,4 +107,4 @@ CityDeleteItemButton.propTypes = {
   }),
 };
 
-export default CityDeleteItemButton;
+export default withState('deleteWarningOpen', 'setDeleteWarningOpen', false)(CityDeleteItemButton);
