@@ -58,7 +58,7 @@ class CityList extends React.Component {
 
   render() {
     const { addDialogOpen, setAddDialogOpen, classes } = this.props;
-    const { editing } = this.state;
+    const { checked, editing } = this.state;
     const handleOpenAddCity = () => setAddDialogOpen(true);
     const handleCloseAddCity = () => setAddDialogOpen(false);
     const handleEditCity = id => () => this.setState({ editing: id });
@@ -86,8 +86,9 @@ class CityList extends React.Component {
                 {data.cities.map(({ id, name }) => (
                   <ListItem key={id} role={undefined} dense button className={classes.listItem}>
                     <Checkbox
+                      disabled={editing === id}
                       onChange={this.handleToggle(id)}
-                      checked={this.state.checked.indexOf(id) !== -1}
+                      checked={checked.indexOf(id) !== -1}
                       tabIndex={-1}
                       disableRipple
                     />
