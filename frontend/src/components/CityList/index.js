@@ -17,6 +17,7 @@ import { withState } from 'recompose';
 import AddDialog from './AddDialog';
 import EditListItem from './EditListItem';
 import DeleteItemButton from './DeleteItemButton';
+import SimpleSnackbar from './SimpleSnackbar';
 
 const styles = theme => ({
   root: {
@@ -39,6 +40,7 @@ class CityList extends React.Component {
   state = {
     checked: [],
     editing: null,
+    deleteSnackbarOpen: false,
   };
 
   handleToggle = value => () => {
@@ -57,13 +59,24 @@ class CityList extends React.Component {
     });
   };
 
+  handleCloseSnackbar = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    this.setState({
+      deleteSnackbarOpen: false,
+    });
+  };
+
   render() {
     const { addDialogOpen, setAddDialogOpen, classes } = this.props;
-    const { checked, editing } = this.state;
+    const { checked, deleteSnackbarOpen, editing } = this.state;
     const handleOpenAddCity = () => setAddDialogOpen(true);
     const handleCloseAddCity = () => setAddDialogOpen(false);
     const handleEditCity = id => () => this.setState({ editing: id });
     const handleCloseEditCity = () => this.setState({ editing: null });
+    const setDeleteSnackbarOpen = open => this.setState({ deleteSnackbarOpen: open });
 
     return (
       <Paper className={classes.root}>
@@ -85,14 +98,17 @@ class CityList extends React.Component {
             return (
               <List>
                 {data.cities.map(({ id, name }) => (
-                  <ListItem key={id} role={undefined} className={classes.listItem}>
+                  <ListItem key={id} role={undefined}>
                     {editing === id ? (
                       <EditListItem handleCloseEdit={handleCloseEditCity} city={{ id, name }} />
                     ) : (
                       <React.Fragment>
                         <ListItemText primary={name} />
                         <ListItemSecondaryAction>
-                          <DeleteItemButton city={{ id, name }} />
+                          <DeleteItemButton
+                            city={{ id, name }}
+                            setSnackbarOpen={setDeleteSnackbarOpen}
+                          />
                           <IconButton onClick={handleEditCity(id)} aria-label="Editar cidade">
                             <EditIcon />
                           </IconButton>
@@ -101,6 +117,7 @@ class CityList extends React.Component {
                     )}
                   </ListItem>
                 ))}
+                <SimpleSnackbar open={deleteSnackbarOpen} onClose={this.handleCloseSnackbar} />
               </List>
             );
           }}

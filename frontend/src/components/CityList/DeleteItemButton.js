@@ -32,7 +32,7 @@ const onCancelDelete = (setDeleteWarningOpen, setSubmitting) => () => {
 
 const openDeleteWarningDialog = setDeleteWarningOpen => () => setDeleteWarningOpen(true);
 
-const onSubmitDelete = (deleteCity, city) => () => {
+const onSubmitDelete = (deleteCity, city, setDeleteSnackbarOpen) => () => {
   deleteCity({
     variables: {
       id: city.id,
@@ -41,6 +41,7 @@ const onSubmitDelete = (deleteCity, city) => () => {
     .then(response => {
       console.log(`Delete City Mutation response: `);
       console.log(response);
+      setDeleteSnackbarOpen(true);
     })
     .catch(error => {
       // Something went wrong, such as incorrect password, or no network
@@ -50,7 +51,12 @@ const onSubmitDelete = (deleteCity, city) => () => {
 };
 
 // TODO: While deleting the edit button should also be disabled
-const CityDeleteItemButton = ({ city, deleteWarningOpen, setDeleteWarningOpen }) => (
+const CityDeleteItemButton = ({
+  city,
+  deleteWarningOpen,
+  setDeleteWarningOpen,
+  setSnackbarOpen,
+}) => (
   <Mutation
     mutation={deleteCityMutation}
     update={(cache, { data: { deleteCity } }) => {
@@ -78,7 +84,7 @@ const CityDeleteItemButton = ({ city, deleteWarningOpen, setDeleteWarningOpen })
               <DialogTitle id="alert-dialog-title">{`Excluir ${city.name}?`}</DialogTitle>
               <DialogContent>
                 <DialogContentText id="alert-dialog-description">
-                  A cidade de {city.name} será apagada permanentemente.
+                  {`A cidade de ${city.name} será apagada permanentemente.`}
                 </DialogContentText>
               </DialogContent>
               <DialogActions>
@@ -88,7 +94,11 @@ const CityDeleteItemButton = ({ city, deleteWarningOpen, setDeleteWarningOpen })
                 >
                   Cancelar
                 </Button>
-                <Button onClick={onSubmitDelete(deleteCity, city)} color="secondary" autoFocus>
+                <Button
+                  onClick={onSubmitDelete(deleteCity, city, setSnackbarOpen)}
+                  color="secondary"
+                  autoFocus
+                >
                   Excluir
                 </Button>
               </DialogActions>
