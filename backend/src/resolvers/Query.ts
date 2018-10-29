@@ -22,6 +22,14 @@ export const Query = {
     return ctx.db.query.olympiadsConnection({ first, after }, info);
   },
 
+  question(parent, { id }, ctx: Context) {
+    return ctx.db.query.question({ where: { id } });
+  },
+
+  questions(parent, args, ctx: Context) {
+    return ctx.db.query.questions({});
+  },
+
   schools(parent, args, ctx: Context, info) {
     return ctx.db.query.schools({}, info);
   },

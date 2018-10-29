@@ -1,7 +1,7 @@
 # import Test from "./generated/prisma.graphql"
 # import School from "./generated/prisma.graphql"
 # import City from "./generated/prisma.graphql"
-# import Olympiad, OlympiadEdge, PageInfo from "./generated/prisma.graphql"
+# import Olympiad, OlympiadEdge, Question, PageInfo from "./generated/prisma.graphql"
 
 type Query {
   city: City!
@@ -9,6 +9,8 @@ type Query {
   olympiad: Olympiad!
   olympiads: [Olympiad!]!
   olympiadsFeed(first: Int, after: String): OlympiadFeed!
+  question: Question!
+  questions: [Question!]!
   schools: [School!]!
   school(id: ID!): School!
   tests: [Test!]!
