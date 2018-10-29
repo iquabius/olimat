@@ -152,4 +152,31 @@ mutation {
   ) {
     id
   }
+  createQuestion1: createQuestion(
+    data: {
+      type: MULTIPLE_CHOICE
+      wording: "Proident consequat excepteur ese excepteur laboris Lorem cillum. Cupidatat do tempor elit quis sint ad. Non incididunt reprehenderit laborum fugiat fugiat deserunt deserunt culpa."
+      imageUrl: "http://placehold.it/380x240"
+    }
+  ) {
+    id
+  }
+  createQuestion2: createQuestion(
+    data: {
+      type: MULTIPLE_CHOICE
+      wording: "Proident consequat excepteur ese excepteur laboris Lorem cillum. Cupidatat do tempor elit quis sint ad. Non incididunt reprehenderit laborum fugiat fugiat deserunt deserunt culpa."
+      imageUrl: "http://placehold.it/380x240"
+    }
+  ) {
+    id
+  }
+  createQuestion3: createQuestion(
+    data: {
+      type: MULTIPLE_CHOICE
+      wording: "Proident consequat excepteur ese excepteur laboris Lorem cillum. Cupidatat do tempor elit quis sint ad. Non incididunt reprehenderit laborum fugiat fugiat deserunt deserunt culpa."
+      imageUrl: "http://placehold.it/380x240"
+    }
+  ) {
+    id
+  }
 }
