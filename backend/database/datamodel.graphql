@@ -3,6 +3,19 @@ type City {
   name: String! @unique
 }
 
+# múltipla escolha e discursiva
+enum QuestionType {
+  MULTIPLE_CHOICE
+  OPEN_ENDED
+}
+
+type Question {
+  id: ID! @unique
+  type: QuestionType!
+  wording: String!
+  imageUrl: String
+}
+
 type Olympiad {
   id: ID! @unique
   name: String!
