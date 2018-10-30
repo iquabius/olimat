@@ -8,28 +8,28 @@ export const schools = {
     info,
   ) {
     const userId = getUserId(ctx);
-    return ctx.db.mutation.createSchool(
-      {
-        data: {
-          name,
-          email,
-          phone,
-          olympiadCood: {
-            connect: { id: userId },
-          },
-          pedagogyCoord,
-          director,
-          city: { connect: { name: city } },
-          address,
-        },
+    const newSchool = await ctx.db.createSchool({
+      name,
+      email,
+      phone,
+      olympiadCood: {
+        connect: { id: userId },
       },
-      info,
-    );
+      pedagogyCoord,
+      director,
+      city: { connect: { name: city } },
+      address,
+    });
+    // createSchool() only returns scalar fields
+    return {
+      ...newSchool,
+      city: ctx.db.school({ id: newSchool.id }).city(),
+    };
   },
 
   async deleteSchool(parent, { id }, ctx: Context, info) {
     const userId = getUserId(ctx);
-    const schoolExists = await ctx.db.exists.School({
+    const schoolExists = await ctx.db.$exists.school({
       id,
       olympiadCood: { id: userId },
     });
@@ -37,6 +37,6 @@ export const schools = {
       throw new Error(`School not found or you're not authorized`);
     }
 
-    return ctx.db.mutation.deleteSchool({ where: { id } });
+    return ctx.db.deleteSchool({ id });
   },
 };

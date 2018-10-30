@@ -3,51 +3,61 @@ import { OlympiadConnection } from '../generated/prisma';
 
 export const Query = {
   city(parent, { id }, ctx: Context, info) {
-    return ctx.db.query.city({ where: { id } }, info);
+    return ctx.db.city({ id });
   },
 
   cities(parent, args, ctx: Context, info) {
-    return ctx.db.query.cities({}, info);
+    return ctx.db.cities({});
   },
 
   olympiad(parent, { id }, ctx: Context, info) {
-    return ctx.db.query.olympiad({ where: { id } }, info);
+    return ctx.db.olympiad({ id });
   },
 
-  olympiads(parent, args, ctx: Context, info) {
-    return ctx.db.query.olympiads({}, info);
+  async olympiads(parent, args, ctx: Context, info) {
+    const olympiads = await ctx.db.olympiads({});
+    return olympiads.map(o => ({
+      ...o,
+      createdBy: ctx.db.olympiad({ id: o.id }).createdBy(),
+    }));
   },
 
   olympiadsFeed(parent, { first, after }, ctx: Context, info) {
-    return ctx.db.query.olympiadsConnection({ first, after }, info);
+    return ctx.db.olympiadsConnection({ first, after });
   },
 
   question(parent, { id }, ctx: Context) {
-    return ctx.db.query.question({ where: { id } });
+    return ctx.db.question({ id });
   },
 
   questions(parent, args, ctx: Context) {
-    return ctx.db.query.questions({});
+    return ctx.db.questions({});
   },
 
-  schools(parent, args, ctx: Context, info) {
-    return ctx.db.query.schools({}, info);
+  async schools(parent, args, ctx: Context, info) {
+    // The prisma-client api is different, it only returns scalar fields
+    const schools = await ctx.db.schools({});
+    // Relation fields can be fetched individually...
+    return schools.map(s => ({
+      ...s,
+      city: ctx.db.school({ id: s.id }).city(), // ...with a chained method
+    }));
   },
 
   school(parent, { id }, ctx: Context, info) {
-    return ctx.db.query.school({ where: { id } }, info);
+    return ctx.db.school({ id });
   },
 
   tests(parent, args, ctx: Context, info) {
-    return ctx.db.query.tests({}, info);
+    return ctx.db.tests({});
   },
 
   test(parent, { id }, ctx: Context, info) {
-    return ctx.db.query.test({ where: { id } }, info);
+    return ctx.db.test({ id });
   },
 
   me(parent, args, ctx: Context, info) {
     const id = getUserId(ctx);
-    return ctx.db.query.user({ where: { id } }, info);
+    return ctx.db.user({ id });
   },
 };

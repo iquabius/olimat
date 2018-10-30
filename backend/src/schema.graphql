@@ -1,7 +1,5 @@
-# import Test from "./generated/prisma.graphql"
-# import School from "./generated/prisma.graphql"
-# import City from "./generated/prisma.graphql"
-# import Olympiad, OlympiadEdge, Question, PageInfo from "./generated/prisma.graphql"
+# import * from "./generated/prisma.graphql"
+scalar DateTime
 
 type Query {
   city: City!
