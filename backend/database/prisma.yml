@@ -12,7 +12,11 @@ datamodel: datamodel.graphql
 seed:
   import: seed.graphql
 
+# It doesn't work yet because there's more than one instance of "graphql" in the node_modules
 hooks:
   post-deploy:
-    - graphql get-schema
-    - graphql prepare
+    - prisma generate
+
+generate:
+  - generator: typescript-client
+    output: ../src/generated/prisma-client/
