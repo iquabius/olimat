@@ -4,10 +4,10 @@ projects:
     extensions:
       endpoints:
         default: "http://localhost:4000"
-  database:
+  prisma:
     schemaPath: "src/generated/prisma.graphql"
     extensions:
-      prisma: database/prisma.yml
+      prisma: prisma/prisma.yml
       prepare-binding:
         output: src/generated/prisma.ts
         generator: prisma-ts
