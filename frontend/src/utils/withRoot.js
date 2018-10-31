@@ -104,6 +104,10 @@ const pages = [
     title: 'Painel de Administração',
     children: [
       {
+        pathname: '/admin/questoes',
+        title: 'Questões',
+      },
+      {
         pathname: '/admin/cidades',
         title: 'Cidades',
       },
