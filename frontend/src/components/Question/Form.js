@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import { TextField, MenuItem } from '@material-ui/core';
 import { Formik } from 'formik';
 import QuestionTypeConnector from './TypesConnector';
+import validate from './validate';
 
 const renderForm = children => formikProps => {
   const form = (
@@ -22,6 +23,8 @@ const renderForm = children => formikProps => {
             fullWidth
             rows={3}
             variant="outlined"
+            error={formikProps.touched.wording && formikProps.errors.wording !== null}
+            helperText={formikProps.errors.wording || ''}
             value={formikProps.values.wording}
             onChange={formikProps.handleChange}
             onBlur={formikProps.handleBlur}
@@ -93,6 +96,7 @@ const renderForm = children => formikProps => {
 const QuestionForm = ({ children, initialValues, onClose, onSubmit }) => (
   <Formik
     initialValues={initialValues}
+    validate={validate}
     onSubmit={(values, formikBag) => {
       // This is quite detailed and a work around
       // to be able to encapsulate attaching state handling
