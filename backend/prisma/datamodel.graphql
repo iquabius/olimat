@@ -4,16 +4,32 @@ type City {
 }
 
 # múltipla escolha e discursiva
-enum QuestionType {
+enum QUESTION_TYPE {
+  """Múltipla escolha"""
   MULTIPLE_CHOICE
+  """Discursiva"""
   OPEN_ENDED
 }
 
+"""Alternativa de uma questão."""
+type QuestionChoice {
+  id: ID! @unique
+  """Texto da alternativa."""
+  text: String!
+}
+
+# secondaryWording não é a solução perfeita aqui
 type Question {
   id: ID! @unique
-  type: QuestionType!
+  """O tipo da questão, _múltipla escolha_ ou _discursiva_."""
+  type: QUESTION_TYPE!
+  """Enunciado da questão."""
   wording: String!
   imageUrl: String
+  """Enunciado secundário, depois da imagem."""
+  secondaryWording: String
+  """Alternativas da questão."""
+  choices: [QuestionChoice!]!
 }
 
 type Olympiad {

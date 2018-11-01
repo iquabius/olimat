@@ -10,6 +10,10 @@ type AggregateQuestion {
   count: Int!
 }
 
+type AggregateQuestionChoice {
+  count: Int!
+}
+
 type AggregateSchool {
   count: Int!
 }
@@ -167,6 +171,12 @@ type Mutation {
   upsertQuestion(where: QuestionWhereUniqueInput!, create: QuestionCreateInput!, update: QuestionUpdateInput!): Question!
   deleteQuestion(where: QuestionWhereUniqueInput!): Question
   deleteManyQuestions(where: QuestionWhereInput): BatchPayload!
+  createQuestionChoice(data: QuestionChoiceCreateInput!): QuestionChoice!
+  updateQuestionChoice(data: QuestionChoiceUpdateInput!, where: QuestionChoiceWhereUniqueInput!): QuestionChoice
+  updateManyQuestionChoices(data: QuestionChoiceUpdateInput!, where: QuestionChoiceWhereInput): BatchPayload!
+  upsertQuestionChoice(where: QuestionChoiceWhereUniqueInput!, create: QuestionChoiceCreateInput!, update: QuestionChoiceUpdateInput!): QuestionChoice!
+  deleteQuestionChoice(where: QuestionChoiceWhereUniqueInput!): QuestionChoice
+  deleteManyQuestionChoices(where: QuestionChoiceWhereInput): BatchPayload!
   createSchool(data: SchoolCreateInput!): School!
   updateSchool(data: SchoolUpdateInput!, where: SchoolWhereUniqueInput!): School
   updateManySchools(data: SchoolUpdateInput!, where: SchoolWhereInput): BatchPayload!
@@ -356,6 +366,9 @@ type Query {
   question(where: QuestionWhereUniqueInput!): Question
   questions(where: QuestionWhereInput, orderBy: QuestionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Question]!
   questionsConnection(where: QuestionWhereInput, orderBy: QuestionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): QuestionConnection!
+  questionChoice(where: QuestionChoiceWhereUniqueInput!): QuestionChoice
+  questionChoices(where: QuestionChoiceWhereInput, orderBy: QuestionChoiceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [QuestionChoice]!
+  questionChoicesConnection(where: QuestionChoiceWhereInput, orderBy: QuestionChoiceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): QuestionChoiceConnection!
   school(where: SchoolWhereUniqueInput!): School
   schools(where: SchoolWhereInput, orderBy: SchoolOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [School]!
   schoolsConnection(where: SchoolWhereInput, orderBy: SchoolOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SchoolConnection!
@@ -370,9 +383,141 @@ type Query {
 
 type Question {
   id: ID!
-  type: QuestionType!
+  type: QUESTION_TYPE!
   wording: String!
   imageUrl: String
+  secondaryWording: String
+  choices(where: QuestionChoiceWhereInput, orderBy: QuestionChoiceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [QuestionChoice!]
+}
+
+enum QUESTION_TYPE {
+  MULTIPLE_CHOICE
+  OPEN_ENDED
+}
+
+type QuestionChoice {
+  id: ID!
+  text: String!
+}
+
+type QuestionChoiceConnection {
+  pageInfo: PageInfo!
+  edges: [QuestionChoiceEdge]!
+  aggregate: AggregateQuestionChoice!
+}
+
+input QuestionChoiceCreateInput {
+  text: String!
+}
+
+input QuestionChoiceCreateManyInput {
+  create: [QuestionChoiceCreateInput!]
+  connect: [QuestionChoiceWhereUniqueInput!]
+}
+
+type QuestionChoiceEdge {
+  node: QuestionChoice!
+  cursor: String!
+}
+
+enum QuestionChoiceOrderByInput {
+  id_ASC
+  id_DESC
+  text_ASC
+  text_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type QuestionChoicePreviousValues {
+  id: ID!
+  text: String!
+}
+
+type QuestionChoiceSubscriptionPayload {
+  mutation: MutationType!
+  node: QuestionChoice
+  updatedFields: [String!]
+  previousValues: QuestionChoicePreviousValues
+}
+
+input QuestionChoiceSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: QuestionChoiceWhereInput
+  AND: [QuestionChoiceSubscriptionWhereInput!]
+  OR: [QuestionChoiceSubscriptionWhereInput!]
+  NOT: [QuestionChoiceSubscriptionWhereInput!]
+}
+
+input QuestionChoiceUpdateDataInput {
+  text: String
+}
+
+input QuestionChoiceUpdateInput {
+  text: String
+}
+
+input QuestionChoiceUpdateManyInput {
+  create: [QuestionChoiceCreateInput!]
+  update: [QuestionChoiceUpdateWithWhereUniqueNestedInput!]
+  upsert: [QuestionChoiceUpsertWithWhereUniqueNestedInput!]
+  delete: [QuestionChoiceWhereUniqueInput!]
+  connect: [QuestionChoiceWhereUniqueInput!]
+  disconnect: [QuestionChoiceWhereUniqueInput!]
+}
+
+input QuestionChoiceUpdateWithWhereUniqueNestedInput {
+  where: QuestionChoiceWhereUniqueInput!
+  data: QuestionChoiceUpdateDataInput!
+}
+
+input QuestionChoiceUpsertWithWhereUniqueNestedInput {
+  where: QuestionChoiceWhereUniqueInput!
+  update: QuestionChoiceUpdateDataInput!
+  create: QuestionChoiceCreateInput!
+}
+
+input QuestionChoiceWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  text: String
+  text_not: String
+  text_in: [String!]
+  text_not_in: [String!]
+  text_lt: String
+  text_lte: String
+  text_gt: String
+  text_gte: String
+  text_contains: String
+  text_not_contains: String
+  text_starts_with: String
+  text_not_starts_with: String
+  text_ends_with: String
+  text_not_ends_with: String
+  AND: [QuestionChoiceWhereInput!]
+  OR: [QuestionChoiceWhereInput!]
+  NOT: [QuestionChoiceWhereInput!]
+}
+
+input QuestionChoiceWhereUniqueInput {
+  id: ID
 }
 
 type QuestionConnection {
@@ -382,9 +527,11 @@ type QuestionConnection {
 }
 
 input QuestionCreateInput {
-  type: QuestionType!
+  type: QUESTION_TYPE!
   wording: String!
   imageUrl: String
+  secondaryWording: String
+  choices: QuestionChoiceCreateManyInput
 }
 
 type QuestionEdge {
@@ -401,6 +548,8 @@ enum QuestionOrderByInput {
   wording_DESC
   imageUrl_ASC
   imageUrl_DESC
+  secondaryWording_ASC
+  secondaryWording_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -409,9 +558,10 @@ enum QuestionOrderByInput {
 
 type QuestionPreviousValues {
   id: ID!
-  type: QuestionType!
+  type: QUESTION_TYPE!
   wording: String!
   imageUrl: String
+  secondaryWording: String
 }
 
 type QuestionSubscriptionPayload {
@@ -432,15 +582,12 @@ input QuestionSubscriptionWhereInput {
   NOT: [QuestionSubscriptionWhereInput!]
 }
 
-enum QuestionType {
-  MULTIPLE_CHOICE
-  OPEN_ENDED
-}
-
 input QuestionUpdateInput {
-  type: QuestionType
+  type: QUESTION_TYPE
   wording: String
   imageUrl: String
+  secondaryWording: String
+  choices: QuestionChoiceUpdateManyInput
 }
 
 input QuestionWhereInput {
@@ -458,10 +605,10 @@ input QuestionWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  type: QuestionType
-  type_not: QuestionType
-  type_in: [QuestionType!]
-  type_not_in: [QuestionType!]
+  type: QUESTION_TYPE
+  type_not: QUESTION_TYPE
+  type_in: [QUESTION_TYPE!]
+  type_not_in: [QUESTION_TYPE!]
   wording: String
   wording_not: String
   wording_in: [String!]
@@ -490,6 +637,23 @@ input QuestionWhereInput {
   imageUrl_not_starts_with: String
   imageUrl_ends_with: String
   imageUrl_not_ends_with: String
+  secondaryWording: String
+  secondaryWording_not: String
+  secondaryWording_in: [String!]
+  secondaryWording_not_in: [String!]
+  secondaryWording_lt: String
+  secondaryWording_lte: String
+  secondaryWording_gt: String
+  secondaryWording_gte: String
+  secondaryWording_contains: String
+  secondaryWording_not_contains: String
+  secondaryWording_starts_with: String
+  secondaryWording_not_starts_with: String
+  secondaryWording_ends_with: String
+  secondaryWording_not_ends_with: String
+  choices_every: QuestionChoiceWhereInput
+  choices_some: QuestionChoiceWhereInput
+  choices_none: QuestionChoiceWhereInput
   AND: [QuestionWhereInput!]
   OR: [QuestionWhereInput!]
   NOT: [QuestionWhereInput!]
@@ -708,6 +872,7 @@ type Subscription {
   city(where: CitySubscriptionWhereInput): CitySubscriptionPayload
   olympiad(where: OlympiadSubscriptionWhereInput): OlympiadSubscriptionPayload
   question(where: QuestionSubscriptionWhereInput): QuestionSubscriptionPayload
+  questionChoice(where: QuestionChoiceSubscriptionWhereInput): QuestionChoiceSubscriptionPayload
   school(where: SchoolSubscriptionWhereInput): SchoolSubscriptionPayload
   test(where: TestSubscriptionWhereInput): TestSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
