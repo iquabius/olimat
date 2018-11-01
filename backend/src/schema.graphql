@@ -41,6 +41,15 @@ type Mutation {
   deleteSchool(id: ID!): School!
 }
 
+# Precisa repetir aqui porque 'graphql get-schema' não importa as descrições
+# E precisamos das descrições pra caixa de seleção do tipo no formulário
+enum QUESTION_TYPE {
+  """Múltipla escolha"""
+  MULTIPLE_CHOICE
+  """Discursiva"""
+  OPEN_ENDED
+}
+
 type AuthPayload {
   token: String!
   user: User!

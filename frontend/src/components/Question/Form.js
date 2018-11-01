@@ -6,73 +6,66 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { TextField, MenuItem } from '@material-ui/core';
 import { Formik } from 'formik';
-
-// TODO: This should be fetched from the GraphQL server
-const questionTypes = [
-  {
-    value: 'MULTIPLE_CHOICE',
-    label: 'Múltipla Escolha',
-  },
-  {
-    value: 'OPEN_ENDED',
-    label: 'Discursiva',
-  },
-];
+import QuestionTypeConnector from './TypesConnector';
 
 const renderForm = children => formikProps => {
   const form = (
-    <React.Fragment>
-      <TextField
-        name="wording"
-        autoFocus
-        margin="dense"
-        multiline
-        label="Enunciado"
-        fullWidth
-        rows={3}
-        variant="outlined"
-        value={formikProps.values.wording}
-        onChange={formikProps.handleChange}
-        onBlur={formikProps.handleBlur}
-      />
-      <TextField
-        name="imageUrl"
-        margin="dense"
-        label="URL da imagem"
-        min="1999"
-        max="2018"
-        fullWidth
-        variant="outlined"
-        value={formikProps.values.imageUrl}
-        onChange={formikProps.handleChange}
-        onBlur={formikProps.handleBlur}
-      />
-      <TextField
-        id="question-select-type"
-        name="type"
-        select
-        label="Tipo"
-        fullWidth
-        variant="outlined"
-        // className={classes.textField}
-        value={formikProps.values.type}
-        onChange={formikProps.handleChange}
-        onBlur={formikProps.handleBlur}
-        SelectProps={{
-          MenuProps: {
-            // className: classes.menu,
-          },
-        }}
-        helperText="Selecione o tipo da questão"
-        margin="normal"
-      >
-        {questionTypes.map(type => (
-          <MenuItem key={type.value} value={type.value}>
-            {type.label}
-          </MenuItem>
-        ))}
-      </TextField>
-    </React.Fragment>
+    <QuestionTypeConnector>
+      {({ questionTypes }) => (
+        <React.Fragment>
+          <TextField
+            name="wording"
+            autoFocus
+            margin="dense"
+            multiline
+            label="Enunciado"
+            fullWidth
+            rows={3}
+            variant="outlined"
+            value={formikProps.values.wording}
+            onChange={formikProps.handleChange}
+            onBlur={formikProps.handleBlur}
+          />
+          <TextField
+            name="imageUrl"
+            margin="dense"
+            label="URL da imagem"
+            min="1999"
+            max="2018"
+            fullWidth
+            variant="outlined"
+            value={formikProps.values.imageUrl}
+            onChange={formikProps.handleChange}
+            onBlur={formikProps.handleBlur}
+          />
+          <TextField
+            id="question-select-type"
+            name="type"
+            select
+            label="Tipo"
+            fullWidth
+            variant="outlined"
+            // className={classes.textField}
+            value={formikProps.values.type}
+            onChange={formikProps.handleChange}
+            onBlur={formikProps.handleBlur}
+            SelectProps={{
+              MenuProps: {
+                // className: classes.menu,
+              },
+            }}
+            helperText="Selecione o tipo da questão"
+            margin="normal"
+          >
+            {questionTypes.map(type => (
+              <MenuItem key={type.name} value={type.name}>
+                {type.description}
+              </MenuItem>
+            ))}
+          </TextField>
+        </React.Fragment>
+      )}
+    </QuestionTypeConnector>
   );
 
   return children({
