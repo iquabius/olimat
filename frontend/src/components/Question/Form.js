@@ -39,6 +39,18 @@ const renderForm = children => formikProps => {
             onBlur={formikProps.handleBlur}
           />
           <TextField
+            name="secondaryWording"
+            margin="dense"
+            multiline
+            label="Enunciado Secundário"
+            fullWidth
+            rows={2}
+            variant="outlined"
+            value={formikProps.values.secondaryWording}
+            onChange={formikProps.handleChange}
+            onBlur={formikProps.handleBlur}
+          />
+          <TextField
             id="question-select-type"
             name="type"
             select
@@ -54,7 +66,7 @@ const renderForm = children => formikProps => {
                 // className: classes.menu,
               },
             }}
-            helperText="Selecione o tipo da questão"
+            // helperText="Selecione o tipo da questão"
             margin="normal"
           >
             {questionTypes.map(type => (

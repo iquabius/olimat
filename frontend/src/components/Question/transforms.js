@@ -9,10 +9,12 @@ export const responseToFormValues = response => ({
   type: response.type,
   wording: response.wording,
   imageUrl: response.imageUrl,
+  secondaryWording: response.imageUrl,
 });
 
 export const formValuesToRequest = values => ({
   type: values.type,
   wording: values.wording,
   imageUrl: values.imageUrl,
+  secondaryWording: values.secondaryWording,
 });

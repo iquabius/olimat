@@ -32,6 +32,7 @@ const questionInitialValues = {
   type: 'MULTIPLE_CHOICE',
   wording: '',
   imageUrl: '',
+  secondaryWording: '',
 };
 
 const CreateDialog = ({ open, onClose }) => (
