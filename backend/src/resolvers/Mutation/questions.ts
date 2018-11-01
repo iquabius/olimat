@@ -1,26 +1,23 @@
 import { Context } from '../../utils';
-import { Question, QuestionCreateInput, QuestionUpdateInput } from '../../generated/prisma';
-
-export interface QuestionPayload {
-  question: Question;
-}
+// import { Question, QuestionCreateInput, QuestionUpdateInput } from '../../generated/prisma-client';
 
 export const questions = {
-  async createQuestion(
-    parent,
-    { input }: { input: QuestionCreateInput },
-    ctx: Context,
-    info,
-  ): Promise<QuestionPayload> {
+  async createQuestion(parent, { input }, ctx: Context, info) {
+    console.log('INPUT');
+    console.log(input);
     const newQuestion = await ctx.db.createQuestion({
       ...input,
     });
+    const newQuestionWithChoices = {
+      ...newQuestion,
+      choices: await ctx.db.question({ id: newQuestion.id }).choices(),
+    };
     return {
-      question: newQuestion,
+      question: newQuestionWithChoices,
     };
   },
 
-  async deleteQuestion(parent, { id }, ctx: Context, info): Promise<QuestionPayload> {
+  async deleteQuestion(parent, { id }, ctx: Context, info) {
     const questionExists = await ctx.db.$exists.question({
       id,
     });
@@ -33,12 +30,7 @@ export const questions = {
     };
   },
 
-  async updateQuestion(
-    parent,
-    { input: { id, patch } },
-    ctx: Context,
-    info,
-  ): Promise<QuestionPayload> {
+  async updateQuestion(parent, { input: { id, patch } }, ctx: Context, info) {
     return {
       question: await ctx.db.updateQuestion({
         data: {
