@@ -33,7 +33,8 @@
     "react-apollo": "^2.2.4",
     "react-dom": "^16.6.0",
     "react-jss": "^8.6.1",
-    "recompose": "^0.30.0"
+    "recompose": "^0.30.0",
+    "yup": "^0.26.6"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",
