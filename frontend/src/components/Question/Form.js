@@ -7,7 +7,13 @@ import PropTypes from 'prop-types';
 import { TextField, MenuItem } from '@material-ui/core';
 import { Formik } from 'formik';
 import QuestionTypeConnector from './TypesConnector';
-import validate from './validate';
+import * as Yup from 'yup';
+
+const FormSchema = Yup.object().shape({
+  wording: Yup.string()
+    .min(32, 'Wording is Too Short! It should be at least 32 characters.')
+    .required('Wording is required'),
+});
 
 const renderForm = children => formikProps => {
   const form = (
@@ -96,7 +102,7 @@ const renderForm = children => formikProps => {
 const QuestionForm = ({ children, initialValues, onClose, onSubmit }) => (
   <Formik
     initialValues={initialValues}
-    validate={validate}
+    validationSchema={FormSchema}
     onSubmit={(values, formikBag) => {
       // This is quite detailed and a work around
       // to be able to encapsulate attaching state handling
