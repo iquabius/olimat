@@ -9,7 +9,8 @@ export const responseToFormValues = response => ({
   type: response.type,
   wording: response.wording,
   imageUrl: response.imageUrl,
-  secondaryWording: response.imageUrl,
+  secondaryWording: response.secondaryWording,
+  choices: response.choices,
 });
 
 export const formValuesToRequest = values => ({
@@ -17,4 +18,6 @@ export const formValuesToRequest = values => ({
   wording: values.wording,
   imageUrl: values.imageUrl,
   secondaryWording: values.secondaryWording,
+  // TODO: This should be configurable: 'create' and 'update'
+  choices: values.type === 'MULTIPLE_CHOICE' ? { create: values.choices } : undefined,
 });

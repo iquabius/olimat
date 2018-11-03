@@ -14,8 +14,10 @@ const createHandleSubmit = createQuestion => (values, addHandlers) => {
     createQuestion({
       variables: { input: formValuesToRequest(values) },
     })
-      .then(() => {
+      .then(resp => {
         console.log('addHandlers OK!');
+        console.log('Response: ');
+        console.log(resp);
         // this.props.showNotification();
       })
       .catch(error => {
@@ -29,10 +31,11 @@ const createHandleSubmit = createQuestion => (values, addHandlers) => {
 // );
 
 const questionInitialValues = {
-  type: 'MULTIPLE_CHOICE',
+  type: 'OPEN_ENDED',
   wording: '',
   imageUrl: '',
   secondaryWording: '',
+  choices: [{ text: '' }, { text: '' }, { text: '' }, { text: '' }, { text: '' }],
 };
 
 const CreateDialog = ({ open, onClose }) => (
