@@ -2,12 +2,12 @@
 scalar DateTime
 
 type Query {
-  city: City!
+  city(id: ID!): City!
   cities: [City!]!
-  olympiad: Olympiad!
+  olympiad(id: ID!): Olympiad!
   olympiads: [Olympiad!]!
   olympiadsFeed(first: Int, after: String): OlympiadFeed!
-  question: Question!
+  question(id: ID!): Question!
   questions: [Question!]!
   schools: [School!]!
   school(id: ID!): School!
