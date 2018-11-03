@@ -26,8 +26,12 @@ export const Query = {
     return ctx.db.olympiadsConnection({ first, after });
   },
 
-  question(parent, { id }, ctx: Context) {
-    return ctx.db.question({ id });
+  async question(parent, { id }, ctx: Context) {
+    const question = await ctx.db.question({ id });
+    return {
+      ...question,
+      choices: await ctx.db.question({ id }).choices(),
+    };
   },
 
   questions(parent, args, ctx: Context) {
