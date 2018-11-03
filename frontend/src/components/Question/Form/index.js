@@ -6,7 +6,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { TextField, MenuItem } from '@material-ui/core';
 import { Formik } from 'formik';
-import QuestionTypeConnector from './TypesConnector';
+import QuestionTypeConnector from '../TypesConnector';
 import * as Yup from 'yup';
 
 const FormSchema = Yup.object().shape({
