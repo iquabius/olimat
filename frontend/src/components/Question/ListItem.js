@@ -11,6 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import { IconButton } from '@material-ui/core';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import NextLink from 'next/link';
 
 const styles = theme => ({
   card: {
@@ -31,16 +32,18 @@ const ListItem = props => {
   const { classes, question } = props;
   return (
     <Card className={classes.card}>
-      <CardActionArea>
-        <CardContent>
-          <Typography component="p">{question.wording}</Typography>
-        </CardContent>
-        <CardMedia
-          className={classes.media}
-          image={question.imageUrl}
-          title="Contemplative Reptile"
-        />
-      </CardActionArea>
+      <NextLink href={`/admin/questao?id=${question.id}`}>
+        <CardActionArea>
+          <CardContent>
+            <Typography component="p">{question.wording}</Typography>
+          </CardContent>
+          <CardMedia
+            className={classes.media}
+            image={question.imageUrl}
+            title="Contemplative Reptile"
+          />
+        </CardActionArea>
+      </NextLink>
       <CardActions>
         <IconButton className={classes.iconButton} aria-label="Add to favorites">
           <FavoriteIcon fontSize="small" />
