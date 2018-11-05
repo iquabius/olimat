@@ -28,10 +28,14 @@ export const Query = {
 
   async question(parent, { id }, ctx: Context) {
     const question = await ctx.db.question({ id });
-    return {
-      ...question,
-      choices: await ctx.db.question({ id }).choices(),
-    };
+    if (question) {
+      return {
+        ...question,
+        choices: await ctx.db.question({ id }).choices(),
+      };
+    } else {
+      return null;
+    }
   },
 
   questions(parent, args, ctx: Context) {
