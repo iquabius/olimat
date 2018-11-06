@@ -11,6 +11,18 @@ const styles = theme => ({
     marginRight: 'auto',
     marginBottom: theme.spacing.unit * 2,
   },
+  optionBox: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    flexWrap: 'wrap',
+  },
+  optionItem: {
+    ...theme.typography.body1,
+    padding: theme.spacing.unit,
+  },
+  optionLabel: {
+    fontWeight: 'bold',
+  },
 });
 
 const optionLabels = ['a', 'b', 'c', 'd', 'e', 'f'];
@@ -26,17 +38,20 @@ const QuestionDetails = ({ classes, id }) =>
             </Typography>
             <img className={classes.questionImg} src={question.imageUrl} alt="Imagem da questão" />
             {question.secondaryWording && (
-              <Typography variant="body1" gutterBottom paragraph>
+              <Typography component="" variant="body1" gutterBottom paragraph>
                 {question.secondaryWording}
               </Typography>
             )}
-            {question.choices &&
-              question.choices.length > 0 &&
-              question.choices.map((choice, index) => (
-                <Typography variant="body1" gutterBottom>
-                  {`${optionLabels[index]}) ${choice.text}`}
-                </Typography>
-              ))}
+            <div className={classes.optionBox}>
+              {question.choices &&
+                question.choices.length > 0 &&
+                question.choices.map((choice, index) => (
+                  <div key={choice.id} className={classes.optionItem}>
+                    <span className={classes.optionLabel}>{`${optionLabels[index]}) `}</span>
+                    {`${choice.text}`}
+                  </div>
+                ))}
+            </div>
           </div>
         ) : (
           <div>Essa questão não existe!</div>

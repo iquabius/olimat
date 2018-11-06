@@ -12,6 +12,7 @@ export const questionQuery = gql`
       imageUrl
       secondaryWording
       choices {
+        id
         text
       }
     }
