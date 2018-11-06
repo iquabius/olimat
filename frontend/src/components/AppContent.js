@@ -2,10 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
+import BreadcrumbBox from './Question/BreadcrumbBox';
 
 const styles = theme => ({
+  wrapper: {
+    width: '100%',
+  },
   root: theme.mixins.gutters({
-    paddingTop: 80,
+    paddingTop: 40,
+    position: 'relative',
     flex: '1 1 100%',
     maxWidth: '100%',
     margin: '0 auto',
@@ -20,7 +25,12 @@ const styles = theme => ({
 function AppContent(props) {
   const { className, classes, children } = props;
 
-  return <div className={classNames(classes.root, className)}>{children}</div>;
+  return (
+    <div className={classes.wrapper}>
+      <BreadcrumbBox />
+      <div className={classNames(classes.root, className)}>{children}</div>
+    </div>
+  );
 }
 
 AppContent.propTypes = {

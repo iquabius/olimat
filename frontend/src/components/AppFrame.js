@@ -134,8 +134,8 @@ class AppFrame extends React.Component {
 
   render() {
     const { children, classes } = this.props;
-    const title =
-      this.context.activePage.title !== false ? pageToTitle(this.context.activePage) : null;
+    const { activePage } = this.context;
+    const title = activePage.title !== false ? pageToTitle(activePage) : null;
 
     let disablePermanent = false;
     let navIconClassName = '';
@@ -148,6 +148,11 @@ class AppFrame extends React.Component {
     } else {
       navIconClassName = classes.navIconHide;
       appBarClassName += ` ${classes.appBarShift}`;
+    }
+    // Disable box-shadow for pages wrapped by AppContent.
+    // Those pages have a breadcrumb box.
+    if (RegExp('admin').test(activePage.pathname)) {
+      appBarClassName += ` ${classes.appBarHome}`;
     }
 
     return (
