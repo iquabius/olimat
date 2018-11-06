@@ -9,7 +9,7 @@ const styles = theme => ({
     width: '100%',
   },
   root: theme.mixins.gutters({
-    paddingTop: 40,
+    paddingTop: theme.spacing.unit * 2,
     position: 'relative',
     flex: '1 1 100%',
     maxWidth: '100%',
