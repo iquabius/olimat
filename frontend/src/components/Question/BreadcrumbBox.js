@@ -12,6 +12,7 @@ const styles = theme => ({
     backgroundColor:
       theme.palette.type === 'light' ? theme.palette.primary.main : theme.palette.primary.dark,
     color: theme.palette.primary.contrastText,
+    boxShadow: theme.shadows[2], // shadows[0-24]
   },
   breadcrumbs: theme.mixins.gutters({
     paddingTop: 70,
