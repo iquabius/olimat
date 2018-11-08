@@ -1,10 +1,13 @@
-import { GraphQLServer } from 'graphql-yoga';
+import { ApolloServer, gql } from 'apollo-server-express';
+import { importSchema } from 'graphql-import';
 import { prisma } from './generated/prisma-client';
 import resolvers from './resolvers';
 const express = require('express');
 
-const server = new GraphQLServer({
-  typeDefs: 'src/schema.graphql',
+const typeDefs = gql(importSchema('src/schema.graphql'));
+
+const server = new ApolloServer({
+  typeDefs,
   resolvers,
   context: req => ({
     ...req,
@@ -13,6 +16,10 @@ const server = new GraphQLServer({
 });
 
 // The 'files' directory should be a docker volume, maybe in a dedicated container
-server.express.use('/files', express.static('files'));
+const app = new express();
+app.use('/files', express.static('files'));
+server.applyMiddleware({ app });
 
-server.start(() => console.log('Server is running on http://localhost:4000'));
+app.listen({ port: 4000 }, () =>
+  console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`),
+);
