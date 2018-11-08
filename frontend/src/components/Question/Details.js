@@ -36,7 +36,13 @@ const QuestionDetails = ({ classes, id }) =>
             <Typography variant="body1" gutterBottom paragraph>
               {question.wording}
             </Typography>
-            <img className={classes.questionImg} src={question.imageUrl} alt="Imagem da questão" />
+            {question.imageUrl && (
+              <img
+                className={classes.questionImg}
+                src={question.imageUrl}
+                alt="Imagem da questão"
+              />
+            )}
             {question.secondaryWording && (
               <Typography component="" variant="body1" gutterBottom paragraph>
                 {question.secondaryWording}

@@ -37,11 +37,13 @@ const ListItem = props => {
           <CardContent>
             <Typography component="p">{question.wording}</Typography>
           </CardContent>
-          <CardMedia
-            className={classes.media}
-            image={question.imageUrl}
-            title="Contemplative Reptile"
-          />
+          {question.imageUrl && (
+            <CardMedia
+              className={classes.media}
+              image={question.imageUrl}
+              title="Contemplative Reptile"
+            />
+          )}
         </CardActionArea>
       </NextLink>
       <CardActions>
