@@ -97,6 +97,10 @@ input CityUpdateInput {
   name: String
 }
 
+input CityUpdateManyMutationInput {
+  name: String
+}
+
 input CityUpdateOneRequiredInput {
   create: CityCreateInput
   update: CityUpdateDataInput
@@ -155,43 +159,43 @@ scalar Long
 type Mutation {
   createCity(data: CityCreateInput!): City!
   updateCity(data: CityUpdateInput!, where: CityWhereUniqueInput!): City
-  updateManyCities(data: CityUpdateInput!, where: CityWhereInput): BatchPayload!
+  updateManyCities(data: CityUpdateManyMutationInput!, where: CityWhereInput): BatchPayload!
   upsertCity(where: CityWhereUniqueInput!, create: CityCreateInput!, update: CityUpdateInput!): City!
   deleteCity(where: CityWhereUniqueInput!): City
   deleteManyCities(where: CityWhereInput): BatchPayload!
   createOlympiad(data: OlympiadCreateInput!): Olympiad!
   updateOlympiad(data: OlympiadUpdateInput!, where: OlympiadWhereUniqueInput!): Olympiad
-  updateManyOlympiads(data: OlympiadUpdateInput!, where: OlympiadWhereInput): BatchPayload!
+  updateManyOlympiads(data: OlympiadUpdateManyMutationInput!, where: OlympiadWhereInput): BatchPayload!
   upsertOlympiad(where: OlympiadWhereUniqueInput!, create: OlympiadCreateInput!, update: OlympiadUpdateInput!): Olympiad!
   deleteOlympiad(where: OlympiadWhereUniqueInput!): Olympiad
   deleteManyOlympiads(where: OlympiadWhereInput): BatchPayload!
   createQuestion(data: QuestionCreateInput!): Question!
   updateQuestion(data: QuestionUpdateInput!, where: QuestionWhereUniqueInput!): Question
-  updateManyQuestions(data: QuestionUpdateInput!, where: QuestionWhereInput): BatchPayload!
+  updateManyQuestions(data: QuestionUpdateManyMutationInput!, where: QuestionWhereInput): BatchPayload!
   upsertQuestion(where: QuestionWhereUniqueInput!, create: QuestionCreateInput!, update: QuestionUpdateInput!): Question!
   deleteQuestion(where: QuestionWhereUniqueInput!): Question
   deleteManyQuestions(where: QuestionWhereInput): BatchPayload!
   createQuestionChoice(data: QuestionChoiceCreateInput!): QuestionChoice!
   updateQuestionChoice(data: QuestionChoiceUpdateInput!, where: QuestionChoiceWhereUniqueInput!): QuestionChoice
-  updateManyQuestionChoices(data: QuestionChoiceUpdateInput!, where: QuestionChoiceWhereInput): BatchPayload!
+  updateManyQuestionChoices(data: QuestionChoiceUpdateManyMutationInput!, where: QuestionChoiceWhereInput): BatchPayload!
   upsertQuestionChoice(where: QuestionChoiceWhereUniqueInput!, create: QuestionChoiceCreateInput!, update: QuestionChoiceUpdateInput!): QuestionChoice!
   deleteQuestionChoice(where: QuestionChoiceWhereUniqueInput!): QuestionChoice
   deleteManyQuestionChoices(where: QuestionChoiceWhereInput): BatchPayload!
   createSchool(data: SchoolCreateInput!): School!
   updateSchool(data: SchoolUpdateInput!, where: SchoolWhereUniqueInput!): School
-  updateManySchools(data: SchoolUpdateInput!, where: SchoolWhereInput): BatchPayload!
+  updateManySchools(data: SchoolUpdateManyMutationInput!, where: SchoolWhereInput): BatchPayload!
   upsertSchool(where: SchoolWhereUniqueInput!, create: SchoolCreateInput!, update: SchoolUpdateInput!): School!
   deleteSchool(where: SchoolWhereUniqueInput!): School
   deleteManySchools(where: SchoolWhereInput): BatchPayload!
   createTest(data: TestCreateInput!): Test!
   updateTest(data: TestUpdateInput!, where: TestWhereUniqueInput!): Test
-  updateManyTests(data: TestUpdateInput!, where: TestWhereInput): BatchPayload!
+  updateManyTests(data: TestUpdateManyMutationInput!, where: TestWhereInput): BatchPayload!
   upsertTest(where: TestWhereUniqueInput!, create: TestCreateInput!, update: TestUpdateInput!): Test!
   deleteTest(where: TestWhereUniqueInput!): Test
   deleteManyTests(where: TestWhereInput): BatchPayload!
   createUser(data: UserCreateInput!): User!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
-  updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
+  updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   deleteUser(where: UserWhereUniqueInput!): User
   deleteManyUsers(where: UserWhereInput): BatchPayload!
@@ -282,6 +286,12 @@ input OlympiadUpdateInput {
   isPublished: Boolean
   year: DateTime
   createdBy: UserUpdateOneRequiredInput
+}
+
+input OlympiadUpdateManyMutationInput {
+  name: String
+  isPublished: Boolean
+  year: DateTime
 }
 
 input OlympiadWhereInput {
@@ -471,6 +481,10 @@ input QuestionChoiceUpdateManyInput {
   disconnect: [QuestionChoiceWhereUniqueInput!]
 }
 
+input QuestionChoiceUpdateManyMutationInput {
+  text: String
+}
+
 input QuestionChoiceUpdateWithWhereUniqueNestedInput {
   where: QuestionChoiceWhereUniqueInput!
   data: QuestionChoiceUpdateDataInput!
@@ -588,6 +602,13 @@ input QuestionUpdateInput {
   imageUrl: String
   secondaryWording: String
   choices: QuestionChoiceUpdateManyInput
+}
+
+input QuestionUpdateManyMutationInput {
+  type: QUESTION_TYPE
+  wording: String
+  imageUrl: String
+  secondaryWording: String
 }
 
 input QuestionWhereInput {
@@ -754,6 +775,15 @@ input SchoolUpdateInput {
   pedagogyCoord: String
   director: String
   city: CityUpdateOneRequiredInput
+  address: String
+}
+
+input SchoolUpdateManyMutationInput {
+  name: String
+  email: String
+  phone: String
+  pedagogyCoord: String
+  director: String
   address: String
 }
 
@@ -959,6 +989,11 @@ input TestUpdateInput {
   author: UserUpdateOneRequiredWithoutTestsInput
 }
 
+input TestUpdateManyMutationInput {
+  title: String
+  description: String
+}
+
 input TestUpdateManyWithoutAuthorInput {
   create: [TestCreateWithoutAuthorInput!]
   delete: [TestWhereUniqueInput!]
@@ -1147,6 +1182,12 @@ input UserUpdateInput {
   password: String
   name: String
   tests: TestUpdateManyWithoutAuthorInput
+}
+
+input UserUpdateManyMutationInput {
+  email: String
+  password: String
+  name: String
 }
 
 input UserUpdateOneRequiredInput {

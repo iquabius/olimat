@@ -143,6 +143,10 @@ input CityUpdateInput {
   name: String
 }
 
+input CityUpdateManyMutationInput {
+  name: String
+}
+
 input CityUpdateOneRequiredInput {
   create: CityCreateInput
   connect: CityWhereUniqueInput
@@ -419,6 +423,12 @@ input OlympiadUpdateInput {
   isPublished: Boolean
   year: DateTime
   createdBy: UserUpdateOneRequiredInput
+}
+
+input OlympiadUpdateManyMutationInput {
+  name: String
+  isPublished: Boolean
+  year: DateTime
 }
 
 input OlympiadWhereInput {
@@ -790,6 +800,10 @@ input QuestionChoiceUpdateManyInput {
   upsert: [QuestionChoiceUpsertWithWhereUniqueNestedInput!]
 }
 
+input QuestionChoiceUpdateManyMutationInput {
+  text: String
+}
+
 input QuestionChoiceUpdateWithWhereUniqueNestedInput {
   where: QuestionChoiceWhereUniqueInput!
   data: QuestionChoiceUpdateDataInput!
@@ -1033,6 +1047,13 @@ input QuestionUpdateInput {
   imageUrl: String
   secondaryWording: String
   choices: QuestionChoiceUpdateManyInput
+}
+
+input QuestionUpdateManyMutationInput {
+  type: QUESTION_TYPE
+  wording: String
+  imageUrl: String
+  secondaryWording: String
 }
 
 input QuestionWhereInput {
@@ -1413,6 +1434,15 @@ input SchoolUpdateInput {
   address: String
   olympiadCood: UserUpdateOneRequiredInput
   city: CityUpdateOneRequiredInput
+}
+
+input SchoolUpdateManyMutationInput {
+  name: String
+  email: String
+  phone: String
+  pedagogyCoord: String
+  director: String
+  address: String
 }
 
 input SchoolWhereInput {
@@ -1928,6 +1958,11 @@ input TestUpdateInput {
   author: UserUpdateOneRequiredWithoutTestsInput
 }
 
+input TestUpdateManyMutationInput {
+  title: String
+  description: String
+}
+
 input TestUpdateManyWithoutAuthorInput {
   create: [TestCreateWithoutAuthorInput!]
   connect: [TestWhereUniqueInput!]
@@ -2325,6 +2360,12 @@ input UserUpdateInput {
   tests: TestUpdateManyWithoutAuthorInput
 }
 
+input UserUpdateManyMutationInput {
+  email: String
+  password: String
+  name: String
+}
+
 input UserUpdateOneRequiredInput {
   create: UserCreateInput
   connect: UserWhereUniqueInput
@@ -2619,13 +2660,13 @@ type Mutation {
   upsertCity(where: CityWhereUniqueInput!, create: CityCreateInput!, update: CityUpdateInput!): City!
   upsertQuestionChoice(where: QuestionChoiceWhereUniqueInput!, create: QuestionChoiceCreateInput!, update: QuestionChoiceUpdateInput!): QuestionChoice!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
-  updateManyQuestions(data: QuestionUpdateInput!, where: QuestionWhereInput): BatchPayload!
-  updateManyOlympiads(data: OlympiadUpdateInput!, where: OlympiadWhereInput): BatchPayload!
-  updateManySchools(data: SchoolUpdateInput!, where: SchoolWhereInput): BatchPayload!
-  updateManyTests(data: TestUpdateInput!, where: TestWhereInput): BatchPayload!
-  updateManyCities(data: CityUpdateInput!, where: CityWhereInput): BatchPayload!
-  updateManyQuestionChoices(data: QuestionChoiceUpdateInput!, where: QuestionChoiceWhereInput): BatchPayload!
-  updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
+  updateManyQuestions(data: QuestionUpdateManyMutationInput!, where: QuestionWhereInput): BatchPayload!
+  updateManyOlympiads(data: OlympiadUpdateManyMutationInput!, where: OlympiadWhereInput): BatchPayload!
+  updateManySchools(data: SchoolUpdateManyMutationInput!, where: SchoolWhereInput): BatchPayload!
+  updateManyTests(data: TestUpdateManyMutationInput!, where: TestWhereInput): BatchPayload!
+  updateManyCities(data: CityUpdateManyMutationInput!, where: CityWhereInput): BatchPayload!
+  updateManyQuestionChoices(data: QuestionChoiceUpdateManyMutationInput!, where: QuestionChoiceWhereInput): BatchPayload!
+  updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   deleteManyQuestions(where: QuestionWhereInput): BatchPayload!
   deleteManyOlympiads(where: OlympiadWhereInput): BatchPayload!
   deleteManySchools(where: SchoolWhereInput): BatchPayload!
@@ -2782,8 +2823,9 @@ export type QUESTION_TYPE =
   'MULTIPLE_CHOICE' |
   'OPEN_ENDED'
 
-export interface QuestionChoiceCreateInput {
-  text: String
+export interface TestCreateManyWithoutAuthorInput {
+  create?: TestCreateWithoutAuthorInput[] | TestCreateWithoutAuthorInput
+  connect?: TestWhereUniqueInput[] | TestWhereUniqueInput
 }
 
 export interface QuestionWhereInput {
@@ -2855,15 +2897,10 @@ export interface QuestionWhereInput {
   choices_none?: QuestionChoiceWhereInput
 }
 
-export interface SchoolCreateInput {
-  name: String
-  email: String
-  phone?: String
-  pedagogyCoord?: String
-  director?: String
-  address?: String
-  olympiadCood: UserCreateOneInput
-  city: CityCreateOneInput
+export interface TestCreateInput {
+  title: String
+  description: String
+  author: UserCreateOneWithoutTestsInput
 }
 
 export interface OlympiadWhereInput {
@@ -2927,8 +2964,24 @@ export interface OlympiadWhereInput {
   createdBy?: UserWhereInput
 }
 
-export interface CityUpdateDataInput {
+export interface UserUpdateWithoutTestsDataInput {
+  email?: String
+  password?: String
   name?: String
+}
+
+export interface OlympiadUpdateInput {
+  name?: String
+  isPublished?: Boolean
+  year?: DateTime
+  createdBy?: UserUpdateOneRequiredInput
+}
+
+export interface UserUpdateOneRequiredWithoutTestsInput {
+  create?: UserCreateWithoutTestsInput
+  connect?: UserWhereUniqueInput
+  update?: UserUpdateWithoutTestsDataInput
+  upsert?: UserUpsertWithoutTestsInput
 }
 
 export interface UserCreateOneWithoutTestsInput {
@@ -2936,27 +2989,10 @@ export interface UserCreateOneWithoutTestsInput {
   connect?: UserWhereUniqueInput
 }
 
-export interface CityUpdateOneRequiredInput {
-  create?: CityCreateInput
-  connect?: CityWhereUniqueInput
-  update?: CityUpdateDataInput
-  upsert?: CityUpsertNestedInput
-}
-
-export interface CityCreateOneInput {
-  create?: CityCreateInput
-  connect?: CityWhereUniqueInput
-}
-
-export interface SchoolUpdateInput {
-  name?: String
-  email?: String
-  phone?: String
-  pedagogyCoord?: String
-  director?: String
-  address?: String
-  olympiadCood?: UserUpdateOneRequiredInput
-  city?: CityUpdateOneRequiredInput
+export interface TestUpdateInput {
+  title?: String
+  description?: String
+  author?: UserUpdateOneRequiredWithoutTestsInput
 }
 
 export interface UserSubscriptionWhereInput {
@@ -2970,9 +3006,9 @@ export interface UserSubscriptionWhereInput {
   node?: UserWhereInput
 }
 
-export interface UserUpsertNestedInput {
-  update: UserUpdateDataInput
-  create: UserCreateInput
+export interface CityUpsertNestedInput {
+  update: CityUpdateDataInput
+  create: CityCreateInput
 }
 
 export interface CitySubscriptionWhereInput {
@@ -2986,10 +3022,8 @@ export interface CitySubscriptionWhereInput {
   node?: CityWhereInput
 }
 
-export interface TestUpsertWithWhereUniqueWithoutAuthorInput {
-  where: TestWhereUniqueInput
-  update: TestUpdateWithoutAuthorDataInput
-  create: TestCreateWithoutAuthorInput
+export interface CityUpdateDataInput {
+  name?: String
 }
 
 export interface TestSubscriptionWhereInput {
@@ -3003,9 +3037,11 @@ export interface TestSubscriptionWhereInput {
   node?: TestWhereInput
 }
 
-export interface TestUpdateWithoutAuthorDataInput {
-  title?: String
-  description?: String
+export interface CityUpdateOneRequiredInput {
+  create?: CityCreateInput
+  connect?: CityWhereUniqueInput
+  update?: CityUpdateDataInput
+  upsert?: CityUpsertNestedInput
 }
 
 export interface CityWhereInput {
@@ -3042,9 +3078,15 @@ export interface CityWhereInput {
   name_not_ends_with?: String
 }
 
-export interface TestUpdateWithWhereUniqueWithoutAuthorInput {
-  where: TestWhereUniqueInput
-  data: TestUpdateWithoutAuthorDataInput
+export interface SchoolUpdateInput {
+  name?: String
+  email?: String
+  phone?: String
+  pedagogyCoord?: String
+  director?: String
+  address?: String
+  olympiadCood?: UserUpdateOneRequiredInput
+  city?: CityUpdateOneRequiredInput
 }
 
 export interface OlympiadSubscriptionWhereInput {
@@ -3058,6 +3100,47 @@ export interface OlympiadSubscriptionWhereInput {
   node?: OlympiadWhereInput
 }
 
+export interface UserUpsertNestedInput {
+  update: UserUpdateDataInput
+  create: UserCreateInput
+}
+
+export interface UserUpdateManyMutationInput {
+  email?: String
+  password?: String
+  name?: String
+}
+
+export interface TestUpsertWithWhereUniqueWithoutAuthorInput {
+  where: TestWhereUniqueInput
+  update: TestUpdateWithoutAuthorDataInput
+  create: TestCreateWithoutAuthorInput
+}
+
+export interface QuestionWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface TestUpdateWithoutAuthorDataInput {
+  title?: String
+  description?: String
+}
+
+export interface SchoolWhereUniqueInput {
+  id?: ID_Input
+  email?: String
+}
+
+export interface TestUpdateWithWhereUniqueWithoutAuthorInput {
+  where: TestWhereUniqueInput
+  data: TestUpdateWithoutAuthorDataInput
+}
+
+export interface CityWhereUniqueInput {
+  id?: ID_Input
+  name?: String
+}
+
 export interface TestUpdateManyWithoutAuthorInput {
   create?: TestCreateWithoutAuthorInput[] | TestCreateWithoutAuthorInput
   connect?: TestWhereUniqueInput[] | TestWhereUniqueInput
@@ -3067,91 +3150,9 @@ export interface TestUpdateManyWithoutAuthorInput {
   upsert?: TestUpsertWithWhereUniqueWithoutAuthorInput[] | TestUpsertWithWhereUniqueWithoutAuthorInput
 }
 
-export interface UserUpdateInput {
-  email?: String
-  password?: String
-  name?: String
-  tests?: TestUpdateManyWithoutAuthorInput
-}
-
-export interface UserUpdateDataInput {
-  email?: String
-  password?: String
-  name?: String
-  tests?: TestUpdateManyWithoutAuthorInput
-}
-
-export interface QuestionWhereUniqueInput {
-  id?: ID_Input
-}
-
-export interface UserUpdateOneRequiredInput {
-  create?: UserCreateInput
-  connect?: UserWhereUniqueInput
-  update?: UserUpdateDataInput
-  upsert?: UserUpsertNestedInput
-}
-
-export interface SchoolWhereUniqueInput {
-  id?: ID_Input
-  email?: String
-}
-
-export interface OlympiadUpdateInput {
-  name?: String
-  isPublished?: Boolean
-  year?: DateTime
-  createdBy?: UserUpdateOneRequiredInput
-}
-
-export interface CityWhereUniqueInput {
-  id?: ID_Input
-  name?: String
-}
-
-export interface QuestionChoiceUpsertWithWhereUniqueNestedInput {
-  where: QuestionChoiceWhereUniqueInput
-  update: QuestionChoiceUpdateDataInput
-  create: QuestionChoiceCreateInput
-}
-
 export interface UserWhereUniqueInput {
   id?: ID_Input
   email?: String
-}
-
-export interface QuestionChoiceUpdateDataInput {
-  text?: String
-}
-
-export interface CityUpdateInput {
-  name?: String
-}
-
-export interface QuestionChoiceUpdateWithWhereUniqueNestedInput {
-  where: QuestionChoiceWhereUniqueInput
-  data: QuestionChoiceUpdateDataInput
-}
-
-export interface UserUpdateWithoutTestsDataInput {
-  email?: String
-  password?: String
-  name?: String
-}
-
-export interface QuestionChoiceUpdateManyInput {
-  create?: QuestionChoiceCreateInput[] | QuestionChoiceCreateInput
-  connect?: QuestionChoiceWhereUniqueInput[] | QuestionChoiceWhereUniqueInput
-  disconnect?: QuestionChoiceWhereUniqueInput[] | QuestionChoiceWhereUniqueInput
-  delete?: QuestionChoiceWhereUniqueInput[] | QuestionChoiceWhereUniqueInput
-  update?: QuestionChoiceUpdateWithWhereUniqueNestedInput[] | QuestionChoiceUpdateWithWhereUniqueNestedInput
-  upsert?: QuestionChoiceUpsertWithWhereUniqueNestedInput[] | QuestionChoiceUpsertWithWhereUniqueNestedInput
-}
-
-export interface TestUpdateInput {
-  title?: String
-  description?: String
-  author?: UserUpdateOneRequiredWithoutTestsInput
 }
 
 export interface QuestionCreateInput {
@@ -3162,69 +3163,8 @@ export interface QuestionCreateInput {
   choices?: QuestionChoiceCreateManyInput
 }
 
-export interface TestWhereInput {
-  AND?: TestWhereInput[] | TestWhereInput
-  OR?: TestWhereInput[] | TestWhereInput
-  NOT?: TestWhereInput[] | TestWhereInput
-  id?: ID_Input
-  id_not?: ID_Input
-  id_in?: ID_Input[] | ID_Input
-  id_not_in?: ID_Input[] | ID_Input
-  id_lt?: ID_Input
-  id_lte?: ID_Input
-  id_gt?: ID_Input
-  id_gte?: ID_Input
-  id_contains?: ID_Input
-  id_not_contains?: ID_Input
-  id_starts_with?: ID_Input
-  id_not_starts_with?: ID_Input
-  id_ends_with?: ID_Input
-  id_not_ends_with?: ID_Input
-  createdAt?: DateTime
-  createdAt_not?: DateTime
-  createdAt_in?: DateTime[] | DateTime
-  createdAt_not_in?: DateTime[] | DateTime
-  createdAt_lt?: DateTime
-  createdAt_lte?: DateTime
-  createdAt_gt?: DateTime
-  createdAt_gte?: DateTime
-  updatedAt?: DateTime
-  updatedAt_not?: DateTime
-  updatedAt_in?: DateTime[] | DateTime
-  updatedAt_not_in?: DateTime[] | DateTime
-  updatedAt_lt?: DateTime
-  updatedAt_lte?: DateTime
-  updatedAt_gt?: DateTime
-  updatedAt_gte?: DateTime
-  title?: String
-  title_not?: String
-  title_in?: String[] | String
-  title_not_in?: String[] | String
-  title_lt?: String
-  title_lte?: String
-  title_gt?: String
-  title_gte?: String
-  title_contains?: String
-  title_not_contains?: String
-  title_starts_with?: String
-  title_not_starts_with?: String
-  title_ends_with?: String
-  title_not_ends_with?: String
-  description?: String
-  description_not?: String
-  description_in?: String[] | String
-  description_not_in?: String[] | String
-  description_lt?: String
-  description_lte?: String
-  description_gt?: String
-  description_gte?: String
-  description_contains?: String
-  description_not_contains?: String
-  description_starts_with?: String
-  description_not_starts_with?: String
-  description_ends_with?: String
-  description_not_ends_with?: String
-  author?: UserWhereInput
+export interface CityUpdateManyMutationInput {
+  name?: String
 }
 
 export interface QuestionChoiceCreateManyInput {
@@ -3232,57 +3172,24 @@ export interface QuestionChoiceCreateManyInput {
   connect?: QuestionChoiceWhereUniqueInput[] | QuestionChoiceWhereUniqueInput
 }
 
-export interface SchoolSubscriptionWhereInput {
-  AND?: SchoolSubscriptionWhereInput[] | SchoolSubscriptionWhereInput
-  OR?: SchoolSubscriptionWhereInput[] | SchoolSubscriptionWhereInput
-  NOT?: SchoolSubscriptionWhereInput[] | SchoolSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: SchoolWhereInput
+export interface SchoolUpdateManyMutationInput {
+  name?: String
+  email?: String
+  phone?: String
+  pedagogyCoord?: String
+  director?: String
+  address?: String
 }
 
-export interface QuestionUpdateInput {
+export interface QuestionChoiceCreateInput {
+  text: String
+}
+
+export interface QuestionUpdateManyMutationInput {
   type?: QUESTION_TYPE
   wording?: String
   imageUrl?: String
   secondaryWording?: String
-  choices?: QuestionChoiceUpdateManyInput
-}
-
-export interface QuestionChoiceWhereInput {
-  AND?: QuestionChoiceWhereInput[] | QuestionChoiceWhereInput
-  OR?: QuestionChoiceWhereInput[] | QuestionChoiceWhereInput
-  NOT?: QuestionChoiceWhereInput[] | QuestionChoiceWhereInput
-  id?: ID_Input
-  id_not?: ID_Input
-  id_in?: ID_Input[] | ID_Input
-  id_not_in?: ID_Input[] | ID_Input
-  id_lt?: ID_Input
-  id_lte?: ID_Input
-  id_gt?: ID_Input
-  id_gte?: ID_Input
-  id_contains?: ID_Input
-  id_not_contains?: ID_Input
-  id_starts_with?: ID_Input
-  id_not_starts_with?: ID_Input
-  id_ends_with?: ID_Input
-  id_not_ends_with?: ID_Input
-  text?: String
-  text_not?: String
-  text_in?: String[] | String
-  text_not_in?: String[] | String
-  text_lt?: String
-  text_lte?: String
-  text_gt?: String
-  text_gte?: String
-  text_contains?: String
-  text_not_contains?: String
-  text_starts_with?: String
-  text_not_starts_with?: String
-  text_ends_with?: String
-  text_not_ends_with?: String
 }
 
 export interface OlympiadCreateInput {
@@ -3292,8 +3199,8 @@ export interface OlympiadCreateInput {
   createdBy: UserCreateOneInput
 }
 
-export interface TestWhereUniqueInput {
-  id?: ID_Input
+export interface QuestionChoiceUpdateInput {
+  text?: String
 }
 
 export interface UserCreateOneInput {
@@ -3301,8 +3208,9 @@ export interface UserCreateOneInput {
   connect?: UserWhereUniqueInput
 }
 
-export interface QuestionChoiceUpdateInput {
-  text?: String
+export interface UserUpsertWithoutTestsInput {
+  update: UserUpdateWithoutTestsDataInput
+  create: UserCreateWithoutTestsInput
 }
 
 export interface UserCreateInput {
@@ -3310,18 +3218,6 @@ export interface UserCreateInput {
   password: String
   name: String
   tests?: TestCreateManyWithoutAuthorInput
-}
-
-export interface UserUpdateOneRequiredWithoutTestsInput {
-  create?: UserCreateWithoutTestsInput
-  connect?: UserWhereUniqueInput
-  update?: UserUpdateWithoutTestsDataInput
-  upsert?: UserUpsertWithoutTestsInput
-}
-
-export interface TestCreateManyWithoutAuthorInput {
-  create?: TestCreateWithoutAuthorInput[] | TestCreateWithoutAuthorInput
-  connect?: TestWhereUniqueInput[] | TestWhereUniqueInput
 }
 
 export interface QuestionChoiceSubscriptionWhereInput {
@@ -3335,105 +3231,11 @@ export interface QuestionChoiceSubscriptionWhereInput {
   node?: QuestionChoiceWhereInput
 }
 
-export interface TestCreateWithoutAuthorInput {
-  title: String
-  description: String
-}
-
-export interface QuestionSubscriptionWhereInput {
-  AND?: QuestionSubscriptionWhereInput[] | QuestionSubscriptionWhereInput
-  OR?: QuestionSubscriptionWhereInput[] | QuestionSubscriptionWhereInput
-  NOT?: QuestionSubscriptionWhereInput[] | QuestionSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: QuestionWhereInput
-}
-
-export interface TestCreateInput {
-  title: String
-  description: String
-  author: UserCreateOneWithoutTestsInput
-}
-
-export interface CityCreateInput {
-  name: String
-}
-
-export interface UserWhereInput {
-  AND?: UserWhereInput[] | UserWhereInput
-  OR?: UserWhereInput[] | UserWhereInput
-  NOT?: UserWhereInput[] | UserWhereInput
-  id?: ID_Input
-  id_not?: ID_Input
-  id_in?: ID_Input[] | ID_Input
-  id_not_in?: ID_Input[] | ID_Input
-  id_lt?: ID_Input
-  id_lte?: ID_Input
-  id_gt?: ID_Input
-  id_gte?: ID_Input
-  id_contains?: ID_Input
-  id_not_contains?: ID_Input
-  id_starts_with?: ID_Input
-  id_not_starts_with?: ID_Input
-  id_ends_with?: ID_Input
-  id_not_ends_with?: ID_Input
+export interface UserUpdateDataInput {
   email?: String
-  email_not?: String
-  email_in?: String[] | String
-  email_not_in?: String[] | String
-  email_lt?: String
-  email_lte?: String
-  email_gt?: String
-  email_gte?: String
-  email_contains?: String
-  email_not_contains?: String
-  email_starts_with?: String
-  email_not_starts_with?: String
-  email_ends_with?: String
-  email_not_ends_with?: String
   password?: String
-  password_not?: String
-  password_in?: String[] | String
-  password_not_in?: String[] | String
-  password_lt?: String
-  password_lte?: String
-  password_gt?: String
-  password_gte?: String
-  password_contains?: String
-  password_not_contains?: String
-  password_starts_with?: String
-  password_not_starts_with?: String
-  password_ends_with?: String
-  password_not_ends_with?: String
   name?: String
-  name_not?: String
-  name_in?: String[] | String
-  name_not_in?: String[] | String
-  name_lt?: String
-  name_lte?: String
-  name_gt?: String
-  name_gte?: String
-  name_contains?: String
-  name_not_contains?: String
-  name_starts_with?: String
-  name_not_starts_with?: String
-  name_ends_with?: String
-  name_not_ends_with?: String
-  tests_every?: TestWhereInput
-  tests_some?: TestWhereInput
-  tests_none?: TestWhereInput
-}
-
-export interface UserCreateWithoutTestsInput {
-  email: String
-  password: String
-  name: String
-}
-
-export interface OlympiadWhereUniqueInput {
-  id?: ID_Input
+  tests?: TestUpdateManyWithoutAuthorInput
 }
 
 export interface SchoolWhereInput {
@@ -3542,18 +3344,298 @@ export interface SchoolWhereInput {
   city?: CityWhereInput
 }
 
-export interface CityUpsertNestedInput {
-  update: CityUpdateDataInput
-  create: CityCreateInput
+export interface TestCreateWithoutAuthorInput {
+  title: String
+  description: String
 }
 
-export interface UserUpsertWithoutTestsInput {
-  update: UserUpdateWithoutTestsDataInput
-  create: UserCreateWithoutTestsInput
+export interface QuestionSubscriptionWhereInput {
+  AND?: QuestionSubscriptionWhereInput[] | QuestionSubscriptionWhereInput
+  OR?: QuestionSubscriptionWhereInput[] | QuestionSubscriptionWhereInput
+  NOT?: QuestionSubscriptionWhereInput[] | QuestionSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: QuestionWhereInput
+}
+
+export interface SchoolCreateInput {
+  name: String
+  email: String
+  phone?: String
+  pedagogyCoord?: String
+  director?: String
+  address?: String
+  olympiadCood: UserCreateOneInput
+  city: CityCreateOneInput
+}
+
+export interface OlympiadWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface CityCreateOneInput {
+  create?: CityCreateInput
+  connect?: CityWhereUniqueInput
 }
 
 export interface QuestionChoiceWhereUniqueInput {
   id?: ID_Input
+}
+
+export interface CityCreateInput {
+  name: String
+}
+
+export interface TestUpdateManyMutationInput {
+  title?: String
+  description?: String
+}
+
+export interface UserUpdateOneRequiredInput {
+  create?: UserCreateInput
+  connect?: UserWhereUniqueInput
+  update?: UserUpdateDataInput
+  upsert?: UserUpsertNestedInput
+}
+
+export interface UserUpdateInput {
+  email?: String
+  password?: String
+  name?: String
+  tests?: TestUpdateManyWithoutAuthorInput
+}
+
+export interface UserWhereInput {
+  AND?: UserWhereInput[] | UserWhereInput
+  OR?: UserWhereInput[] | UserWhereInput
+  NOT?: UserWhereInput[] | UserWhereInput
+  id?: ID_Input
+  id_not?: ID_Input
+  id_in?: ID_Input[] | ID_Input
+  id_not_in?: ID_Input[] | ID_Input
+  id_lt?: ID_Input
+  id_lte?: ID_Input
+  id_gt?: ID_Input
+  id_gte?: ID_Input
+  id_contains?: ID_Input
+  id_not_contains?: ID_Input
+  id_starts_with?: ID_Input
+  id_not_starts_with?: ID_Input
+  id_ends_with?: ID_Input
+  id_not_ends_with?: ID_Input
+  email?: String
+  email_not?: String
+  email_in?: String[] | String
+  email_not_in?: String[] | String
+  email_lt?: String
+  email_lte?: String
+  email_gt?: String
+  email_gte?: String
+  email_contains?: String
+  email_not_contains?: String
+  email_starts_with?: String
+  email_not_starts_with?: String
+  email_ends_with?: String
+  email_not_ends_with?: String
+  password?: String
+  password_not?: String
+  password_in?: String[] | String
+  password_not_in?: String[] | String
+  password_lt?: String
+  password_lte?: String
+  password_gt?: String
+  password_gte?: String
+  password_contains?: String
+  password_not_contains?: String
+  password_starts_with?: String
+  password_not_starts_with?: String
+  password_ends_with?: String
+  password_not_ends_with?: String
+  name?: String
+  name_not?: String
+  name_in?: String[] | String
+  name_not_in?: String[] | String
+  name_lt?: String
+  name_lte?: String
+  name_gt?: String
+  name_gte?: String
+  name_contains?: String
+  name_not_contains?: String
+  name_starts_with?: String
+  name_not_starts_with?: String
+  name_ends_with?: String
+  name_not_ends_with?: String
+  tests_every?: TestWhereInput
+  tests_some?: TestWhereInput
+  tests_none?: TestWhereInput
+}
+
+export interface TestWhereInput {
+  AND?: TestWhereInput[] | TestWhereInput
+  OR?: TestWhereInput[] | TestWhereInput
+  NOT?: TestWhereInput[] | TestWhereInput
+  id?: ID_Input
+  id_not?: ID_Input
+  id_in?: ID_Input[] | ID_Input
+  id_not_in?: ID_Input[] | ID_Input
+  id_lt?: ID_Input
+  id_lte?: ID_Input
+  id_gt?: ID_Input
+  id_gte?: ID_Input
+  id_contains?: ID_Input
+  id_not_contains?: ID_Input
+  id_starts_with?: ID_Input
+  id_not_starts_with?: ID_Input
+  id_ends_with?: ID_Input
+  id_not_ends_with?: ID_Input
+  createdAt?: DateTime
+  createdAt_not?: DateTime
+  createdAt_in?: DateTime[] | DateTime
+  createdAt_not_in?: DateTime[] | DateTime
+  createdAt_lt?: DateTime
+  createdAt_lte?: DateTime
+  createdAt_gt?: DateTime
+  createdAt_gte?: DateTime
+  updatedAt?: DateTime
+  updatedAt_not?: DateTime
+  updatedAt_in?: DateTime[] | DateTime
+  updatedAt_not_in?: DateTime[] | DateTime
+  updatedAt_lt?: DateTime
+  updatedAt_lte?: DateTime
+  updatedAt_gt?: DateTime
+  updatedAt_gte?: DateTime
+  title?: String
+  title_not?: String
+  title_in?: String[] | String
+  title_not_in?: String[] | String
+  title_lt?: String
+  title_lte?: String
+  title_gt?: String
+  title_gte?: String
+  title_contains?: String
+  title_not_contains?: String
+  title_starts_with?: String
+  title_not_starts_with?: String
+  title_ends_with?: String
+  title_not_ends_with?: String
+  description?: String
+  description_not?: String
+  description_in?: String[] | String
+  description_not_in?: String[] | String
+  description_lt?: String
+  description_lte?: String
+  description_gt?: String
+  description_gte?: String
+  description_contains?: String
+  description_not_contains?: String
+  description_starts_with?: String
+  description_not_starts_with?: String
+  description_ends_with?: String
+  description_not_ends_with?: String
+  author?: UserWhereInput
+}
+
+export interface UserCreateWithoutTestsInput {
+  email: String
+  password: String
+  name: String
+}
+
+export interface SchoolSubscriptionWhereInput {
+  AND?: SchoolSubscriptionWhereInput[] | SchoolSubscriptionWhereInput
+  OR?: SchoolSubscriptionWhereInput[] | SchoolSubscriptionWhereInput
+  NOT?: SchoolSubscriptionWhereInput[] | SchoolSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: SchoolWhereInput
+}
+
+export interface QuestionUpdateInput {
+  type?: QUESTION_TYPE
+  wording?: String
+  imageUrl?: String
+  secondaryWording?: String
+  choices?: QuestionChoiceUpdateManyInput
+}
+
+export interface TestWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface OlympiadUpdateManyMutationInput {
+  name?: String
+  isPublished?: Boolean
+  year?: DateTime
+}
+
+export interface QuestionChoiceUpsertWithWhereUniqueNestedInput {
+  where: QuestionChoiceWhereUniqueInput
+  update: QuestionChoiceUpdateDataInput
+  create: QuestionChoiceCreateInput
+}
+
+export interface QuestionChoiceUpdateDataInput {
+  text?: String
+}
+
+export interface QuestionChoiceUpdateWithWhereUniqueNestedInput {
+  where: QuestionChoiceWhereUniqueInput
+  data: QuestionChoiceUpdateDataInput
+}
+
+export interface QuestionChoiceUpdateManyInput {
+  create?: QuestionChoiceCreateInput[] | QuestionChoiceCreateInput
+  connect?: QuestionChoiceWhereUniqueInput[] | QuestionChoiceWhereUniqueInput
+  disconnect?: QuestionChoiceWhereUniqueInput[] | QuestionChoiceWhereUniqueInput
+  delete?: QuestionChoiceWhereUniqueInput[] | QuestionChoiceWhereUniqueInput
+  update?: QuestionChoiceUpdateWithWhereUniqueNestedInput[] | QuestionChoiceUpdateWithWhereUniqueNestedInput
+  upsert?: QuestionChoiceUpsertWithWhereUniqueNestedInput[] | QuestionChoiceUpsertWithWhereUniqueNestedInput
+}
+
+export interface CityUpdateInput {
+  name?: String
+}
+
+export interface QuestionChoiceUpdateManyMutationInput {
+  text?: String
+}
+
+export interface QuestionChoiceWhereInput {
+  AND?: QuestionChoiceWhereInput[] | QuestionChoiceWhereInput
+  OR?: QuestionChoiceWhereInput[] | QuestionChoiceWhereInput
+  NOT?: QuestionChoiceWhereInput[] | QuestionChoiceWhereInput
+  id?: ID_Input
+  id_not?: ID_Input
+  id_in?: ID_Input[] | ID_Input
+  id_not_in?: ID_Input[] | ID_Input
+  id_lt?: ID_Input
+  id_lte?: ID_Input
+  id_gt?: ID_Input
+  id_gte?: ID_Input
+  id_contains?: ID_Input
+  id_not_contains?: ID_Input
+  id_starts_with?: ID_Input
+  id_not_starts_with?: ID_Input
+  id_ends_with?: ID_Input
+  id_not_ends_with?: ID_Input
+  text?: String
+  text_not?: String
+  text_in?: String[] | String
+  text_not_in?: String[] | String
+  text_lt?: String
+  text_lte?: String
+  text_gt?: String
+  text_gte?: String
+  text_contains?: String
+  text_not_contains?: String
+  text_starts_with?: String
+  text_not_starts_with?: String
+  text_ends_with?: String
+  text_not_ends_with?: String
 }
 
 /*
@@ -3571,28 +3653,43 @@ export interface UserPreviousValues {
   name: String
 }
 
+export interface AggregateQuestion {
+  count: Int
+}
+
+export interface Olympiad extends Node {
+  id: ID_Output
+  name: String
+  isPublished?: Boolean
+  year: DateTime
+  createdBy: User
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
 /*
- * A connection to a list of items.
+ * An edge in a connection.
 
  */
-export interface QuestionConnection {
-  pageInfo: PageInfo
-  edges: QuestionEdge[]
-  aggregate: AggregateQuestion
+export interface QuestionEdge {
+  node: Question
+  cursor: String
 }
 
-export interface QuestionChoiceSubscriptionPayload {
-  mutation: MutationType
-  node?: QuestionChoice
-  updatedFields?: String[]
-  previousValues?: QuestionChoicePreviousValues
+/*
+ * Information about pagination in a connection.
+
+ */
+export interface PageInfo {
+  hasNextPage: Boolean
+  hasPreviousPage: Boolean
+  startCursor?: String
+  endCursor?: String
 }
 
-export interface UserSubscriptionPayload {
-  mutation: MutationType
-  node?: User
-  updatedFields?: String[]
-  previousValues?: UserPreviousValues
+export interface QuestionChoice extends Node {
+  id: ID_Output
+  text: String
 }
 
 /*
@@ -3604,15 +3701,21 @@ export interface UserEdge {
   cursor: String
 }
 
-export interface BatchPayload {
-  count: Long
+/*
+ * A connection to a list of items.
+
+ */
+export interface QuestionConnection {
+  pageInfo: PageInfo
+  edges: QuestionEdge[]
+  aggregate: AggregateQuestion
 }
 
 export interface AggregateQuestionChoice {
   count: Int
 }
 
-export interface QuestionChoice extends Node {
+export interface QuestionChoicePreviousValues {
   id: ID_Output
   text: String
 }
@@ -3641,9 +3744,11 @@ export interface CityEdge {
   cursor: String
 }
 
-export interface QuestionChoicePreviousValues {
-  id: ID_Output
-  text: String
+export interface QuestionChoiceSubscriptionPayload {
+  mutation: MutationType
+  node?: QuestionChoice
+  updatedFields?: String[]
+  previousValues?: QuestionChoicePreviousValues
 }
 
 export interface AggregateTest {
@@ -3707,14 +3812,8 @@ export interface OlympiadSubscriptionPayload {
   previousValues?: OlympiadPreviousValues
 }
 
-/*
- * A connection to a list of items.
-
- */
-export interface OlympiadConnection {
-  pageInfo: PageInfo
-  edges: OlympiadEdge[]
-  aggregate: AggregateOlympiad
+export interface BatchPayload {
+  count: Long
 }
 
 export interface OlympiadPreviousValues {
@@ -3727,12 +3826,13 @@ export interface OlympiadPreviousValues {
 }
 
 /*
- * An edge in a connection.
+ * A connection to a list of items.
 
  */
-export interface QuestionEdge {
-  node: Question
-  cursor: String
+export interface OlympiadConnection {
+  pageInfo: PageInfo
+  edges: OlympiadEdge[]
+  aggregate: AggregateOlympiad
 }
 
 export interface Question extends Node {
@@ -3744,8 +3844,14 @@ export interface Question extends Node {
   choices?: QuestionChoice[]
 }
 
-export interface AggregateUser {
-  count: Int
+/*
+ * A connection to a list of items.
+
+ */
+export interface UserConnection {
+  pageInfo: PageInfo
+  edges: UserEdge[]
+  aggregate: AggregateUser
 }
 
 export interface SchoolSubscriptionPayload {
@@ -3755,13 +3861,8 @@ export interface SchoolSubscriptionPayload {
   previousValues?: SchoolPreviousValues
 }
 
-/*
- * An edge in a connection.
-
- */
-export interface QuestionChoiceEdge {
-  node: QuestionChoice
-  cursor: String
+export interface AggregateCity {
+  count: Int
 }
 
 export interface SchoolPreviousValues {
@@ -3775,13 +3876,12 @@ export interface SchoolPreviousValues {
 }
 
 /*
- * A connection to a list of items.
+ * An edge in a connection.
 
  */
-export interface CityConnection {
-  pageInfo: PageInfo
-  edges: CityEdge[]
-  aggregate: AggregateCity
+export interface TestEdge {
+  node: Test
+  cursor: String
 }
 
 export interface Test extends Node {
@@ -3793,8 +3893,14 @@ export interface Test extends Node {
   author: User
 }
 
-export interface AggregateSchool {
-  count: Int
+/*
+ * A connection to a list of items.
+
+ */
+export interface SchoolConnection {
+  pageInfo: PageInfo
+  edges: SchoolEdge[]
+  aggregate: AggregateSchool
 }
 
 export interface TestSubscriptionPayload {
@@ -3804,42 +3910,20 @@ export interface TestSubscriptionPayload {
   previousValues?: TestPreviousValues
 }
 
+export interface UserSubscriptionPayload {
+  mutation: MutationType
+  node?: User
+  updatedFields?: String[]
+  previousValues?: UserPreviousValues
+}
+
 /*
  * An edge in a connection.
 
  */
-export interface OlympiadEdge {
-  node: Olympiad
+export interface QuestionChoiceEdge {
+  node: QuestionChoice
   cursor: String
-}
-
-export interface TestPreviousValues {
-  id: ID_Output
-  createdAt: DateTime
-  updatedAt: DateTime
-  title: String
-  description: String
-}
-
-/*
- * Information about pagination in a connection.
-
- */
-export interface PageInfo {
-  hasNextPage: Boolean
-  hasPreviousPage: Boolean
-  startCursor?: String
-  endCursor?: String
-}
-
-export interface Olympiad extends Node {
-  id: ID_Output
-  name: String
-  isPublished?: Boolean
-  year: DateTime
-  createdBy: User
-  createdAt: DateTime
-  updatedAt: DateTime
 }
 
 export interface CityPreviousValues {
@@ -3862,47 +3946,40 @@ export interface User extends Node {
   tests?: Test[]
 }
 
+export interface TestPreviousValues {
+  id: ID_Output
+  createdAt: DateTime
+  updatedAt: DateTime
+  title: String
+  description: String
+}
+
 /*
  * A connection to a list of items.
 
  */
-export interface UserConnection {
+export interface CityConnection {
   pageInfo: PageInfo
-  edges: UserEdge[]
-  aggregate: AggregateUser
+  edges: CityEdge[]
+  aggregate: AggregateCity
 }
 
-export interface AggregateQuestion {
+export interface AggregateUser {
   count: Int
-}
-
-/*
- * A connection to a list of items.
-
- */
-export interface SchoolConnection {
-  pageInfo: PageInfo
-  edges: SchoolEdge[]
-  aggregate: AggregateSchool
 }
 
 /*
  * An edge in a connection.
 
  */
-export interface TestEdge {
-  node: Test
+export interface OlympiadEdge {
+  node: Olympiad
   cursor: String
 }
 
-export interface AggregateCity {
+export interface AggregateSchool {
   count: Int
 }
-
-/*
-The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. 
-*/
-export type Int = number
 
 export type DateTime = string
 
@@ -3912,16 +3989,21 @@ The `Boolean` scalar type represents `true` or `false`.
 export type Boolean = boolean
 
 /*
+The 'Long' scalar type represents non-fractional signed whole numeric values.
+Long can represent values between -(2^63) and 2^63 - 1.
+*/
+export type Long = string
+
+/*
 The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
 */
 export type ID_Input = string | number
 export type ID_Output = string
 
 /*
-The 'Long' scalar type represents non-fractional signed whole numeric values.
-Long can represent values between -(2^63) and 2^63 - 1.
+The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. 
 */
-export type Long = string
+export type Int = number
 
 /*
 The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
@@ -3988,13 +4070,13 @@ export type Mutation = {
   upsertCity: (args: { where: CityWhereUniqueInput, create: CityCreateInput, update: CityUpdateInput }, info?: GraphQLResolveInfo | string) => Promise<City>
   upsertQuestionChoice: (args: { where: QuestionChoiceWhereUniqueInput, create: QuestionChoiceCreateInput, update: QuestionChoiceUpdateInput }, info?: GraphQLResolveInfo | string) => Promise<QuestionChoice>
   upsertUser: (args: { where: UserWhereUniqueInput, create: UserCreateInput, update: UserUpdateInput }, info?: GraphQLResolveInfo | string) => Promise<User>
-  updateManyQuestions: (args: { data: QuestionUpdateInput, where?: QuestionWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
-  updateManyOlympiads: (args: { data: OlympiadUpdateInput, where?: OlympiadWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
-  updateManySchools: (args: { data: SchoolUpdateInput, where?: SchoolWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
-  updateManyTests: (args: { data: TestUpdateInput, where?: TestWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
-  updateManyCities: (args: { data: CityUpdateInput, where?: CityWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
-  updateManyQuestionChoices: (args: { data: QuestionChoiceUpdateInput, where?: QuestionChoiceWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
-  updateManyUsers: (args: { data: UserUpdateInput, where?: UserWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
+  updateManyQuestions: (args: { data: QuestionUpdateManyMutationInput, where?: QuestionWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
+  updateManyOlympiads: (args: { data: OlympiadUpdateManyMutationInput, where?: OlympiadWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
+  updateManySchools: (args: { data: SchoolUpdateManyMutationInput, where?: SchoolWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
+  updateManyTests: (args: { data: TestUpdateManyMutationInput, where?: TestWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
+  updateManyCities: (args: { data: CityUpdateManyMutationInput, where?: CityWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
+  updateManyQuestionChoices: (args: { data: QuestionChoiceUpdateManyMutationInput, where?: QuestionChoiceWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
+  updateManyUsers: (args: { data: UserUpdateManyMutationInput, where?: UserWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
   deleteManyQuestions: (args: { where?: QuestionWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
   deleteManyOlympiads: (args: { where?: OlympiadWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>
   deleteManySchools: (args: { where?: SchoolWhereInput }, info?: GraphQLResolveInfo | string) => Promise<BatchPayload>

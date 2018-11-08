@@ -1,5 +1,5 @@
 # source: http://localhost:4466/olimat-backend/dev
-# timestamp: Wed Oct 31 2018 22:42:12 GMT-0400 (Amazon Standard Time)
+# timestamp: Thu Nov 08 2018 14:53:47 GMT-0300 (Amazon Summer Time)
 
 type AggregateCity {
   count: Int!
@@ -127,6 +127,10 @@ input CityUpdateDataInput {
 }
 
 input CityUpdateInput {
+  name: String
+}
+
+input CityUpdateManyMutationInput {
   name: String
 }
 
@@ -275,13 +279,13 @@ type Mutation {
   upsertCity(where: CityWhereUniqueInput!, create: CityCreateInput!, update: CityUpdateInput!): City!
   upsertQuestionChoice(where: QuestionChoiceWhereUniqueInput!, create: QuestionChoiceCreateInput!, update: QuestionChoiceUpdateInput!): QuestionChoice!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
-  updateManyQuestions(data: QuestionUpdateInput!, where: QuestionWhereInput): BatchPayload!
-  updateManyOlympiads(data: OlympiadUpdateInput!, where: OlympiadWhereInput): BatchPayload!
-  updateManySchools(data: SchoolUpdateInput!, where: SchoolWhereInput): BatchPayload!
-  updateManyTests(data: TestUpdateInput!, where: TestWhereInput): BatchPayload!
-  updateManyCities(data: CityUpdateInput!, where: CityWhereInput): BatchPayload!
-  updateManyQuestionChoices(data: QuestionChoiceUpdateInput!, where: QuestionChoiceWhereInput): BatchPayload!
-  updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
+  updateManyQuestions(data: QuestionUpdateManyMutationInput!, where: QuestionWhereInput): BatchPayload!
+  updateManyOlympiads(data: OlympiadUpdateManyMutationInput!, where: OlympiadWhereInput): BatchPayload!
+  updateManySchools(data: SchoolUpdateManyMutationInput!, where: SchoolWhereInput): BatchPayload!
+  updateManyTests(data: TestUpdateManyMutationInput!, where: TestWhereInput): BatchPayload!
+  updateManyCities(data: CityUpdateManyMutationInput!, where: CityWhereInput): BatchPayload!
+  updateManyQuestionChoices(data: QuestionChoiceUpdateManyMutationInput!, where: QuestionChoiceWhereInput): BatchPayload!
+  updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   deleteManyQuestions(where: QuestionWhereInput): BatchPayload!
   deleteManyOlympiads(where: OlympiadWhereInput): BatchPayload!
   deleteManySchools(where: SchoolWhereInput): BatchPayload!
@@ -407,6 +411,12 @@ input OlympiadUpdateInput {
   isPublished: Boolean
   year: DateTime
   createdBy: UserUpdateOneRequiredInput
+}
+
+input OlympiadUpdateManyMutationInput {
+  name: String
+  isPublished: Boolean
+  year: DateTime
 }
 
 input OlympiadWhereInput {
@@ -739,6 +749,10 @@ input QuestionChoiceUpdateManyInput {
   upsert: [QuestionChoiceUpsertWithWhereUniqueNestedInput!]
 }
 
+input QuestionChoiceUpdateManyMutationInput {
+  text: String
+}
+
 input QuestionChoiceUpdateWithWhereUniqueNestedInput {
   where: QuestionChoiceWhereUniqueInput!
   data: QuestionChoiceUpdateDataInput!
@@ -942,6 +956,13 @@ input QuestionUpdateInput {
   imageUrl: String
   secondaryWording: String
   choices: QuestionChoiceUpdateManyInput
+}
+
+input QuestionUpdateManyMutationInput {
+  type: QUESTION_TYPE
+  wording: String
+  imageUrl: String
+  secondaryWording: String
 }
 
 input QuestionWhereInput {
@@ -1253,6 +1274,15 @@ input SchoolUpdateInput {
   address: String
   olympiadCood: UserUpdateOneRequiredInput
   city: CityUpdateOneRequiredInput
+}
+
+input SchoolUpdateManyMutationInput {
+  name: String
+  email: String
+  phone: String
+  pedagogyCoord: String
+  director: String
+  address: String
 }
 
 input SchoolWhereInput {
@@ -1673,6 +1703,11 @@ input TestUpdateInput {
   author: UserUpdateOneRequiredWithoutTestsInput
 }
 
+input TestUpdateManyMutationInput {
+  title: String
+  description: String
+}
+
 input TestUpdateManyWithoutAuthorInput {
   create: [TestCreateWithoutAuthorInput!]
   connect: [TestWhereUniqueInput!]
@@ -2001,6 +2036,12 @@ input UserUpdateInput {
   password: String
   name: String
   tests: TestUpdateManyWithoutAuthorInput
+}
+
+input UserUpdateManyMutationInput {
+  email: String
+  password: String
+  name: String
 }
 
 input UserUpdateOneRequiredInput {
