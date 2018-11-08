@@ -156,7 +156,6 @@ mutation {
     data: {
       type: MULTIPLE_CHOICE
       wording: "Em 13 caixas foram embalados 74 lápis. Se a capacidade máxima de cada caixa é de 6 lápis, qual é o número mínimo de lápis que pode haver em uma caixa?"
-      imageUrl: "http://placehold.it/380x240"
       choices: { create: [
         { text: "1" }
         { text: "* 2" }
@@ -172,7 +171,6 @@ mutation {
     data: {
       type: OPEN_ENDED
       wording: "Joana tem R$4,80 em moedas de 50, 25 e 10 centavos. Quatro dessas moedas são de 50 centavos e seis são de 25 centavos. Quantas moedas de 10 centavos Joana possui?"
-      imageUrl: "http://placehold.it/380x240"
     }
   ) {
     id
@@ -181,7 +179,7 @@ mutation {
     data: {
       type: OPEN_ENDED
       wording: "Parte de um muro, conforme figura, será construída com tijolos de cores diferentes (amarela, azul e vermelha) de maneira que tijolos que se tocam não podem ter a mesma cor."
-      imageUrl: "http://placehold.it/380x240"
+      imageUrl: "http://localhost:4000/files/img/2018_fase2_6_7_ano_ex7.png"
       secondaryWording: "Cada tijolo amarelo custa R$ 6,00, cada tijolo azul custa R$ 7,00 e cada tijolo vermelho custa R$ 8,00. Qual o menor valor que se gastará na compra dos tijolos para construir essa parte do muro?"
     }
   ) {
@@ -191,7 +189,6 @@ mutation {
     data: {
       type: MULTIPLE_CHOICE
       wording: "Esse ano Clara completará 10 anos de idade e está muito ansiosa para essa data. Hoje ela perguntou à sua mãe quanto tempo falta para seu aniversário, e sua mãe, para fazê-la pensar um pouco, respondeu: dois meses de 31 dias, um mês de 30 dias mais 16 dias. Faltam para o aniversário de Clara exatamente:"
-      imageUrl: "http://placehold.it/380x240"
       choices: { create: [
         { text: "98 dias que é equivalente a 14 semanas." }
         { text: "* 108 dias, equivalente a 15 semanas e 3 dias." }
@@ -207,7 +204,7 @@ mutation {
     data: {
       type: MULTIPLE_CHOICE
       wording: "Uma cartolina foi cortada na forma retangular de dimensões 4 e 7 decímetros. Fernanda queria construir uma caixa e retirou de cada canto um quadrado de lado l, conforme mostrado na figura abaixo."
-      imageUrl: "http://placehold.it/380x240"
+      imageUrl: "http://localhost:4000/files/img/2018_fase2_ensino_medio_ex2.jpeg"
       secondaryWording: "Dessa forma, qual a expressão que melhor representa o volume máximo dessa caixa?"
       choices: { create: [
         { text: "4l² − 22l + 28" }
@@ -224,7 +221,7 @@ mutation {
     data: {
       type: MULTIPLE_CHOICE
       wording: "O gráfico da figura abaixo mostra o preço médio mensal do botijão de gás de cozinha vendido no Brasil durante o ano de 2017. Considerando essas informações, qual a taxa de variação média do preço do gás no Brasil, durante os cinco últimos meses do ano."
-      imageUrl: "http://placehold.it/380x240"
+      imageUrl: "http://localhost:4000/files/img/2018_fase2_ensino_medio_ex4.jpeg"
       choices: { create: [
         { text: "R$ 0,63 por mês" }
         { text: "R$ 1,45 por mês" }
@@ -240,7 +237,6 @@ mutation {
     data: {
       type: OPEN_ENDED
       wording: "Durante o período da Copa do Mundo de Futebol na Rússia, certo tipo de refrigerante em lata estava sendo vendido em um supermercado da seguinte maneira: uma lata de 350 ml custava R$ 2,80 enquanto que uma lata de 220 ml custava R$ 2,20 . Tomando por base o preço do mililitro do refrigerante, calcule quantos por cento a lata menor é mais cara do que a lata maior."
-      imageUrl: "http://placehold.it/380x240"
     }
   ) {
     id
