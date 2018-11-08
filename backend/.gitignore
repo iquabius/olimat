@@ -5,3 +5,6 @@ node_modules
 .vscode
 *.log
 .env*
+
+# Uploaded files
+files/

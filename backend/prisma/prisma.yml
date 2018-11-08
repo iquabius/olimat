@@ -16,6 +16,9 @@ seed:
 # more than one instance of "graphql" in the node_modules
 hooks:
   post-deploy:
+    - npm run clean:files
+    - npm run copy:files
+    - tree ./files
     - graphql get-schema -p prisma
     - graphql prepare
     - prisma generate

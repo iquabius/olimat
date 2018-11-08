@@ -11,7 +11,9 @@
     "dev": "npm-run-all --parallel start playground",
     "lint": "tslint 'src/**/*.ts'",
     "lint:fix": "tslint 'src/**/*.ts' --fix && echo \"tslint: no lint errors\"",
-    "tslint-check": "tslint-config-prettier-check ./tslint.json"
+    "tslint-check": "tslint-config-prettier-check ./tslint.json",
+    "clean:files": "rm -rfv ./files/*",
+    "copy:files": "copyfiles -V -u 2 ./prisma/seed_files/**/* ./files"
   },
   "dependencies": {
     "bcryptjs": "2.4.3",
@@ -23,6 +25,7 @@
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
+    "copyfiles": "^2.1.0",
     "dotenv": "^6.1.0",
     "graphql-cli": "^2.16.7",
     "nodemon": "^1.18.4",
