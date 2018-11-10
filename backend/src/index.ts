@@ -5,6 +5,8 @@ import resolvers from './resolvers';
 import * as path from 'path';
 import * as cors from 'cors';
 import * as fileUpload from 'express-fileupload';
+import { generate } from 'shortid';
+import { extension } from 'mime-types';
 const express = require('express');
 
 const appConfig = {
@@ -40,7 +42,8 @@ app.use(fileUpload());
 
 app.post('/upload', (req, res, next) => {
   const uploadFile = req.files.imageUrl;
-  const fileName = uploadFile.name;
+  // We don't need the extension here, just the ID is enough
+  const fileName = generate() + '.' + extension(uploadFile.mimetype);
   console.log('FILE: ');
   console.log(uploadFile);
   uploadFile.mv(`${appConfig.uploads.tempDir}/${fileName}`, err => {
@@ -48,7 +51,7 @@ app.post('/upload', (req, res, next) => {
       return res.status(500).send(err);
     }
 
-    res.send(uploadFile.name);
+    res.send(fileName);
   });
 });
 
