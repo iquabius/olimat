@@ -1,15 +1,30 @@
 import { Context } from '../../utils';
+import * as mv from 'mv';
+import * as path from 'path';
 // import { Question, QuestionCreateInput, QuestionUpdateInput } from '../../generated/prisma-client';
+
+const filesHost = 'http://localhost:4000/files';
 
 export const questions = {
   async createQuestion(parent, { input }, ctx: Context, info) {
     console.log('INPUT');
     console.log(input);
+    // move image file from tmp to public directory
+    console.log('IMAGE_URL:');
+    console.log(input.imageUrl);
+    const tempFile = path.join(ctx.appConfig.uploads.tempDir, input.imageUrl);
+    const destFile = path.join(ctx.appConfig.uploads.publicDir, input.imageUrl);
+    mv(tempFile, destFile, err => {
+      if (err) {
+        throw new Error(err);
+      }
+    });
     const newQuestion = await ctx.db.createQuestion({
       ...input,
     });
     const newQuestionWithChoices = {
       ...newQuestion,
+      imageUrl: newQuestion.imageUrl ? filesHost + '/' + newQuestion.imageUrl : null,
       choices: await ctx.db.question({ id: newQuestion.id }).choices(),
     };
     return {

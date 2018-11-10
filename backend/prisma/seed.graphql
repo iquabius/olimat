@@ -179,7 +179,7 @@ mutation {
     data: {
       type: OPEN_ENDED
       wording: "Parte de um muro, conforme figura, será construída com tijolos de cores diferentes (amarela, azul e vermelha) de maneira que tijolos que se tocam não podem ter a mesma cor."
-      imageUrl: "http://localhost:4000/files/img/2018_fase2_6_7_ano_ex7.png"
+      imageUrl: "2018_fase2_6_7_ano_ex7.png"
       secondaryWording: "Cada tijolo amarelo custa R$ 6,00, cada tijolo azul custa R$ 7,00 e cada tijolo vermelho custa R$ 8,00. Qual o menor valor que se gastará na compra dos tijolos para construir essa parte do muro?"
     }
   ) {
@@ -204,7 +204,7 @@ mutation {
     data: {
       type: MULTIPLE_CHOICE
       wording: "Uma cartolina foi cortada na forma retangular de dimensões 4 e 7 decímetros. Fernanda queria construir uma caixa e retirou de cada canto um quadrado de lado l, conforme mostrado na figura abaixo."
-      imageUrl: "http://localhost:4000/files/img/2018_fase2_ensino_medio_ex2.jpeg"
+      imageUrl: "2018_fase2_ensino_medio_ex2.jpeg"
       secondaryWording: "Dessa forma, qual a expressão que melhor representa o volume máximo dessa caixa?"
       choices: { create: [
         { text: "4l² − 22l + 28" }
@@ -221,7 +221,7 @@ mutation {
     data: {
       type: MULTIPLE_CHOICE
       wording: "O gráfico da figura abaixo mostra o preço médio mensal do botijão de gás de cozinha vendido no Brasil durante o ano de 2017. Considerando essas informações, qual a taxa de variação média do preço do gás no Brasil, durante os cinco últimos meses do ano."
-      imageUrl: "http://localhost:4000/files/img/2018_fase2_ensino_medio_ex4.jpeg"
+      imageUrl: "2018_fase2_ensino_medio_ex4.jpeg"
       choices: { create: [
         { text: "R$ 0,63 por mês" }
         { text: "R$ 1,45 por mês" }

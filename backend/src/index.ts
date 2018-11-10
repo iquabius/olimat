@@ -7,6 +7,15 @@ import * as cors from 'cors';
 import * as fileUpload from 'express-fileupload';
 const express = require('express');
 
+const appConfig = {
+  uploads: {
+    server: 'http://localhost:4000',
+    basePath: 'files',
+    tempDir: path.join(__dirname, '..', 'files', 'tmp'),
+    publicDir: path.join(__dirname, '..', 'files', 'public'),
+  },
+};
+
 const typeDefs = gql(importSchema('src/schema.graphql'));
 
 const server = new ApolloServer({
@@ -15,6 +24,7 @@ const server = new ApolloServer({
   context: req => ({
     ...req,
     db: prisma,
+    appConfig,
   }),
 });
 
@@ -24,16 +34,16 @@ app.use(cors({ origin: '*' }));
 
 // The 'files' directory should be a docker volume, maybe in a dedicated container
 const UPLOAD_PATH = path.join(__dirname, '..', 'files');
-app.use('/files', express.static(UPLOAD_PATH));
+app.use('/files', express.static(appConfig.uploads.publicDir));
 
 app.use(fileUpload());
 
 app.post('/upload', (req, res, next) => {
-  const uploadFile = req.files.image;
+  const uploadFile = req.files.imageUrl;
   const fileName = uploadFile.name;
   console.log('FILE: ');
   console.log(uploadFile);
-  uploadFile.mv(`${UPLOAD_PATH}/${fileName}`, err => {
+  uploadFile.mv(`${appConfig.uploads.tempDir}/${fileName}`, err => {
     if (err) {
       return res.status(500).send(err);
     }

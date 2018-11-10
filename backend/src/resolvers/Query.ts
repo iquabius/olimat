@@ -1,6 +1,8 @@
 import { getUserId, Context } from '../utils';
 import { OlympiadConnection } from '../generated/prisma';
 
+const filesHost = 'http://localhost:4000/files';
+
 export const Query = {
   city(parent, { id }, ctx: Context, info) {
     return ctx.db.city({ id });
@@ -31,6 +33,7 @@ export const Query = {
     if (question) {
       return {
         ...question,
+        imageUrl: question.imageUrl ? filesHost + '/' + question.imageUrl : null,
         choices: await ctx.db.question({ id }).choices(),
       };
     } else {
@@ -38,8 +41,12 @@ export const Query = {
     }
   },
 
-  questions(parent, args, ctx: Context) {
-    return ctx.db.questions({});
+  async questions(parent, args, ctx: Context) {
+    const questions = await ctx.db.questions({});
+    return questions.map(q => ({
+      ...q,
+      imageUrl: q.imageUrl ? filesHost + '/' + q.imageUrl : null,
+    }));
   },
 
   async schools(parent, args, ctx: Context, info) {
