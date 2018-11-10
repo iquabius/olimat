@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Error from 'next/error';
 import QuestionDetailsConnector from './DetailsConnector';
 import { Typography, withStyles } from '@material-ui/core';
+import ChoicesBox from './ChoicesBox';
 
 const styles = theme => ({
   questionImg: {
@@ -11,21 +12,7 @@ const styles = theme => ({
     marginRight: 'auto',
     marginBottom: theme.spacing.unit * 2,
   },
-  optionBox: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    flexWrap: 'wrap',
-  },
-  optionItem: {
-    ...theme.typography.body1,
-    padding: theme.spacing.unit,
-  },
-  optionLabel: {
-    fontWeight: 'bold',
-  },
 });
-
-const optionLabels = ['a', 'b', 'c', 'd', 'e', 'f'];
 
 const QuestionDetails = ({ classes, id }) =>
   id ? (
@@ -48,16 +35,8 @@ const QuestionDetails = ({ classes, id }) =>
                 {question.secondaryWording}
               </Typography>
             )}
-            <div className={classes.optionBox}>
-              {question.choices &&
-                question.choices.length > 0 &&
-                question.choices.map((choice, index) => (
-                  <div key={choice.id} className={classes.optionItem}>
-                    <span className={classes.optionLabel}>{`${optionLabels[index]}) `}</span>
-                    {`${choice.text}`}
-                  </div>
-                ))}
-            </div>
+            {question.choices &&
+              question.choices.length > 0 && <ChoicesBox choices={question.choices} />}
           </div>
         ) : (
           <div>Essa questão não existe!</div>
