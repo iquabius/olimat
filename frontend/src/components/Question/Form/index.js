@@ -40,7 +40,7 @@ const renderForm = children => formikProps => {
         name="imageUrl"
         server="http://localhost:4000/upload"
         onprocessfile={(error, file) => {
-          formikProps.setFieldValue('imageUrl', file.filename);
+          formikProps.setFieldValue('imageUrl', file.serverId);
         }}
       />
       <TextField
