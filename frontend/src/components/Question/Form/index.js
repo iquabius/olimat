@@ -8,6 +8,8 @@ import { TextField } from '@material-ui/core';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import QuestionFormChoicesBox from './ChoicesBox';
+import { FilePond } from 'react-filepond';
+import 'filepond/dist/filepond.min.css';
 
 const FormSchema = Yup.object().shape({
   wording: Yup.string()
@@ -15,6 +17,7 @@ const FormSchema = Yup.object().shape({
     .required('Wording is required'),
 });
 
+// <input type="hidden" name="image" value="{"file":"/filepond_image_editor_plugin.gif"}">
 const renderForm = children => formikProps => {
   const form = (
     <React.Fragment>
@@ -33,17 +36,12 @@ const renderForm = children => formikProps => {
         onChange={formikProps.handleChange}
         onBlur={formikProps.handleBlur}
       />
-      <TextField
+      <FilePond
         name="imageUrl"
-        margin="dense"
-        label="URL da imagem"
-        min="1999"
-        max="2018"
-        fullWidth
-        variant="outlined"
-        value={formikProps.values.imageUrl}
-        onChange={formikProps.handleChange}
-        onBlur={formikProps.handleBlur}
+        server="http://localhost:4000/upload"
+        onprocessfile={(error, file) => {
+          formikProps.setFieldValue('imageUrl', file.filename);
+        }}
       />
       <TextField
         name="secondaryWording"
