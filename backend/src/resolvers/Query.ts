@@ -51,6 +51,7 @@ export const Query = {
     return questions.map(q => ({
       ...q,
       imageUrl: q.imageUrl ? filesHost + '/' + q.imageUrl : null,
+      choices: ctx.db.question({ id: q.id }).choices(),
     }));
   },
 
