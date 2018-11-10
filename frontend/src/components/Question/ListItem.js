@@ -6,17 +6,18 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { IconButton } from '@material-ui/core';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import NextLink from 'next/link';
+import LinesEllipsis from 'react-lines-ellipsis';
+import ChoicesBox from './ChoicesBox';
 
 const styles = theme => ({
   card: {
     maxWidth: 265,
-    // width: 300,
+    maxHeight: 300,
     marginRight: theme.spacing.unit * 2,
     marginTop: theme.spacing.unit * 2,
   },
@@ -30,20 +31,26 @@ const styles = theme => ({
 
 const ListItem = props => {
   const { classes, question } = props;
+  const noImageNoChoices = !question.imageUrl && question.choices && question.choices.length === 0;
   return (
     <Card className={classes.card}>
       <NextLink href={`/admin/questao?id=${question.id}`}>
         <CardActionArea>
           <CardContent>
-            <Typography component="p">{question.wording}</Typography>
+            <Typography component="div">
+              <LinesEllipsis
+                text={question.wording}
+                maxLine={noImageNoChoices ? 9 : 4}
+                ellipsis="..."
+                trimRight
+                basedOn="words"
+              />
+            </Typography>
+            {!question.imageUrl &&
+              question.choices &&
+              question.choices.length > 0 && <ChoicesBox choices={question.choices} dense />}
           </CardContent>
-          {question.imageUrl && (
-            <CardMedia
-              className={classes.media}
-              image={question.imageUrl}
-              title="Contemplative Reptile"
-            />
-          )}
+          {question.imageUrl && <CardMedia className={classes.media} image={question.imageUrl} />}
         </CardActionArea>
       </NextLink>
       <CardActions>

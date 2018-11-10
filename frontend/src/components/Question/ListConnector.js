@@ -10,6 +10,10 @@ export const allQuestionsQuery = gql`
       type
       wording
       imageUrl
+      choices {
+        id
+        text
+      }
     }
   }
 `;
