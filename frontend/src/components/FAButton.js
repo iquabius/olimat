@@ -25,4 +25,8 @@ const FAButton = ({ children, classes, onClick, ...rest }) => (
   </Button>
 );
 
+FAButton.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
 export default withStyles(styles)(FAButton);
