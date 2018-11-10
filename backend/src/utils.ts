@@ -1,8 +1,10 @@
 import * as jwt from 'jsonwebtoken';
 import { Prisma } from './generated/prisma-client';
+import { Prisma as PrismaBinding } from 'prisma-binding';
 
 export interface Context {
   db: Prisma;
+  prismaBinding: PrismaBinding;
   request: any;
   appConfig: any;
 }

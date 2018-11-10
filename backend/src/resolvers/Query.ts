@@ -25,7 +25,7 @@ export const Query = {
   },
 
   olympiadsFeed(parent, { first, after }, ctx: Context, info) {
-    return ctx.db.olympiadsConnection({ first, after });
+    return ctx.prismaBinding.query.olympiadsConnection({ first, after }, info);
   },
 
   async question(parent, { id }, ctx: Context) {
