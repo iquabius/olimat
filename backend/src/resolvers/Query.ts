@@ -4,6 +4,11 @@ import { OlympiadConnection } from '../generated/prisma';
 const filesHost = 'http://localhost:4000/files';
 
 export const Query = {
+  // https://github.com/prisma/prisma/issues/2225#issuecomment-413265367
+  node(parent, { id }, ctx, info) {
+    return ctx.prismaBinding.query.node({ id }, info);
+  },
+
   city(parent, { id }, ctx: Context, info) {
     return ctx.db.city({ id });
   },
