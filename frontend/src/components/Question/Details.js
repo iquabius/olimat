@@ -4,6 +4,8 @@ import Error from 'next/error';
 import QuestionDetailsConnector from './DetailsConnector';
 import { Typography, withStyles } from '@material-ui/core';
 import ChoicesBox from './ChoicesBox';
+import FAButton from '../FAButton';
+import EditIcon from '@material-ui/icons/Edit';
 
 const styles = theme => ({
   questionImg: {
@@ -14,12 +16,18 @@ const styles = theme => ({
   },
 });
 
-const QuestionDetails = ({ classes, id }) =>
-  id ? (
+const QuestionDetails = ({ classes, id }) => {
+  if (!id) return <Error statusCode={404} />;
+
+  return (
     <QuestionDetailsConnector id={id}>
-      {({ question }) =>
-        question ? (
+      {({ question }) => {
+        if (!question) return <div>Essa questão não existe!</div>;
+        return (
           <div>
+            <FAButton href={`/admin/questao-editar?id=${question.id}`} aria-label="Editar questão">
+              <EditIcon />
+            </FAButton>
             <Typography variant="body1" gutterBottom paragraph>
               {question.wording}
             </Typography>
@@ -38,14 +46,11 @@ const QuestionDetails = ({ classes, id }) =>
             {question.choices &&
               question.choices.length > 0 && <ChoicesBox choices={question.choices} />}
           </div>
-        ) : (
-          <div>Essa questão não existe!</div>
-        )
-      }
+        );
+      }}
     </QuestionDetailsConnector>
-  ) : (
-    <Error statusCode={404} />
   );
+};
 
 QuestionDetails.propTypes = {
   classes: PropTypes.object.isRequired,

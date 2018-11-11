@@ -108,6 +108,10 @@ const pages = [
         title: 'Criar Questão',
       },
       {
+        pathname: '/admin/questao-editar',
+        title: 'Editar Questão',
+      },
+      {
         pathname: '/admin/questao',
         title: 'Detalhes da Questão',
       },
