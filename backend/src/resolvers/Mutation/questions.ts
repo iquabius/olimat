@@ -7,18 +7,16 @@ const filesHost = 'http://localhost:4000/files';
 
 export const questions = {
   async createQuestion(parent, { input }, ctx: Context, info) {
-    console.log('INPUT');
-    console.log(input);
-    // move image file from tmp to public directory
-    console.log('IMAGE_URL:');
-    console.log(input.imageUrl);
-    const tempFile = path.join(ctx.appConfig.uploads.tempDir, input.imageUrl);
-    const destFile = path.join(ctx.appConfig.uploads.publicDir, input.imageUrl);
-    mv(tempFile, destFile, err => {
-      if (err) {
-        throw new Error(err);
-      }
-    });
+    // move image file from tmp to public directory, if there's one
+    if (input.imageUrl !== '') {
+      const tempFile = path.join(ctx.appConfig.uploads.tempDir, input.imageUrl);
+      const destFile = path.join(ctx.appConfig.uploads.publicDir, input.imageUrl);
+      mv(tempFile, destFile, err => {
+        if (err) {
+          throw new Error(err);
+        }
+      });
+    }
     const newQuestion = await ctx.db.createQuestion({
       ...input,
     });
