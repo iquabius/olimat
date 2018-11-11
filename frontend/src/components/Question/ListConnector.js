@@ -20,7 +20,11 @@ export const allQuestionsQuery = gql`
 
 const ListConnector = ({ children }) => (
   <Query query={allQuestionsQuery}>
-    {({ data, error, loading }) => children({ allQuestions: data.questions })}
+    {({ data, error, loading }) => {
+      if (loading) return <p>Carregando questões...</p>;
+      if (error) return <p>{`Erro ao carregar questões: ${error}`}</p>;
+      return children({ allQuestions: data.questions });
+    }}
   </Query>
 );
 
