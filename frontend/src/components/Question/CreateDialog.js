@@ -48,11 +48,7 @@ const CreateDialog = ({ open, onClose }) => (
             initialValues={questionInitialValues}
             onClose={onClose}
             onSubmit={createHandleSubmit(createQuestion)}
-          >
-            {({ form }) => {
-              return form;
-            }}
-          </QuestionForm>
+          />
         </Dialog>
       );
     }}

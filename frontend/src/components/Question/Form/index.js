@@ -69,6 +69,11 @@ const renderForm = (children, onClose) => formikProps => {
     </form>
   );
 
+  // If there isn't a children prop function, render form directly
+  if (!children) {
+    return form;
+  }
+
   return children({
     form,
     isDirty: formikProps.dirty,
@@ -112,7 +117,7 @@ const QuestionForm = ({ children, initialValues, onClose, onSubmit }) => (
 );
 
 QuestionForm.propTypes = {
-  children: PropTypes.func.isRequired,
+  children: PropTypes.func,
   initialValues: PropTypes.object,
   onClose: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
