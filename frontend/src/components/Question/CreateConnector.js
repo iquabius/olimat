@@ -13,6 +13,7 @@ export const newQuestionMutation = gql`
         wording
         imageUrl
         choices {
+          id
           text
         }
       }
