@@ -42,6 +42,7 @@ const QuestionFormChoicesBox = ({ formikProps }) => (
               <React.Fragment>
                 {formikProps.values.choices.map((choice, index) => (
                   <TextField
+                    key={index}
                     name={`choices.${index}.text`}
                     margin="dense"
                     label={`Alternativa ${index}`}
