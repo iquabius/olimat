@@ -6,7 +6,7 @@ import QuestionForm from './Form';
 import { formValuesToRequest } from './transforms';
 
 // const createHandleSubmit = memoize(execute => (values, addHandlers) =>
-const createHandleSubmit = createQuestion => (values, addHandlers) => {
+export const createHandleSubmit = createQuestion => (values, addHandlers) => {
   console.log('VALUES: ');
   console.log(values);
   // This is where `addHandlers` comes in handy as the form controls its state
@@ -30,7 +30,7 @@ const createHandleSubmit = createQuestion => (values, addHandlers) => {
 };
 // );
 
-const questionInitialValues = {
+export const questionInitialValues = {
   type: 'OPEN_ENDED',
   wording: '',
   imageUrl: '',

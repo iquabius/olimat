@@ -104,6 +104,10 @@ const pages = [
     title: 'Painel de Administração',
     children: [
       {
+        pathname: '/admin/questao-criar',
+        title: 'Criar Questão',
+      },
+      {
         pathname: '/admin/questao',
         title: 'Detalhes da Questão',
       },

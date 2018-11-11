@@ -59,7 +59,7 @@ const renderForm = (children, onClose) => formikProps => {
         <QuestionFormChoicesBox formikProps={formikProps} />
       </DialogContent>
       <DialogActions>
-        <Button disabled={formikProps.isSubmitting} onClick={onClose} color="primary">
+        <Button disabled={formikProps.isSubmitting || !onClose} onClick={onClose} color="primary">
           Cancelar
         </Button>
         <Button disabled={formikProps.isSubmitting} type="submit" color="primary">
@@ -119,7 +119,7 @@ const QuestionForm = ({ children, initialValues, onClose, onSubmit }) => (
 QuestionForm.propTypes = {
   children: PropTypes.func,
   initialValues: PropTypes.object,
-  onClose: PropTypes.func.isRequired,
+  onClose: PropTypes.func,
   onSubmit: PropTypes.func.isRequired,
 };
 
