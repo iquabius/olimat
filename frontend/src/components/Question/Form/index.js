@@ -4,7 +4,7 @@
 // };
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TextField } from '@material-ui/core';
+import { TextField, DialogContent, DialogActions, Button } from '@material-ui/core';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import QuestionFormChoicesBox from './ChoicesBox';
@@ -18,45 +18,55 @@ const FormSchema = Yup.object().shape({
 });
 
 // <input type="hidden" name="image" value="{"file":"/filepond_image_editor_plugin.gif"}">
-const renderForm = children => formikProps => {
+const renderForm = (children, onClose) => formikProps => {
   const form = (
-    <React.Fragment>
-      <TextField
-        name="wording"
-        autoFocus
-        margin="dense"
-        multiline
-        label="Enunciado"
-        fullWidth
-        rows={3}
-        variant="outlined"
-        error={formikProps.touched.wording && formikProps.errors.wording !== null}
-        helperText={formikProps.errors.wording || ''}
-        value={formikProps.values.wording}
-        onChange={formikProps.handleChange}
-        onBlur={formikProps.handleBlur}
-      />
-      <FilePond
-        name="imageUrl"
-        server="http://localhost:4000/upload"
-        onprocessfile={(error, file) => {
-          formikProps.setFieldValue('imageUrl', file.serverId);
-        }}
-      />
-      <TextField
-        name="secondaryWording"
-        margin="dense"
-        multiline
-        label="Enunciado Secundário"
-        fullWidth
-        rows={2}
-        variant="outlined"
-        value={formikProps.values.secondaryWording}
-        onChange={formikProps.handleChange}
-        onBlur={formikProps.handleBlur}
-      />
-      <QuestionFormChoicesBox formikProps={formikProps} />
-    </React.Fragment>
+    <form onSubmit={formikProps.handleSubmit}>
+      <DialogContent>
+        <TextField
+          name="wording"
+          autoFocus
+          margin="dense"
+          multiline
+          label="Enunciado"
+          fullWidth
+          rows={3}
+          variant="outlined"
+          error={formikProps.touched.wording && formikProps.errors.wording !== null}
+          helperText={formikProps.errors.wording || ''}
+          value={formikProps.values.wording}
+          onChange={formikProps.handleChange}
+          onBlur={formikProps.handleBlur}
+        />
+        <FilePond
+          name="imageUrl"
+          server="http://localhost:4000/upload"
+          onprocessfile={(error, file) => {
+            formikProps.setFieldValue('imageUrl', file.serverId);
+          }}
+        />
+        <TextField
+          name="secondaryWording"
+          margin="dense"
+          multiline
+          label="Enunciado Secundário"
+          fullWidth
+          rows={2}
+          variant="outlined"
+          value={formikProps.values.secondaryWording}
+          onChange={formikProps.handleChange}
+          onBlur={formikProps.handleBlur}
+        />
+        <QuestionFormChoicesBox formikProps={formikProps} />
+      </DialogContent>
+      <DialogActions>
+        <Button disabled={formikProps.isSubmitting} onClick={onClose} color="primary">
+          Cancelar
+        </Button>
+        <Button disabled={formikProps.isSubmitting} type="submit" color="primary">
+          Adicionar
+        </Button>
+      </DialogActions>
+    </form>
   );
 
   return children({
@@ -97,7 +107,7 @@ const QuestionForm = ({ children, initialValues, onClose, onSubmit }) => (
 
       return onSubmit(values, addHandlers);
     }}
-    render={renderForm(children)}
+    render={renderForm(children, onClose)}
   />
 );
 

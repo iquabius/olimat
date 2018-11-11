@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Dialog, DialogTitle, Button, DialogContent, DialogActions } from '@material-ui/core';
+import { Dialog, DialogTitle } from '@material-ui/core';
 import CreateConnector from './CreateConnector';
 import QuestionForm from './Form';
 import { formValuesToRequest } from './transforms';
@@ -49,19 +49,9 @@ const CreateDialog = ({ open, onClose }) => (
             onClose={onClose}
             onSubmit={createHandleSubmit(createQuestion)}
           >
-            {({ form, isDirty, isSubmitting, handleSubmit }) => (
-              <form onSubmit={handleSubmit}>
-                <DialogContent>{form}</DialogContent>
-                <DialogActions>
-                  <Button disabled={isSubmitting} onClick={onClose} color="primary">
-                    Cancelar
-                  </Button>
-                  <Button disabled={isSubmitting} type="submit" color="primary">
-                    Adicionar
-                  </Button>
-                </DialogActions>
-              </form>
-            )}
+            {({ form }) => {
+              return form;
+            }}
           </QuestionForm>
         </Dialog>
       );
