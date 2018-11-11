@@ -59,9 +59,11 @@ const renderForm = (children, onClose) => formikProps => {
         <QuestionFormChoicesBox formikProps={formikProps} />
       </DialogContent>
       <DialogActions>
-        <Button disabled={formikProps.isSubmitting || !onClose} onClick={onClose} color="primary">
-          Cancelar
-        </Button>
+        {onClose && (
+          <Button disabled={formikProps.isSubmitting} onClick={onClose} color="primary">
+            Cancelar
+          </Button>
+        )}
         <Button disabled={formikProps.isSubmitting} type="submit" color="primary">
           Adicionar
         </Button>
@@ -98,8 +100,9 @@ const QuestionForm = ({ children, initialValues, onClose, onSubmit }) => (
           result => {
             formikBag.resetForm();
             formikBag.setSubmitting(false);
-            onClose();
-
+            if (onClose) {
+              onClose();
+            }
             return result;
           },
           error => {
