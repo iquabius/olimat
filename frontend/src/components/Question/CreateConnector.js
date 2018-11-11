@@ -25,10 +25,14 @@ const CreateConnector = ({ children }) => (
   <Mutation
     mutation={newQuestionMutation}
     update={(proxy, { data: { createQuestion } }) => {
-      const data = proxy.readQuery({ query: allQuestionsQuery });
-      data.questions.push(createQuestion.question);
+      try {
+        const data = proxy.readQuery({ query: allQuestionsQuery });
+        data.questions.push(createQuestion.question);
 
-      proxy.writeQuery({ query: allQuestionsQuery, data });
+        proxy.writeQuery({ query: allQuestionsQuery, data });
+      } catch (error) {
+        // Do nothing. Questions were not fetched yet.
+      }
     }}
   >
     {createQuestion => children({ createQuestion })}
