@@ -44,15 +44,19 @@ export const questions = {
   },
 
   async updateQuestion(parent, { input: { id, patch } }, ctx: Context, info) {
+    const updatedQuestion = await ctx.db.updateQuestion({
+      data: {
+        ...patch,
+      },
+      where: {
+        id,
+      },
+    });
     return {
-      question: await ctx.db.updateQuestion({
-        data: {
-          ...patch,
-        },
-        where: {
-          id,
-        },
-      }),
+      question: {
+        ...updatedQuestion,
+        choices: await ctx.db.question({ id: updatedQuestion.id }).choices(),
+      },
     };
   },
 };
