@@ -6,6 +6,7 @@ import { Typography, withStyles } from '@material-ui/core';
 import ChoicesBox from './ChoicesBox';
 import FAButton from '../FAButton';
 import EditIcon from '@material-ui/icons/Edit';
+import NextLink from 'next/link';
 
 const styles = theme => ({
   questionImg: {
@@ -25,9 +26,11 @@ const QuestionDetails = ({ classes, id }) => {
         if (!question) return <div>Essa questão não existe!</div>;
         return (
           <div>
-            <FAButton href={`/admin/questao-editar?id=${question.id}`} aria-label="Editar questão">
-              <EditIcon />
-            </FAButton>
+            <NextLink href={`/admin/questao-editar?id=${question.id}`}>
+              <FAButton aria-label="Editar questão">
+                <EditIcon />
+              </FAButton>
+            </NextLink>
             <Typography variant="body1" gutterBottom paragraph>
               {question.wording}
             </Typography>
