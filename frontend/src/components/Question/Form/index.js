@@ -29,7 +29,8 @@ const renderForm = (children, onClose) => formikProps => {
           multiline
           label="Enunciado"
           fullWidth
-          rows={3}
+          rows={4}
+          rowsMax={8}
           variant="outlined"
           error={formikProps.touched.wording && formikProps.errors.wording !== null}
           helperText={formikProps.errors.wording || ''}
