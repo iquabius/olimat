@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import QuestionForm from './Form';
 import { formValuesToRequest, responseToFormValues } from './transforms';
 import QuestionDetailsConnector from './DetailsConnector';
+import Router from 'next/router';
 
 export const createSubmitHandler = (question, updateQuestion) => (values, addHandlers) => {
   console.log('UPDATE VALUES: ');
@@ -16,6 +17,7 @@ export const createSubmitHandler = (question, updateQuestion) => (values, addHan
         console.log('UpdateForm addHandlers OK:');
         console.log(resp);
         // this.props.showNotification();
+        Router.push(`/admin/questao?id=${question.id}`);
       })
       .catch(error => {
         // The component is and should not be aware of this being a GraphQL error.
