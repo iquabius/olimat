@@ -35,6 +35,7 @@ export const questionInitialValues = {
   wording: '',
   imageUrl: '',
   secondaryWording: '',
+  // These empty choices are here so that Formik can render the input fields
   choices: [{ text: '' }, { text: '' }, { text: '' }, { text: '' }, { text: '' }],
 };
 
