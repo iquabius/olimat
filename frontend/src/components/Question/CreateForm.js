@@ -4,26 +4,41 @@ import CreateConnector from './CreateConnector';
 import QuestionForm from './Form';
 import { formValuesToRequest } from './transforms';
 import { questionInitialValues, createHandleSubmit } from './CreateDialog';
-import NextLink from 'next/link';
 import FAButton from '../FAButton';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import Router from 'next/router';
+
+const createBackToListHandler = isDirty => () => {
+  console.log('isDirty: ');
+  console.log(isDirty);
+  if (isDirty) {
+    console.log('Your form has changed! You can not go back.');
+    return;
+  }
+  Router.push('/admin/questoes');
+};
 
 const QuestionCreateForm = () => (
-  <React.Fragment>
-    <NextLink href={`/admin/questoes`}>
-      <FAButton aria-label="Voltar pra lista de questões">
-        <ArrowBackIcon />
-      </FAButton>
-    </NextLink>
-    <CreateConnector>
-      {({ createQuestion }) => (
-        <QuestionForm
-          initialValues={questionInitialValues}
-          onSubmit={createHandleSubmit(createQuestion)}
-        />
-      )}
-    </CreateConnector>
-  </React.Fragment>
+  <CreateConnector>
+    {({ createQuestion }) => (
+      <QuestionForm
+        initialValues={questionInitialValues}
+        onSubmit={createHandleSubmit(createQuestion)}
+      >
+        {({ form, isDirty }) => (
+          <React.Fragment>
+            <FAButton
+              onClick={createBackToListHandler(isDirty)}
+              aria-label="Voltar pra lista de questões"
+            >
+              <ArrowBackIcon />
+            </FAButton>
+            {form}
+          </React.Fragment>
+        )}
+      </QuestionForm>
+    )}
+  </CreateConnector>
 );
 
 export default QuestionCreateForm;
