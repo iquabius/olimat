@@ -13,11 +13,26 @@ export const responseToFormValues = response => ({
   choices: response.choices,
 });
 
+/**
+ * Transforms and array of choices [{ id: '1Ba', text: 'Lorem ipsum' }] into
+ * an object for 'choices' field in updateQuestion mutation:
+ * {create: [{ id: '1Ba', text: 'Lorem ipsum' }]
+ * {update: [{ where: { id: '1Ba' }, data: { text: 'Lorem ipsum' } }]}
+ * @param {Array<{id: String, text: String}>} choices - Choices array
+ */
+const choicesValuesToRequest = choices => {
+  if (choices[0].id) {
+    // [QuestionChoiceUpdateWithWhereUniqueNestedInput]
+    return { update: choices.map(({ id, text }) => ({ where: { id }, data: { text } })) };
+  }
+  // QuestionChoiceCreateInput
+  return { create: choices };
+};
+
 export const formValuesToRequest = values => ({
   type: values.type,
   wording: values.wording,
   imageUrl: values.imageUrl,
   secondaryWording: values.secondaryWording,
-  // TODO: This should be configurable: 'create' and 'update'
-  choices: values.type === 'MULTIPLE_CHOICE' ? { create: values.choices } : undefined,
+  choices: values.type === 'MULTIPLE_CHOICE' ? choicesValuesToRequest(values.choices) : null,
 });
