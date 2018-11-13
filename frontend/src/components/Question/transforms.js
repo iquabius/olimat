@@ -6,6 +6,7 @@
 //    for instance has a static MoneyInput.parseMoneyValue and MoneyInput.convertToMoneyValue
 //    to be used here
 export const responseToFormValues = response => ({
+  id: response.id,
   type: response.type,
   wording: response.wording,
   imageUrl: response.imageUrl,
