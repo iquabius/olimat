@@ -46,11 +46,11 @@ const ListItem = props => {
                 basedOn="words"
               />
             </Typography>
-            {!question.imageUrl &&
+            {!question.imageFullUrl &&
               question.choices &&
               question.choices.length > 0 && <ChoicesBox choices={question.choices} dense />}
           </CardContent>
-          {question.imageUrl && <CardMedia className={classes.media} image={question.imageUrl} />}
+          {question.imageFullUrl && <CardMedia className={classes.media} image={question.imageFullUrl} />}
         </CardActionArea>
       </NextLink>
       <CardActions>

@@ -3,8 +3,6 @@ import * as mv from 'mv';
 import * as path from 'path';
 // import { Question, QuestionCreateInput, QuestionUpdateInput } from '../../generated/prisma-client';
 
-const filesHost = 'http://localhost:4000/files';
-
 export const questions = {
   async createQuestion(parent, { input }, ctx: Context, info) {
     // move image file from tmp to public directory, if there's one
@@ -22,7 +20,6 @@ export const questions = {
     });
     const newQuestionWithChoices = {
       ...newQuestion,
-      imageUrl: newQuestion.imageUrl ? filesHost + '/' + newQuestion.imageUrl : null,
       choices: await ctx.db.question({ id: newQuestion.id }).choices(),
     };
     return {

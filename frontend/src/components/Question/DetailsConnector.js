@@ -37,6 +37,15 @@ export const updateQuestionMutation = gql`
   }
 `;
 
+// Maybe put this in responseToFormValues()
+const filesHost = 'http://localhost:4000/files';
+export const questionWithFullUrl = question => ({
+  ...question,
+  imageUrl: question.imageUrl,
+  // This doesn't seam a very good solution
+  imageFullUrl: question.imageUrl ? `${filesHost}/${question.imageUrl}` : null,
+});
+
 const QuestionDetailsConnector = ({ children, id }) => (
   <Query query={questionQuery} variables={{ id }}>
     {({ data, error, loading }) => (
@@ -57,7 +66,7 @@ const QuestionDetailsConnector = ({ children, id }) => (
           if (loading) return <h1>Carregando questão...</h1>;
           return children({
             isLoading: loading,
-            question: data.question,
+            question: questionWithFullUrl(data.question),
             updateQuestion,
           });
         }}
