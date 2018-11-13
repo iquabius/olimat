@@ -8,9 +8,10 @@ import * as cors from 'cors';
 import * as fileUpload from 'express-fileupload';
 import { generate } from 'shortid';
 import { extension } from 'mime-types';
+import { handleGET } from './filepond';
 const express = require('express');
 
-const appConfig = {
+export const appConfig = {
   uploads: {
     server: 'http://localhost:4000',
     basePath: 'files',
@@ -63,6 +64,8 @@ app.post('/upload', (req, res, next) => {
     res.send(fileName);
   });
 });
+
+app.get('/upload', handleGET);
 
 app.listen({ port: 4000 }, () =>
   console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`),
