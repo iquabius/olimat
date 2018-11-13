@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core';
 import ListItem from './ListItem';
 import ListConnector from './ListConnector';
-import CreateDialog from './CreateDialog';
 import FAButton from '../FAButton';
 import AddIcon from '@material-ui/icons/Add';
+import Link from 'next/link';
 
 const styles = theme => ({
   root: {
@@ -19,24 +19,16 @@ const styles = theme => ({
 });
 
 class QuestionList extends React.Component {
-  state = {
-    createDialogOpen: false,
-  };
-
-  handleOpenCreateDialog = () => this.setState({ createDialogOpen: true });
-
-  handleCloseCreateDialog = () => this.setState({ createDialogOpen: false });
-
   render() {
     const { classes } = this.props;
-    const { createDialogOpen } = this.state;
 
     return (
       <React.Fragment>
-        <FAButton onClick={this.handleOpenCreateDialog} aria-label="Adicionar questão">
-          <AddIcon />
-        </FAButton>
-        <CreateDialog open={createDialogOpen} onClose={this.handleCloseCreateDialog} />
+        <Link href="/admin/questao-criar">
+          <FAButton onClick={this.handleOpenCreateDialog} aria-label="Adicionar questão">
+            <AddIcon />
+          </FAButton>
+        </Link>
         <ListConnector>
           {({ allQuestions }) => (
             <div className={classes.root}>
