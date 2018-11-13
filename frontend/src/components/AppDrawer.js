@@ -30,7 +30,7 @@ const styles = theme => ({
   toolbar: {
     flexGrow: 1,
     flexDirection: 'column',
-    alignItems: 'flex-start',
+    alignItems: 'center',
     justifyContent: 'center',
   },
   anchor: {
@@ -88,7 +88,7 @@ function AppDrawer(props, context) {
       <div className={classes.toolbarIe11}>
         <Toolbar className={classes.toolbar}>
           <Link className={classes.title} href="/" onClick={onClose}>
-            <Typography variant="h6" gutterBottom color="inherit">
+            <Typography variant="h3" color="inherit">
               OliMAT
             </Typography>
           </Link>
