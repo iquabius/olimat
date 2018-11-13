@@ -1,15 +1,17 @@
-// const QuestionForm = ({ initialValues, onSubmit }) => {
-//   const draft = "What's draft?";
-//   onSubmit(draft);
-// };
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TextField, DialogContent, DialogActions, Button } from '@material-ui/core';
+import { TextField, DialogContent, DialogActions, Button, withStyles } from '@material-ui/core';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import QuestionFormChoicesBox from './ChoicesBox';
 import { FilePond } from 'react-filepond';
 import 'filepond/dist/filepond.min.css';
+
+const styles = theme => ({
+  filePond: {
+    marginTop: theme.spacing.unit * 2,
+  },
+});
 
 const FormSchema = Yup.object().shape({
   wording: Yup.string()
@@ -18,78 +20,11 @@ const FormSchema = Yup.object().shape({
 });
 
 // <input type="hidden" name="image" value="{"file":"/filepond_image_editor_plugin.gif"}">
-const renderForm = (children, onClose) => formikProps => {
-  const form = (
-    <form onSubmit={formikProps.handleSubmit}>
-      <DialogContent>
-        <TextField
-          name="wording"
-          autoFocus
-          margin="dense"
-          multiline
-          label="Enunciado"
-          fullWidth
-          rows={4}
-          rowsMax={8}
-          variant="outlined"
-          error={formikProps.touched.wording && formikProps.errors.wording !== null}
-          helperText={formikProps.errors.wording || ''}
-          value={formikProps.values.wording}
-          onChange={formikProps.handleChange}
-          onBlur={formikProps.handleBlur}
-        />
-        <FilePond
-          name="imageUrl"
-          server="http://localhost:4000/upload"
-          onprocessfile={(error, file) => {
-            formikProps.setFieldValue('imageUrl', file.serverId);
-          }}
-        />
-        <TextField
-          name="secondaryWording"
-          margin="dense"
-          multiline
-          label="Enunciado Secundário"
-          fullWidth
-          rows={2}
-          variant="outlined"
-          value={formikProps.values.secondaryWording}
-          onChange={formikProps.handleChange}
-          onBlur={formikProps.handleBlur}
-        />
-        <QuestionFormChoicesBox formikProps={formikProps} />
-      </DialogContent>
-      <DialogActions>
-        {onClose && (
-          <Button disabled={formikProps.isSubmitting} onClick={onClose} color="primary">
-            Cancelar
-          </Button>
-        )}
-        <Button disabled={formikProps.isSubmitting} type="submit" color="primary">
-          Adicionar
-        </Button>
-      </DialogActions>
-    </form>
-  );
-
-  // If there isn't a children prop function, render form directly
-  if (!children) {
-    return form;
-  }
-
-  return children({
-    form,
-    isDirty: formikProps.dirty,
-    isSubmitting: formikProps.isSubmitting,
-    handleSubmit: formikProps.handleSubmit,
-    handleCancel: formikProps.resetForm,
-  });
-};
-
 // check these Formik props: enableReinitialize validate={validate}
-const QuestionForm = ({ children, initialValues, onClose, onSubmit }) => (
+const QuestionForm = ({ children, classes, initialValues, onClose, onSubmit }) => (
   <Formik
     initialValues={initialValues}
+    validateOnBlur
     validationSchema={FormSchema}
     onSubmit={(values, formikBag) => {
       // This is quite detailed and a work around
@@ -116,15 +51,81 @@ const QuestionForm = ({ children, initialValues, onClose, onSubmit }) => (
 
       return onSubmit(values, addHandlers);
     }}
-    render={renderForm(children, onClose)}
+    render={formikProps => {
+      const form = (
+        <form onSubmit={formikProps.handleSubmit}>
+          <DialogContent>
+            <TextField
+              name="wording"
+              autoFocus
+              multiline
+              label="Enunciado"
+              fullWidth
+              rows={4}
+              rowsMax={8}
+              variant="outlined"
+              error={formikProps.dirty && formikProps.errors.wording !== null}
+              helperText={(formikProps.dirty && formikProps.errors.wording) || ''}
+              value={formikProps.values.wording}
+              onChange={formikProps.handleChange}
+              onBlur={formikProps.handleBlur}
+            />
+            <FilePond
+              name="imageUrl"
+              server="http://localhost:4000/upload"
+              onprocessfile={(error, file) => {
+                formikProps.setFieldValue('imageUrl', file.serverId);
+              }}
+              className={classes.filePond}
+            />
+            <TextField
+              name="secondaryWording"
+              multiline
+              label="Enunciado Secundário"
+              fullWidth
+              rows={2}
+              variant="outlined"
+              value={formikProps.values.secondaryWording}
+              onChange={formikProps.handleChange}
+              onBlur={formikProps.handleBlur}
+            />
+            <QuestionFormChoicesBox formikProps={formikProps} />
+          </DialogContent>
+          <DialogActions>
+            {onClose && (
+              <Button disabled={formikProps.isSubmitting} onClick={onClose} color="primary">
+                Cancelar
+              </Button>
+            )}
+            <Button disabled={formikProps.isSubmitting} type="submit" color="primary">
+              Adicionar
+            </Button>
+          </DialogActions>
+        </form>
+      );
+
+      // If there isn't a children prop function, render form directly
+      if (!children) {
+        return form;
+      }
+
+      return children({
+        form,
+        isDirty: formikProps.dirty,
+        isSubmitting: formikProps.isSubmitting,
+        handleSubmit: formikProps.handleSubmit,
+        handleCancel: formikProps.resetForm,
+      });
+    }}
   />
 );
 
 QuestionForm.propTypes = {
   children: PropTypes.func,
+  classes: PropTypes.object.isRequired,
   initialValues: PropTypes.object,
   onClose: PropTypes.func,
   onSubmit: PropTypes.func.isRequired,
 };
 
-export default QuestionForm;
+export default withStyles(styles)(QuestionForm);
