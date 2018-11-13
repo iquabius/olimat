@@ -8,10 +8,6 @@ import AddIcon from '@material-ui/icons/Add';
 import Link from 'next/link';
 
 const styles = theme => ({
-  root: {
-    // backgroundColor: theme.palette.background.paper,
-    marginBottom: 32,
-  },
   grid: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -31,12 +27,10 @@ class QuestionList extends React.Component {
         </Link>
         <ListConnector>
           {({ allQuestions }) => (
-            <div className={classes.root}>
-              <div className={classes.grid}>
-                {allQuestions.map(question => (
-                  <ListItem key={question.id} question={question} />
-                ))}
-              </div>
+            <div className={classes.grid}>
+              {allQuestions.map(question => (
+                <ListItem key={question.id} question={question} />
+              ))}
             </div>
           )}
         </ListConnector>
