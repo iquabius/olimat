@@ -5,8 +5,13 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import QuestionFormChoicesBox from './ChoicesBox';
 import QuestionFormActionBox from './ActionBox';
-import { FilePond } from 'react-filepond';
+import { FilePond, File, registerPlugin } from 'react-filepond';
+import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation';
+import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
 import 'filepond/dist/filepond.min.css';
+import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
+
+registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 
 const styles = theme => ({
   filePond: {
@@ -76,7 +81,9 @@ const QuestionForm = ({ children, classes, initialValues, onClose, onSubmit }) =
               formikProps.setFieldValue('imageUrl', file.serverId);
             }}
             className={classes.filePond}
-          />
+          >
+            <File src={formikProps.values.imageUrl} origin="local" />
+          </FilePond>
           <TextField
             name="secondaryWording"
             multiline
