@@ -11,9 +11,13 @@ const styles = theme => ({
   filePond: {
     marginTop: theme.spacing.unit * 2,
   },
-  saveButton: {
-    float: 'right',
+  actionBox: {
+    display: 'flex',
+    flex: '0 0 auto',
+    justifyContent: 'flex-end',
     marginTop: theme.spacing.unit,
+  },
+  saveButton: {
     width: '33%',
   },
   [theme.breakpoints.down('xs')]: {
@@ -98,16 +102,18 @@ const QuestionForm = ({ children, classes, initialValues, onClose, onSubmit }) =
             onBlur={formikProps.handleBlur}
           />
           <QuestionFormChoicesBox formikProps={formikProps} />
-          <Button
-            disabled={formikProps.isSubmitting}
-            type="submit"
-            className={classes.saveButton}
-            color="secondary"
-            size="large"
-            variant="contained"
-          >
-            Salvar
-          </Button>
+          <div className={classes.actionBox}>
+            <Button
+              disabled={formikProps.isSubmitting}
+              type="submit"
+              className={classes.saveButton}
+              color="secondary"
+              size="large"
+              variant="contained"
+            >
+              Salvar
+            </Button>
+          </div>
         </form>
       );
 
