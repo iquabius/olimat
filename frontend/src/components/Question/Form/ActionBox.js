@@ -2,6 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Router from 'next/router';
 import { withStyles, Button } from '@material-ui/core';
+import { compose } from 'react-apollo';
+import { withState } from 'recompose';
+import CancelDialog from '../CancelDialog';
 
 const styles = theme => ({
   actionBox: {
@@ -31,21 +34,37 @@ const styles = theme => ({
   },
 });
 
-const QuestionFormActionBox = ({ classes, formikProps }) => (
+const createCancelEditingHandler = (formikProps, showWarning) => () => {
+  if (formikProps.dirty) {
+    showWarning(true);
+    return;
+  }
+  Router.push(`/admin/questao?id=${formikProps.values.id}`);
+};
+
+const QuestionFormActionBox = ({
+  classes,
+  formikProps,
+  setWarningDialogOpen,
+  warningDialogOpen,
+}) => (
   <div className={classes.actionBox}>
     <Button
       disabled={formikProps.isSubmitting}
-      onClick={() => {
-        // We should check if form is dirty before leaving page.
-        // And show a dialog for confirmation.
-        Router.push(`/admin/questao?id=${formikProps.values.id}`);
-      }}
+      onClick={createCancelEditingHandler(formikProps, setWarningDialogOpen)}
       className={classes.cancelButton}
       size="large"
       variant="outlined"
     >
       Cancelar
     </Button>
+    <CancelDialog
+      onCancel={() => setWarningDialogOpen(false)}
+      onContinue={() => {
+        Router.push(`/admin/questao?id=${formikProps.values.id}`);
+      }}
+      open={warningDialogOpen}
+    />
     <Button
       disabled={formikProps.isSubmitting}
       type="submit"
@@ -62,6 +81,11 @@ const QuestionFormActionBox = ({ classes, formikProps }) => (
 QuestionFormActionBox.propTypes = {
   classes: PropTypes.object.isRequired,
   formikProps: PropTypes.object.isRequired,
+  setWarningDialogOpen: PropTypes.func.isRequired,
+  warningDialogOpen: PropTypes.bool.isRequired,
 };
 
-export default withStyles(styles)(QuestionFormActionBox);
+export default compose(
+  withState('warningDialogOpen', 'setWarningDialogOpen', false),
+  withStyles(styles),
+)(QuestionFormActionBox);
