@@ -3,11 +3,42 @@ import PropTypes from 'prop-types';
 import CreateConnector from './CreateConnector';
 import QuestionForm from './Form';
 import { formValuesToRequest } from './transforms';
-import { questionInitialValues, createHandleSubmit } from './CreateDialog';
 import FAButton from '../FAButton';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import Router from 'next/router';
 import CancelDialog from './CancelDialog';
+
+const createHandleSubmit = createQuestion => (values, addHandlers) => {
+  console.log('VALUES: ');
+  console.log(values);
+  // This is where `addHandlers` comes in handy as the form controls its state
+  addHandlers(
+    createQuestion({
+      variables: { input: formValuesToRequest(values) },
+    })
+      .then(resp => {
+        console.log('addHandlers OK!');
+        console.log('Response: ');
+        console.log(resp);
+        // this.props.showNotification();
+      })
+      .catch(error => {
+        // The component is and should not be aware of this being a GraphQL error.
+        console.log('addHandlers ERROR:');
+        console.log(error);
+        // this.props.showApiErrorNotification(error);
+      }),
+  );
+};
+
+const questionInitialValues = {
+  type: 'OPEN_ENDED',
+  wording: '',
+  imageUrl: '',
+  secondaryWording: '',
+  // These empty choices are here so that Formik can render the input fields
+  choices: [{ text: '' }, { text: '' }, { text: '' }, { text: '' }, { text: '' }],
+};
 
 class QuestionCreateForm extends React.Component {
   state = {

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TextField, DialogContent, DialogActions, Button, withStyles } from '@material-ui/core';
+import { TextField, Button, withStyles } from '@material-ui/core';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import QuestionFormChoicesBox from './ChoicesBox';
@@ -10,6 +10,16 @@ import 'filepond/dist/filepond.min.css';
 const styles = theme => ({
   filePond: {
     marginTop: theme.spacing.unit * 2,
+  },
+  saveButton: {
+    float: 'right',
+    marginTop: theme.spacing.unit,
+    width: '33%',
+  },
+  [theme.breakpoints.down('xs')]: {
+    saveButton: {
+      width: '100%',
+    },
   },
 });
 
@@ -24,7 +34,6 @@ const FormSchema = Yup.object().shape({
 const QuestionForm = ({ children, classes, initialValues, onClose, onSubmit }) => (
   <Formik
     initialValues={initialValues}
-    validateOnBlur
     validationSchema={FormSchema}
     onSubmit={(values, formikBag) => {
       // This is quite detailed and a work around
@@ -54,53 +63,51 @@ const QuestionForm = ({ children, classes, initialValues, onClose, onSubmit }) =
     render={formikProps => {
       const form = (
         <form onSubmit={formikProps.handleSubmit}>
-          <DialogContent>
-            <TextField
-              name="wording"
-              autoFocus
-              multiline
-              label="Enunciado"
-              fullWidth
-              rows={4}
-              rowsMax={8}
-              variant="outlined"
-              error={formikProps.dirty && formikProps.errors.wording !== null}
-              helperText={(formikProps.dirty && formikProps.errors.wording) || ''}
-              value={formikProps.values.wording}
-              onChange={formikProps.handleChange}
-              onBlur={formikProps.handleBlur}
-            />
-            <FilePond
-              name="imageUrl"
-              server="http://localhost:4000/upload"
-              onprocessfile={(error, file) => {
-                formikProps.setFieldValue('imageUrl', file.serverId);
-              }}
-              className={classes.filePond}
-            />
-            <TextField
-              name="secondaryWording"
-              multiline
-              label="Enunciado Secundário"
-              fullWidth
-              rows={2}
-              variant="outlined"
-              value={formikProps.values.secondaryWording}
-              onChange={formikProps.handleChange}
-              onBlur={formikProps.handleBlur}
-            />
-            <QuestionFormChoicesBox formikProps={formikProps} />
-          </DialogContent>
-          <DialogActions>
-            {onClose && (
-              <Button disabled={formikProps.isSubmitting} onClick={onClose} color="primary">
-                Cancelar
-              </Button>
-            )}
-            <Button disabled={formikProps.isSubmitting} type="submit" color="primary">
-              Adicionar
-            </Button>
-          </DialogActions>
+          <TextField
+            name="wording"
+            autoFocus
+            multiline
+            label="Enunciado"
+            fullWidth
+            rows={4}
+            rowsMax={8}
+            variant="outlined"
+            error={formikProps.touched.wording && formikProps.errors.wording !== undefined}
+            helperText={(formikProps.touched.wording && formikProps.errors.wording) || ''}
+            value={formikProps.values.wording}
+            onChange={formikProps.handleChange}
+            onBlur={formikProps.handleBlur}
+          />
+          <FilePond
+            name="imageUrl"
+            server="http://localhost:4000/upload"
+            onprocessfile={(error, file) => {
+              formikProps.setFieldValue('imageUrl', file.serverId);
+            }}
+            className={classes.filePond}
+          />
+          <TextField
+            name="secondaryWording"
+            multiline
+            label="Enunciado Secundário"
+            fullWidth
+            rows={2}
+            variant="outlined"
+            value={formikProps.values.secondaryWording}
+            onChange={formikProps.handleChange}
+            onBlur={formikProps.handleBlur}
+          />
+          <QuestionFormChoicesBox formikProps={formikProps} />
+          <Button
+            disabled={formikProps.isSubmitting}
+            type="submit"
+            className={classes.saveButton}
+            color="secondary"
+            size="large"
+            variant="contained"
+          >
+            Salvar
+          </Button>
         </form>
       );
 
