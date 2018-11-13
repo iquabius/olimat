@@ -14,6 +14,7 @@ const styles = theme => ({
     flex: '1 1 100%',
     maxWidth: '100%',
     margin: '0 auto',
+    marginBottom: theme.spacing.unit * 8,
   }),
   [theme.breakpoints.up(900 + theme.spacing.unit * 6)]: {
     root: {
