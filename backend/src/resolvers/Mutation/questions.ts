@@ -41,7 +41,9 @@ export const questions = {
     };
   },
 
+  // TODO: image should be deleted/renamed AFTER updating
   async updateQuestion(parent, { input: { id, patch } }, ctx: Context, info) {
+    console.log('--- updateQuestion Mutation START');
     console.log('Patch imageUrl:');
     console.log(patch.imageUrl);
     // Check if imageUrl is different from the one in the database
@@ -50,20 +52,23 @@ export const questions = {
     console.log('Database imageUrl:');
     console.log(question.imageUrl);
     if (patch.imageUrl !== '' && patch.imageUrl !== question.imageUrl) {
-      const oldFile = path.join(ctx.appConfig.uploads.publicDir, question.imageUrl);
       // Remove old image from the file system if it exists
-      fs.unlink(oldFile, err => {
-        if (err) {
-          throw err;
-        }
-        console.log('Old image existed, and it was deleted.');
-      });
+      if (question.imageUrl !== '') {
+        const oldFile = path.join(ctx.appConfig.uploads.publicDir, question.imageUrl);
+        fs.unlink(oldFile, err => {
+          if (err) {
+            throw err;
+          }
+          console.log('Old image existed, and it was deleted.');
+        });
+      }
       // Move new image to public directory
       const newFile = path.join(ctx.appConfig.uploads.tempDir, patch.imageUrl);
       const destNewFile = path.join(ctx.appConfig.uploads.publicDir, patch.imageUrl);
       // Maybe we don't need 'mv' package.
       // https://nodejs.org/api/fs.html#fs_fs_rename_oldpath_newpath_callback
       mv(newFile, destNewFile, err => {
+        console.log(`File moved from "${newFile}" to "${destNewFile}"`);
         if (err) {
           console.error(
             'There was an error moving the uploaded image from temp to public directory.',
@@ -80,6 +85,7 @@ export const questions = {
         id,
       },
     });
+    console.log('--- updateQuestion Mutation END');
     return {
       question: {
         ...updatedQuestion,
