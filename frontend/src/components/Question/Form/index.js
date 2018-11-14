@@ -15,7 +15,7 @@ const FormSchema = Yup.object().shape({
 
 // <input type="hidden" name="image" value="{"file":"/filepond_image_editor_plugin.gif"}">
 // check these Formik props: enableReinitialize validate={validate}
-const QuestionForm = ({ children, initialValues, onClose, onSubmit }) => (
+const QuestionForm = ({ children, initialValues, onSubmit }) => (
   <Formik
     initialValues={initialValues}
     validationSchema={FormSchema}
@@ -29,9 +29,6 @@ const QuestionForm = ({ children, initialValues, onClose, onSubmit }) => (
           result => {
             formikBag.resetForm();
             formikBag.setSubmitting(false);
-            if (onClose) {
-              onClose();
-            }
             return result;
           },
           error => {
@@ -98,7 +95,6 @@ const QuestionForm = ({ children, initialValues, onClose, onSubmit }) => (
 QuestionForm.propTypes = {
   children: PropTypes.func,
   initialValues: PropTypes.object,
-  onClose: PropTypes.func,
   onSubmit: PropTypes.func.isRequired,
 };
 
