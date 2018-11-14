@@ -10,6 +10,7 @@ export const responseToFormValues = response => ({
   type: response.type,
   wording: response.wording,
   imageUrl: response.imageUrl,
+  imageFullUrl: response.imageFullUrl,
   secondaryWording: response.secondaryWording,
   choices: response.choices,
 });
