@@ -1,23 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TextField, withStyles } from '@material-ui/core';
+import { TextField } from '@material-ui/core';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import QuestionFormChoicesBox from './ChoicesBox';
 import QuestionFormActionBox from './ActionBox';
-import { FilePond, File, registerPlugin } from 'react-filepond';
-import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation';
-import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
-import 'filepond/dist/filepond.min.css';
-import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
-
-registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
-
-const styles = theme => ({
-  filePond: {
-    marginTop: theme.spacing.unit * 2,
-  },
-});
+import QuestionFormFilePondField from './FilePondField';
 
 const FormSchema = Yup.object().shape({
   wording: Yup.string()
@@ -27,7 +15,7 @@ const FormSchema = Yup.object().shape({
 
 // <input type="hidden" name="image" value="{"file":"/filepond_image_editor_plugin.gif"}">
 // check these Formik props: enableReinitialize validate={validate}
-const QuestionForm = ({ children, classes, initialValues, onClose, onSubmit }) => (
+const QuestionForm = ({ children, initialValues, onClose, onSubmit }) => (
   <Formik
     initialValues={initialValues}
     validationSchema={FormSchema}
@@ -74,16 +62,7 @@ const QuestionForm = ({ children, classes, initialValues, onClose, onSubmit }) =
             onChange={formikProps.handleChange}
             onBlur={formikProps.handleBlur}
           />
-          <FilePond
-            name="imageUrl"
-            server="http://localhost:4000/upload"
-            onprocessfile={(error, file) => {
-              formikProps.setFieldValue('imageUrl', file.serverId);
-            }}
-            className={classes.filePond}
-          >
-            <File src={formikProps.values.imageUrl} origin="local" />
-          </FilePond>
+          <QuestionFormFilePondField formikProps={formikProps} />
           <TextField
             name="secondaryWording"
             multiline
@@ -118,10 +97,9 @@ const QuestionForm = ({ children, classes, initialValues, onClose, onSubmit }) =
 
 QuestionForm.propTypes = {
   children: PropTypes.func,
-  classes: PropTypes.object.isRequired,
   initialValues: PropTypes.object,
   onClose: PropTypes.func,
   onSubmit: PropTypes.func.isRequired,
 };
 
-export default withStyles(styles)(QuestionForm);
+export default QuestionForm;
