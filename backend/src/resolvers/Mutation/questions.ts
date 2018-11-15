@@ -41,27 +41,21 @@ export const questions = {
     };
   },
 
-  // TODO: image should be deleted/renamed AFTER updating
   async updateQuestion(parent, { input: { id, patch } }, ctx: Context, info) {
     console.log('--- updateQuestion Mutation START');
-    console.log('Patch imageUrl:');
-    console.log(patch.imageUrl);
-    // Check if imageUrl is different from the one in the database
-    // That would mean a new image was uploaded and needs to replace the old one.
-    const question = await ctx.db.question({ id });
-    console.log('Database imageUrl:');
-    console.log(question.imageUrl);
-    if (patch.imageUrl !== '' && patch.imageUrl !== question.imageUrl) {
-      // Remove old image from the file system if it exists
-      if (question.imageUrl !== '') {
-        const oldFile = path.join(ctx.appConfig.uploads.publicDir, question.imageUrl);
-        fs.unlink(oldFile, err => {
-          if (err) {
-            throw err;
-          }
-          console.log('Old image existed, and it was deleted.');
-        });
-      }
+    const oldQuestion = await ctx.db.question({ id });
+    console.log(`DB Image: '${oldQuestion.imageUrl}' | Patch Image: '${patch.imageUrl}'`);
+    const updatedQuestion = await ctx.db.updateQuestion({
+      data: {
+        ...patch,
+      },
+      where: {
+        id,
+      },
+    });
+
+    if (patch.imageUrl && !oldQuestion.imageUrl) {
+      // A questão não tinha imagem, mas o usuário fez o upload de uma.
       // Move new image to public directory
       const newFile = path.join(ctx.appConfig.uploads.tempDir, patch.imageUrl);
       const destNewFile = path.join(ctx.appConfig.uploads.publicDir, patch.imageUrl);
@@ -76,15 +70,20 @@ export const questions = {
           throw new Error(err);
         }
       });
+    } else if (!patch.imageUrl && oldQuestion.imageUrl) {
+      // A questão tinha uma imagem, que está sendo removida
+      const oldFile = path.join(ctx.appConfig.uploads.publicDir, oldQuestion.imageUrl);
+      fs.unlink(oldFile, err => {
+        if (err) {
+          throw err;
+        }
+        console.log('Old image existed, and it was deleted.');
+      });
+    } else if (patch.imageUrl && oldQuestion.imageUrl) {
+      // A questão tinha uma imagem, e continua tendo (talvez o usuário trocou?)
+    } else if (!patch.imageUrl && !oldQuestion.imageUrl) {
+      // A questão não tinha imagem e continua não tendo (nada a fazer?)
     }
-    const updatedQuestion = await ctx.db.updateQuestion({
-      data: {
-        ...patch,
-      },
-      where: {
-        id,
-      },
-    });
     console.log('--- updateQuestion Mutation END');
     return {
       question: {
