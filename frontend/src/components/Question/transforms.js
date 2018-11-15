@@ -5,6 +5,10 @@
 // 3. Inputs can export parsing and formatting helpers used here. Our internal MoneyInput
 //    for instance has a static MoneyInput.parseMoneyValue and MoneyInput.convertToMoneyValue
 //    to be used here
+
+// These empty choices are here so that Formik can render 5 input fields
+const emptyChoices = [{ text: '' }, { text: '' }, { text: '' }, { text: '' }, { text: '' }];
+
 export const responseToFormValues = response => ({
   id: response.id,
   type: response.type,
@@ -12,11 +16,11 @@ export const responseToFormValues = response => ({
   imageUrl: response.imageUrl,
   imageFullUrl: response.imageFullUrl,
   secondaryWording: response.secondaryWording,
-  choices: response.choices,
+  choices: response.choices.length > 0 ? response.choices : emptyChoices,
 });
 
 /**
- * Transforms and array of choices [{ id: '1Ba', text: 'Lorem ipsum' }] into
+ * Transforms an array of choices [{ id: '1Ba', text: 'Lorem ipsum' }] into
  * an object for 'choices' field in updateQuestion mutation:
  * {create: [{ id: '1Ba', text: 'Lorem ipsum' }]
  * {update: [{ where: { id: '1Ba' }, data: { text: 'Lorem ipsum' } }]}
