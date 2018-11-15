@@ -35,6 +35,7 @@ const QuestionForm = ({ children, initialValues, onSubmit, imageFile, setImageFi
           result => {
             formikBag.resetForm();
             // Empties the pond (pun intended)
+            setImageFile(null);
             filePond.removeFile(imageFile);
             formikBag.setSubmitting(false);
             return result;

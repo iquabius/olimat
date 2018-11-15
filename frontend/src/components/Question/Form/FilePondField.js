@@ -21,6 +21,8 @@ const getFileOriginName = file => {
   const originsMap = ['input', 'limbo', 'local'];
   return originsMap[file.origin - 1];
 };
+let fileOrigin = 'local';
+let fileUrl;
 
 const QuestionFormFilePondField = ({
   classes,
@@ -30,8 +32,14 @@ const QuestionFormFilePondField = ({
   refGetter,
 }) => {
   const { imageUrl, imageFullUrl } = formikProps.values;
-  const fileOrigin = imageFile ? getFileOriginName(imageFile) : 'local';
-  const fileUrl = fileOrigin === 'local' ? imageUrl : imageFullUrl;
+  // Se NÃO for uma imagem que o usuário acabou de selecionar
+  if (fileOrigin !== 'input') {
+    fileUrl = fileOrigin === 'local' ? imageUrl : imageFullUrl;
+  }
+  console.log(
+    `fileOri: ${fileOrigin} | imageUrl: ${imageUrl} | FullUrl: ${imageFullUrl} | fileUrl: ${fileUrl}`,
+  );
+
   return (
     <FilePond
       name="imageUrl"
@@ -45,14 +53,18 @@ const QuestionFormFilePondField = ({
       onupdatefiles={fileItems => {
         if (fileItems.length > 0) {
           const [fileItem] = fileItems;
+          fileOrigin = getFileOriginName(fileItem);
           setImageFile(fileItem);
         } else {
           formikProps.setFieldValue('imageUrl', '');
+          // setImageFile(null);
         }
       }}
       className={classes.filePond}
     >
-      {(imageFile || imageUrl) && <File src={fileUrl} origin={fileOrigin} />}
+      {(imageFile || (imageUrl && fileOrigin === 'local')) && (
+        <File src={fileUrl} origin={fileOrigin} />
+      )}
     </FilePond>
   );
 };
