@@ -46,6 +46,8 @@ const QuestionFormFilePondField = ({
         if (fileItems.length > 0) {
           const [fileItem] = fileItems;
           setImageFile(fileItem);
+        } else {
+          formikProps.setFieldValue('imageUrl', '');
         }
       }}
       className={classes.filePond}
