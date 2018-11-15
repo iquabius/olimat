@@ -6,6 +6,7 @@ import * as Yup from 'yup';
 import QuestionFormChoicesBox from './ChoicesBox';
 import QuestionFormActionBox from './ActionBox';
 import QuestionFormFilePondField from './FilePondField';
+import { withState } from 'recompose';
 
 const FormSchema = Yup.object().shape({
   wording: Yup.string()
@@ -13,9 +14,14 @@ const FormSchema = Yup.object().shape({
     .required('Wording is required'),
 });
 
-// <input type="hidden" name="image" value="{"file":"/filepond_image_editor_plugin.gif"}">
-// check these Formik props: enableReinitialize validate={validate}
-const QuestionForm = ({ children, initialValues, onSubmit }) => (
+// This is used to keep a reference to FilePond, created in FilePondField
+// We need this to be able to 'clear' the pond when reseting the form.
+let filePond;
+const getFilePondRef = ref => {
+  filePond = ref;
+};
+
+const QuestionForm = ({ children, initialValues, onSubmit, imageFile, setImageFile }) => (
   <Formik
     initialValues={initialValues}
     validationSchema={FormSchema}
@@ -28,6 +34,8 @@ const QuestionForm = ({ children, initialValues, onSubmit }) => (
         promise.then(
           result => {
             formikBag.resetForm();
+            // Empties the pond (pun intended)
+            filePond.removeFile(imageFile);
             formikBag.setSubmitting(false);
             return result;
           },
@@ -59,7 +67,12 @@ const QuestionForm = ({ children, initialValues, onSubmit }) => (
             onChange={formikProps.handleChange}
             onBlur={formikProps.handleBlur}
           />
-          <QuestionFormFilePondField formikProps={formikProps} />
+          <QuestionFormFilePondField
+            imageFile={imageFile}
+            setImageFile={setImageFile}
+            refGetter={getFilePondRef}
+            formikProps={formikProps}
+          />
           <TextField
             name="secondaryWording"
             multiline
@@ -94,8 +107,10 @@ const QuestionForm = ({ children, initialValues, onSubmit }) => (
 
 QuestionForm.propTypes = {
   children: PropTypes.func,
+  imageFile: PropTypes.object,
   initialValues: PropTypes.object,
   onSubmit: PropTypes.func.isRequired,
+  setImageFile: PropTypes.func.isRequired,
 };
 
-export default QuestionForm;
+export default withState('imageFile', 'setImageFile', null)(QuestionForm);
