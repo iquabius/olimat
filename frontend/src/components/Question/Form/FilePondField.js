@@ -60,6 +60,12 @@ const QuestionFormFilePondField = ({
           // setImageFile(null);
         }
       }}
+      onremovefile={file => {
+        // "fileOrigin" está declarada no escopo do módulo, então seu valor
+        // persiste mesmo depois de trocar de página (sem recarregar).
+        // Talvez tenha um lugar melhor pra reiniciar "fileOrigin".
+        fileOrigin = 'local';
+      }}
       className={classes.filePond}
     >
       {(imageFile || (imageUrl && fileOrigin === 'local')) && (
