@@ -34,20 +34,26 @@ export const responseToFormValues = response => ({
 const choicesValuesToRequest = (choices, type) => {
   // Se as alternativas têm o atributo 'id', a questão já existe, e é de
   // Múltipla Escolha. Então precisamos atualizar as alternativas.
-  if (choices[0].id && type === 'MULTIPLE_CHOICE') {
-    // [QuestionChoiceUpdateWithWhereUniqueNestedInput]
-    return { update: choices.map(({ id, text }) => ({ where: { id }, data: { text } })) };
-  }
-  // A questão era de Múltipla Escolha, mas o usuário trocou pra Discursiva.
-  // Então precisamos excluir as alternativas.
-  if (choices[0].id && type === 'OPEN_ENDED') {
-    return { delete: choices.map(({ id }) => ({ id })) };
-  }
-  // A questão era Discursiva e foi mudada para Múltipla Escolha. Ou a questão está
-  // sendo adicionada agora. De qualquer forma, precisamos criar as alternativas.
-  if (!choices[0].id && type === 'MULTIPLE_CHOICE') {
+  if (type === 'MULTIPLE_CHOICE') {
+    if (choices[0].id) {
+      // [QuestionChoiceUpdateWithWhereUniqueNestedInput]
+      return { update: choices.map(({ id, text }) => ({ where: { id }, data: { text } })) };
+    }
+    // A questão era Discursiva e foi mudada para Múltipla Escolha. Ou a questão está
+    // sendo adicionada agora. De qualquer forma, precisamos criar as alternativas.
     // QuestionChoiceCreateInput
     return { create: choices };
+  }
+
+  if (type === 'OPEN_ENDED') {
+    // A questão era de Múltipla Escolha, mas o usuário trocou pra Discursiva.
+    // Então precisamos excluir as alternativas.
+    if (choices[0].id) {
+      return { delete: choices.map(({ id }) => ({ id })) };
+    }
+    // Uma questão Discursiva está sendo adicionada agora e não tem nenhuma alternativa
+    // pra ser criada, atualizada, ou excluída.
+    return {};
   }
 
   throw new Error(
