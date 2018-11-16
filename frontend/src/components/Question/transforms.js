@@ -22,17 +22,37 @@ export const responseToFormValues = response => ({
 /**
  * Transforms an array of choices [{ id: '1Ba', text: 'Lorem ipsum' }] into
  * an object for 'choices' field in updateQuestion mutation:
+ *
  * {create: [{ id: '1Ba', text: 'Lorem ipsum' }]
+ *
+ * {delete: [{ id: '1Ba'}]
+ *
  * {update: [{ where: { id: '1Ba' }, data: { text: 'Lorem ipsum' } }]}
  * @param {Array<{id: String, text: String}>} choices - Choices array
+ * @param {String} type - Question type: MULTIPLE_CHOICE or OPEN_ENDED
  */
-const choicesValuesToRequest = choices => {
-  if (choices[0].id) {
+const choicesValuesToRequest = (choices, type) => {
+  // Se as alternativas têm o atributo 'id', a questão já existe, e é de
+  // Múltipla Escolha. Então precisamos atualizar as alternativas.
+  if (choices[0].id && type === 'MULTIPLE_CHOICE') {
     // [QuestionChoiceUpdateWithWhereUniqueNestedInput]
     return { update: choices.map(({ id, text }) => ({ where: { id }, data: { text } })) };
   }
-  // QuestionChoiceCreateInput
-  return { create: choices };
+  // A questão era de Múltipla Escolha, mas o usuário trocou pra Discursiva.
+  // Então precisamos excluir as alternativas.
+  if (choices[0].id && type === 'OPEN_ENDED') {
+    return { delete: choices.map(({ id }) => ({ id })) };
+  }
+  // A questão era Discursiva e foi mudada para Múltipla Escolha. Ou a questão está
+  // sendo adicionada agora. De qualquer forma, precisamos criar as alternativas.
+  if (!choices[0].id && type === 'MULTIPLE_CHOICE') {
+    // QuestionChoiceCreateInput
+    return { create: choices };
+  }
+
+  throw new Error(
+    `Question 'type' should be 'MULTIPLE_CHOICE' or 'OPEN_ENDED'. The value '${type}' is invalid.`,
+  );
 };
 
 export const formValuesToRequest = values => ({
@@ -40,5 +60,5 @@ export const formValuesToRequest = values => ({
   wording: values.wording,
   imageUrl: values.imageUrl,
   secondaryWording: values.secondaryWording,
-  choices: values.type === 'MULTIPLE_CHOICE' ? choicesValuesToRequest(values.choices) : null,
+  choices: choicesValuesToRequest(values.choices, values.type),
 });
