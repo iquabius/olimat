@@ -9,6 +9,10 @@ module.exports = {
     'jsx-a11y',
     'import'
   ],
+  'globals': {
+    'document': true,
+    'navigator': true,
+  },
   'rules': {
     'linebreak-style': 'off', // Don't play nicely with Windows.
     'arrow-body-style': 'off', // Not our taste?
