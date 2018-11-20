@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import QuestionForm from './Form';
 import { formValuesToRequest, responseToFormValues } from './transforms';
 import QuestionDetailsConnector from './DetailsConnector';
-import Router from 'next/router';
+import Router, { withRouter } from 'next/router';
 
 export const createSubmitHandler = (question, updateQuestion) => (values, addHandlers) => {
   console.log('UPDATE VALUES: ');
@@ -28,8 +28,8 @@ export const createSubmitHandler = (question, updateQuestion) => (values, addHan
   );
 };
 
-const QuestionUpdateForm = ({ id }) => (
-  <QuestionDetailsConnector id={id}>
+const QuestionUpdateForm = ({ router }) => (
+  <QuestionDetailsConnector id={router.query.id}>
     {({ isLoading, question, updateQuestion }) => (
       <QuestionForm
         initialValues={responseToFormValues(question)}
@@ -40,7 +40,7 @@ const QuestionUpdateForm = ({ id }) => (
 );
 
 QuestionUpdateForm.propTypes = {
-  id: PropTypes.string.isRequired,
+  router: PropTypes.object.isRequired,
 };
 
-export default QuestionUpdateForm;
+export default withRouter(QuestionUpdateForm);
