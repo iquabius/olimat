@@ -158,6 +158,7 @@ function findActivePage(currentPages, router) {
 }
 
 function withRoot(Component) {
+  // eslint-disable-next-line react/prefer-stateless-function
   class WithRoot extends React.Component {
     render() {
       const { loggedInUser, pageContext, ...otherProps } = this.props;
@@ -179,13 +180,6 @@ function withRoot(Component) {
     loggedInUser: PropTypes.object,
     pageContext: PropTypes.object,
     router: PropTypes.object.isRequired,
-  };
-
-  WithRoot.childContextTypes = {
-    url: PropTypes.object,
-    pages: PropTypes.array,
-    activePage: PropTypes.object,
-    loggedInUser: PropTypes.object,
   };
 
   WithRoot.getInitialProps = async ctx => {
