@@ -5,11 +5,8 @@ import { ApolloProvider, getDataFromTree } from 'react-apollo';
 import Head from 'next/head';
 import initApollo from './initApollo';
 
-function parseCookies(context = {}, options = {}) {
-  return cookie.parse(
-    context.req && context.req.headers.cookie ? context.req.headers.cookie : document.cookie,
-    options,
-  );
+function parseCookies(req, options = {}) {
+  return cookie.parse(req ? req.headers.cookie || '' : document.cookie, options);
 }
 
 // Gets the display name of a JSX component for dev tools
@@ -22,20 +19,15 @@ export default ComposedComponent => {
     static displayName = `WithData(${getComponentDisplayName(ComposedComponent)})`;
 
     static propTypes = {
-      serverState: PropTypes.object.isRequired,
+      apolloState: PropTypes.object.isRequired,
     };
 
     static async getInitialProps(context) {
-      let serverState = {};
+      const { req, res } = context;
 
       // Setup a server-side one-time-use apollo client for initial props and
       // rendering (on server)
-      const apollo = initApollo(
-        {},
-        {
-          getToken: () => parseCookies(context).token,
-        },
-      );
+      const apollo = initApollo({}, { getToken: () => parseCookies(req).token });
       context.apolloClient = apollo;
 
       // Evaluate the composed component's getInitialProps()
@@ -44,31 +36,28 @@ export default ComposedComponent => {
         composedInitialProps = await ComposedComponent.getInitialProps(context);
       }
 
+      if (res && res.finished) {
+        // When redirecting, the response is finished.
+        // No point in continuing to render
+        return {};
+      }
+
       // Run all GraphQL queries in the component tree
       // and extract the resulting data
       if (!process.browser) {
-        if (context.res && context.res.finished) {
-          // When redirecting, the response is finished.
-          // No point in continuing to render
-          return {};
-        }
+        const router = {
+          query: context.query,
+          pathname: context.pathname,
+          asPath: context.asPath,
+        };
 
-        // Provide the `url` prop data in case a graphql query uses it
-        const url = { query: context.query, pathname: context.pathname };
         try {
           // Run all GraphQL queries
-          const app = (
+          await getDataFromTree(
             <ApolloProvider client={apollo}>
-              <ComposedComponent url={url} {...composedInitialProps} />
-            </ApolloProvider>
+              <ComposedComponent {...composedInitialProps} router={router} apolloClient={apollo} />
+            </ApolloProvider>,
           );
-          await getDataFromTree(app, {
-            router: {
-              query: context.query,
-              pathname: context.pathname,
-              asPath: context.asPath,
-            },
-          });
         } catch (error) {
           // Prevent Apollo Client GraphQL errors from crashing SSR.
           // Handle them in components via the data.error prop:
@@ -76,18 +65,16 @@ export default ComposedComponent => {
           console.error('Error while running `getDataFromTree`', error);
         }
 
-        if (!process.browser) {
-          // getDataFromTree does not call componentWillUnmount
-          // head side effect therefore need to be cleared manually
-          Head.rewind();
-        }
-
-        // Extract query data from the Apollo's store
-        serverState = apollo.cache.extract();
+        // getDataFromTree does not call componentWillUnmount
+        // head side effect therefore need to be cleared manually
+        Head.rewind();
       }
 
+      // Extract query data from the Apollo's store
+      const apolloState = apollo.cache.extract();
+
       return {
-        serverState,
+        apolloState,
         ...composedInitialProps,
       };
     }
@@ -98,15 +85,16 @@ export default ComposedComponent => {
       // render within `getInitialProps()` above (since the entire prop tree
       // will be initialized there), meaning the below will only ever be
       // executed on the client.
-      this.apollo = initApollo(this.props.serverState, {
+      this.apolloClient = initApollo(props.apolloState, {
         getToken: () => parseCookies().token,
       });
     }
 
+    // I dont't think we need to pass apolloClient as prop here...
     render() {
       return (
-        <ApolloProvider client={this.apollo}>
-          <ComposedComponent {...this.props} />
+        <ApolloProvider client={this.apolloClient}>
+          <ComposedComponent {...this.props} apolloClient={this.apolloClient} />
         </ApolloProvider>
       );
     }

@@ -9,8 +9,10 @@ import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import AppDrawer from './AppDrawer';
-import { pageToTitle } from '../utils/helpers';
+// import { pageToTitle } from '../utils/helpers';
 import UserMenuAppBar from './UserMenuAppBar';
+import PageContext from './PageContext';
+import PageTitle from './PageTitle';
 
 // Disaply a progress bar between route transitions
 NProgress.configure({
@@ -22,15 +24,21 @@ NProgress.configure({
   `,
 });
 
-Router.onRouteChangeStart = () => {
+Router.onRouteChangeStart = url => {
+  console.log('onRouteChangeStart');
+  console.log('App is changing to: ', url);
   NProgress.start();
 };
 
-Router.onRouteChangeComplete = () => {
+Router.onRouteChangeComplete = url => {
+  console.log('onRouteChangeComplete');
+  console.log('App has changed to: ', url);
   NProgress.done();
 };
 
-Router.onRouteChangeError = () => {
+Router.onRouteChangeError = (err, url) => {
+  console.log('onRouteChangeError');
+  console.log('App has error when changing: ', err, url);
   NProgress.done();
 };
 
@@ -128,62 +136,73 @@ class AppFrame extends React.Component {
     mobileOpen: false,
   };
 
-  handleDrawerToggle = () => {
-    this.setState({ mobileOpen: !this.state.mobileOpen });
+  handleDrawerOpen = () => {
+    this.setState({ mobileOpen: true });
+  };
+
+  handleDrawerClose = () => {
+    this.setState({ mobileOpen: false });
   };
 
   render() {
     const { children, classes } = this.props;
-    const { activePage } = this.context;
-    const title = activePage.title !== false ? pageToTitle(activePage) : null;
-
-    let disablePermanent = false;
-    let navIconClassName = '';
-    let appBarClassName = classes.appBar;
-
-    if (title === null) {
-      // home route, don't shift app bar or dock drawer
-      disablePermanent = true;
-      appBarClassName += ` ${classes.appBarHome}`;
-    } else {
-      navIconClassName = classes.navIconHide;
-      appBarClassName += ` ${classes.appBarShift}`;
-    }
-    // Disable box-shadow for pages wrapped by AppContent.
-    // Those pages have a breadcrumb box.
-    if (RegExp('admin').test(activePage.pathname)) {
-      appBarClassName += ` ${classes.appBarHome}`;
-    }
+    // const { activePage } = this.context;
+    // const title = activePage.title !== false ? pageToTitle(activePage) : null;
 
     return (
-      <div className={classes.root}>
-        <AppBar className={appBarClassName}>
-          <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              onClick={this.handleDrawerToggle}
-              className={navIconClassName}
-            >
-              <MenuIcon />
-            </IconButton>
-            {title !== null && (
-              <Typography className={classes.title} variant="h6" color="inherit" noWrap>
-                {title}
-              </Typography>
-            )}
-            <div className={classes.grow} />
-            <UserMenuAppBar />
-          </Toolbar>
-        </AppBar>
-        <AppDrawer
-          className={classes.drawer}
-          disablePermanent={disablePermanent}
-          onClose={this.handleDrawerToggle}
-          mobileOpen={this.state.mobileOpen}
-        />
-        {children}
-      </div>
+      <PageTitle>
+        {title => {
+          let disablePermanent = false;
+          let navIconClassName = '';
+          let appBarClassName = classes.appBar;
+
+          if (title === null) {
+            // home route, don't shift app bar or dock drawer
+            disablePermanent = true;
+            appBarClassName += ` ${classes.appBarHome}`;
+          } else {
+            navIconClassName = classes.navIconHide;
+            appBarClassName += ` ${classes.appBarShift}`;
+          }
+          // Disable box-shadow for pages wrapped by AppContent.
+          // Those pages have a breadcrumb box.
+          // if (RegExp('admin').test(activePage.pathname)) {
+          //   appBarClassName += ` ${classes.appBarHome}`;
+          // }
+
+          return (
+            <div className={classes.root}>
+              <AppBar className={appBarClassName}>
+                <Toolbar>
+                  <IconButton
+                    color="inherit"
+                    aria-label="open drawer"
+                    onClick={this.handleDrawerOpen}
+                    className={navIconClassName}
+                  >
+                    <MenuIcon />
+                  </IconButton>
+                  {title !== null && (
+                    <Typography className={classes.title} variant="h6" color="inherit" noWrap>
+                      {title}
+                    </Typography>
+                  )}
+                  <div className={classes.grow} />
+                  <UserMenuAppBar />
+                </Toolbar>
+              </AppBar>
+              <AppDrawer
+                className={classes.drawer}
+                disablePermanent={disablePermanent}
+                onClose={this.handleDrawerClose}
+                onOpen={this.handleDrawerOpen}
+                mobileOpen={this.state.mobileOpen}
+              />
+              {children}
+            </div>
+          );
+        }}
+      </PageTitle>
     );
   }
 }
@@ -191,12 +210,6 @@ class AppFrame extends React.Component {
 AppFrame.propTypes = {
   children: PropTypes.node.isRequired,
   classes: PropTypes.object.isRequired,
-};
-
-AppFrame.contextTypes = {
-  activePage: PropTypes.shape({
-    pathname: PropTypes.string.isRequired,
-  }).isRequired,
 };
 
 export default withStyles(styles, { name: 'AppFrame' })(AppFrame);

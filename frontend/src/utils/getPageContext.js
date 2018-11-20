@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 
-import { SheetsRegistry } from 'jss';
-import { createMuiTheme, createGenerateClassName } from '@material-ui/core/styles';
+import { create, SheetsRegistry } from 'jss';
+import { createMuiTheme, createGenerateClassName, jssPreset } from '@material-ui/core/styles';
 import green from '@material-ui/core/colors/green';
 import blue from '@material-ui/core/colors/blue';
 
@@ -18,8 +18,18 @@ const theme = createMuiTheme({
   },
 });
 
+// Configure JSS
+const jss = create({
+  plugins: jssPreset().plugins,
+  insertionPoint: 'insertion-point-jss',
+});
+
 function createPageContext() {
+  const ctxId = (Math.random() + 1).toString(36).substring(7);
+  console.log(`getPageContext:createPageContext: ${ctxId}`);
   return {
+    instanceId: ctxId,
+    jss,
     theme,
     // This is needed in order to deduplicate the injection of CSS in the page.
     sheetsManager: new Map(),
@@ -38,9 +48,14 @@ export default function getPageContext() {
   }
 
   // Reuse context on the client-side.
-  if (!global.__INIT_MATERIAL_UI__) {
-    global.__INIT_MATERIAL_UI__ = createPageContext();
+  if (!global.__MUI_PAGE_CONTEXT__) {
+    global.__MUI_PAGE_CONTEXT__ = createPageContext();
+    console.log(
+      `__MUI_PAGE_CONTEXT__ not defined, createPageContext() was called: ${
+        global.__MUI_PAGE_CONTEXT__.instanceId
+      }`,
+    );
   }
-
-  return global.__INIT_MATERIAL_UI__;
+  console.log(`Using saved context: ${global.__MUI_PAGE_CONTEXT__.instanceId}`);
+  return global.__MUI_PAGE_CONTEXT__;
 }

@@ -1,6 +1,5 @@
 import React from 'react';
 import Document, { Head, Main, NextScript } from 'next/document';
-import JssProvider from 'react-jss/lib/JssProvider';
 import getPageContext from '../utils/getPageContext';
 
 class MyDocument extends Document {
@@ -14,18 +13,16 @@ class MyDocument extends Document {
           {/* Use minimum-scale=1 to enable GPU rasterization */}
           <meta
             name="viewport"
-            content={
-              'user-scalable=0, initial-scale=1, ' +
-              'minimum-scale=1, width=device-width, height=device-height'
-            }
+            content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
           />
           {/* PWA primary color */}
-          <meta name="theme-color" content={pageContext.theme.palette.primary[500]} />
+          <meta name="theme-color" content={pageContext.theme.palette.primary.main} />
           <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
           />
           <link rel="shortcut icon" href="/static/favicon.ico" />
+          <style id="end-of-head-insertion-point" />
         </Head>
         <body>
           <Main />
@@ -40,29 +37,29 @@ MyDocument.getInitialProps = ctx => {
   // Resolution order
   //
   // On the server:
-  // 1. page.getInitialProps
-  // 2. document.getInitialProps
-  // 3. page.render
-  // 4. document.render
+  // 1. app.getInitialProps
+  // 2. page.getInitialProps
+  // 3. document.getInitialProps
+  // 4. app.render
+  // 5. page.render
+  // 6. document.render
   //
   // On the server with error:
-  // 2. document.getInitialProps
+  // 1. document.getInitialProps
+  // 2. app.render
   // 3. page.render
   // 4. document.render
   //
   // On the client
-  // 1. page.getInitialProps
-  // 3. page.render
+  // 1. app.getInitialProps
+  // 2. page.getInitialProps
+  // 3. app.render
+  // 4. page.render
 
-  // Get the context of the page to collected side effects.
+  // Render app and page and get the context of the page with collected side effects.
   const pageContext = getPageContext();
   const page = ctx.renderPage(Component => props => (
-    <JssProvider
-      registry={pageContext.sheetsRegistry}
-      generateClassName={pageContext.generateClassName}
-    >
-      <Component pageContext={pageContext} {...props} />
-    </JssProvider>
+    <Component pageContext={pageContext} {...props} />
   ));
 
   return {

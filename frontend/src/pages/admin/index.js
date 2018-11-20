@@ -18,5 +18,5 @@ const PageAdmin = () => (
 
 export default compose(
   withRoot,
-  withData,
+  // withData,
 )(PageAdmin);
