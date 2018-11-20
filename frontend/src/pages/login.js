@@ -1,5 +1,4 @@
 import React from 'react';
-import { compose } from 'react-apollo';
 import Head from 'next/head';
 import OnlyFormFrame from '../components/OnlyFormFrame';
 import LoginForm from '../components/LoginForm';
@@ -21,7 +20,6 @@ function PageLogin() {
 PageLogin.getInitialProps = async context => {
   const { loggedInUser } = await checkLoggedIn(context.apolloClient);
 
-  // if (loggedInUser.user) {
   if (loggedInUser.me) {
     // Already signed in? No need to continue.
     // Throw them back to the main page
@@ -31,8 +29,4 @@ PageLogin.getInitialProps = async context => {
   return {};
 };
 
-export default compose(
-  withRoot,
-  // withData gives us server-side graphql queries before rendering
-  // withData,
-)(PageLogin);
+export default withRoot(PageLogin);
