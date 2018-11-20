@@ -12,6 +12,7 @@ import Hidden from '@material-ui/core/Hidden';
 import AppDrawerNavItem from './AppDrawerNavItem';
 import Link from './Link';
 import { pageToTitle } from '../utils/helpers';
+import PageContext from './PageContext';
 
 const styles = theme => ({
   paper: {
@@ -89,24 +90,27 @@ function reduceChildRoutes({ props, activePage, items, page, depth }) {
 // So: <SwipeableDrawer disableBackdropTransition={false} />
 const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
-function AppDrawer(props, context) {
+function AppDrawer(props) {
   const { classes, className, disablePermanent, mobileOpen, onClose, onOpen } = props;
-  const { pages, activePage } = context;
 
   const drawer = (
-    <div className={classes.nav}>
-      <div className={classes.toolbarIe11}>
-        <Toolbar className={classes.toolbar}>
-          <Link className={classes.title} href="/" onClick={onClose}>
-            <Typography variant="h3" color="inherit">
-              OliMAT
-            </Typography>
-          </Link>
-          <Divider absolute />
-        </Toolbar>
-      </div>
-      {renderNavItems({ props, pages, activePage, depth: 0 })}
-    </div>
+    <PageContext.Consumer>
+      {({ activePage, pages }) => (
+        <div className={classes.nav}>
+          <div className={classes.toolbarIe11}>
+            <Toolbar className={classes.toolbar}>
+              <Link className={classes.title} href="/" onClick={onClose}>
+                <Typography variant="h3" color="inherit">
+                  OliMAT
+                </Typography>
+              </Link>
+              <Divider absolute />
+            </Toolbar>
+          </div>
+          {renderNavItems({ props, pages, activePage, depth: 0 })}
+        </div>
+      )}
+    </PageContext.Consumer>
   );
 
   return (
@@ -152,11 +156,6 @@ AppDrawer.propTypes = {
   mobileOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   onOpen: PropTypes.func.isRequired,
-};
-
-AppDrawer.contextTypes = {
-  activePage: PropTypes.object.isRequired,
-  pages: PropTypes.array.isRequired,
 };
 
 export default withStyles(styles)(AppDrawer);

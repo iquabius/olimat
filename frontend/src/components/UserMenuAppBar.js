@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
@@ -8,6 +7,7 @@ import cookie from 'cookie';
 import { withApollo } from 'react-apollo';
 import Link from './Link';
 import redirect from '../utils/redirect';
+import PageContext from './PageContext';
 
 class UserMenuAppBar extends React.Component {
   state = {
@@ -39,51 +39,55 @@ class UserMenuAppBar extends React.Component {
     const { anchorEl } = this.state;
     const open = Boolean(anchorEl);
 
-    if (this.context.loggedInUser.me) {
-      return (
-        <div>
-          <IconButton
-            aria-owns={open ? 'menu-appbar' : null}
-            aria-haspopup="true"
-            onClick={this.handleMenu}
-            color="inherit"
-          >
-            <AccountCircle />
-          </IconButton>
-          <Menu
-            id="menu-appbar"
-            anchorEl={anchorEl}
-            anchorOrigin={{
-              vertical: 'top',
-              horizontal: 'right',
-            }}
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'right',
-            }}
-            open={open}
-            onClose={this.handleClose}
-          >
-            <MenuItem onClick={this.handleClose}>Perfil</MenuItem>
-            <MenuItem onClick={this.handleClose}>Minha Conta</MenuItem>
-            <MenuItem onClick={this.logout}>Sair</MenuItem>
-          </Menu>
-        </div>
-      );
-    }
     return (
-      <Button
-        color="inherit"
-        component={buttonProps => <Link variant="button" prefetch href="/login" {...buttonProps} />}
-      >
-        Login
-      </Button>
+      <PageContext.Consumer>
+        {({ loggedInUser }) => {
+          if (loggedInUser.me) {
+            return (
+              <div>
+                <IconButton
+                  aria-owns={open ? 'menu-appbar' : null}
+                  aria-haspopup="true"
+                  onClick={this.handleMenu}
+                  color="inherit"
+                >
+                  <AccountCircle />
+                </IconButton>
+                <Menu
+                  id="menu-appbar"
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  open={open}
+                  onClose={this.handleClose}
+                >
+                  <MenuItem onClick={this.handleClose}>Perfil</MenuItem>
+                  <MenuItem onClick={this.handleClose}>Minha Conta</MenuItem>
+                  <MenuItem onClick={this.logout}>Sair</MenuItem>
+                </Menu>
+              </div>
+            );
+          }
+          return (
+            <Button
+              color="inherit"
+              component={buttonProps => (
+                <Link variant="button" prefetch href="/login" {...buttonProps} />
+              )}
+            >
+              Login
+            </Button>
+          );
+        }}
+      </PageContext.Consumer>
     );
   }
 }
-
-UserMenuAppBar.contextTypes = {
-  loggedInUser: PropTypes.object,
-};
 
 export default withApollo(UserMenuAppBar);

@@ -4,6 +4,7 @@ import find from 'lodash/find';
 import checkLoggedIn from './checkLoggedIn';
 import withData from './withData';
 import AppWrapper from '../components/AppWrapper';
+import PageContext from '../components/PageContext';
 
 const pages = [
   {
@@ -134,14 +135,14 @@ const pages = [
   },
 ];
 
-function findActivePage(currentPages, url) {
+function findActivePage(currentPages, router) {
   const activePage = find(currentPages, page => {
     if (page.children) {
-      return url.pathname.indexOf(page.pathname) === 0;
+      return router.pathname.indexOf(page.pathname) === 0;
     }
 
     // Should be an exact match if no children
-    return url.pathname === page.pathname;
+    return router.pathname === page.pathname;
   });
 
   if (!activePage) {
@@ -149,8 +150,8 @@ function findActivePage(currentPages, url) {
   }
 
   // We need to drill down
-  if (activePage.pathname !== url.pathname) {
-    return findActivePage(activePage.children, url);
+  if (activePage.pathname !== router.pathname) {
+    return findActivePage(activePage.children, router);
   }
 
   return activePage;
@@ -158,29 +159,26 @@ function findActivePage(currentPages, url) {
 
 function withRoot(Component) {
   class WithRoot extends React.Component {
-    getChildContext() {
-      return {
-        url: this.props.url ? this.props.url : null,
-        pages,
-        activePage: findActivePage(pages, this.props.url),
-        loggedInUser: this.props.loggedInUser,
-      };
-    }
-
     render() {
-      const { pageContext } = this.props;
+      const { loggedInUser, pageContext, ...otherProps } = this.props;
+      const { router } = this.props;
+
+      const activePage = findActivePage(pages, router);
 
       return (
-        <AppWrapper pageContext={pageContext}>
-          <Component {...this.props} />
-        </AppWrapper>
+        <PageContext.Provider value={{ activePage, loggedInUser, pages }}>
+          <AppWrapper pageContext={pageContext}>
+            <Component {...otherProps} />
+          </AppWrapper>
+        </PageContext.Provider>
       );
     }
   }
 
   WithRoot.propTypes = {
+    loggedInUser: PropTypes.object,
     pageContext: PropTypes.object,
-    url: PropTypes.object,
+    router: PropTypes.object.isRequired,
   };
 
   WithRoot.childContextTypes = {
@@ -192,13 +190,18 @@ function withRoot(Component) {
 
   WithRoot.getInitialProps = async ctx => {
     const { loggedInUser } = await checkLoggedIn(ctx.apolloClient);
+    const router = {
+      query: ctx.query,
+      pathname: ctx.pathname,
+      asPath: ctx.asPath,
+    };
 
     let composedInitialProps = {};
     if (Component.getInitialProps) {
       composedInitialProps = Component.getInitialProps(ctx);
     }
 
-    return { loggedInUser, ...composedInitialProps };
+    return { loggedInUser, router, ...composedInitialProps };
   };
 
   return withData(WithRoot);

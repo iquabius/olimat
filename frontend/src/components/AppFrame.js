@@ -12,8 +12,8 @@ import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import AppDrawer from './AppDrawer';
-import { pageToTitle } from '../utils/helpers';
 import UserMenuAppBar from './UserMenuAppBar';
+import PageTitle from './PageTitle';
 
 Router.onRouteChangeStart = () => {
   NProgress.start();
@@ -82,58 +82,62 @@ class AppFrame extends React.Component {
 
   render() {
     const { children, classes } = this.props;
-    const { activePage } = this.context;
-    const title = activePage.title !== false ? pageToTitle(activePage) : null;
-
-    let disablePermanent = false;
-    let navIconClassName = '';
-    let appBarClassName = classes.appBar;
-
-    if (title === null) {
-      // home route, don't shift app bar or dock drawer
-      disablePermanent = true;
-      appBarClassName += ` ${classes.appBarHome}`;
-    } else {
-      navIconClassName = classes.navIconHide;
-      appBarClassName += ` ${classes.appBarShift}`;
-    }
-    // Disable box-shadow for pages wrapped by AppContent.
-    // Those pages have a breadcrumb box.
-    if (RegExp('admin').test(activePage.pathname)) {
-      appBarClassName += ` ${classes.appBarHome}`;
-    }
 
     return (
-      <div className={classes.root}>
-        <NProgressBar />
-        <AppBar className={appBarClassName}>
-          <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              onClick={this.handleDrawerOpen}
-              className={navIconClassName}
-            >
-              <MenuIcon />
-            </IconButton>
-            {title !== null && (
-              <Typography className={classes.title} variant="h6" color="inherit" noWrap>
-                {title}
-              </Typography>
-            )}
-            <div className={classes.grow} />
-            <UserMenuAppBar />
-          </Toolbar>
-        </AppBar>
-        <AppDrawer
-          className={classes.drawer}
-          disablePermanent={disablePermanent}
-          onClose={this.handleDrawerClose}
-          onOpen={this.handleDrawerOpen}
-          mobileOpen={this.state.mobileOpen}
-        />
-        {children}
-      </div>
+      <PageTitle>
+        {title => {
+          let disablePermanent = false;
+          let navIconClassName = '';
+          let appBarClassName = classes.appBar;
+
+          if (title === null) {
+            // home route, don't shift app bar or dock drawer
+            disablePermanent = true;
+            appBarClassName += ` ${classes.appBarHome}`;
+          } else {
+            navIconClassName = classes.navIconHide;
+            appBarClassName += ` ${classes.appBarShift}`;
+          }
+          // Disable box-shadow for pages wrapped by AppContent.
+          // Those pages have a breadcrumb box.
+          // if (RegExp('admin').test(activePage.pathname)) {
+          //   appBarClassName += ` ${classes.appBarHome}`;
+          // }
+
+          return (
+            <div className={classes.root}>
+              <NProgressBar />
+              <AppBar className={appBarClassName}>
+                <Toolbar>
+                  <IconButton
+                    color="inherit"
+                    aria-label="open drawer"
+                    onClick={this.handleDrawerOpen}
+                    className={navIconClassName}
+                  >
+                    <MenuIcon />
+                  </IconButton>
+                  {title !== null && (
+                    <Typography className={classes.title} variant="h6" color="inherit" noWrap>
+                      {title}
+                    </Typography>
+                  )}
+                  <div className={classes.grow} />
+                  <UserMenuAppBar />
+                </Toolbar>
+              </AppBar>
+              <AppDrawer
+                className={classes.drawer}
+                disablePermanent={disablePermanent}
+                onClose={this.handleDrawerClose}
+                onOpen={this.handleDrawerOpen}
+                mobileOpen={this.state.mobileOpen}
+              />
+              {children}
+            </div>
+          );
+        }}
+      </PageTitle>
     );
   }
 }
@@ -141,12 +145,6 @@ class AppFrame extends React.Component {
 AppFrame.propTypes = {
   children: PropTypes.node.isRequired,
   classes: PropTypes.object.isRequired,
-};
-
-AppFrame.contextTypes = {
-  activePage: PropTypes.shape({
-    pathname: PropTypes.string.isRequired,
-  }).isRequired,
 };
 
 export default withStyles(styles, { name: 'AppFrame' })(AppFrame);
