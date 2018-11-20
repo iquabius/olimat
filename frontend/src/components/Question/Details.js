@@ -7,6 +7,8 @@ import ChoicesBox from './ChoicesBox';
 import FAButton from '../FAButton';
 import EditIcon from '@material-ui/icons/Edit';
 import NextLink from 'next/link';
+import compose from 'recompose/compose';
+import { withRouter } from 'next/router';
 
 const styles = theme => ({
   questionImg: {
@@ -17,7 +19,8 @@ const styles = theme => ({
   },
 });
 
-const QuestionDetails = ({ classes, id }) => {
+const QuestionDetails = ({ classes, router }) => {
+  const id = router.query.id;
   if (!id) return <Error statusCode={404} />;
 
   return (
@@ -57,7 +60,10 @@ const QuestionDetails = ({ classes, id }) => {
 
 QuestionDetails.propTypes = {
   classes: PropTypes.object.isRequired,
-  id: PropTypes.string,
+  router: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(QuestionDetails);
+export default compose(
+  withRouter,
+  withStyles(styles),
+)(QuestionDetails);
