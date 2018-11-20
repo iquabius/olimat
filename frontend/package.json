@@ -36,7 +36,7 @@
     "nprogress": "^0.2.0",
     "prop-types": "^15.6.2",
     "react": "^16.6.0",
-    "react-apollo": "^2.2.4",
+    "react-apollo": "^2.3.1",
     "react-dom": "^16.6.0",
     "react-filepond": "^5.0.0",
     "react-jss": "^8.6.1",
