@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import NProgress from 'nprogress';
+// O NProgressBar da versão 3.0.0-alpha.7 do @material-ui/docs não está
+// funcionando com o Material-UI v3.5.1, então eu copiei o componente.
+import NProgressBar from './NProgressBar';
 import Router from 'next/router';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -11,16 +14,6 @@ import MenuIcon from '@material-ui/icons/Menu';
 import AppDrawer from './AppDrawer';
 import { pageToTitle } from '../utils/helpers';
 import UserMenuAppBar from './UserMenuAppBar';
-
-// Disaply a progress bar between route transitions
-NProgress.configure({
-  template: `
-    <div class="bar" role="bar">
-      <dt></dt>
-      <dd></dd>
-    </div>
-  `,
-});
 
 Router.onRouteChangeStart = () => {
   NProgress.start();
@@ -35,55 +28,6 @@ Router.onRouteChangeError = () => {
 };
 
 const styles = theme => ({
-  '@global': {
-    '#nprogress': {
-      pointerEvents: 'none',
-      '& .bar': {
-        position: 'fixed',
-        background:
-          theme.palette.type === 'light' ? theme.palette.common.black : theme.palette.common.white,
-        borderRadius: 1,
-        zIndex: theme.zIndex.tooltip,
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: 2,
-      },
-      '& dd, & dt': {
-        position: 'absolute',
-        top: 0,
-        height: 2,
-        boxShadow: `${
-          theme.palette.type === 'light' ? theme.palette.common.black : theme.palette.common.white
-        } 1px 0 6px 1px`,
-        borderRadius: '100%',
-        animation: 'nprogress-pulse 2s ease-out 0s infinite',
-      },
-      '& dd': {
-        opacity: 0.6,
-        width: 20,
-        right: 0,
-        clip: 'rect(-6px,22px,14px,10px)',
-      },
-      '& dt': {
-        opacity: 0.6,
-        width: 180,
-        right: -80,
-        clip: 'rect(-6px,90px,14px,-6px)',
-      },
-    },
-    '@keyframes nprogress-pulse': {
-      '30%': {
-        opacity: 0.6,
-      },
-      '60%': {
-        opacity: 0,
-      },
-      to: {
-        opacity: 0.6,
-      },
-    },
-  },
   root: {
     display: 'flex',
     alignItems: 'stretch',
@@ -161,6 +105,7 @@ class AppFrame extends React.Component {
 
     return (
       <div className={classes.root}>
+        <NProgressBar />
         <AppBar className={appBarClassName}>
           <Toolbar>
             <IconButton
