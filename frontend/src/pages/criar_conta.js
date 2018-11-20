@@ -17,8 +17,8 @@ function PageSignUp(props) {
   );
 }
 
-PageSignUp.getInitialProps = async (context, apolloClient) => {
-  const { loggedInUser } = await checkLoggedIn(context, apolloClient);
+PageSignUp.getInitialProps = async context => {
+  const { loggedInUser } = await checkLoggedIn(context.apolloClient);
 
   if (loggedInUser.me) {
     // Already signed in? No need to continue.

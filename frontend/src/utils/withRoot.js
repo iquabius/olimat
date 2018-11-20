@@ -190,12 +190,12 @@ function withRoot(Component) {
     loggedInUser: PropTypes.object,
   };
 
-  WithRoot.getInitialProps = async (ctx, apollo) => {
-    const { loggedInUser } = await checkLoggedIn(ctx, apollo);
+  WithRoot.getInitialProps = async ctx => {
+    const { loggedInUser } = await checkLoggedIn(ctx.apolloClient);
 
     let composedInitialProps = {};
     if (Component.getInitialProps) {
-      composedInitialProps = Component.getInitialProps(ctx, apollo);
+      composedInitialProps = Component.getInitialProps(ctx);
     }
 
     return { loggedInUser, ...composedInitialProps };

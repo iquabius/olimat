@@ -36,11 +36,12 @@ export default ComposedComponent => {
           getToken: () => parseCookies(context).token,
         },
       );
+      context.apolloClient = apollo;
 
       // Evaluate the composed component's getInitialProps()
       let composedInitialProps = {};
       if (ComposedComponent.getInitialProps) {
-        composedInitialProps = await ComposedComponent.getInitialProps(context, apollo);
+        composedInitialProps = await ComposedComponent.getInitialProps(context);
       }
 
       // Run all GraphQL queries in the component tree

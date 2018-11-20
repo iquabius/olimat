@@ -18,8 +18,8 @@ function PageLogin() {
   );
 }
 
-PageLogin.getInitialProps = async (context, apolloClient) => {
-  const { loggedInUser } = await checkLoggedIn(context, apolloClient);
+PageLogin.getInitialProps = async context => {
+  const { loggedInUser } = await checkLoggedIn(context.apolloClient);
 
   // if (loggedInUser.user) {
   if (loggedInUser.me) {
