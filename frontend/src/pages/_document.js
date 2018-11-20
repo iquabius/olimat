@@ -1,6 +1,5 @@
 import React from 'react';
 import Document, { Head, Main, NextScript } from 'next/document';
-import JssProvider from 'react-jss/lib/JssProvider';
 import getPageContext from '../utils/getPageContext';
 
 class MyDocument extends Document {
@@ -26,6 +25,7 @@ class MyDocument extends Document {
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
           />
           <link rel="shortcut icon" href="/static/favicon.ico" />
+          <style id="end-of-head-insertion-point" />
         </Head>
         <body>
           <Main />
@@ -57,12 +57,7 @@ MyDocument.getInitialProps = ctx => {
   // Get the context of the page to collected side effects.
   const pageContext = getPageContext();
   const page = ctx.renderPage(Component => props => (
-    <JssProvider
-      registry={pageContext.sheetsRegistry}
-      generateClassName={pageContext.generateClassName}
-    >
-      <Component pageContext={pageContext} {...props} />
-    </JssProvider>
+    <Component pageContext={pageContext} {...props} />
   ));
 
   return {
