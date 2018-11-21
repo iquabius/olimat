@@ -46,6 +46,7 @@ module.exports = {
     ],
 
     'react/jsx-indent': 'off', // Incompatible with prettier
+    'react/destructuring-assignment': 'off', // airbnb use error
     // 'react/jsx-closing-bracket-location': 'off', // Incompatible with prettier
     // 'react/jsx-wrap-multilines': 'off', // Incompatible with prettier
     // 'react/jsx-indent-props': 'off', // Incompatible with prettier
