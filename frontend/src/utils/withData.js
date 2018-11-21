@@ -5,16 +5,13 @@ import { ApolloProvider, getDataFromTree } from 'react-apollo';
 import Head from 'next/head';
 import initApollo from './initApollo';
 
-function parseCookies(context = {}, options = {}) {
-  return cookie.parse(
-    context.req && context.req.headers.cookie ? context.req.headers.cookie : document.cookie,
-    options,
-  );
+function parseCookies(req, options = {}) {
+  return cookie.parse(req ? req.headers.cookie || '' : document.cookie, options);
 }
 
 // Gets the display name of a JSX component for dev tools
-function getComponentDisplayName(Component) {
-  return Component.displayName || Component.name || 'Unknown';
+function getComponentDisplayName({ displayName, name }) {
+  return displayName || name || 'Unknown';
 }
 
 export default ComposedComponent => {
@@ -26,16 +23,12 @@ export default ComposedComponent => {
     };
 
     static async getInitialProps(context) {
+      const { req, res } = context;
       let serverState = {};
 
       // Setup a server-side one-time-use apollo client for initial props and
       // rendering (on server)
-      const apollo = initApollo(
-        {},
-        {
-          getToken: () => parseCookies(context).token,
-        },
-      );
+      const apollo = initApollo({}, { getToken: () => parseCookies(req).token });
       context.apolloClient = apollo;
 
       // Evaluate the composed component's getInitialProps()
@@ -44,31 +37,29 @@ export default ComposedComponent => {
         composedInitialProps = await ComposedComponent.getInitialProps(context);
       }
 
+      if (res && res.finished) {
+        // When redirecting, the response is finished.
+        // No point in continuing to render
+        return {};
+      }
+
       // Run all GraphQL queries in the component tree
       // and extract the resulting data
       if (!process.browser) {
-        if (context.res && context.res.finished) {
-          // When redirecting, the response is finished.
-          // No point in continuing to render
-          return {};
-        }
+        const router = {
+          query: context.query,
+          pathname: context.pathname,
+          asPath: context.asPath,
+        };
 
-        // Provide the `url` prop data in case a graphql query uses it
-        const url = { query: context.query, pathname: context.pathname };
         try {
           // Run all GraphQL queries
           const app = (
             <ApolloProvider client={apollo}>
-              <ComposedComponent url={url} {...composedInitialProps} />
+              <ComposedComponent {...composedInitialProps} />
             </ApolloProvider>
           );
-          await getDataFromTree(app, {
-            router: {
-              query: context.query,
-              pathname: context.pathname,
-              asPath: context.asPath,
-            },
-          });
+          await getDataFromTree(app, { router });
         } catch (error) {
           // Prevent Apollo Client GraphQL errors from crashing SSR.
           // Handle them in components via the data.error prop:
@@ -77,11 +68,9 @@ export default ComposedComponent => {
           console.error('Error while running `getDataFromTree`', error);
         }
 
-        if (!process.browser) {
-          // getDataFromTree does not call componentWillUnmount
-          // head side effect therefore need to be cleared manually
-          Head.rewind();
-        }
+        // getDataFromTree does not call componentWillUnmount
+        // head side effect therefore need to be cleared manually
+        Head.rewind();
 
         // Extract query data from the Apollo's store
         serverState = apollo.cache.extract();
