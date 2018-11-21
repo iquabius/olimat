@@ -5,36 +5,32 @@ import { ApolloProvider, getDataFromTree } from 'react-apollo';
 import Head from 'next/head';
 import initApollo from './initApollo';
 
-function parseCookies(req, options = {}) {
-  return cookie.parse(req ? req.headers.cookie || '' : document.cookie, options);
-}
+const parseCookies = (req, options = {}) =>
+  cookie.parse(req ? req.headers.cookie || '' : document.cookie, options);
 
 // Gets the display name of a JSX component for dev tools
-function getComponentDisplayName({ displayName, name }) {
-  return displayName || name || 'Unknown';
-}
+const getDisplayName = ({ displayName, name }) => displayName || name || 'Unknown';
 
 export default ComposedComponent => {
   return class WithData extends React.Component {
-    static displayName = `WithData(${getComponentDisplayName(ComposedComponent)})`;
+    static displayName = `WithData(${getDisplayName(ComposedComponent)})`;
 
     static propTypes = {
-      serverState: PropTypes.object.isRequired,
+      apolloState: PropTypes.object.isRequired,
     };
 
-    static async getInitialProps(context) {
-      const { req, res } = context;
-      let serverState = {};
+    static async getInitialProps(ctx) {
+      const { req, res } = ctx;
 
       // Setup a server-side one-time-use apollo client for initial props and
       // rendering (on server)
       const apollo = initApollo({}, { getToken: () => parseCookies(req).token });
-      context.apolloClient = apollo;
+      ctx.apolloClient = apollo;
 
       // Evaluate the composed component's getInitialProps()
-      let composedInitialProps = {};
+      let componentProps = {};
       if (ComposedComponent.getInitialProps) {
-        composedInitialProps = await ComposedComponent.getInitialProps(context);
+        componentProps = await ComposedComponent.getInitialProps(ctx);
       }
 
       if (res && res.finished) {
@@ -47,16 +43,16 @@ export default ComposedComponent => {
       // and extract the resulting data
       if (!process.browser) {
         const router = {
-          query: context.query,
-          pathname: context.pathname,
-          asPath: context.asPath,
+          query: ctx.query,
+          pathname: ctx.pathname,
+          asPath: ctx.asPath,
         };
 
         try {
           // Run all GraphQL queries
           const app = (
             <ApolloProvider client={apollo}>
-              <ComposedComponent {...composedInitialProps} />
+              <ComposedComponent {...componentProps} />
             </ApolloProvider>
           );
           await getDataFromTree(app, { router });
@@ -71,14 +67,14 @@ export default ComposedComponent => {
         // getDataFromTree does not call componentWillUnmount
         // head side effect therefore need to be cleared manually
         Head.rewind();
-
-        // Extract query data from the Apollo's store
-        serverState = apollo.cache.extract();
       }
 
+      // Extract query data from the Apollo's store
+      const apolloState = apollo.cache.extract();
+
       return {
-        serverState,
-        ...composedInitialProps,
+        apolloState,
+        ...componentProps,
       };
     }
 
@@ -88,7 +84,7 @@ export default ComposedComponent => {
       // render within `getInitialProps()` above (since the entire prop tree
       // will be initialized there), meaning the below will only ever be
       // executed on the client.
-      this.apollo = initApollo(this.props.serverState, {
+      this.apollo = initApollo(this.props.apolloState, {
         getToken: () => parseCookies().token,
       });
     }
