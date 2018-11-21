@@ -8,6 +8,7 @@ import blue from '@material-ui/core/colors/blue';
 // A theme with custom primary and secondary color.
 // It's optional.
 const theme = createMuiTheme({
+  nprogress: { color: '#000' },
   palette: {
     primary: {
       main: '#1e88e5',

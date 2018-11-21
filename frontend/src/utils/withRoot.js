@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import find from 'lodash/find';
-import { MuiThemeProvider } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import getPageContext from './getPageContext';
 import checkLoggedIn from './checkLoggedIn';
 import withData from './withData';
+import AppWrapper from '../components/AppWrapper';
+import PageContext from '../components/PageContext';
 
 const pages = [
   {
@@ -97,6 +96,7 @@ const pages = [
   },
   {
     pathname: '/',
+    displayNav: false,
     title: false,
   },
   {
@@ -135,14 +135,14 @@ const pages = [
   },
 ];
 
-function findActivePage(currentPages, url) {
+function findActivePage(currentPages, router) {
   const activePage = find(currentPages, page => {
     if (page.children) {
-      return url.pathname.indexOf(page.pathname) === 0;
+      return router.pathname.indexOf(page.pathname) === 0;
     }
 
     // Should be an exact match if no children
-    return url.pathname === page.pathname;
+    return router.pathname === page.pathname;
   });
 
   if (!activePage) {
@@ -150,73 +150,52 @@ function findActivePage(currentPages, url) {
   }
 
   // We need to drill down
-  if (activePage.pathname !== url.pathname) {
-    return findActivePage(activePage.children, url);
+  if (activePage.pathname !== router.pathname) {
+    return findActivePage(activePage.children, router);
   }
 
   return activePage;
 }
 
 function withRoot(Component) {
+  // eslint-disable-next-line react/prefer-stateless-function
   class WithRoot extends React.Component {
-    getChildContext() {
-      return {
-        url: this.props.url ? this.props.url : null,
-        pages,
-        activePage: findActivePage(pages, this.props.url),
-        loggedInUser: this.props.loggedInUser,
-      };
-    }
-
-    componentWillMount() {
-      this.pageContext = this.props.pageContext || getPageContext();
-    }
-
-    componentDidMount() {
-      // Remove the server-side injected CSS.
-      const jssStyles = document.querySelector('#jss-server-side');
-      if (jssStyles && jssStyles.parentNode) {
-        jssStyles.parentNode.removeChild(jssStyles);
-      }
-    }
-
-    pageContext = null;
-
     render() {
-      // MuiThemeProvider makes the theme available down the React tree thanks to React context.
+      const { loggedInUser, pageContext, ...otherProps } = this.props;
+      const { router } = this.props;
+
+      const activePage = findActivePage(pages, router);
+
       return (
-        <MuiThemeProvider
-          theme={this.pageContext.theme}
-          sheetsManager={this.pageContext.sheetsManager}
-        >
-          <CssBaseline />
-          <Component {...this.props} />
-        </MuiThemeProvider>
+        <PageContext.Provider value={{ activePage, loggedInUser, pages }}>
+          <AppWrapper pageContext={pageContext}>
+            <Component {...otherProps} />
+          </AppWrapper>
+        </PageContext.Provider>
       );
     }
   }
 
   WithRoot.propTypes = {
-    pageContext: PropTypes.object,
-    url: PropTypes.object,
-  };
-
-  WithRoot.childContextTypes = {
-    url: PropTypes.object,
-    pages: PropTypes.array,
-    activePage: PropTypes.object,
     loggedInUser: PropTypes.object,
+    pageContext: PropTypes.object,
+    router: PropTypes.object.isRequired,
   };
 
-  WithRoot.getInitialProps = async (ctx, apollo) => {
-    const { loggedInUser } = await checkLoggedIn(ctx, apollo);
+  WithRoot.getInitialProps = async ctx => {
+    const { loggedInUser } = await checkLoggedIn(ctx.apolloClient);
+    const router = {
+      query: ctx.query,
+      pathname: ctx.pathname,
+      asPath: ctx.asPath,
+    };
 
     let composedInitialProps = {};
     if (Component.getInitialProps) {
-      composedInitialProps = Component.getInitialProps(ctx, apollo);
+      composedInitialProps = Component.getInitialProps(ctx);
     }
 
-    return { loggedInUser, ...composedInitialProps };
+    return { loggedInUser, router, ...composedInitialProps };
   };
 
   return withData(WithRoot);
