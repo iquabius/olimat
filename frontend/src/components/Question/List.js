@@ -36,7 +36,7 @@ class QuestionList extends React.Component {
                   <ListItem key={question.id} question={question} />
                 ))}
               </div>
-              <LoadMoreButton onClick={handleLoadMore}>Carregar mais questões</LoadMoreButton>
+              <LoadMoreButton onLoadMore={handleLoadMore}>Carregar mais questões</LoadMoreButton>
             </div>
           )}
         </ListConnector>

@@ -64,6 +64,7 @@ const ListConnector = ({ children }) => (
           ),
         ),
         handleLoadMore: () =>
+          // fetchMore(fetchMoreOptions): Promise<ApolloQueryResult>
           fetchMore({
             variables: {
               cursor: data.questionsConnection.pageInfo.endCursor,

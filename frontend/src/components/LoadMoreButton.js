@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, withStyles } from '@material-ui/core';
+import { compose, withState } from 'recompose';
 
 const styles = theme => ({
   loadMoreButton: {
     borderStyle: 'dashed',
     marginTop: theme.spacing.unit * 2,
     width: '100%',
+    // Centraliza o botão verticalmente
     marginLeft: 'auto',
     marginRight: 'auto',
     display: 'table',
@@ -23,10 +25,16 @@ const styles = theme => ({
   },
 });
 
-const LoadMoreButton = ({ children, classes, onClick }) => {
+const LoadMoreButton = ({ children, classes, loading, onLoadMore, setLoading }) => {
   return (
     <Button
-      onClick={onClick}
+      onClick={async () => {
+        setLoading(true);
+        // A função fetchMore() do Apollo Client retorna Promise<ApolloQueryResult>
+        await onLoadMore();
+        setLoading(false);
+      }}
+      disabled={loading}
       className={classes.loadMoreButton}
       color="primary"
       size="large"
@@ -40,7 +48,12 @@ const LoadMoreButton = ({ children, classes, onClick }) => {
 LoadMoreButton.propTypes = {
   children: PropTypes.node.isRequired,
   classes: PropTypes.object.isRequired,
-  onClick: PropTypes.func,
+  loading: PropTypes.bool.isRequired,
+  onLoadMore: PropTypes.func,
+  setLoading: PropTypes.func.isRequired,
 };
 
-export default withStyles(styles)(LoadMoreButton);
+export default compose(
+  withState('loading', 'setLoading', false),
+  withStyles(styles),
+)(LoadMoreButton);
