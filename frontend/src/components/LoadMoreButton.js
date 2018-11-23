@@ -5,7 +5,6 @@ import { compose, withState } from 'recompose';
 
 const styles = theme => ({
   loadMoreButton: {
-    borderStyle: 'dashed',
     marginTop: theme.spacing.unit * 2,
     width: '100%',
     // Centraliza o botão verticalmente
