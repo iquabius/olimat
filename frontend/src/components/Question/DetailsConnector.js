@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import gql from 'graphql-tag';
 import { Query, Mutation } from 'react-apollo';
-import { allQuestionsQuery } from './ListConnector';
+import { questionsConnection } from './ListConnector';
 
 export const questionQuery = gql`
   query questionQuery($id: ID!) {
@@ -53,10 +53,14 @@ const QuestionDetailsConnector = ({ children, id }) => (
         mutation={updateQuestionMutation}
         update={(proxy, { data: { updateQuestion } }) => {
           try {
-            const cacheData = proxy.readQuery({ query: allQuestionsQuery });
-            cacheData.questions.push(updateQuestion.question);
+            const cacheData = proxy.readQuery({ query: questionsConnection });
+            const questionEdge = {
+              cursor: updateQuestion.question.id,
+              node: updateQuestion.question,
+            };
+            cacheData.questionsConnection.unshift(questionEdge);
 
-            proxy.writeQuery({ query: allQuestionsQuery, cacheData });
+            proxy.writeQuery({ query: questionsConnection, cacheData });
           } catch (cacheError) {
             // Do nothing. Questions were not fetched yet.
           }
