@@ -1,35 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles, Button } from '@material-ui/core';
+import { withStyles } from '@material-ui/core';
 import ListItem from './ListItem';
 import ListConnector from './ListConnector';
 import FAButton from '../FAButton';
 import AddIcon from '@material-ui/icons/Add';
 import Link from 'next/link';
+import LoadMoreButton from '../LoadMoreButton';
 
 const styles = theme => ({
   grid: {
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
-  },
-  loadMoreButton: {
-    borderStyle: 'dashed',
-    marginTop: theme.spacing.unit * 2,
-    width: '100%',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    display: 'table',
-  },
-  [theme.breakpoints.up('sm')]: {
-    loadMoreButton: {
-      width: '49%',
-    },
-  },
-  [theme.breakpoints.up('md')]: {
-    loadMoreButton: {
-      maxWidth: '32%',
-    },
   },
 });
 
@@ -53,15 +36,7 @@ class QuestionList extends React.Component {
                   <ListItem key={question.id} question={question} />
                 ))}
               </div>
-              <Button
-                onClick={handleLoadMore}
-                color="primary"
-                size="large"
-                variant="outlined"
-                className={classes.loadMoreButton}
-              >
-                Carregar mais questões
-              </Button>
+              <LoadMoreButton onClick={handleLoadMore}>Carregar mais questões</LoadMoreButton>
             </div>
           )}
         </ListConnector>
