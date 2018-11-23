@@ -63,7 +63,7 @@ const ListConnector = ({ children, hasMore, loadingMore, setHasMore, setLoadingM
           questionEdgeToNode,
         ),
       );
-      const handleLoadMore = async () => {
+      const loadMoreHandler = async () => {
         setLoadingMore(true);
         // A função fetchMore() do Apollo Client retorna Promise<ApolloQueryResult>
         const result = await fetchMore({
@@ -82,7 +82,7 @@ const ListConnector = ({ children, hasMore, loadingMore, setHasMore, setLoadingM
         questions,
         loadingMore,
         hasMore,
-        handleLoadMore,
+        loadMoreHandler,
       });
     }}
   </Query>
