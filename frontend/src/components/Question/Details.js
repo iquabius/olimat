@@ -34,7 +34,7 @@ const QuestionDetails = ({ classes, router }) => {
                 <EditIcon />
               </FAButton>
             </NextLink>
-            <Typography variant="body1" gutterBottom paragraph>
+            <Typography variant="subtitle1" gutterBottom paragraph>
               {question.wording}
             </Typography>
             {question.imageFullUrl && (
@@ -45,7 +45,7 @@ const QuestionDetails = ({ classes, router }) => {
               />
             )}
             {question.secondaryWording && (
-              <Typography component="" variant="body1" gutterBottom paragraph>
+              <Typography variant="subtitle1" gutterBottom paragraph>
                 {question.secondaryWording}
               </Typography>
             )}
