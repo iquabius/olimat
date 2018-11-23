@@ -26,16 +26,28 @@ const styles = theme => ({
   },
 });
 
-const LoadMoreButton = ({ children, classes, loading, onLoadMore, setLoading }) => {
+const LoadMoreButton = ({
+  children,
+  classes,
+  hasMore,
+  loading,
+  onLoadMore,
+  setHasMore,
+  setLoading,
+}) => {
   return (
     <Button
       onClick={async () => {
         setLoading(true);
         // A função fetchMore() do Apollo Client retorna Promise<ApolloQueryResult>
-        await onLoadMore();
+        const result = await onLoadMore();
+        // Isto está acoplado com a questionsConnection.
+        // Este estado deveria ficar no ListConnector, e os valores passados como props:
+        // 'fetchingMore' e 'hasMore'.
+        setHasMore(result.data.questionsConnection.pageInfo.hasNextPage);
         setLoading(false);
       }}
-      disabled={loading}
+      disabled={loading || !hasMore}
       className={classes.loadMoreButton}
       color="primary"
       size="large"
@@ -49,12 +61,15 @@ const LoadMoreButton = ({ children, classes, loading, onLoadMore, setLoading }) 
 LoadMoreButton.propTypes = {
   children: PropTypes.node.isRequired,
   classes: PropTypes.object.isRequired,
+  hasMore: PropTypes.bool.isRequired,
   loading: PropTypes.bool.isRequired,
   onLoadMore: PropTypes.func,
+  setHasMore: PropTypes.func.isRequired,
   setLoading: PropTypes.func.isRequired,
 };
 
 export default compose(
+  withState('hasMore', 'setHasMore', true),
   withState('loading', 'setLoading', false),
   withStyles(styles),
 )(LoadMoreButton);
