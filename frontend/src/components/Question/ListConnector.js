@@ -56,29 +56,33 @@ const ListConnector = ({ children, hasMore, loadingMore, setHasMore, setLoadingM
     {({ data, error, fetchMore, loading }) => {
       if (loading) return <p>Carregando questões...</p>;
       if (error) return <p>{`Erro ao carregar questões: ${error}`}</p>;
+
+      const questions = data.questionsConnection.edges.map(
+        compose(
+          questionWithFullUrl,
+          questionEdgeToNode,
+        ),
+      );
+      const handleLoadMore = async () => {
+        setLoadingMore(true);
+        // A função fetchMore() do Apollo Client retorna Promise<ApolloQueryResult>
+        const result = await fetchMore({
+          variables: {
+            cursor: data.questionsConnection.pageInfo.endCursor,
+          },
+          updateQuery,
+        });
+        setHasMore(result.data.questionsConnection.pageInfo.hasNextPage);
+        setLoadingMore(false);
+        return result;
+      };
+
       return children({
         // Move this logic to responseToFormValues() maybe?
-        questions: data.questionsConnection.edges.map(
-          compose(
-            questionWithFullUrl,
-            questionEdgeToNode,
-          ),
-        ),
+        questions,
         loadingMore,
         hasMore,
-        handleLoadMore: async () => {
-          setLoadingMore(true);
-          // A função fetchMore() do Apollo Client retorna Promise<ApolloQueryResult>
-          const result = await fetchMore({
-            variables: {
-              cursor: data.questionsConnection.pageInfo.endCursor,
-            },
-            updateQuery,
-          });
-          setHasMore(result.data.questionsConnection.pageInfo.hasNextPage);
-          setLoadingMore(false);
-          return result;
-        },
+        handleLoadMore,
       });
     }}
   </Query>
