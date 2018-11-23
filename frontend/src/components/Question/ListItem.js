@@ -16,10 +16,19 @@ import ChoicesBox from './ChoicesBox';
 
 const styles = theme => ({
   card: {
-    maxWidth: 265,
+    maxWidth: '100%',
     maxHeight: 300,
-    marginRight: theme.spacing.unit * 2,
     marginTop: theme.spacing.unit * 2,
+  },
+  [theme.breakpoints.up('sm')]: {
+    card: {
+      maxWidth: '49%',
+    },
+  },
+  [theme.breakpoints.up('md')]: {
+    card: {
+      maxWidth: '32%',
+    },
   },
   iconButton: {
     padding: 8,
@@ -50,7 +59,9 @@ const ListItem = props => {
               question.choices &&
               question.choices.length > 0 && <ChoicesBox choices={question.choices} dense />}
           </CardContent>
-          {question.imageFullUrl && <CardMedia className={classes.media} image={question.imageFullUrl} />}
+          {question.imageFullUrl && (
+            <CardMedia className={classes.media} image={question.imageFullUrl} />
+          )}
         </CardActionArea>
       </NextLink>
       <CardActions>
