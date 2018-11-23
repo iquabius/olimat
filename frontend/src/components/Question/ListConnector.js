@@ -57,7 +57,7 @@ const ListConnector = ({ children }) => (
       if (error) return <p>{`Erro ao carregar questões: ${error}`}</p>;
       return children({
         // Move this logic to responseToFormValues() maybe?
-        allQuestions: data.questionsConnection.edges.map(
+        questions: data.questionsConnection.edges.map(
           compose(
             questionWithFullUrl,
             questionEdgeToNode,

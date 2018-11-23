@@ -46,10 +46,10 @@ class QuestionList extends React.Component {
           </FAButton>
         </Link>
         <ListConnector>
-          {({ allQuestions, handleLoadMore }) => (
+          {({ questions, handleLoadMore }) => (
             <div>
               <div className={classes.grid}>
-                {allQuestions.map(question => (
+                {questions.map(question => (
                   <ListItem key={question.id} question={question} />
                 ))}
               </div>
