@@ -21,24 +21,24 @@ export const newQuestionMutation = gql`
   }
 `;
 
-const CreateConnector = ({ children }) => (
-  <Mutation
-    mutation={newQuestionMutation}
-    update={(proxy, { data: { createQuestion } }) => {
-      try {
-        const data = proxy.readQuery({ query: questionsConnection });
-        const questionEdge = {
-          cursor: createQuestion.question.id,
-          node: createQuestion.question,
-        };
-        data.questionsConnection.unshift(questionEdge);
+// Atualiza o cache do Apollo com a nova questão
+const updateApolloStore = (proxy, { data: { createQuestion } }) => {
+  try {
+    const data = proxy.readQuery({ query: questionsConnection });
+    const questionEdge = {
+      cursor: createQuestion.question.id,
+      node: createQuestion.question,
+    };
+    data.questionsConnection.unshift(questionEdge);
 
-        proxy.writeQuery({ query: questionsConnection, data });
-      } catch (error) {
-        // Do nothing. Questions were not fetched yet.
-      }
-    }}
-  >
+    proxy.writeQuery({ query: questionsConnection, data });
+  } catch (error) {
+    // Do nothing. Questions were not fetched yet.
+  }
+};
+
+const CreateConnector = ({ children }) => (
+  <Mutation mutation={newQuestionMutation} update={updateApolloStore}>
     {createQuestion => children({ createQuestion })}
   </Mutation>
 );
