@@ -4,26 +4,9 @@ import gql from 'graphql-tag';
 import { Query, compose } from 'react-apollo';
 import { questionWithFullUrl } from './DetailsConnector';
 
-export const allQuestionsQuery = gql`
-  query allQuestionsQuery {
-    questions {
-      id
-      type
-      wording
-      imageUrl
-      choices {
-        id
-        text
-      }
-    }
-  }
-`;
-
-// TODO: Preciso arrumar createConnector e DetailConnector pra atualizar
-// o cache com essa Query agora.
 export const questionsConnection = gql`
   query questionsConnection($cursor: String) {
-    questionsConnection(first: 6, after: $cursor) {
+    questionsConnection(first: 6, after: $cursor, orderBy: createdAt_DESC) {
       pageInfo {
         hasNextPage
         hasPreviousPage
