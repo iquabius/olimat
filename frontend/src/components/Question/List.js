@@ -29,14 +29,20 @@ class QuestionList extends React.Component {
           </FAButton>
         </Link>
         <ListConnector>
-          {({ questions, handleLoadMore }) => (
+          {({ questions, handleLoadMore, loadingMore, hasMore }) => (
             <div>
               <div className={classes.grid}>
                 {questions.map(question => (
                   <ListItem key={question.id} question={question} />
                 ))}
               </div>
-              <LoadMoreButton onLoadMore={handleLoadMore}>Carregar mais questões</LoadMoreButton>
+              <LoadMoreButton
+                onLoadMore={handleLoadMore}
+                loadingMore={loadingMore}
+                hasMore={hasMore}
+              >
+                Carregar mais questões
+              </LoadMoreButton>
             </div>
           )}
         </ListConnector>

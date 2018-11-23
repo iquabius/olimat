@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import gql from 'graphql-tag';
 import { Query, compose } from 'react-apollo';
 import { questionWithFullUrl } from './DetailsConnector';
+import { withState } from 'recompose';
 
 export const questionsConnection = gql`
   query questionsConnection($cursor: String) {
@@ -50,7 +51,7 @@ const updateQuery = (previousResult, { fetchMoreResult }) => {
 
 const questionEdgeToNode = questionEdge => questionEdge.node;
 
-const ListConnector = ({ children }) => (
+const ListConnector = ({ children, hasMore, loadingMore, setHasMore, setLoadingMore }) => (
   <Query query={questionsConnection}>
     {({ data, error, fetchMore, loading }) => {
       if (loading) return <p>Carregando questões...</p>;
@@ -63,14 +64,21 @@ const ListConnector = ({ children }) => (
             questionEdgeToNode,
           ),
         ),
-        handleLoadMore: () =>
-          // fetchMore(fetchMoreOptions): Promise<ApolloQueryResult>
-          fetchMore({
+        loadingMore,
+        hasMore,
+        handleLoadMore: async () => {
+          setLoadingMore(true);
+          // A função fetchMore() do Apollo Client retorna Promise<ApolloQueryResult>
+          const result = await fetchMore({
             variables: {
               cursor: data.questionsConnection.pageInfo.endCursor,
             },
             updateQuery,
-          }),
+          });
+          setHasMore(result.data.questionsConnection.pageInfo.hasNextPage);
+          setLoadingMore(false);
+          return result;
+        },
       });
     }}
   </Query>
@@ -78,6 +86,13 @@ const ListConnector = ({ children }) => (
 
 ListConnector.propTypes = {
   children: PropTypes.func.isRequired,
+  hasMore: PropTypes.bool.isRequired,
+  loadingMore: PropTypes.bool.isRequired,
+  setHasMore: PropTypes.func.isRequired,
+  setLoadingMore: PropTypes.func.isRequired,
 };
 
-export default ListConnector;
+export default compose(
+  withState('hasMore', 'setHasMore', true),
+  withState('loadingMore', 'setLoadingMore', false),
+)(ListConnector);
