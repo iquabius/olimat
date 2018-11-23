@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, withStyles } from '@material-ui/core';
+import { Button, withStyles, CircularProgress } from '@material-ui/core';
 import { compose, withState } from 'recompose';
 
 const styles = theme => ({
@@ -12,6 +12,8 @@ const styles = theme => ({
     marginLeft: 'auto',
     marginRight: 'auto',
     display: 'table',
+    // Fixa a altura, porque o CircularProgress aumenta o botão
+    height: 40,
   },
   [theme.breakpoints.up('sm')]: {
     loadMoreButton: {
@@ -40,7 +42,7 @@ const LoadMoreButton = ({ children, classes, loading, onLoadMore, setLoading }) 
       size="large"
       variant="outlined"
     >
-      {children}
+      {loading ? <CircularProgress size={22} /> : children}
     </Button>
   );
 };
