@@ -10,6 +10,14 @@ type Query {
   olympiadsFeed(first: Int, after: String): OlympiadFeed!
   question(id: ID!): Question
   questions: [Question!]!
+  questionsConnection(
+    where: QuestionWhereInput
+    orderBy: QuestionOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int): QuestionConnection!
   schools: [School!]!
   school(id: ID!): School
   tests: [Test!]!
