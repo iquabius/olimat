@@ -6,14 +6,17 @@ import ListConnector from './ListConnector';
 import FAButton from '../FAButton';
 import AddIcon from '@material-ui/icons/Add';
 import Link from 'next/link';
+import LoadMoreButton from '../LoadMoreButton';
 
 const styles = theme => ({
   grid: {
     display: 'flex',
     flexWrap: 'wrap',
+    justifyContent: 'space-between',
   },
 });
 
+// eslint-disable-next-line react/prefer-stateless-function
 class QuestionList extends React.Component {
   render() {
     const { classes } = this.props;
@@ -21,16 +24,25 @@ class QuestionList extends React.Component {
     return (
       <React.Fragment>
         <Link href="/admin/questao-criar">
-          <FAButton onClick={this.handleOpenCreateDialog} aria-label="Adicionar questão">
+          <FAButton aria-label="Adicionar questão">
             <AddIcon />
           </FAButton>
         </Link>
         <ListConnector>
-          {({ allQuestions }) => (
-            <div className={classes.grid}>
-              {allQuestions.map(question => (
-                <ListItem key={question.id} question={question} />
-              ))}
+          {({ questions, loadMoreHandler, loadingMore, hasMore }) => (
+            <div>
+              <div className={classes.grid}>
+                {questions.map(question => (
+                  <ListItem key={question.id} question={question} />
+                ))}
+              </div>
+              <LoadMoreButton
+                onLoadMore={loadMoreHandler}
+                loadingMore={loadingMore}
+                hasMore={hasMore}
+              >
+                Carregar mais questões
+              </LoadMoreButton>
             </div>
           )}
         </ListConnector>

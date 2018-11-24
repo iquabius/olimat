@@ -106,14 +106,17 @@ const pages = [
       {
         pathname: '/admin/questao-criar',
         title: 'Criar Questão',
+        displayNav: false,
       },
       {
         pathname: '/admin/questao-editar',
         title: 'Editar Questão',
+        displayNav: false,
       },
       {
         pathname: '/admin/questao',
         title: 'Detalhes da Questão',
+        displayNav: false,
       },
       {
         pathname: '/admin/questoes',

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import gql from 'graphql-tag';
 import { Mutation } from 'react-apollo';
-import { allQuestionsQuery } from './ListConnector';
+import { questionsConnection } from './ListConnector';
 
 export const newQuestionMutation = gql`
   mutation newQuestionMutation($input: QuestionCreateInput!) {
@@ -21,20 +21,24 @@ export const newQuestionMutation = gql`
   }
 `;
 
-const CreateConnector = ({ children }) => (
-  <Mutation
-    mutation={newQuestionMutation}
-    update={(proxy, { data: { createQuestion } }) => {
-      try {
-        const data = proxy.readQuery({ query: allQuestionsQuery });
-        data.questions.push(createQuestion.question);
+// Atualiza o cache do Apollo com a nova questão
+const updateApolloStore = (proxy, { data: { createQuestion } }) => {
+  try {
+    const data = proxy.readQuery({ query: questionsConnection });
+    const questionEdge = {
+      cursor: createQuestion.question.id,
+      node: createQuestion.question,
+    };
+    data.questionsConnection.unshift(questionEdge);
 
-        proxy.writeQuery({ query: allQuestionsQuery, data });
-      } catch (error) {
-        // Do nothing. Questions were not fetched yet.
-      }
-    }}
-  >
+    proxy.writeQuery({ query: questionsConnection, data });
+  } catch (error) {
+    // Do nothing. Questions were not fetched yet.
+  }
+};
+
+const CreateConnector = ({ children }) => (
+  <Mutation mutation={newQuestionMutation} update={updateApolloStore}>
     {createQuestion => children({ createQuestion })}
   </Mutation>
 );

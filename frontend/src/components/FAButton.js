@@ -7,6 +7,8 @@ const styles = theme => ({
     position: 'absolute',
     top: -28,
     left: theme.spacing.unit * -6,
+    // Para o botão ficar por cima das imagens do Card
+    zIndex: theme.zIndex.mobileStepper,
   },
   [theme.breakpoints.down(1000 + theme.spacing.unit * 8)]: {
     FAButton: {

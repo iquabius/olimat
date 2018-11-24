@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import gql from 'graphql-tag';
 import { Query, Mutation } from 'react-apollo';
-import { allQuestionsQuery } from './ListConnector';
+import { questionsConnection } from './ListConnector';
 
 export const questionQuery = gql`
   query questionQuery($id: ID!) {
@@ -37,6 +37,22 @@ export const updateQuestionMutation = gql`
   }
 `;
 
+// Atualiza o cache do Apollo com as alterações realizadas
+const updateApolloStore = (proxy, { data: { updateQuestion } }) => {
+  try {
+    const cacheData = proxy.readQuery({ query: questionsConnection });
+    const questionEdge = {
+      cursor: updateQuestion.question.id,
+      node: updateQuestion.question,
+    };
+    cacheData.questionsConnection.unshift(questionEdge);
+
+    proxy.writeQuery({ query: questionsConnection, cacheData });
+  } catch (cacheError) {
+    // Do nothing. Questions were not fetched yet.
+  }
+};
+
 // Maybe put this in responseToFormValues()
 const filesHost = 'http://localhost:4000/files';
 export const questionWithFullUrl = question => ({
@@ -49,19 +65,7 @@ export const questionWithFullUrl = question => ({
 const QuestionDetailsConnector = ({ children, id }) => (
   <Query query={questionQuery} variables={{ id }}>
     {({ data, error, loading }) => (
-      <Mutation
-        mutation={updateQuestionMutation}
-        update={(proxy, { data: { updateQuestion } }) => {
-          try {
-            const cacheData = proxy.readQuery({ query: allQuestionsQuery });
-            cacheData.questions.push(updateQuestion.question);
-
-            proxy.writeQuery({ query: allQuestionsQuery, cacheData });
-          } catch (cacheError) {
-            // Do nothing. Questions were not fetched yet.
-          }
-        }}
-      >
+      <Mutation mutation={updateQuestionMutation} update={updateApolloStore}>
         {updateQuestion => {
           if (loading) return <h1>Carregando questão...</h1>;
           return children({

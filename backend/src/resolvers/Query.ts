@@ -51,6 +51,10 @@ export const Query = {
     }));
   },
 
+  questionsConnection(parent, args, ctx: Context, info) {
+    return ctx.prismaBinding.query.questionsConnection(args, info);
+  },
+
   async schools(parent, args, ctx: Context, info) {
     // The prisma-client api is different, it only returns scalar fields
     const schools = await ctx.db.schools({});
