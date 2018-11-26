@@ -5,7 +5,7 @@ import { Query, compose } from 'react-apollo';
 import { questionWithFullUrl } from './DetailsConnector';
 import { withState } from 'recompose';
 
-export const questionsConnection = gql`
+export const questionsConnectionQuery = gql`
   query questionsConnection($cursor: String) {
     questionsConnection(first: 6, after: $cursor, orderBy: createdAt_DESC) {
       pageInfo {
@@ -52,7 +52,7 @@ const updateQuery = (previousResult, { fetchMoreResult }) => {
 const questionEdgeToNode = questionEdge => questionEdge.node;
 
 const ListConnector = ({ children, hasMore, loadingMore, setHasMore, setLoadingMore }) => (
-  <Query query={questionsConnection}>
+  <Query query={questionsConnectionQuery}>
     {({ data, error, fetchMore, loading }) => {
       if (loading) return <p>Carregando questões...</p>;
       if (error) return <p>{`Erro ao carregar questões: ${error}`}</p>;
