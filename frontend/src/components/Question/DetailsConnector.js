@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import gql from 'graphql-tag';
 import { Query, Mutation } from 'react-apollo';
-import { questionsConnection } from './ListConnector';
+import { questionsConnectionQuery } from './ListConnector';
 
 export const questionQuery = gql`
   query questionQuery($id: ID!) {
@@ -40,14 +40,14 @@ export const updateQuestionMutation = gql`
 // Atualiza o cache do Apollo com as alterações realizadas
 const updateApolloStore = (proxy, { data: { updateQuestion } }) => {
   try {
-    const cacheData = proxy.readQuery({ query: questionsConnection });
+    const cacheData = proxy.readQuery({ query: questionsConnectionQuery });
     const questionEdge = {
       cursor: updateQuestion.question.id,
       node: updateQuestion.question,
     };
     cacheData.questionsConnection.unshift(questionEdge);
 
-    proxy.writeQuery({ query: questionsConnection, cacheData });
+    proxy.writeQuery({ query: questionsConnectionQuery, cacheData });
   } catch (cacheError) {
     // Do nothing. Questions were not fetched yet.
   }
