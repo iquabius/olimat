@@ -2,18 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Error from 'next/error';
 import QuestionDetailsConnector from './DetailsConnector';
-import { Typography, withStyles, Paper, Tooltip, IconButton, Toolbar } from '@material-ui/core';
+import { Typography, withStyles, Paper, Tooltip, Toolbar } from '@material-ui/core';
 import ChoicesBox from './ChoicesBox';
 import FAButton from '../FAButton';
-import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import NextLink from 'next/link';
 import compose from 'recompose/compose';
 import { withRouter } from 'next/router';
+import SafeDeleteIconButton from '../SafeDeleteIconButton';
 
 const styles = theme => ({
   root: {},
-  actions: {},
+  actions: {
+    display: 'flex',
+  },
   toolbar: {
     borderBottom: '1px solid #ddd',
   },
@@ -50,9 +52,7 @@ const QuestionDetails = ({ classes, router }) => {
               <div className={classes.spacer} />
               <div className={classes.actions}>
                 <Tooltip title="Excluir">
-                  <IconButton aria-label="Excluir questão">
-                    <DeleteIcon />
-                  </IconButton>
+                  <SafeDeleteIconButton question={question} aria-label="Excluir questão" />
                 </Tooltip>
               </div>
             </Toolbar>
