@@ -68,6 +68,8 @@ const QuestionDetailsConnector = ({ children, id }) => (
       <Mutation mutation={updateQuestionMutation} update={updateApolloStore}>
         {updateQuestion => {
           if (loading) return <h1>Carregando questão...</h1>;
+          // TODO: Handle error when the backend is down
+
           return children({
             isLoading: loading,
             question: questionWithFullUrl(data.question),
