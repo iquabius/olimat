@@ -1,30 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  withStyles,
-  IconButton,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
-  DialogActions,
-  Button,
-} from '@material-ui/core';
+import { withStyles, IconButton } from '@material-ui/core';
 import take from 'lodash/take';
 import DeleteIcon from '@material-ui/icons/Delete';
 import compose from 'recompose/compose';
 import { withState } from 'recompose';
 import DeleteConnector from './Question/DeleteConnector';
 import Router from 'next/router';
+import DeleteWarningDialog from './DeleteWarningDialog';
 
 const styles = theme => ({
   root: {
     '&:hover': {
       color: 'inherit',
     },
-  },
-  questionWording: {
-    fontStyle: 'italic',
   },
 });
 
@@ -84,42 +73,14 @@ function SafeDeleteIconButton({
           >
             <DeleteIcon />
           </IconButton>
-          <Dialog
+          <DeleteWarningDialog
+            title={`Excluir “${truncate(question.wording)}“?`}
+            content={`A questão “${truncate(question.wording)}” será apagada permanentemente.`}
+            isSubmitting={submitting}
             open={deleteWarningOpen}
-            onClose={onCancelDelete(setDeleteWarningOpen, setSubmitting)}
-            aria-labelledby="alert-dialog-title"
-            aria-describedby="alert-dialog-description"
-          >
-            <DialogTitle id="alert-dialog-title">
-              {'Excluir '}
-              <span className={classes.questionWording}>{truncate(question.wording)}</span>
-              {' ?'}
-            </DialogTitle>
-            <DialogContent>
-              <DialogContentText id="alert-dialog-description">
-                {'A questão '}
-                <span className={classes.questionWording}>{truncate(question.wording)}</span>
-                {' será apagada permanentemente.'}
-              </DialogContentText>
-            </DialogContent>
-            <DialogActions>
-              <Button
-                disabled={submitting}
-                onClick={onCancelDelete(setDeleteWarningOpen, setSubmitting)}
-                color="secondary"
-              >
-                Cancelar
-              </Button>
-              <Button
-                disabled={submitting}
-                onClick={deleteSubmitHandler(deleteQuestion, question, setSubmitting)}
-                color="secondary"
-                autoFocus
-              >
-                Excluir
-              </Button>
-            </DialogActions>
-          </Dialog>
+            onCancel={onCancelDelete(setDeleteWarningOpen, setSubmitting)}
+            onSuccess={deleteSubmitHandler(deleteQuestion, question, setSubmitting)}
+          />
         </React.Fragment>
       )}
     </DeleteConnector>
