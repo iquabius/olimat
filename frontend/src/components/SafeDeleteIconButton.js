@@ -17,7 +17,7 @@ const styles = theme => ({
   },
 });
 
-const deleteSubmitHandler = (deleteQuestion, question, setSubmitting) => () => {
+const deleteHandler = (deleteQuestion, question, setSubmitting) => () => {
   setSubmitting(true);
   deleteQuestion({
     variables: {
@@ -36,8 +36,6 @@ const deleteSubmitHandler = (deleteQuestion, question, setSubmitting) => () => {
       console.error(error); // eslint-disable-line no-console
     });
 };
-
-const openDeleteWarningDialog = setDeleteWarningOpen => () => setDeleteWarningOpen(true);
 
 const onCancelDelete = (setDeleteWarningOpen, setSubmitting) => () => {
   setSubmitting(false);
@@ -68,7 +66,7 @@ function SafeDeleteIconButton({
           <IconButton
             className={classes.root}
             disabled={submitting}
-            onClick={openDeleteWarningDialog(setDeleteWarningOpen)}
+            onClick={() => setDeleteWarningOpen(true)}
             {...otherProps}
           >
             <DeleteIcon />
@@ -79,7 +77,7 @@ function SafeDeleteIconButton({
             isSubmitting={submitting}
             open={deleteWarningOpen}
             onCancel={onCancelDelete(setDeleteWarningOpen, setSubmitting)}
-            onSuccess={deleteSubmitHandler(deleteQuestion, question, setSubmitting)}
+            onSuccess={deleteHandler(deleteQuestion, question, setSubmitting)}
           />
         </React.Fragment>
       )}
