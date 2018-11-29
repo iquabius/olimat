@@ -43,10 +43,14 @@ const onCancelDelete = (setDeleteWarningOpen, setSubmitting) => () => {
 };
 
 /**
- * @param {string} str String to truncate
+ * Truncates a string to a certain number of words.
+ * @param {String} str String to truncate
+ * @param {Number} noWords Number of words
  */
-const truncate = str =>
-  take(str.split(' '), 7)
+const truncate = (str, noWords) =>
+  str
+    .split(' ')
+    .splice(0, noWords)
     .join(' ')
     .concat(' [...]');
 
@@ -72,8 +76,8 @@ function SafeDeleteIconButton({
             <DeleteIcon />
           </IconButton>
           <DeleteWarningDialog
-            title={`Excluir “${truncate(question.wording)}“?`}
-            content={`A questão “${truncate(question.wording)}” será apagada permanentemente.`}
+            title={`Excluir “${truncate(question.wording, 7)}“?`}
+            content={`A questão “${truncate(question.wording, 7)}” será apagada permanentemente.`}
             isSubmitting={submitting}
             open={deleteWarningOpen}
             onCancel={onCancelDelete(setDeleteWarningOpen, setSubmitting)}
