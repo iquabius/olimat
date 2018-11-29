@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles, IconButton } from '@material-ui/core';
-import take from 'lodash/take';
 import DeleteIcon from '@material-ui/icons/Delete';
 import compose from 'recompose/compose';
 import { withState } from 'recompose';
