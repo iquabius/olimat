@@ -7,6 +7,7 @@ import { withState } from 'recompose';
 import DeleteConnector from './Question/DeleteConnector';
 import Router from 'next/router';
 import DeleteWarningDialog from './DeleteWarningDialog';
+import OliSnackbar from './OliSnackbar';
 
 const styles = theme => ({
   root: {
@@ -16,7 +17,7 @@ const styles = theme => ({
   },
 });
 
-const deleteHandler = (deleteQuestion, question, setSubmitting) => () => {
+const deleteHandler = (deleteQuestion, question, setSnackbarOpen, setSubmitting) => () => {
   setSubmitting(true);
   deleteQuestion({
     variables: {
@@ -26,6 +27,7 @@ const deleteHandler = (deleteQuestion, question, setSubmitting) => () => {
     .then(response => {
       console.log(`Delete Question Mutation response: `); // eslint-disable-line no-console
       console.log(response); // eslint-disable-line no-console
+      setSnackbarOpen(true);
       setSubmitting(false);
       Router.push('/admin/questoes');
     })
@@ -53,12 +55,22 @@ const truncate = (str, noWords) =>
     .join(' ')
     .concat(' [...]');
 
+const closeSnackbarHandler = setSnackbarOpen => (event, reason) => {
+  if (reason === 'clickaway') {
+    return;
+  }
+
+  setSnackbarOpen(false);
+};
+
 function SafeDeleteIconButton({
   classes,
   deleteWarningOpen,
   question,
   setDeleteWarningOpen,
+  setSnackbarOpen,
   setSubmitting,
+  snackbarOpen,
   submitting,
   ...otherProps
 }) {
@@ -80,7 +92,13 @@ function SafeDeleteIconButton({
             isSubmitting={submitting}
             open={deleteWarningOpen}
             onCancel={onCancelDelete(setDeleteWarningOpen, setSubmitting)}
-            onSuccess={deleteHandler(deleteQuestion, question, setSubmitting)}
+            onSuccess={deleteHandler(deleteQuestion, question, setSnackbarOpen, setSubmitting)}
+          />
+          <OliSnackbar
+            message="Questão excluída"
+            open={snackbarOpen}
+            onClose={closeSnackbarHandler(setSnackbarOpen)}
+            variant="success"
           />
         </React.Fragment>
       )}
@@ -95,11 +113,14 @@ SafeDeleteIconButton.propTypes = {
     id: PropTypes.string.isRequired,
   }).isRequired,
   setDeleteWarningOpen: PropTypes.func.isRequired,
+  setSnackbarOpen: PropTypes.func.isRequired,
   setSubmitting: PropTypes.func.isRequired,
+  snackbarOpen: PropTypes.bool.isRequired,
   submitting: PropTypes.bool.isRequired,
 };
 
 export default compose(
+  withState('snackbarOpen', 'setSnackbarOpen', false),
   withState('deleteWarningOpen', 'setDeleteWarningOpen', false),
   withState('submitting', 'setSubmitting', false),
   withStyles(styles),
