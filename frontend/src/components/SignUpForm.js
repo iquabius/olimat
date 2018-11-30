@@ -119,7 +119,7 @@ class SignUpForm extends React.Component {
         </form>
         <Typography className={classes.helpMessage} variant="caption" align="center">
           Já possui uma conta?{' '}
-          <Link variant="secondary" href="/login">
+          <Link variant="primary" href="/login">
             Faça login aqui.
           </Link>
         </Typography>
