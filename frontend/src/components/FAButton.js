@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles, Button } from '@material-ui/core';
+import { withStyles, Fab } from '@material-ui/core';
 
 const styles = theme => ({
   FAButton: {
@@ -22,9 +22,9 @@ const styles = theme => ({
 });
 
 const FAButton = ({ children, classes, onClick, ...rest }) => (
-  <Button onClick={onClick} variant="fab" color="secondary" className={classes.FAButton} {...rest}>
+  <Fab onClick={onClick} color="secondary" className={classes.FAButton} {...rest}>
     {children}
-  </Button>
+  </Fab>
 );
 
 FAButton.propTypes = {
