@@ -1,10 +1,12 @@
+// <App> customizado: https://nextjs.org/docs#custom-app
 import React from 'react';
-import PropTypes from 'prop-types';
+import App, { Container } from 'next/app';
 import find from 'lodash/find';
-import checkLoggedIn from './checkLoggedIn';
-import withData from './withData';
+import checkLoggedIn from '../utils/checkLoggedIn';
+import withData from '../utils/withData';
 import AppWrapper from '../components/AppWrapper';
 import PageContext from '../components/PageContext';
+import getPageContext from '../utils/getPageContext';
 
 const pages = [
   {
@@ -160,48 +162,38 @@ function findActivePage(currentPages, router) {
   return activePage;
 }
 
-function withRoot(Component) {
-  // eslint-disable-next-line react/prefer-stateless-function
-  class WithRoot extends React.Component {
-    render() {
-      const { loggedInUser, pageContext, ...otherProps } = this.props;
-      const { router } = this.props;
-
-      const activePage = findActivePage(pages, router);
-
-      return (
-        <PageContext.Provider value={{ activePage, loggedInUser, pages }}>
-          <AppWrapper pageContext={pageContext}>
-            <Component {...otherProps} />
-          </AppWrapper>
-        </PageContext.Provider>
-      );
-    }
+class OliApp extends App {
+  constructor(props) {
+    super(props);
+    this.pageContext = getPageContext();
   }
 
-  WithRoot.propTypes = {
-    loggedInUser: PropTypes.object,
-    pageContext: PropTypes.object,
-    router: PropTypes.object.isRequired,
-  };
+  render() {
+    const { Component, loggedInUser, pageProps, router } = this.props;
 
-  WithRoot.getInitialProps = async ctx => {
-    const { loggedInUser } = await checkLoggedIn(ctx.apolloClient);
-    const router = {
-      query: ctx.query,
-      pathname: ctx.pathname,
-      asPath: ctx.asPath,
-    };
+    const activePage = findActivePage(pages, router);
 
-    let composedInitialProps = {};
-    if (Component.getInitialProps) {
-      composedInitialProps = Component.getInitialProps(ctx);
-    }
-
-    return { loggedInUser, router, ...composedInitialProps };
-  };
-
-  return withData(WithRoot);
+    return (
+      <Container>
+        <AppWrapper pageContext={this.pageContext}>
+          <PageContext.Provider value={{ activePage, loggedInUser, pages }}>
+            <Component pageContext={this.pageContext} {...pageProps} />
+          </PageContext.Provider>
+        </AppWrapper>
+      </Container>
+    );
+  }
 }
 
-export default withRoot;
+OliApp.getInitialProps = async ({ Component, router, ctx }) => {
+  const { loggedInUser } = await checkLoggedIn(ctx.apolloClient);
+  let pageProps = {};
+
+  if (Component.getInitialProps) {
+    pageProps = await Component.getInitialProps(ctx);
+  }
+
+  return { loggedInUser, pageProps, router };
+};
+
+export default withData(OliApp);

@@ -1,11 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import compose from 'recompose/compose';
 import Head from 'next/head';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import withRoot from '../utils/withRoot';
 import AppFrame from '../components/AppFrame';
 import AppFooter from '../components/AppFooter';
 import Link from '../components/Link';
@@ -116,7 +114,4 @@ PageHome.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default compose(
-  withRoot,
-  withStyles(styles),
-)(PageHome);
+export default withStyles(styles)(PageHome);
