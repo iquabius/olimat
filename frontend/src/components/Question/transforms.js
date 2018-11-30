@@ -15,7 +15,7 @@ export const responseToFormValues = response => ({
   wording: response.wording,
   imageUrl: response.imageUrl,
   imageFullUrl: response.imageFullUrl,
-  secondaryWording: response.secondaryWording,
+  secondaryWording: response.secondaryWording || '',
   choices: response.choices.length > 0 ? response.choices : emptyChoices,
 });
 
@@ -65,6 +65,6 @@ export const formValuesToRequest = values => ({
   type: values.type,
   wording: values.wording,
   imageUrl: values.imageUrl,
-  secondaryWording: values.secondaryWording,
+  secondaryWording: values.secondaryWording || null,
   choices: choicesValuesToRequest(values.choices, values.type),
 });
