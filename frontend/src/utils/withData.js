@@ -20,12 +20,16 @@ export default ComposedComponent => {
     };
 
     static async getInitialProps(ctx) {
-      const { req, res } = ctx;
+      const {
+        Component,
+        router,
+        ctx: { req, res },
+      } = ctx;
 
       // Setup a server-side one-time-use apollo client for initial props and
       // rendering (on server)
       const apollo = initApollo({}, { getToken: () => parseCookies(req).token });
-      ctx.apolloClient = apollo;
+      ctx.ctx.apolloClient = apollo;
 
       // Evaluate the composed component's getInitialProps()
       let componentProps = {};
@@ -42,20 +46,19 @@ export default ComposedComponent => {
       // Run all GraphQL queries in the component tree
       // and extract the resulting data
       if (!process.browser) {
-        const router = {
-          query: ctx.query,
-          pathname: ctx.pathname,
-          asPath: ctx.asPath,
-        };
-
         try {
           // Run all GraphQL queries
           const app = (
             <ApolloProvider client={apollo}>
-              <ComposedComponent {...componentProps} />
+              <ComposedComponent
+                {...componentProps}
+                Component={Component}
+                router={router}
+                apolloClient={apollo}
+              />
             </ApolloProvider>
           );
-          await getDataFromTree(app, { router });
+          await getDataFromTree(app);
         } catch (error) {
           // Prevent Apollo Client GraphQL errors from crashing SSR.
           // Handle them in components via the data.error prop:

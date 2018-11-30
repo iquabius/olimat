@@ -1,6 +1,5 @@
 import React from 'react';
 import Head from 'next/head';
-import withRoot from '../utils/withRoot';
 import OnlyFormFrame from '../components/OnlyFormFrame';
 import SignUpForm from '../components/SignUpForm';
 import checkLoggedIn from '../utils/checkLoggedIn';
@@ -29,4 +28,4 @@ PageSignUp.getInitialProps = async context => {
   return {};
 };
 
-export default withRoot(PageSignUp);
+export default PageSignUp;

@@ -1,6 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Document, { Head, Main, NextScript } from 'next/document';
-import getPageContext from '../utils/getPageContext';
 
 class MyDocument extends Document {
   render() {
@@ -59,11 +59,20 @@ MyDocument.getInitialProps = ctx => {
   // 3. app.render
   // 4. page.render
 
-  // Get the context of the page to collected side effects.
-  const pageContext = getPageContext();
-  const page = ctx.renderPage(Component => props => (
-    <Component pageContext={pageContext} {...props} />
-  ));
+  // Render app and page and get the context of the page with collected side effects.
+  let pageContext;
+  const page = ctx.renderPage(Component => {
+    const WrappedComponent = props => {
+      pageContext = props.pageContext;
+      return <Component {...props} />;
+    };
+
+    WrappedComponent.propTypes = {
+      pageContext: PropTypes.object.isRequired,
+    };
+
+    return WrappedComponent;
+  });
 
   return {
     ...page,

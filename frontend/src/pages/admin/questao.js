@@ -1,5 +1,4 @@
 import React from 'react';
-import withRoot from '../../utils/withRoot';
 import AppFrame from '../../components/AppFrame';
 import AppContent from '../../components/AppContent';
 import QuestionDetails from '../../components/Question/Details';
@@ -12,4 +11,4 @@ const PageQuestion = () => (
   </AppFrame>
 );
 
-export default withRoot(PageQuestion);
+export default PageQuestion;

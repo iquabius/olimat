@@ -33,6 +33,8 @@ class AppWrapper extends React.Component {
     if (typeof prevState.pageContext === 'undefined') {
       return {
         prevProps: nextProps,
+        // Acredito que getPageContext() nunca será executado aqui,
+        // pois OliApp sempre cria um 'pageContext'. Veja _app:constructor()
         pageContext: nextProps.pageContext || getPageContext(),
       };
     }
