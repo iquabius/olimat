@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import NProgress from 'nprogress';
-// O NProgressBar da versão 3.0.0-alpha.7 do @material-ui/docs não está
-// funcionando com o Material-UI v3.5.1, então eu copiei o componente.
-import NProgressBar from './NProgressBar';
+import NProgressBar from '@material-ui/docs/NProgressBar';
 import Router from 'next/router';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
