@@ -129,7 +129,7 @@ class LoginForm extends React.Component {
         </form>
         <Typography className={classes.helpMessage} variant="caption" align="center">
           Ainda não tem uma conta?{' '}
-          <Link variant="secondary" href="/criar_conta">
+          <Link variant="primary" href="/criar_conta">
             Crie a sua aqui.
           </Link>
         </Typography>
