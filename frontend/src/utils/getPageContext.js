@@ -5,11 +5,17 @@ import { createMuiTheme, createGenerateClassName } from '@material-ui/core/style
 import green from '@material-ui/core/colors/green';
 import blue from '@material-ui/core/colors/blue';
 
-// A theme with custom primary and secondary color.
-// It's optional.
-const theme = createMuiTheme({
-  nprogress: { color: '#000' },
-  palette: {
+function getTheme(uiTheme) {
+  return createMuiTheme({
+    nprogress: { color: uiTheme.paletteType === 'light' ? '#000' : '#fff' },
+    palette: { ...uiTheme.paletteColors, type: uiTheme.paletteType },
+    typography: { useNextVariants: true },
+  });
+}
+
+const defaultTheme = {
+  paletteType: 'light',
+  paletteColors: {
     primary: {
       main: '#1e88e5',
     },
@@ -17,7 +23,9 @@ const theme = createMuiTheme({
       main: '#008a00',
     },
   },
-});
+};
+
+const theme = getTheme(defaultTheme);
 
 function createPageContext() {
   return {
@@ -29,6 +37,18 @@ function createPageContext() {
     // The standard class name generator.
     generateClassName: createGenerateClassName(),
   };
+}
+
+export function updatePageContext(uiTheme) {
+  const { paletteColors } = defaultTheme;
+
+  const pageContext = {
+    ...global.__MUI_PAGE_CONTEXT__,
+    theme: getTheme({ ...uiTheme, paletteColors }),
+  };
+  global.__MUI_PAGE_CONTEXT__ = pageContext;
+
+  return pageContext;
 }
 
 export default function getPageContext() {

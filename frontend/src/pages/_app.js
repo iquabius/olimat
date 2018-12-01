@@ -7,6 +7,9 @@ import withData from '../utils/withData';
 import AppWrapper from '../components/AppWrapper';
 import PageContext from '../components/PageContext';
 import getPageContext from '../utils/getPageContext';
+import { getCookie } from '../utils/helpers';
+import { compose, graphql } from 'react-apollo';
+import { setPaletteTypeMutation } from '../utils/localApollo';
 
 const pages = [
   {
@@ -168,6 +171,16 @@ class OliApp extends App {
     this.pageContext = getPageContext();
   }
 
+  componentDidMount() {
+    // We can get this cookie on the server, so this is not needed
+    const paletteType = getCookie('paletteType');
+    if (paletteType) {
+      this.props.setPaletteType({
+        variables: { type: paletteType },
+      });
+    }
+  }
+
   render() {
     const { Component, loggedInUser, pageProps, router } = this.props;
 
@@ -196,4 +209,7 @@ OliApp.getInitialProps = async ({ Component, router, ctx }) => {
   return { loggedInUser, pageProps, router };
 };
 
-export default withData(OliApp);
+export default compose(
+  withData,
+  graphql(setPaletteTypeMutation, { name: 'setPaletteType' }),
+)(OliApp);
