@@ -14,7 +14,7 @@ function getTheme(uiTheme) {
 }
 
 const defaultTheme = {
-  paletteType: 'light',
+  // paletteType: 'light',
   paletteColors: {
     primary: {
       main: '#1e88e5',
@@ -25,9 +25,9 @@ const defaultTheme = {
   },
 };
 
-const theme = getTheme(defaultTheme);
+function createPageContext(paletteType) {
+  const theme = getTheme({ ...defaultTheme, paletteType });
 
-function createPageContext() {
   return {
     theme,
     // This is needed in order to deduplicate the injection of CSS in the page.
@@ -51,16 +51,16 @@ export function updatePageContext(uiTheme) {
   return pageContext;
 }
 
-export default function getPageContext() {
+export default function getPageContext(paletteType) {
   // Make sure to create a new context for every server-side request so that data
   // isn't shared between connections (which would be bad).
   if (!process.browser) {
-    return createPageContext();
+    return createPageContext(paletteType);
   }
 
   // Reuse context on the client-side.
   if (!global.__INIT_MATERIAL_UI__) {
-    global.__INIT_MATERIAL_UI__ = createPageContext();
+    global.__INIT_MATERIAL_UI__ = createPageContext(paletteType);
   }
 
   return global.__INIT_MATERIAL_UI__;

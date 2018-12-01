@@ -45,7 +45,7 @@ class AppWrapper extends React.Component {
 
     // uiTheme is the result of paletteTypeQuery, so it has other properties
     // besides paletteType, like fetchMore, loading, refetch, etc.
-    if (nextProps.uiTheme.paletteType !== prevProps.uiTheme.paletteType) {
+    if (nextProps.uiTheme.paletteType !== prevProps.pageContext.theme.type) {
       return {
         prevProps: nextProps,
         pageContext: updatePageContext(nextProps.uiTheme),

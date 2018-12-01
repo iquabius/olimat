@@ -7,9 +7,8 @@ import withData from '../utils/withData';
 import AppWrapper from '../components/AppWrapper';
 import PageContext from '../components/PageContext';
 import getPageContext from '../utils/getPageContext';
-import { getCookie } from '../utils/helpers';
 import { compose, graphql } from 'react-apollo';
-import { setPaletteTypeMutation } from '../utils/localApollo';
+import { paletteTypeQuery } from '../utils/localApollo';
 
 const pages = [
   {
@@ -168,17 +167,7 @@ function findActivePage(currentPages, router) {
 class OliApp extends App {
   constructor(props) {
     super(props);
-    this.pageContext = getPageContext();
-  }
-
-  componentDidMount() {
-    // We can get this cookie on the server, so this is not needed
-    const paletteType = getCookie('paletteType');
-    if (paletteType) {
-      this.props.setPaletteType({
-        variables: { type: paletteType },
-      });
-    }
+    this.pageContext = getPageContext(props.uiTheme.paletteType);
   }
 
   render() {
@@ -211,5 +200,5 @@ OliApp.getInitialProps = async ({ Component, router, ctx }) => {
 
 export default compose(
   withData,
-  graphql(setPaletteTypeMutation, { name: 'setPaletteType' }),
+  graphql(paletteTypeQuery, { name: 'uiTheme' }),
 )(OliApp);
