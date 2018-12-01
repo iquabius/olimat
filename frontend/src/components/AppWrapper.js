@@ -4,8 +4,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import JssProvider from 'react-jss/lib/JssProvider';
-import getPageContext from '../utils/getPageContext';
+import getPageContext, { updatePageContext } from '../utils/getPageContext';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import { graphql } from 'react-apollo';
+import { paletteTypeQuery } from '../utils/localApollo';
 
 // Inject the <!--insertion-point-jss--> at the end of <head> (see pages/_document.js)
 if (process.browser && !global.__INSERTION_POINT__) {
@@ -39,6 +41,17 @@ class AppWrapper extends React.Component {
       };
     }
 
+    const { prevProps } = prevState;
+
+    // uiTheme is the result of paletteTypeQuery, so it has other properties
+    // besides paletteType, like fetchMore, loading, refetch, etc.
+    if (nextProps.uiTheme.paletteType !== prevProps.uiTheme.paletteType) {
+      return {
+        prevProps: nextProps,
+        pageContext: updatePageContext(nextProps.uiTheme),
+      };
+    }
+
     return null;
   }
 
@@ -67,4 +80,4 @@ AppWrapper.propTypes = {
   pageContext: PropTypes.object,
 };
 
-export default AppWrapper;
+export default graphql(paletteTypeQuery, { name: 'uiTheme' })(AppWrapper);

@@ -9,9 +9,14 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import LightbulbOutlineIcon from '@material-ui/docs/svgIcons/LightbulbOutline';
+import LightbulbFullIcon from '@material-ui/docs/svgIcons/LightbulbFull';
 import AppDrawer from './AppDrawer';
 import UserMenuAppBar from './UserMenuAppBar';
 import PageTitle from './PageTitle';
+import { Tooltip } from '@material-ui/core';
+import { compose, graphql } from 'react-apollo';
+import { setPaletteTypeMutation, paletteTypeQuery } from '../utils/localApollo';
 
 Router.onRouteChangeStart = () => {
   NProgress.start();
@@ -78,8 +83,17 @@ class AppFrame extends React.Component {
     this.setState({ mobileOpen: false });
   };
 
+  handleTogglePaletteType = () => {
+    const paletteType = this.props.uiTheme.paletteType === 'light' ? 'dark' : 'light';
+    document.cookie = `paletteType=${paletteType};path=/;max-age=31536000`;
+
+    this.props.setPaletteType({
+      variables: { type: paletteType },
+    });
+  };
+
   render() {
-    const { children, classes } = this.props;
+    const { children, classes, uiTheme } = this.props;
 
     return (
       <PageTitle>
@@ -121,6 +135,19 @@ class AppFrame extends React.Component {
                     </Typography>
                   )}
                   <div className={classes.grow} />
+                  <Tooltip title="Alternar tema claro/escuro" enterDelay={300}>
+                    <IconButton
+                      color="inherit"
+                      onClick={this.handleTogglePaletteType}
+                      aria-label="Alternar tema claro/escuro"
+                    >
+                      {uiTheme.paletteType === 'light' ? (
+                        <LightbulbOutlineIcon />
+                      ) : (
+                        <LightbulbFullIcon />
+                      )}
+                    </IconButton>
+                  </Tooltip>
                   <UserMenuAppBar />
                 </Toolbar>
               </AppBar>
@@ -143,6 +170,12 @@ class AppFrame extends React.Component {
 AppFrame.propTypes = {
   children: PropTypes.node.isRequired,
   classes: PropTypes.object.isRequired,
+  setPaletteType: PropTypes.func.isRequired,
+  uiTheme: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, { name: 'AppFrame' })(AppFrame);
+export default compose(
+  graphql(paletteTypeQuery, { name: 'uiTheme' }),
+  graphql(setPaletteTypeMutation, { name: 'setPaletteType' }),
+  withStyles(styles, { name: 'AppFrame' }),
+)(AppFrame);
