@@ -5,7 +5,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { setContext } from 'apollo-link-context';
 import { withClientState } from 'apollo-link-state';
 import fetch from 'isomorphic-unfetch';
-import { defaults, resolvers } from './localApollo';
+import { resolvers } from './localApollo';
 
 let apolloClient = null;
 
@@ -14,7 +14,7 @@ if (!process.browser) {
   global.fetch = fetch;
 }
 
-function create(initialState, { getToken }) {
+function create(initialState, { getToken, getPaletteType }) {
   const httpLink = createHttpLink({
     // TODO: Fix this to work on intranet
     uri: 'http://localhost:4000/graphql',
@@ -32,6 +32,10 @@ function create(initialState, { getToken }) {
   });
 
   const cache = new InMemoryCache().restore(initialState || {});
+
+  const defaults = {
+    paletteType: getPaletteType(),
+  };
 
   const stateLink = withClientState({ resolvers, cache, defaults });
 

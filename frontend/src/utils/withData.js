@@ -27,7 +27,13 @@ export default App => {
       } = ctx;
 
       // One-time-use apollo client for initial props and rendering (on server)
-      const apollo = initApollo({}, { getToken: () => parseCookies(req).token });
+      const apollo = initApollo(
+        {},
+        {
+          getToken: () => parseCookies(req).token,
+          getPaletteType: () => parseCookies(req).paletteType,
+        },
+      );
       ctx.ctx.apolloClient = apollo;
 
       let appProps = {};
@@ -80,6 +86,7 @@ export default App => {
       // executed on the client.
       this.apolloClient = initApollo(props.apolloState, {
         getToken: () => parseCookies().token,
+        getPaletteType: () => props.apolloState.ROOT_QUERY.paletteType,
       });
     }
 
