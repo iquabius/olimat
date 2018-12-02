@@ -1,12 +1,9 @@
 import React from 'react';
-import cookie from 'cookie';
 import PropTypes from 'prop-types';
 import { ApolloProvider, getDataFromTree } from 'react-apollo';
 import Head from 'next/head';
 import initApollo from './initApollo';
-
-const parseCookies = (req, options = {}) =>
-  cookie.parse(req ? req.headers.cookie || '' : document.cookie, options);
+import { parseCookies } from './helpers';
 
 // Gets the display name of a JSX component for dev tools
 const getDisplayName = ({ displayName, name }) => displayName || name || 'Unknown';
