@@ -1,6 +1,7 @@
 // <App> customizado: https://nextjs.org/docs#custom-app
 import React from 'react';
 import App, { Container } from 'next/app';
+import { SnackbarProvider } from 'notistack';
 import find from 'lodash/find';
 import checkLoggedIn from '../utils/checkLoggedIn';
 import withData from '../utils/withData';
@@ -201,7 +202,9 @@ class OliApp extends App {
       <Container>
         <AppWrapper pageContext={pageContext}>
           <PageContext.Provider value={{ activePage, loggedInUser, pages, uiTheme }}>
-            <Component pageContext={pageContext} {...pageProps} />
+            <SnackbarProvider maxSnack={3}>
+              <Component pageContext={pageContext} {...pageProps} />
+            </SnackbarProvider>
           </PageContext.Provider>
         </AppWrapper>
       </Container>
