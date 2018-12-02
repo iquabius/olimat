@@ -1,10 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, withStyles, CircularProgress } from '@material-ui/core';
+// eslint-disable-next-line no-unused-vars
+import { Theme } from '@material-ui/core/styles/createMuiTheme';
 
-const styles = theme => ({
+/**
+ * This callback function is used to create the styles
+ * @param {Theme} theme Material-UI theme
+ */
+const styles = ({ breakpoints, palette, spacing }) => ({
   loadMoreButton: {
-    marginTop: theme.spacing.unit * 2,
+    color: palette.type === 'light' ? palette.primary.main : palette.primary.light,
+    borderColor: palette.type === 'light' ? palette.primary.main : palette.primary.light,
+    marginTop: spacing.unit * 2,
     width: '100%',
     // Centraliza o botão verticalmente
     marginLeft: 'auto',
@@ -13,12 +21,12 @@ const styles = theme => ({
     // Fixa a altura, porque o CircularProgress aumenta o botão
     height: 40,
   },
-  [theme.breakpoints.up('sm')]: {
+  [breakpoints.up('sm')]: {
     loadMoreButton: {
       width: '49%',
     },
   },
-  [theme.breakpoints.up('md')]: {
+  [breakpoints.up('md')]: {
     loadMoreButton: {
       maxWidth: '32%',
     },
@@ -84,7 +92,6 @@ class LoadMoreButton extends React.Component {
         onClick={onLoadMore}
         disabled={loadingMore || !hasMore}
         className={classes.loadMoreButton}
-        color="primary"
         size="large"
         variant="outlined"
       >

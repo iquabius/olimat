@@ -2,12 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
+// eslint-disable-next-line no-unused-vars
+import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import ListItem from '@material-ui/core/ListItem';
 import Button from '@material-ui/core/Button';
 import Collapse from '@material-ui/core/Collapse';
 import Link from './Link';
 
-const styles = theme => ({
+/**
+ * This callback function is used to create the styles
+ * @param {Theme} theme Material-UI theme
+ */
+const styles = ({ palette, typography }) => ({
   item: {
     display: 'block',
     paddingTop: 0,
@@ -29,14 +35,14 @@ const styles = theme => ({
     justifyContent: 'flex-start',
     textTransform: 'none',
     width: '100%',
-    fontWeight: theme.typography.fontWeightRegular,
+    fontWeight: typography.fontWeightRegular,
     '&.depth-0': {
-      fontWeight: theme.typography.fontWeightMedium,
+      fontWeight: typography.fontWeightMedium,
     },
   },
   active: {
-    color: theme.palette.primary.main,
-    fontWeight: theme.typography.fontWeightMedium,
+    color: palette.type === 'light' ? palette.primary.main : palette.primary.light,
+    fontWeight: typography.fontWeightMedium,
   },
 });
 
