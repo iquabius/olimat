@@ -4,10 +4,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import JssProvider from 'react-jss/lib/JssProvider';
-import getPageContext, { updatePageContext } from '../utils/getPageContext';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { graphql } from 'react-apollo';
-import { paletteTypeQuery } from '../utils/localApollo';
 
 // Inject the <!--insertion-point-jss--> at the end of <head> (see pages/_document.js)
 if (process.browser && !global.__INSERTION_POINT__) {
@@ -31,33 +28,9 @@ class AppWrapper extends React.Component {
     }
   }
 
-  static getDerivedStateFromProps(nextProps, prevState) {
-    if (typeof prevState.pageContext === 'undefined') {
-      return {
-        prevProps: nextProps,
-        // Acredito que getPageContext() nunca será executado aqui,
-        // pois OliApp sempre cria um 'pageContext'. Veja _app:constructor()
-        pageContext: nextProps.pageContext || getPageContext(),
-      };
-    }
-
-    const { prevProps } = prevState;
-
-    // uiTheme is the result of paletteTypeQuery, so it has other properties
-    // besides paletteType, like fetchMore, loading, refetch, etc.
-    if (nextProps.uiTheme.paletteType !== prevProps.pageContext.theme.type) {
-      return {
-        prevProps: nextProps,
-        pageContext: updatePageContext(nextProps.uiTheme),
-      };
-    }
-
-    return null;
-  }
-
   render() {
     const { children } = this.props;
-    const { pageContext } = this.state;
+    const { pageContext } = this.props;
 
     return (
       <JssProvider
@@ -80,4 +53,4 @@ AppWrapper.propTypes = {
   pageContext: PropTypes.object,
 };
 
-export default graphql(paletteTypeQuery, { name: 'uiTheme' })(AppWrapper);
+export default AppWrapper;

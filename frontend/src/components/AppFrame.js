@@ -15,8 +15,9 @@ import AppDrawer from './AppDrawer';
 import UserMenuAppBar from './UserMenuAppBar';
 import PageTitle from './PageTitle';
 import { Tooltip } from '@material-ui/core';
-import { compose, graphql } from 'react-apollo';
-import { setPaletteTypeMutation, paletteTypeQuery } from '../utils/localApollo';
+import { compose } from 'react-apollo';
+import fromRenderProps from 'recompose/fromRenderProps';
+import PageContext from './PageContext';
 
 Router.onRouteChangeStart = () => {
   NProgress.start();
@@ -83,15 +84,6 @@ class AppFrame extends React.Component {
     this.setState({ mobileOpen: false });
   };
 
-  handleTogglePaletteType = () => {
-    const paletteType = this.props.uiTheme.paletteType === 'light' ? 'dark' : 'light';
-    document.cookie = `paletteType=${paletteType};path=/;max-age=31536000`;
-
-    this.props.setPaletteType({
-      variables: { type: paletteType },
-    });
-  };
-
   render() {
     const { children, classes, uiTheme } = this.props;
 
@@ -138,7 +130,7 @@ class AppFrame extends React.Component {
                   <Tooltip title="Alternar tema claro/escuro" enterDelay={300}>
                     <IconButton
                       color="inherit"
-                      onClick={this.handleTogglePaletteType}
+                      onClick={uiTheme.handleTogglePaletteType}
                       aria-label="Alternar tema claro/escuro"
                     >
                       {uiTheme.paletteType === 'light' ? (
@@ -170,12 +162,15 @@ class AppFrame extends React.Component {
 AppFrame.propTypes = {
   children: PropTypes.node.isRequired,
   classes: PropTypes.object.isRequired,
-  setPaletteType: PropTypes.func.isRequired,
-  uiTheme: PropTypes.object.isRequired,
+  uiTheme: PropTypes.shape({
+    handleTogglePaletteType: PropTypes.func.isRequired,
+    paletteType: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
+const pageContext = fromRenderProps(PageContext.Consumer, ({ uiTheme }) => ({ uiTheme }));
+
 export default compose(
-  graphql(paletteTypeQuery, { name: 'uiTheme' }),
-  graphql(setPaletteTypeMutation, { name: 'setPaletteType' }),
+  pageContext,
   withStyles(styles, { name: 'AppFrame' }),
 )(AppFrame);

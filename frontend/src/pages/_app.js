@@ -6,9 +6,8 @@ import checkLoggedIn from '../utils/checkLoggedIn';
 import withData from '../utils/withData';
 import AppWrapper from '../components/AppWrapper';
 import PageContext from '../components/PageContext';
-import getPageContext from '../utils/getPageContext';
-import { compose, graphql } from 'react-apollo';
-import { paletteTypeQuery } from '../utils/localApollo';
+import getPageContext, { updatePageContext } from '../utils/getPageContext';
+import cookie from 'cookie';
 
 const pages = [
   {
@@ -164,22 +163,49 @@ function findActivePage(currentPages, router) {
   return activePage;
 }
 
+// TODO: Deduplicate this (look at withData HoC)
+const parseCookies = (req, options = {}) =>
+  cookie.parse(req ? req.headers.cookie || '' : document.cookie, options);
+
 class OliApp extends App {
   constructor(props) {
     super(props);
-    this.pageContext = getPageContext(props.uiTheme.paletteType);
+
+    this.state = {
+      pageContext: getPageContext(props.paletteType),
+      uiTheme: {
+        paletteType: props.paletteType,
+        handleTogglePaletteType: this.handleTogglePaletteType,
+      },
+    };
   }
+
+  handleTogglePaletteType = () => {
+    this.setState(state => {
+      const paletteType = state.uiTheme.paletteType === 'light' ? 'dark' : 'light';
+      document.cookie = `paletteType=${paletteType};path=/;max-age=31536000`;
+
+      return {
+        pageContext: updatePageContext(paletteType),
+        uiTheme: {
+          paletteType,
+          handleTogglePaletteType: this.handleTogglePaletteType,
+        },
+      };
+    });
+  };
 
   render() {
     const { Component, loggedInUser, pageProps, router } = this.props;
+    const { pageContext, uiTheme } = this.state;
 
     const activePage = findActivePage(pages, router);
 
     return (
       <Container>
-        <AppWrapper pageContext={this.pageContext}>
-          <PageContext.Provider value={{ activePage, loggedInUser, pages }}>
-            <Component pageContext={this.pageContext} {...pageProps} />
+        <AppWrapper pageContext={pageContext}>
+          <PageContext.Provider value={{ activePage, loggedInUser, pages, uiTheme }}>
+            <Component pageContext={pageContext} {...pageProps} />
           </PageContext.Provider>
         </AppWrapper>
       </Container>
@@ -189,16 +215,14 @@ class OliApp extends App {
 
 OliApp.getInitialProps = async ({ Component, router, ctx }) => {
   const { loggedInUser } = await checkLoggedIn(ctx.apolloClient);
+  const paletteType = parseCookies(ctx.req).paletteType;
   let pageProps = {};
 
   if (Component.getInitialProps) {
     pageProps = await Component.getInitialProps(ctx);
   }
 
-  return { loggedInUser, pageProps, router };
+  return { loggedInUser, pageProps, paletteType, router };
 };
 
-export default compose(
-  withData,
-  graphql(paletteTypeQuery, { name: 'uiTheme' }),
-)(OliApp);
+export default withData(OliApp);
