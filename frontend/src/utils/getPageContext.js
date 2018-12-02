@@ -39,12 +39,12 @@ function createPageContext(paletteType) {
   };
 }
 
-export function updatePageContext(uiTheme) {
+export function updatePageContext(paletteType) {
   const { paletteColors } = defaultTheme;
 
   const pageContext = {
     ...global.__MUI_PAGE_CONTEXT__,
-    theme: getTheme({ ...uiTheme, paletteColors }),
+    theme: getTheme({ paletteType, paletteColors }),
   };
   global.__MUI_PAGE_CONTEXT__ = pageContext;
 

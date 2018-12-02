@@ -10,6 +10,10 @@ const PageContext = React.createContext({
     email: '',
   },
   pages: [],
+  uiTheme: {
+    paletteType: '',
+    handleTogglePaletteType: () => {},
+  },
 });
 
 export default PageContext;
