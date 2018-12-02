@@ -7,7 +7,7 @@ import withData from '../utils/withData';
 import AppWrapper from '../components/AppWrapper';
 import PageContext from '../components/PageContext';
 import getPageContext, { updatePageContext } from '../utils/getPageContext';
-import cookie from 'cookie';
+import { parseCookies } from '../utils/helpers';
 
 const pages = [
   {
@@ -162,10 +162,6 @@ function findActivePage(currentPages, router) {
 
   return activePage;
 }
-
-// TODO: Deduplicate this (look at withData HoC)
-const parseCookies = (req, options = {}) =>
-  cookie.parse(req ? req.headers.cookie || '' : document.cookie, options);
 
 class OliApp extends App {
   constructor(props) {
