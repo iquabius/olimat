@@ -2,6 +2,8 @@ import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+// eslint-disable-next-line no-unused-vars
+import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import List from '@material-ui/core/List';
 import Toolbar from '@material-ui/core/Toolbar';
 import Drawer from '@material-ui/core/Drawer';
@@ -14,15 +16,20 @@ import Link from './Link';
 import { pageToTitle } from '../utils/helpers';
 import PageContext from './PageContext';
 
-const styles = theme => ({
+/**
+ * This callback function is used to create the styles
+ * @param {Theme} theme Material-UI theme
+ */
+const styles = ({ palette }) => ({
   paper: {
     width: 250,
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: palette.background.paper,
   },
   title: {
-    color: theme.palette.text.secondary,
+    color: palette.text.secondary,
     '&:hover': {
-      color: theme.palette.primary.main,
+      color: palette.type === 'light' ? palette.primary.main : palette.primary.light,
+      textDecoration: 'none',
     },
   },
   // https://github.com/philipwalton/flexbugs#3-min-height-on-a-flex-container-wont-apply-to-its-flex-items
@@ -36,7 +43,7 @@ const styles = theme => ({
     justifyContent: 'center',
   },
   anchor: {
-    color: theme.palette.text.secondary,
+    color: palette.text.secondary,
   },
 });
 
