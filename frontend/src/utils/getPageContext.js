@@ -59,9 +59,9 @@ export default function getPageContext(paletteType) {
   }
 
   // Reuse context on the client-side.
-  if (!global.__INIT_MATERIAL_UI__) {
-    global.__INIT_MATERIAL_UI__ = createPageContext(paletteType);
+  if (!global.__MUI_PAGE_CONTEXT__) {
+    global.__MUI_PAGE_CONTEXT__ = createPageContext(paletteType);
   }
 
-  return global.__INIT_MATERIAL_UI__;
+  return global.__MUI_PAGE_CONTEXT__;
 }
