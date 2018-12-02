@@ -7,7 +7,7 @@ import blue from '@material-ui/core/colors/blue';
 
 function getTheme(uiTheme) {
   return createMuiTheme({
-    nprogress: { color: uiTheme.paletteType === 'light' ? '#000' : '#fff' },
+    nprogress: { color: uiTheme.paletteType === 'light' ? '#006000' : '#33a133' },
     palette: { ...uiTheme.paletteColors, type: uiTheme.paletteType },
     typography: { useNextVariants: true },
   });
