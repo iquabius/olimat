@@ -1,5 +1,6 @@
 import { ApolloClient } from 'apollo-client';
 import { ApolloLink } from 'apollo-link';
+import { onError } from 'apollo-link-error';
 import { createHttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { setContext } from 'apollo-link-context';
@@ -13,6 +14,16 @@ if (!process.browser) {
 }
 
 function create(initialState, { getToken }) {
+  const errorLink = onError(({ graphQLErrors, networkError }) => {
+    if (graphQLErrors)
+      graphQLErrors.map(({ message, locations, path }) =>
+        // eslint-disable-next-line no-console
+        console.log(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`),
+      );
+    // eslint-disable-next-line no-console
+    if (networkError) console.log(`[Network error]: ${networkError.message}`);
+  });
+
   const httpLink = createHttpLink({
     // TODO: Fix this to work on intranet
     uri: 'http://localhost:4000/graphql',
@@ -34,7 +45,7 @@ function create(initialState, { getToken }) {
   return new ApolloClient({
     connectToDevTools: process.browser,
     ssrMode: !process.browser, // Disables forceFetch on the server (so queries are only run once)
-    link: ApolloLink.from([authLink, httpLink]),
+    link: ApolloLink.from([errorLink, authLink, httpLink]),
     cache,
   });
 }
