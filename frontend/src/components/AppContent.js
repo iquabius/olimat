@@ -9,7 +9,7 @@ const styles = theme => ({
     width: '100%',
   },
   root: theme.mixins.gutters({
-    paddingTop: theme.spacing.unit * 2,
+    paddingTop: 64 + theme.spacing.unit * 2,
     position: 'relative',
     flex: '1 1 100%',
     maxWidth: '100%',
@@ -28,7 +28,7 @@ function AppContent(props) {
 
   return (
     <div className={classes.wrapper}>
-      <BreadcrumbBox />
+      {/* <BreadcrumbBox /> */}
       <div className={classNames(classes.root, className)}>{children}</div>
     </div>
   );
