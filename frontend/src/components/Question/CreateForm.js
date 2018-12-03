@@ -28,9 +28,10 @@ const createHandleSubmit = (createQuestion, enqueueSnackbar) => (values, addHand
       })
       .catch(error => {
         // The component is and should not be aware of this being a GraphQL error.
-        console.log('addHandlers ERROR:');
-        console.log(error);
-        // this.props.showApiErrorNotification(error);
+        enqueueSnackbar(`Erro ao salvar questão: "${error.message}"`, {
+          variant: 'error',
+          autoHideDuration: 6000,
+        });
       }),
   );
 };
