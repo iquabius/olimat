@@ -28,14 +28,14 @@ const deleteHandler = (deleteQuestion, question, enqueueSnackbar, setSubmitting)
       console.log(`Delete Question Mutation response: `); // eslint-disable-line no-console
       console.log(response); // eslint-disable-line no-console
       // TODO: Implement 'undo' feature (it needs backend support, like flagging as deleted)
-      enqueueSnackbar('Questão excluída', { variant: 'success', autoHideDuration: 6000 });
+      enqueueSnackbar('Questão excluída', { variant: 'success' });
       setSubmitting(false);
       Router.push('/admin/questoes');
     })
     .catch(error => {
       // Something went wrong, such as incorrect password, or no network available, etc.
       const errorMessage = `Erro ao excluir questão: "${error.message}"`;
-      enqueueSnackbar(errorMessage, { variant: 'error', autoHideDuration: 6000 });
+      enqueueSnackbar(errorMessage, { variant: 'error' });
       setSubmitting(false);
     });
 };

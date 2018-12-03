@@ -23,14 +23,12 @@ const createHandleSubmit = (createQuestion, enqueueSnackbar) => (values, addHand
         console.log(resp);
         enqueueSnackbar('Questão salva com sucesso', {
           variant: 'success',
-          autoHideDuration: 6000,
         });
       })
       .catch(error => {
         // The component is and should not be aware of this being a GraphQL error.
         enqueueSnackbar(`Erro ao salvar questão: "${error.message}"`, {
           variant: 'error',
-          autoHideDuration: 6000,
         });
       }),
   );

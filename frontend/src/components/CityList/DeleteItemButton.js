@@ -43,10 +43,7 @@ const onSubmitDelete = (deleteCity, city, enqueueSnackbar) => () => {
     .then(response => {
       console.log(`Delete City Mutation response: `);
       console.log(response);
-      enqueueSnackbar('Cidade excluída', {
-        variant: 'success',
-        autoHideDuration: 6000,
-      });
+      enqueueSnackbar('Cidade excluída', { variant: 'success' });
     })
     .catch(error => {
       // Something went wrong, such as incorrect password, or no network

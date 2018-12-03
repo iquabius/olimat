@@ -23,7 +23,6 @@ export const createSubmitHandler = (question, updateQuestion, enqueueSnackbar) =
         console.log(resp);
         enqueueSnackbar('Questão salva com sucesso', {
           variant: 'success',
-          autoHideDuration: 6000,
         });
         Router.push(`/admin/questao?id=${question.id}`);
       })
@@ -31,7 +30,6 @@ export const createSubmitHandler = (question, updateQuestion, enqueueSnackbar) =
         // The component is and should not be aware of this being a GraphQL error.
         enqueueSnackbar(`Erro ao salvar questão: "${error.message}"`, {
           variant: 'error',
-          autoHideDuration: 6000,
         });
       }),
   );
