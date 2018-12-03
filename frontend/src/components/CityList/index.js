@@ -16,7 +16,6 @@ import { withState } from 'recompose';
 import AddDialog from './AddDialog';
 import EditListItem from './EditListItem';
 import DeleteItemButton from './DeleteItemButton';
-import SimpleSnackbar from './SimpleSnackbar';
 
 const styles = theme => ({
   root: {
@@ -38,27 +37,15 @@ export const allCitiesQuery = gql`
 class CityList extends React.Component {
   state = {
     editing: null,
-    deleteSnackbarOpen: false,
-  };
-
-  handleCloseSnackbar = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    this.setState({
-      deleteSnackbarOpen: false,
-    });
   };
 
   render() {
     const { addDialogOpen, setAddDialogOpen, classes } = this.props;
-    const { deleteSnackbarOpen, editing } = this.state;
+    const { editing } = this.state;
     const handleOpenAddCity = () => setAddDialogOpen(true);
     const handleCloseAddCity = () => setAddDialogOpen(false);
     const handleEditCity = id => () => this.setState({ editing: id });
     const handleCloseEditCity = () => this.setState({ editing: null });
-    const setDeleteSnackbarOpen = open => this.setState({ deleteSnackbarOpen: open });
 
     return (
       <Paper className={classes.root}>
@@ -87,10 +74,7 @@ class CityList extends React.Component {
                       <React.Fragment>
                         <ListItemText primary={name} />
                         <ListItemSecondaryAction>
-                          <DeleteItemButton
-                            city={{ id, name }}
-                            setSnackbarOpen={setDeleteSnackbarOpen}
-                          />
+                          <DeleteItemButton city={{ id, name }} />
                           <IconButton onClick={handleEditCity(id)} aria-label="Editar cidade">
                             <EditIcon />
                           </IconButton>
@@ -99,7 +83,6 @@ class CityList extends React.Component {
                     )}
                   </ListItem>
                 ))}
-                <SimpleSnackbar open={deleteSnackbarOpen} onClose={this.handleCloseSnackbar} />
               </List>
             );
           }}

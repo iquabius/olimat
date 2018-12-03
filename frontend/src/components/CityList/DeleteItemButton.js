@@ -15,6 +15,8 @@ import {
   DialogActions,
   Button,
 } from '@material-ui/core';
+import { withSnackbar } from 'notistack';
+import compose from 'recompose/compose';
 
 export const deleteCityMutation = gql`
   mutation deleteCityMutation($id: ID!) {
@@ -32,7 +34,7 @@ const onCancelDelete = (setDeleteWarningOpen, setSubmitting) => () => {
 
 const openDeleteWarningDialog = setDeleteWarningOpen => () => setDeleteWarningOpen(true);
 
-const onSubmitDelete = (deleteCity, city, setDeleteSnackbarOpen) => () => {
+const onSubmitDelete = (deleteCity, city, enqueueSnackbar) => () => {
   deleteCity({
     variables: {
       id: city.id,
@@ -41,7 +43,10 @@ const onSubmitDelete = (deleteCity, city, setDeleteSnackbarOpen) => () => {
     .then(response => {
       console.log(`Delete City Mutation response: `);
       console.log(response);
-      setDeleteSnackbarOpen(true);
+      enqueueSnackbar('Cidade excluída', {
+        variant: 'success',
+        autoHideDuration: 6000,
+      });
     })
     .catch(error => {
       // Something went wrong, such as incorrect password, or no network
@@ -54,8 +59,8 @@ const onSubmitDelete = (deleteCity, city, setDeleteSnackbarOpen) => () => {
 const CityDeleteItemButton = ({
   city,
   deleteWarningOpen,
+  enqueueSnackbar,
   setDeleteWarningOpen,
-  setSnackbarOpen,
 }) => (
   <Mutation
     mutation={deleteCityMutation}
@@ -95,7 +100,7 @@ const CityDeleteItemButton = ({
                   Cancelar
                 </Button>
                 <Button
-                  onClick={onSubmitDelete(deleteCity, city, setSnackbarOpen)}
+                  onClick={onSubmitDelete(deleteCity, city, enqueueSnackbar)}
                   color="secondary"
                   autoFocus
                 >
@@ -115,6 +120,10 @@ CityDeleteItemButton.propTypes = {
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
   }),
+  enqueueSnackbar: PropTypes.func.isRequired,
 };
 
-export default withState('deleteWarningOpen', 'setDeleteWarningOpen', false)(CityDeleteItemButton);
+export default compose(
+  withSnackbar,
+  withState('deleteWarningOpen', 'setDeleteWarningOpen', false),
+)(CityDeleteItemButton);
