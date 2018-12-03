@@ -4,20 +4,13 @@ import { withStyles, Fab } from '@material-ui/core';
 
 const styles = theme => ({
   FAButton: {
-    position: 'absolute',
-    top: -28,
-    left: theme.spacing.unit * -6,
+    position: 'fixed',
+    top: 'auto',
+    left: 'auto',
+    bottom: 23,
+    right: 23,
     // Para o botão ficar por cima das imagens do Card
     zIndex: theme.zIndex.mobileStepper,
-  },
-  [theme.breakpoints.down(1000 + theme.spacing.unit * 8)]: {
-    FAButton: {
-      position: 'fixed',
-      top: 'auto',
-      left: 'auto',
-      bottom: 20,
-      right: 20,
-    },
   },
 });
 
