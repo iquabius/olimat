@@ -18,7 +18,7 @@ const styles = theme => ({
   card: {
     maxWidth: '100%',
     maxHeight: 300,
-    marginTop: theme.spacing.unit * 2,
+    marginBottom: theme.spacing.unit * 2,
   },
   [theme.breakpoints.up('sm')]: {
     card: {
