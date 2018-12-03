@@ -61,6 +61,7 @@ function SafeDeleteIconButton({
   classes,
   deleteWarningOpen,
   enqueueSnackbar,
+  onPresentSnackbar, // This is here to avoid spredding it with ...otherProps below
   question,
   setDeleteWarningOpen,
   setSubmitting,
