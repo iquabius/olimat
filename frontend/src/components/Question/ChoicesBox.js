@@ -8,7 +8,6 @@ const styles = theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     flexWrap: 'wrap',
-    marginTop: theme.spacing.unit * 2,
     marginBottom: -2,
   },
   option: {
@@ -30,10 +29,10 @@ const styles = theme => ({
 
 const optionLabels = ['a', 'b', 'c', 'd', 'e', 'f'];
 
-const ChoicesBox = ({ choices, dense, classes }) => {
+const ChoicesBox = ({ choices, dense, classes, className }) => {
   const optionClassName = dense ? classNames(classes.option, classes.dense) : classes.option;
   return (
-    <div className={classes.choicesBox}>
+    <div className={classNames(classes.choicesBox, className)}>
       {choices.map((choice, index) => (
         <div key={choice.id} className={optionClassName}>
           <span className={classes.optionLabel}>{`${optionLabels[index]}) `}</span>
