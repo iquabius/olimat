@@ -4,8 +4,13 @@ import QuestionForm from './Form';
 import { formValuesToRequest, responseToFormValues } from './transforms';
 import QuestionDetailsConnector from './DetailsConnector';
 import Router, { withRouter } from 'next/router';
+import compose from 'recompose/compose';
+import { withSnackbar } from 'notistack';
 
-export const createSubmitHandler = (question, updateQuestion) => (values, addHandlers) => {
+export const createSubmitHandler = (question, updateQuestion, enqueueSnackbar) => (
+  values,
+  addHandlers,
+) => {
   console.log('UPDATE VALUES: ');
   console.log(values);
   // This is where `addHandlers` comes in handy as the form controls its state
@@ -16,7 +21,10 @@ export const createSubmitHandler = (question, updateQuestion) => (values, addHan
       .then(resp => {
         console.log('UpdateForm addHandlers OK:');
         console.log(resp);
-        // this.props.showNotification();
+        enqueueSnackbar('Questão salva com sucesso', {
+          variant: 'success',
+          autoHideDuration: 6000,
+        });
         Router.push(`/admin/questao?id=${question.id}`);
       })
       .catch(error => {
@@ -28,19 +36,23 @@ export const createSubmitHandler = (question, updateQuestion) => (values, addHan
   );
 };
 
-const QuestionUpdateForm = ({ router }) => (
+const QuestionUpdateForm = ({ enqueueSnackbar, router }) => (
   <QuestionDetailsConnector id={router.query.id}>
     {({ isLoading, question, updateQuestion }) => (
       <QuestionForm
         initialValues={responseToFormValues(question)}
-        onSubmit={createSubmitHandler(question, updateQuestion)}
+        onSubmit={createSubmitHandler(question, updateQuestion, enqueueSnackbar)}
       />
     )}
   </QuestionDetailsConnector>
 );
 
 QuestionUpdateForm.propTypes = {
+  enqueueSnackbar: PropTypes.func.isRequired,
   router: PropTypes.object.isRequired,
 };
 
-export default withRouter(QuestionUpdateForm);
+export default compose(
+  withSnackbar,
+  withRouter,
+)(QuestionUpdateForm);
