@@ -14,6 +14,9 @@ import NextLink from 'next/link';
 import LinesEllipsis from 'react-lines-ellipsis';
 import ChoicesBox from './ChoicesBox';
 
+const longWordingLines = 9;
+const shortWordingLines = 4;
+
 const styles = theme => ({
   card: {
     maxWidth: '100%',
@@ -30,6 +33,17 @@ const styles = theme => ({
       maxWidth: '32%',
     },
   },
+  shortWording: {
+    // Fixa a altura pro texto não deslocar a imagem antes de ser
+    // 'podado' pelo <LinesEllipsis />
+    height: 21 * shortWordingLines,
+    overflow: 'hidden',
+  },
+  longWording: {
+    // 21px por linha
+    height: 21 * longWordingLines,
+    overflow: 'hidden',
+  },
   iconButton: {
     padding: 8,
   },
@@ -41,15 +55,17 @@ const styles = theme => ({
 const ListItem = props => {
   const { classes, question } = props;
   const noImageNoChoices = !question.imageUrl && question.choices && question.choices.length === 0;
+  const wordingClass = noImageNoChoices ? classes.longWording : classes.shortWording;
+
   return (
     <Card className={classes.card}>
       <NextLink href={`/admin/questao?id=${question.id}`}>
         <CardActionArea>
           <CardContent>
-            <Typography component="div">
+            <Typography component="div" className={wordingClass}>
               <LinesEllipsis
                 text={question.wording}
-                maxLine={noImageNoChoices ? 9 : 4}
+                maxLine={noImageNoChoices ? longWordingLines : shortWordingLines}
                 ellipsis="..."
                 trimRight
                 basedOn="words"
