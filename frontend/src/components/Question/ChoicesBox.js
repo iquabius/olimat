@@ -12,7 +12,7 @@ const styles = theme => ({
     marginBottom: -2,
   },
   option: {
-    ...theme.typography.body1,
+    ...theme.typography.body2,
     paddingTop: theme.spacing.unit,
     paddingBottom: theme.spacing.unit,
   },
