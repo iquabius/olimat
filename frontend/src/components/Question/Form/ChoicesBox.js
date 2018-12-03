@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { TextField, MenuItem } from '@material-ui/core';
-import QuestionTypeConnector from '../TypesConnector';
+import QuestionTypeConnector from './TypesConnector';
 import { FieldArray } from 'formik';
 
 const QuestionFormChoicesBox = ({ formikProps }) => (
