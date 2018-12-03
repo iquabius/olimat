@@ -7,8 +7,9 @@ import FAButton from '../FAButton';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import Router from 'next/router';
 import CancelDialog from './CancelDialog';
+import { withSnackbar } from 'notistack';
 
-const createHandleSubmit = createQuestion => (values, addHandlers) => {
+const createHandleSubmit = (createQuestion, enqueueSnackbar) => (values, addHandlers) => {
   console.log('VALUES: ');
   console.log(values);
   // This is where `addHandlers` comes in handy as the form controls its state
@@ -20,7 +21,10 @@ const createHandleSubmit = createQuestion => (values, addHandlers) => {
         console.log('addHandlers OK!');
         console.log('Response: ');
         console.log(resp);
-        // this.props.showNotification();
+        enqueueSnackbar('Questão salva com sucesso', {
+          variant: 'success',
+          autoHideDuration: 6000,
+        });
       })
       .catch(error => {
         // The component is and should not be aware of this being a GraphQL error.
@@ -64,13 +68,14 @@ class QuestionCreateForm extends React.Component {
   };
 
   render() {
+    const { enqueueSnackbar } = this.props;
     const { warningDialogOpen } = this.state;
     return (
       <CreateConnector>
         {({ createQuestion }) => (
           <QuestionForm
             initialValues={questionInitialValues}
-            onSubmit={createHandleSubmit(createQuestion)}
+            onSubmit={createHandleSubmit(createQuestion, enqueueSnackbar)}
           >
             {({ form, isDirty }) => (
               <React.Fragment>
@@ -97,4 +102,8 @@ class QuestionCreateForm extends React.Component {
   }
 }
 
-export default QuestionCreateForm;
+QuestionCreateForm.propTypes = {
+  enqueueSnackbar: PropTypes.func.isRequired,
+};
+
+export default withSnackbar(QuestionCreateForm);
