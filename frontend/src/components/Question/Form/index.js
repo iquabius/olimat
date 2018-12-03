@@ -48,6 +48,8 @@ const QuestionForm = ({ children, initialValues, onSubmit, imageFile, setImageFi
           },
         );
 
+      // TODO: onSubmit could return the promise instead of
+      // passing it through addHandlers()
       return onSubmit(values, addHandlers);
     }}
     render={formikProps => {
