@@ -12,7 +12,6 @@ const styles = ({ breakpoints, palette, spacing }) => ({
   loadMoreButton: {
     color: palette.type === 'light' ? palette.primary.main : palette.primary.light,
     borderColor: palette.type === 'light' ? palette.primary.main : palette.primary.light,
-    marginTop: spacing.unit * 2,
     width: '100%',
     // Centraliza o botão verticalmente
     marginLeft: 'auto',
