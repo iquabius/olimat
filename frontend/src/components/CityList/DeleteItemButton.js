@@ -46,9 +46,9 @@ const onSubmitDelete = (deleteCity, city, enqueueSnackbar) => () => {
       enqueueSnackbar('Cidade excluída', { variant: 'success' });
     })
     .catch(error => {
-      // Something went wrong, such as incorrect password, or no network
-      // available, etc.
-      console.error(error);
+      // Something went wrong, such as incorrect password, or no network available, etc.
+      const errorMessage = `Erro ao excluir cidade: "${error.message}"`;
+      enqueueSnackbar(errorMessage, { variant: 'error' });
     });
 };
 
