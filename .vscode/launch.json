@@ -13,6 +13,12 @@
       "port": 9229,
       "console": "integratedTerminal",
       "cwd": "${workspaceRoot}/frontend/src"
+    },
+    {
+      "type": "node",
+      "request": "attach",
+      "name": "Apollo Server",
+      "port": 9239
     }
   ]
 }
