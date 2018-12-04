@@ -1,6 +1,6 @@
 import { Context } from '../../utils';
 import * as fs from 'fs';
-import * as mv from 'mv';
+import mv from 'mv';
 import * as path from 'path';
 // import { Question, QuestionCreateInput, QuestionUpdateInput } from '../../generated/prisma-client';
 
