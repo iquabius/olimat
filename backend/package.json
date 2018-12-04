@@ -5,6 +5,7 @@
   "author": "Josias Iquabius <iquabius@gmail.com>",
   "main": "src/index.ts",
   "scripts": {
+    "build": "rimraf dist && tsc",
     "dev": "nodemon -e ts,graphql -x ts-node -r dotenv/config src/index.ts",
     "debug": "nodemon --config nodemon.debug.json",
     "lint": "tslint 'src/**/*.ts'",
