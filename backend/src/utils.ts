@@ -1,5 +1,5 @@
-import * as express from 'express';
-import * as jwt from 'jsonwebtoken';
+import express from 'express';
+import jwt from 'jsonwebtoken';
 import { Prisma } from './generated/prisma-client';
 import { Prisma as PrismaBinding } from 'prisma-binding';
 
