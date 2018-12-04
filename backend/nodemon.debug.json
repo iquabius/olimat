@@ -1,0 +1,8 @@
+{
+  "watch": [
+    "src"
+  ],
+  "ext": "ts,graphql",
+  "ignore": ["src/**/*.spec.ts"],
+  "exec": "node --inspect=9239 -r ts-node/register -r dotenv/config src/index.ts"
+}
