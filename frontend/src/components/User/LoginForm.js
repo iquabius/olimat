@@ -4,12 +4,18 @@ import cookie from 'cookie';
 import gql from 'graphql-tag';
 import { withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
-import { Input, InputLabel, InputAdornment } from '@material-ui/core';
+import {
+  FormControl,
+  FormGroup,
+  FormControlLabel,
+  Input,
+  InputLabel,
+  InputAdornment,
+} from '@material-ui/core';
 import Divider from '@material-ui/core/Divider';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
-import { FormControl, FormGroup, FormControlLabel } from '@material-ui/core';
 import Switch from '@material-ui/core/Switch';
 import Button from '@material-ui/core/Button';
 import Visibility from '@material-ui/icons/Visibility';
@@ -41,7 +47,6 @@ const styles = theme => ({
 
 class LoginForm extends React.Component {
   state = {
-    email: '',
     password: '',
     showPassword: false,
     keepLoggedIn: false,
@@ -65,13 +70,25 @@ class LoginForm extends React.Component {
 
   render() {
     const { classes } = this.props;
+    const showPasswordAdornment = (
+      <InputAdornment position="end">
+        <IconButton
+          style={{ width: 'auto' }}
+          onClick={this.handleClickShowPasssword}
+          onMouseDown={this.handleMouseDownPassword}
+        >
+          {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
+        </IconButton>
+      </InputAdornment>
+    );
+
     return (
       <Paper className={classes.loginBox}>
         <Typography className={classes.loginHead} variant="h5">
           Acesse sua Conta
         </Typography>
         <Divider />
-        <form onSubmit={this.props.signin}>
+        <form onSubmit={this.props.handleSignIn}>
           <TextField
             name="email"
             label="Email"
@@ -87,17 +104,7 @@ class LoginForm extends React.Component {
               type={this.state.showPassword ? 'text' : 'password'}
               value={this.state.password}
               onChange={this.handleChange('password')}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    style={{ width: 'auto' }}
-                    onClick={this.handleClickShowPasssword}
-                    onMouseDown={this.handleMouseDownPassword}
-                  >
-                    {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-</InputAdornment>
-              }
+              endAdornment={showPasswordAdornment}
             />
           </FormControl>
           <FormGroup row>
@@ -161,7 +168,7 @@ export default compose(
         ownProps: { client },
       }) => ({
         // `signin` is the name of the prop passed to the component
-        signin: event => {
+        handleSignIn: event => {
           /* global FormData */
           const data = new FormData(event.target);
           console.log(data);
