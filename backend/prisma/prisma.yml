@@ -20,7 +20,7 @@ hooks:
     - npm run copy:files
     - tree ./files
     - graphql get-schema -p prisma
-    - graphql prepare
+    - graphql codegen
     - prisma generate
 
 generate:
