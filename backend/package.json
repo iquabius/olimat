@@ -6,6 +6,7 @@
   "main": "src/index.ts",
   "scripts": {
     "build": "rimraf dist && tsc",
+    "start": "node -r dotenv/config dist/index.js",
     "dev": "nodemon -e ts,graphql -x ts-node -r dotenv/config src/index.ts",
     "debug": "nodemon --config nodemon.debug.json",
     "lint": "tslint 'src/**/*.ts'",
