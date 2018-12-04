@@ -5,9 +5,8 @@
   "author": "Josias Iquabius <iquabius@gmail.com>",
   "main": "src/index.ts",
   "scripts": {
-    "start": "nodemon -e ts,graphql -x ts-node -r dotenv/config src/index.ts",
+    "dev": "nodemon -e ts,graphql -x ts-node -r dotenv/config src/index.ts",
     "debug": "nodemon --config nodemon.debug.json",
-    "dev": "npm-run-all --parallel start playground",
     "lint": "tslint 'src/**/*.ts'",
     "lint:fix": "tslint 'src/**/*.ts' --fix && echo \"tslint: no lint errors\"",
     "tslint-check": "tslint-config-prettier-check ./tslint.json",
