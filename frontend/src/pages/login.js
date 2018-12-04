@@ -1,7 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 import OnlyFormFrame from '../components/OnlyFormFrame';
-import LoginForm from '../components/LoginForm';
+import LoginForm from '../components/User/LoginForm';
 import checkLoggedIn from '../utils/checkLoggedIn';
 import redirect from '../utils/redirect';
 
