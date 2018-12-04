@@ -12,8 +12,8 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import Link from './Link';
-import redirect from '../utils/redirect';
+import Link from '../Link';
+import redirect from '../../utils/redirect';
 
 const styles = theme => ({
   signUpBox: {
