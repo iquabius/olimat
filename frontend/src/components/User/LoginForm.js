@@ -61,7 +61,9 @@ class LoginForm extends React.Component {
   };
 
   handleClickShowPasssword = () => {
-    this.setState({ showPassword: !this.state.showPassword });
+    this.setState(state => ({
+      showPassword: !state.showPassword,
+    }));
   };
 
   handleCheckbox = event => {
