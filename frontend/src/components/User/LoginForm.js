@@ -82,6 +82,14 @@ class LoginForm extends React.Component {
         </IconButton>
       </InputAdornment>
     );
+    const keepLoggedInSwitch = (
+      <Switch
+        checked={this.state.keepLoggedIn}
+        onChange={this.handleCheckbox}
+        value="keepLoggedIn"
+        color="primary"
+      />
+    );
 
     return (
       <Paper className={classes.loginBox}>
@@ -109,17 +117,7 @@ class LoginForm extends React.Component {
             />
           </FormControl>
           <FormGroup row>
-            <FormControlLabel
-              control={
-                <Switch
-  checked={this.state.keepLoggedIn}
-  onChange={this.handleCheckbox}
-  value="keepLoggedIn"
-  color="primary"
-/>
-              }
-              label="Manter acesso"
-            />
+            <FormControlLabel control={keepLoggedInSwitch} label="Manter acesso" />
           </FormGroup>
           {/* <Typography variant="caption">
             <Link href="#">Esqueceu a senha?</Link>
