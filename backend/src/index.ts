@@ -32,8 +32,8 @@ const typeDefs = gql(importSchema('src/schema.graphql'));
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: req => ({
-    ...req,
+  context: ({ req, res }) => ({
+    req,
     db: prisma,
     prismaBinding,
     appConfig,

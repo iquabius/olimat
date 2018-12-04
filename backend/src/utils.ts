@@ -1,3 +1,4 @@
+import * as express from 'express';
 import * as jwt from 'jsonwebtoken';
 import { Prisma } from './generated/prisma-client';
 import { Prisma as PrismaBinding } from 'prisma-binding';
@@ -5,12 +6,12 @@ import { Prisma as PrismaBinding } from 'prisma-binding';
 export interface Context {
   db: Prisma;
   prismaBinding: PrismaBinding;
-  request: any;
+  req: express.Request;
   appConfig: any;
 }
 
 export function getUserId(ctx: Context) {
-  const Authorization = ctx.request.get('Authorization');
+  const Authorization = ctx.req.get('Authorization');
   // Apollo Client sets header to the string 'null' when not logged in
   if (Authorization && Authorization !== 'null') {
     const token = Authorization.replace('Bearer ', '');
