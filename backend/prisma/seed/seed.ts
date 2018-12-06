@@ -28,6 +28,17 @@ const setup = async () => {
   // Insere as questões
   const questions = await Promise.all(data.questions.map(prisma.createQuestion));
 
+  // Relaciona as 10 primeiras questões a cada uma das provas
+  // Isto é feito aqui porque em data.ts não temos acesso ao id das questões
+  data.tests = data.tests.map(test => ({
+    ...test,
+    questions: {
+      connect: questions.slice(0, 10).map(({ id }) => ({ id })),
+    },
+  }));
+  // Insere as provas
+  const tests = await Promise.all(data.tests.map(prisma.createTest));
+
   // Insere as escolas
   const schoolsCreate = await Promise.all(data.schools.map(prisma.createSchool));
 };

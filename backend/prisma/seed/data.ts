@@ -3,6 +3,7 @@ import {
   OlympiadCreateInput,
   QuestionCreateInput,
   SchoolCreateInput,
+  TestCreateInput,
   UserCreateInput,
 } from '../../src/generated/prisma-client';
 
@@ -12,16 +13,6 @@ const users: UserCreateInput[] = [
     // plaintext password: "nooneknows"
     password: '$2a$10$hACwQ5/HQI6FhbIISOUVeusy3sKyUDhSq36fF5d/54aAdiygJPFzm',
     name: 'Pafúncio',
-    tests: {
-      create: [
-        { title: 'Hello World', description: 'This is my first blog post ever!' },
-        {
-          title: 'My Second Post',
-          description: 'My first post was good, but this one is better!',
-        },
-        { title: 'Solving World Hunger', description: 'This is a draft...' },
-      ],
-    },
   },
 ];
 
@@ -315,10 +306,46 @@ const questions: QuestionCreateInput[] = [
   },
 ];
 
+const tests: TestCreateInput[] = [
+  {
+    title: 'OLIMPÍADA DE MATEMÁTICA DA UNEMAT – 2017 – 3ª FASE – 5° Ano',
+    author: { connect: { email: 'dev@example.com' } },
+  },
+  {
+    title: 'OLIMPÍADA DE MATEMÁTICA DA UNEMAT – 2017 – 3ª FASE – 6° e 7° Anos',
+    author: { connect: { email: 'dev@example.com' } },
+  },
+  {
+    title: 'OLIMPÍADA DE MATEMÁTICA DA UNEMAT – 2017 – 3ª FASE – 8° e 9° Anos',
+    author: { connect: { email: 'dev@example.com' } },
+  },
+  {
+    title: 'OLIMPÍADA DE MATEMÁTICA DA UNEMAT – 2017 – 3ª FASE – Ensino Médio',
+    author: { connect: { email: 'dev@example.com' } },
+  },
+  {
+    title: 'OLIMPÍADA DE MATEMÁTICA DA UNEMAT – 2018 – 2ª FASE – 5° Ano',
+    author: { connect: { email: 'dev@example.com' } },
+  },
+  {
+    title: 'OLIMPÍADA DE MATEMÁTICA DA UNEMAT – 2018 – 2ª FASE – 6° e 7° Anos',
+    author: { connect: { email: 'dev@example.com' } },
+  },
+  {
+    title: 'OLIMPÍADA DE MATEMÁTICA DA UNEMAT – 2018 – 2ª FASE – 8° e 9° Anos',
+    author: { connect: { email: 'dev@example.com' } },
+  },
+  {
+    title: 'OLIMPÍADA DE MATEMÁTICA DA UNEMAT – 2018 – 2ª FASE – Ensino Médio',
+    author: { connect: { email: 'dev@example.com' } },
+  },
+];
+
 export default {
   cities,
   users,
   olympiads,
   questions,
+  tests,
   schools,
 };
