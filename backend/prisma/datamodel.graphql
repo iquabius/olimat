@@ -56,11 +56,12 @@ type School {
 
 type Test {
   id: ID! @unique
+  title: String!
+  description: String
+  author: User!
+  questions: [Question!]!
   createdAt: DateTime!
   updatedAt: DateTime!
-  title: String!
-  description: String!
-  author: User!
 }
 
 type User {
