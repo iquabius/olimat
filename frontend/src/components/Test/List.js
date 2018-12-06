@@ -34,7 +34,7 @@ function TestList({ classes }) {
         <List className={classes.root}>
           {tests.map(test => (
             <ListItem key={test.id} role={undefined} dense button onClick={() => {}}>
-              <ListItemText primary={`Line item ${test.title + 1}`} />
+              <ListItemText primary={test.title} />
               <ListItemSecondaryAction>
                 <IconButton aria-label="Editar prova">
                   <EditIcon />
