@@ -548,6 +548,11 @@ input QuestionCreateInput {
   choices: QuestionChoiceCreateManyInput
 }
 
+input QuestionCreateManyInput {
+  create: [QuestionCreateInput!]
+  connect: [QuestionWhereUniqueInput!]
+}
+
 type QuestionEdge {
   node: Question!
   cursor: String!
@@ -596,6 +601,14 @@ input QuestionSubscriptionWhereInput {
   NOT: [QuestionSubscriptionWhereInput!]
 }
 
+input QuestionUpdateDataInput {
+  type: QUESTION_TYPE
+  wording: String
+  imageUrl: String
+  secondaryWording: String
+  choices: QuestionChoiceUpdateManyInput
+}
+
 input QuestionUpdateInput {
   type: QUESTION_TYPE
   wording: String
@@ -604,11 +617,31 @@ input QuestionUpdateInput {
   choices: QuestionChoiceUpdateManyInput
 }
 
+input QuestionUpdateManyInput {
+  create: [QuestionCreateInput!]
+  update: [QuestionUpdateWithWhereUniqueNestedInput!]
+  upsert: [QuestionUpsertWithWhereUniqueNestedInput!]
+  delete: [QuestionWhereUniqueInput!]
+  connect: [QuestionWhereUniqueInput!]
+  disconnect: [QuestionWhereUniqueInput!]
+}
+
 input QuestionUpdateManyMutationInput {
   type: QUESTION_TYPE
   wording: String
   imageUrl: String
   secondaryWording: String
+}
+
+input QuestionUpdateWithWhereUniqueNestedInput {
+  where: QuestionWhereUniqueInput!
+  data: QuestionUpdateDataInput!
+}
+
+input QuestionUpsertWithWhereUniqueNestedInput {
+  where: QuestionWhereUniqueInput!
+  update: QuestionUpdateDataInput!
+  create: QuestionCreateInput!
 }
 
 input QuestionWhereInput {
@@ -910,11 +943,12 @@ type Subscription {
 
 type Test {
   id: ID!
+  title: String!
+  description: String
+  author: User!
+  questions(where: QuestionWhereInput, orderBy: QuestionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Question!]
   createdAt: DateTime!
   updatedAt: DateTime!
-  title: String!
-  description: String!
-  author: User!
 }
 
 type TestConnection {
@@ -925,8 +959,9 @@ type TestConnection {
 
 input TestCreateInput {
   title: String!
-  description: String!
+  description: String
   author: UserCreateOneWithoutTestsInput!
+  questions: QuestionCreateManyInput
 }
 
 input TestCreateManyWithoutAuthorInput {
@@ -936,7 +971,8 @@ input TestCreateManyWithoutAuthorInput {
 
 input TestCreateWithoutAuthorInput {
   title: String!
-  description: String!
+  description: String
+  questions: QuestionCreateManyInput
 }
 
 type TestEdge {
@@ -947,22 +983,22 @@ type TestEdge {
 enum TestOrderByInput {
   id_ASC
   id_DESC
-  createdAt_ASC
-  createdAt_DESC
-  updatedAt_ASC
-  updatedAt_DESC
   title_ASC
   title_DESC
   description_ASC
   description_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
 }
 
 type TestPreviousValues {
   id: ID!
+  title: String!
+  description: String
   createdAt: DateTime!
   updatedAt: DateTime!
-  title: String!
-  description: String!
 }
 
 type TestSubscriptionPayload {
@@ -987,6 +1023,7 @@ input TestUpdateInput {
   title: String
   description: String
   author: UserUpdateOneRequiredWithoutTestsInput
+  questions: QuestionUpdateManyInput
 }
 
 input TestUpdateManyMutationInput {
@@ -1006,6 +1043,7 @@ input TestUpdateManyWithoutAuthorInput {
 input TestUpdateWithoutAuthorDataInput {
   title: String
   description: String
+  questions: QuestionUpdateManyInput
 }
 
 input TestUpdateWithWhereUniqueWithoutAuthorInput {
@@ -1034,22 +1072,6 @@ input TestWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  createdAt: DateTime
-  createdAt_not: DateTime
-  createdAt_in: [DateTime!]
-  createdAt_not_in: [DateTime!]
-  createdAt_lt: DateTime
-  createdAt_lte: DateTime
-  createdAt_gt: DateTime
-  createdAt_gte: DateTime
-  updatedAt: DateTime
-  updatedAt_not: DateTime
-  updatedAt_in: [DateTime!]
-  updatedAt_not_in: [DateTime!]
-  updatedAt_lt: DateTime
-  updatedAt_lte: DateTime
-  updatedAt_gt: DateTime
-  updatedAt_gte: DateTime
   title: String
   title_not: String
   title_in: [String!]
@@ -1079,6 +1101,25 @@ input TestWhereInput {
   description_ends_with: String
   description_not_ends_with: String
   author: UserWhereInput
+  questions_every: QuestionWhereInput
+  questions_some: QuestionWhereInput
+  questions_none: QuestionWhereInput
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   AND: [TestWhereInput!]
   OR: [TestWhereInput!]
   NOT: [TestWhereInput!]
