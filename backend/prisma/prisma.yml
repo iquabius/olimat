@@ -12,8 +12,7 @@ datamodel: datamodel.graphql
 seed:
   run: npx ts-node -r dotenv/config prisma/seed/seed.ts
 
-# "prisma generate" doesn't work yet because there's
-# more than one instance of "graphql" in the node_modules
+# Comandos executados depois do 'prisma deploy'
 hooks:
   post-deploy:
     - npm run clean:files
