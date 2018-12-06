@@ -89,6 +89,10 @@ const pages = [
         title: 'Questões',
       },
       {
+        pathname: '/admin/provas',
+        title: 'Provas',
+      },
+      {
         pathname: '/admin/cidades',
         title: 'Cidades',
       },
