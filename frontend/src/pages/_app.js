@@ -28,44 +28,6 @@ const pages = [
     ],
   },
   {
-    pathname: '/style',
-    children: [
-      {
-        pathname: '/style/reboot',
-      },
-      {
-        pathname: '/style/color',
-      },
-      {
-        pathname: '/style/icons',
-      },
-      {
-        pathname: '/style/typography',
-      },
-    ],
-  },
-  {
-    pathname: '/layout',
-    children: [
-      {
-        pathname: '/layout/basics',
-      },
-      {
-        pathname: '/layout/grid',
-      },
-      {
-        pathname: '/layout/hidden',
-      },
-      {
-        pathname: '/layout/css-in-js',
-        title: 'CSS in JS',
-      },
-      {
-        pathname: '/layout/portal',
-      },
-    ],
-  },
-  {
     pathname: '/programas-e-portais',
     children: [
       {
