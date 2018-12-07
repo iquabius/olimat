@@ -33,22 +33,12 @@ export const Query = {
 
   async question(parent, { id }, ctx: Context) {
     const question = await ctx.db.question({ id });
-    if (question) {
-      return {
-        ...question,
-        choices: await ctx.db.question({ id }).choices(),
-      };
-    } else {
-      return null;
-    }
+    return question;
   },
 
   async questions(parent, args, ctx: Context) {
     const questions = await ctx.db.questions({});
-    return questions.map(q => ({
-      ...q,
-      choices: ctx.db.question({ id: q.id }).choices(),
-    }));
+    return questions;
   },
 
   questionsConnection(parent, args, ctx: Context, info) {
