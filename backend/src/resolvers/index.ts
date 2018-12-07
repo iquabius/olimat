@@ -24,6 +24,15 @@ export default {
       return prisma.test({ id: parent.id }).questions();
     },
   },
+  Question: {
+    /**
+     * Busca as alternativas relacionadas a uma questão.
+     * @param parent instância da questão (Question)
+     */
+    choices(parent) {
+      return prisma.question({ id: parent.id }).choices();
+    },
+  },
   // https://github.com/prisma/prisma/issues/2225#issuecomment-413265367
   Node: {
     __resolveType(obj, ctx, info) {
