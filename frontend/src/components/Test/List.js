@@ -14,6 +14,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
 // eslint-disable-next-line no-unused-vars
 import { StyleRules } from '@material-ui/core/styles/withStyles';
+import Link from '../Link';
 
 /**
  * This callback function is used to create the styles
@@ -27,20 +28,24 @@ const styles = theme => ({
   },
 });
 
+function TestItemLink(props) {
+  return <ListItem variant="button" button dense component={Link} {...props} />;
+}
+
 function TestList({ classes }) {
   return (
     <ListConnector>
       {({ tests }) => (
         <List className={classes.root}>
           {tests.map(test => (
-            <ListItem key={test.id} role={undefined} dense button onClick={() => {}}>
+            <TestItemLink key={test.id} href={`/admin/provas/detalhes?id=${test.id}`}>
               <ListItemText primary={test.title} />
               <ListItemSecondaryAction>
                 <IconButton aria-label="Editar prova">
                   <EditIcon />
                 </IconButton>
               </ListItemSecondaryAction>
-            </ListItem>
+            </TestItemLink>
           ))}
         </List>
       )}

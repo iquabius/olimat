@@ -93,6 +93,11 @@ const pages = [
         title: 'Provas',
       },
       {
+        pathname: '/admin/provas/detalhes',
+        title: 'Detalhes da Prova',
+        displayNav: false,
+      },
+      {
         pathname: '/admin/cidades',
         title: 'Cidades',
       },
