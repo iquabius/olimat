@@ -20,14 +20,18 @@ const styles = theme => ({
     fontWeight: 'bold',
   },
   questionImg: {
-    width: '100%',
+    display: 'block',
+    margin: 'auto',
+    marginBottom: theme.spacing.unit * 3,
+    marginTop: theme.spacing.unit,
+    maxWidth: '100%',
   },
   choices: {
     marginBottom: theme.spacing.unit * 4,
   },
 });
 
-const TestQuestionItem = ({ className, classes, number, question }) => (
+const TestQuestionItem = ({ classes, className, number, question }) => (
   <div className={classNames(classes.root, className)}>
     <Typography gutterBottom paragraph>
       <span className={classes.questionNumber}>{`Questão ${number}) `}</span>
@@ -42,5 +46,12 @@ const TestQuestionItem = ({ className, classes, number, question }) => (
       )}
   </div>
 );
+
+TestQuestionItem.propTypes = {
+  classes: PropTypes.object.isRequired,
+  className: PropTypes.string,
+  number: PropTypes.number.isRequired,
+  question: PropTypes.object.isRequired,
+};
 
 export default withStyles(styles)(TestQuestionItem);
