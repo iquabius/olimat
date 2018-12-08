@@ -310,6 +310,9 @@ const tests: TestCreateInput[] = [
   {
     title: 'OLIMPÍADA DE MATEMÁTICA DA UNEMAT – 2017 – 3ª FASE – 5° Ano',
     author: { connect: { email: 'dev@example.com' } },
+    // TODO: Criar questões adicionais pra cada prova
+    // Assim evitamos aquela lógia macabra pra mapear questões já criadas (testsQuestions)
+    // questions: { create: [{ type: 'OPEN_ENDED', wording: 'dev@example.com' }] },
   },
   {
     title: 'OLIMPÍADA DE MATEMÁTICA DA UNEMAT – 2017 – 3ª FASE – 6° e 7° Anos',
@@ -341,11 +344,34 @@ const tests: TestCreateInput[] = [
   },
 ];
 
+const testsQuestions = [
+  // 10 questões pra cada prova
+  [0, 1, 6, 8, 9, 11, 12, 13, 16, 18],
+  [2, 3, 7, 8, 10, 13, 14, 15, 16, 17],
+  [3, 5, 8, 9, 10, 11, 17, 19, 20, 21],
+  [2, 4, 5, 7, 12, 15, 17, 18, 19, 21],
+  // repeat
+  [0, 1, 6, 8, 9, 11, 12, 13, 16, 18],
+  [2, 3, 7, 8, 10, 13, 14, 15, 16, 17],
+  [3, 5, 8, 9, 10, 11, 17, 19, 20, 21],
+  [2, 4, 5, 7, 12, 15, 17, 18, 19, 21],
+];
+
+/**
+ * Retorna uma função que retorna `true` caso a
+ * @param tIndex Index da prova na array 'tests' em data.ts
+ */
+const isTestQuestion = tIndex => (question, questionIndex) => {
+  return testsQuestions[tIndex].includes(questionIndex);
+};
+
 export default {
   cities,
   users,
   olympiads,
   questions,
   tests,
+  testsQuestions,
+  isTestQuestion,
   schools,
 };

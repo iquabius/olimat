@@ -30,10 +30,11 @@ const setup = async () => {
 
   // Relaciona as 10 primeiras questões a cada uma das provas
   // Isto é feito aqui porque em data.ts não temos acesso ao id das questões
-  data.tests = data.tests.map(test => ({
+  data.tests = data.tests.map((test, index) => ({
     ...test,
     questions: {
-      connect: questions.slice(0, 10).map(({ id }) => ({ id })),
+      // Filtra as 10 questões que pertencem a prove no 'index'
+      connect: questions.filter(data.isTestQuestion(index)).map(({ id }) => ({ id })),
     },
   }));
   // Insere as provas
