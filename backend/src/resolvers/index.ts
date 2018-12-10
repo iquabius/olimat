@@ -17,6 +17,13 @@ export default {
   // https://www.prisma.io/tutorials/a-guide-to-common-resolver-patterns-ct08/#scenario:-implementing-relations-with-prisma-client
   Test: {
     /**
+     * Busca o usuário que criou a prova.
+     * @param parent instância da prova (Test)
+     */
+    author(parent) {
+      return prisma.test({ id: parent.id }).author();
+    },
+    /**
      * Busca as questões relacionadas a uma prova.
      * @param parent instância da prova (Test)
      */
