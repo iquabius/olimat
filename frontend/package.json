@@ -8,6 +8,7 @@
     "dev": "next ./src",
     "build": "next build ./src",
     "start": "next start ./src",
+    "test": "jest",
     "lint": "eslint src",
     "lint:fix": "eslint src --cache --fix && echo \"eslint: no lint errors\"",
     "analyze": "cross-env ANALYZE=1 next build ./src"
@@ -49,8 +50,11 @@
     "yup": "^0.26.6"
   },
   "devDependencies": {
+    "@babel/core": "^7.2.0",
     "@types/next": "^7.0.4",
+    "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
+    "babel-jest": "^23.6.0",
     "cross-env": "^5.2.0",
     "eslint": "^5.7.0",
     "eslint-config-airbnb": "^17.1.0",
@@ -59,6 +63,7 @@
     "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-prettier": "^3.0.0",
     "eslint-plugin-react": "^7.11.1",
+    "jest": "^23.6.0",
     "prettier": "^1.14.3"
   }
 }
