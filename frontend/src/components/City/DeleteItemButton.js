@@ -4,7 +4,7 @@ import { Mutation } from 'react-apollo';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import gql from 'graphql-tag';
-import { allCitiesQuery } from '.';
+import { allCitiesQuery } from './List';
 import { Formik } from 'formik';
 import { withState } from 'recompose';
 import {
