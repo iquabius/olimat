@@ -13,6 +13,7 @@ const CancelDialog = ({ onCancel, onContinue, open = false }) => (
     onClose={onCancel}
     aria-labelledby="cancel-dialog-title"
     aria-describedby="cancel-dialog-description"
+    data-testid="cancel-dialog"
   >
     <DialogTitle id="cancel-dialog-title">Descartar rascunho da questão?</DialogTitle>
     <DialogContent>
