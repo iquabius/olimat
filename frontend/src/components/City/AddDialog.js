@@ -6,7 +6,7 @@ import { Dialog, DialogActions, DialogContent, DialogTitle } from '@material-ui/
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 import { Formik } from 'formik';
-import { allCitiesQuery } from '.';
+import { allCitiesQuery } from './List';
 
 export const newCityMutation = gql`
   mutation newCityMutation($name: String!) {
