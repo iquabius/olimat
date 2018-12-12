@@ -1,10 +1,7 @@
 /* eslint-env jest */
 import React from 'react';
-import { cleanup, fireEvent, render } from 'react-testing-library';
+import { fireEvent, render } from 'react-testing-library';
 import CancelDialog from './CancelDialog';
-import 'jest-dom/extend-expect';
-
-afterEach(cleanup);
 
 test("doesn't render the dialog if it's closed", () => {
   const { container } = render(

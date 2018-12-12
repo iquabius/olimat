@@ -1,11 +1,8 @@
 /* eslint-env jest */
 import React from 'react';
-import { cleanup, fireEvent, render } from 'react-testing-library';
+import { fireEvent, render } from 'react-testing-library';
 import ActionBox from './ActionBox';
 import Router from 'next/router';
-import 'jest-dom/extend-expect';
-
-afterEach(cleanup);
 
 jest.mock('next/router');
 
