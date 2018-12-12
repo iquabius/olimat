@@ -55,6 +55,7 @@ const QuestionFormActionBox = ({
       className={classes.cancelButton}
       size="large"
       variant="outlined"
+      data-testid="cancel-button"
     >
       Cancelar
     </Button>
@@ -72,6 +73,7 @@ const QuestionFormActionBox = ({
       color="secondary"
       size="large"
       variant="contained"
+      data-testid="save-button"
     >
       Salvar
     </Button>
