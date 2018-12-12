@@ -9,7 +9,6 @@ export const allTests = gql`
     tests {
       id
       title
-      description
     }
   }
 `;
