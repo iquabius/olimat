@@ -19,6 +19,8 @@ jest.mock('next/router', () => ({
 
 // Talvez uma solução melhor seria criar um mock para o contexto do Next.js
 // https://github.com/zeit/next.js/issues/5205
+// Outra opção é exportar o componente sem embrulhá-lo com os HoC, e passar os mocks
+// https://stackoverflow.com/questions/44204828
 
 const testSample = {
   id: 'testId1',
