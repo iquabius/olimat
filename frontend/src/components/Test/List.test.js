@@ -20,9 +20,9 @@ describe('<TestList />', () => {
 
   test('renders some tests', async () => {
     const allTestsData = [
-      { id: '1', title: 'Prova 1', __typename: 'Test' },
-      { id: '2', title: 'Prova 2', __typename: 'Test' },
-      { id: '3', title: 'Prova 3', __typename: 'Test' },
+      { id: '1', title: 'Prova 1' },
+      { id: '2', title: 'Prova 2' },
+      { id: '3', title: 'Prova 3' },
     ];
 
     const mocks = [
@@ -33,7 +33,7 @@ describe('<TestList />', () => {
     ];
 
     const { container, getByText } = render(
-      <MockedProvider mocks={mocks}>
+      <MockedProvider mocks={mocks} addTypename={false}>
         <TestList />
       </MockedProvider>,
     );
