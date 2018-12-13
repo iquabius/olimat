@@ -78,6 +78,6 @@ describe('<TestDetails />', () => {
 
     const { getByText } = renderApollo(<TestDetails />, { mocks });
 
-    await waitForElement(() => getByText(new RegExp(errorMsg)));
+    await waitForElement(() => getByText(errorMsg, { exact: false }));
   });
 });
