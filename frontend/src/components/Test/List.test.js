@@ -9,7 +9,7 @@ import { allTests } from './ListConnector';
 jest.mock('next/router');
 
 describe('<TestList />', () => {
-  test('renders loading component initially', () => {
+  test('renders loading state initially', () => {
     const { getByText } = render(
       <MockedProvider>
         <TestList />
