@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import React from 'react';
-import { render, waitForElement } from 'react-testing-library';
-import { MockedProvider } from 'react-apollo/test-utils';
+import { waitForElement } from 'react-testing-library';
+import { renderApollo } from '../../utils/test-utils';
 import TestList from './List';
 import { allTests } from './ListConnector';
 
@@ -10,11 +10,7 @@ jest.mock('next/router');
 
 describe('<TestList />', () => {
   test('renders loading state initially', () => {
-    const { getByText } = render(
-      <MockedProvider>
-        <TestList />
-      </MockedProvider>,
-    );
+    const { getByText } = renderApollo(<TestList />);
     getByText(/loading/i);
   });
 
@@ -32,11 +28,7 @@ describe('<TestList />', () => {
       },
     ];
 
-    const { container, getByText } = render(
-      <MockedProvider mocks={mocks} addTypename={false}>
-        <TestList />
-      </MockedProvider>,
-    );
+    const { container, getByText } = renderApollo(<TestList />, { mocks });
 
     await waitForElement(() => getByText(allTestsData[0].title));
     expect(container.querySelector('ul').children.length).toBe(allTestsData.length);
