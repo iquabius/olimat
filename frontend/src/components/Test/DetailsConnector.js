@@ -5,7 +5,7 @@ import { Query } from 'react-apollo';
 import ErrorMessage from '../ErrorMessage';
 import { questionWithFullUrl } from '../Question/DetailsConnector';
 
-const testQuery = gql`
+export const testQuery = gql`
   query testQuery($id: ID!) {
     test(id: $id) {
       title

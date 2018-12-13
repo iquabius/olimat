@@ -53,7 +53,7 @@ const TestDetails = ({ classes, router }) => {
             <Typography className={classes.title} variant="h6">
               {test.title}
             </Typography>
-            <div className={classes.questionList}>
+            <div className={classes.questionList} data-testid="questionList">
               {test.questions.map((question, index) => (
                 <TestQuestionItem
                   key={question.id}
