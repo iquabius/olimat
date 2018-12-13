@@ -4,7 +4,11 @@ import { withStyles } from '@material-ui/core';
 import classNames from 'classnames';
 
 const styles = theme => ({
-  choicesBox: {
+  root: {
+    // Remove list-style e padding padrão da tag 'ul'
+    listStyle: 'none',
+    padding: 0,
+    // Layout com flexBox
     display: 'flex',
     justifyContent: 'space-between',
     flexWrap: 'wrap',
@@ -32,14 +36,14 @@ const optionLabels = ['a', 'b', 'c', 'd', 'e', 'f'];
 const ChoicesBox = ({ choices, dense, classes, className }) => {
   const optionClassName = dense ? classNames(classes.option, classes.dense) : classes.option;
   return (
-    <div className={classNames(classes.choicesBox, className)}>
+    <ul className={classNames(classes.root, className)}>
       {choices.map((choice, index) => (
-        <div key={choice.id} className={optionClassName}>
+        <li key={choice.id} className={optionClassName}>
           <span className={classes.optionLabel}>{`${optionLabels[index]}) `}</span>
           {`${choice.text}`}
-        </div>
+        </li>
       ))}
-    </div>
+    </ul>
   );
 };
 
