@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import React from 'react';
-import { render, waitForElement } from 'react-testing-library';
-import { MockedProvider } from 'react-apollo/test-utils';
+import { waitForElement } from 'react-testing-library';
+import { renderApollo } from '../../utils/test-utils';
 import TestDetails from './Details';
 import { testQuery } from './DetailsConnector';
 
@@ -41,11 +41,7 @@ const testSample = {
 
 describe('<TestDetails />', () => {
   test('renders loading state initially', () => {
-    const { getByText } = render(
-      <MockedProvider>
-        <TestDetails />
-      </MockedProvider>,
-    );
+    const { getByText } = renderApollo(<TestDetails />);
     getByText(/loading/i);
   });
 
@@ -62,11 +58,7 @@ describe('<TestDetails />', () => {
       },
     ];
 
-    const { getByText, getByTestId } = render(
-      <MockedProvider mocks={mocks} addTypename={false}>
-        <TestDetails />
-      </MockedProvider>,
-    );
+    const { getByText, getByTestId } = renderApollo(<TestDetails />, { mocks });
 
     await waitForElement(() => getByText(testSample.title));
 
