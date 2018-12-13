@@ -1,9 +1,9 @@
 /* eslint-env jest */
 import React from 'react';
 import { waitForElement } from 'react-testing-library';
-import { renderApollo } from '../../utils/test-utils';
-import TestDetails from './Details';
-import { testQuery } from './DetailsConnector';
+import { renderApollo } from '../../../utils/test-utils';
+import TestDetails from '../../Test/Details';
+import { testQuery } from '../../Test/DetailsConnector';
 
 // <TestDetails /> usa o router pra pegar o id da prova na url
 // https://devblog.xero.com/mocking-a-react-higher-order-component-hoc-with-jest-mock-fd59d5a20a97

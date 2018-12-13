@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import React from 'react';
 import { fireEvent, render } from 'react-testing-library';
-import CancelDialog from './CancelDialog';
+import CancelDialog from '../../Question/CancelDialog';
 
 test("doesn't render the dialog if it's closed", () => {
   const { container } = render(

@@ -1,9 +1,9 @@
 /* eslint-env jest */
 import React from 'react';
 import { waitForElement } from 'react-testing-library';
-import { renderApollo } from '../../utils/test-utils';
-import TestList from './List';
-import { allTests } from './ListConnector';
+import { renderApollo } from '../../../utils/test-utils';
+import TestList from '../../Test/List';
+import { allTests } from '../../Test/ListConnector';
 
 // <Link /> usa 'next/router' pra definir se o link está ativo (páginal atual)
 jest.mock('next/router');
