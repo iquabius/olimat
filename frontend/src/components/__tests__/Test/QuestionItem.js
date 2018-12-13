@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import React from 'react';
 import { render } from 'react-testing-library';
-import QuestionItem from './QuestionItem';
+import QuestionItem from '../../Test/QuestionItem';
 
 describe('<TestQuestionItem />', () => {
   const questionSample = {
