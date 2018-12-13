@@ -40,7 +40,7 @@ const testSample = {
 };
 
 describe('<TestDetails />', () => {
-  test('renders loading component initially', () => {
+  test('renders loading state initially', () => {
     const { getByText } = render(
       <MockedProvider>
         <TestDetails />
