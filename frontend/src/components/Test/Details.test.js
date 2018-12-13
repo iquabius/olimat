@@ -23,17 +23,14 @@ jest.mock('next/router', () => ({
 const testSample = {
   id: 'testId1',
   title: 'Amostra de prova',
-  __typename: 'Test',
   questions: [
     {
-      __typename: 'Question',
       id: 'questionId1',
       wording: 'Enunciado da questão de amostra',
       imageUrl: 'test-sample-image.jpg',
       secondaryWording: '',
       choices: [
         {
-          __typename: 'QuestionChoice',
           id: 'choiceId1',
           text: '',
         },
@@ -66,7 +63,7 @@ describe('<TestDetails />', () => {
     ];
 
     const { getByText, getByTestId } = render(
-      <MockedProvider mocks={mocks}>
+      <MockedProvider mocks={mocks} addTypename={false}>
         <TestDetails />
       </MockedProvider>,
     );
