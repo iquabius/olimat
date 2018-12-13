@@ -40,6 +40,7 @@ const QuestionDetails = ({ classes, router }) => {
   return (
     <QuestionDetailsConnector id={id}>
       {({ question }) => {
+        // TODO: Mover essa lógica para o Connector
         if (!question) return <div>Essa questão não existe!</div>;
         return (
           <Paper elevation={4} className={classes.root}>
