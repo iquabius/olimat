@@ -66,4 +66,18 @@ describe('<TestDetails />', () => {
     expect(questionListNode).toBeInTheDocument();
     expect(questionListNode.children.length).toBe(testSample.questions.length);
   });
+
+  test('renders error message', async () => {
+    const errorMsg = 'Que pena';
+    const mocks = [
+      {
+        request: { query: testQuery, variables: { id: testSample.id } },
+        error: new Error(errorMsg),
+      },
+    ];
+
+    const { getByText } = renderApollo(<TestDetails />, { mocks });
+
+    await waitForElement(() => getByText(new RegExp(errorMsg)));
+  });
 });
