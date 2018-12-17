@@ -16,7 +16,7 @@
     "copy:files": "copyfiles -V -u 2 ./prisma/seed_files/**/* ./files"
   },
   "dependencies": {
-    "apollo-server-express": "^2.2.5",
+    "apollo-server-express": "^2.3.1",
     "bcryptjs": "2.4.3",
     "cors": "^2.8.5",
     "express": "^4.16.4",
