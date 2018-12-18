@@ -16,13 +16,16 @@ seed:
   run: npx ts-node -r dotenv/config prisma/seed/seed.ts
 
 # Comandos executados depois do 'prisma deploy'
+# graphql get-schema -p prisma -> Gera o esquema usado pelo prisma-binding
 hooks:
   post-deploy:
     - npm run clean:files
     - npm run copy:files
     - tree ./files
     - graphql get-schema -p prisma
-    - graphql codegen
+    # Não funciona com a versão 14.0 do 'graphql', por algum motivo.
+    # De qualquer forma, 'graphqlgen' parece mais apropriado
+    # - graphql codegen
     - prisma generate
 
 generate:

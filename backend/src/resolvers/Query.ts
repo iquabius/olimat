@@ -1,6 +1,6 @@
 import { getUserId, Context } from '../utils';
 // Esse tipo é gerado pelo 'graphql codegen'
-import { OlympiadConnection } from '../generated/prisma';
+// import { OlympiadConnection } from '../generated/prisma';
 
 export const Query = {
   // https://github.com/prisma/prisma/issues/2225#issuecomment-413265367
