@@ -1,10 +1,11 @@
 import { getUserId, Context } from '../utils';
+// Esse tipo é gerado pelo 'graphql codegen'
 import { OlympiadConnection } from '../generated/prisma';
 
 export const Query = {
   // https://github.com/prisma/prisma/issues/2225#issuecomment-413265367
-  node(parent, { id }, ctx, info) {
-    return ctx.prismaBinding.query.node({ id }, info);
+  node(parent, { id }, ctx: Context, info) {
+    return ctx.db.node({ id });
   },
 
   city(parent, { id }, ctx: Context, info) {
@@ -28,6 +29,8 @@ export const Query = {
   },
 
   olympiadsFeed(parent, { first, after }, ctx: Context, info) {
+    // Por enquanto as xsConnections do Prisma Client não funcionam
+    // https://github.com/prisma/prisma/issues/3309
     return ctx.prismaBinding.query.olympiadsConnection({ first, after }, info);
   },
 
