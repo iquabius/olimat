@@ -1,11 +1,9 @@
 import express from 'express';
 import jwt from 'jsonwebtoken';
 import { Prisma } from './__generated__/prisma-client';
-import { Prisma as PrismaBinding } from 'prisma-binding';
 
 export interface Context {
   db: Prisma;
-  prismaBinding: PrismaBinding;
   req: express.Request;
   appConfig: any;
 }
