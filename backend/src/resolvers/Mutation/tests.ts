@@ -1,7 +1,7 @@
 import { getUserId, Context } from '../../utils';
 
 export const tests = {
-  async createTest(parent, { title, description }, ctx: Context, info) {
+  async createTest(_, { title, description }, ctx: Context, info) {
     const userId = getUserId(ctx);
     return ctx.db.createTest({
       title,
@@ -12,7 +12,7 @@ export const tests = {
     });
   },
 
-  async deleteTest(parent, { id }, ctx: Context, info) {
+  async deleteTest(_, { id }, ctx: Context, info) {
     const userId = getUserId(ctx);
     const testExists = await ctx.db.$exists.test({
       id,

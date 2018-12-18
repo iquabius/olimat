@@ -1,7 +1,7 @@
 import { getUserId, Context } from '../../utils';
 
 export const olympiads = {
-  async createOlympiad(parent, { name, year }, ctx: Context, info) {
+  async createOlympiad(_, { name, year }, ctx: Context, info) {
     const userId = getUserId(ctx);
     const newOlympiad = await ctx.db.createOlympiad({
       name,
@@ -17,7 +17,7 @@ export const olympiads = {
     };
   },
 
-  async deleteOlympiad(parent, { id }, ctx: Context, info) {
+  async deleteOlympiad(_, { id }, ctx: Context, info) {
     const userId = getUserId(ctx);
     const olympiadExists = await ctx.db.$exists.olympiad({
       id,

@@ -2,7 +2,7 @@ import { getUserId, Context } from '../../utils';
 
 export const schools = {
   async createSchool(
-    parent,
+    _,
     { name, email, phone, pedagogyCoord, director, city, address },
     ctx: Context,
     info,
@@ -27,7 +27,7 @@ export const schools = {
     };
   },
 
-  async deleteSchool(parent, { id }, ctx: Context, info) {
+  async deleteSchool(_, { id }, ctx: Context, info) {
     const userId = getUserId(ctx);
     const schoolExists = await ctx.db.$exists.school({
       id,

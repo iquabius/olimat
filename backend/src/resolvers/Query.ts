@@ -2,25 +2,27 @@ import { getUserId, Context } from '../utils';
 // Esse tipo é gerado pelo 'graphql codegen'
 // import { OlympiadConnection } from '../__generated__/prisma';
 
+// O primeiro argumento dos resolvers, 'parent', sempre será
+// 'blank' porque ele se refere à raíz do grafo.
 export const Query = {
   // https://github.com/prisma/prisma/issues/2225#issuecomment-413265367
-  node(parent, { id }, ctx: Context, info) {
+  node(_, { id }, ctx: Context, info) {
     return ctx.db.node({ id });
   },
 
-  city(parent, { id }, ctx: Context, info) {
+  city(_, { id }, ctx: Context, info) {
     return ctx.db.city({ id });
   },
 
-  cities(parent, args, ctx: Context, info) {
+  cities(_, args, ctx: Context, info) {
     return ctx.db.cities({});
   },
 
-  olympiad(parent, { id }, ctx: Context, info) {
+  olympiad(_, { id }, ctx: Context, info) {
     return ctx.db.olympiad({ id });
   },
 
-  async olympiads(parent, args, ctx: Context, info) {
+  async olympiads(_, args, ctx: Context, info) {
     const olympiads = await ctx.db.olympiads({});
     return olympiads.map(o => ({
       ...o,
@@ -28,27 +30,27 @@ export const Query = {
     }));
   },
 
-  olympiadsFeed(parent, { first, after }, ctx: Context, info) {
+  olympiadsFeed(_, { first, after }, ctx: Context, info) {
     // Por enquanto as xsConnections do Prisma Client não funcionam
     // https://github.com/prisma/prisma/issues/3309
     return ctx.prismaBinding.query.olympiadsConnection({ first, after }, info);
   },
 
-  async question(parent, { id }, ctx: Context) {
+  async question(_, { id }, ctx: Context) {
     const question = await ctx.db.question({ id });
     return question;
   },
 
-  async questions(parent, args, ctx: Context) {
+  async questions(_, args, ctx: Context) {
     const questions = await ctx.db.questions({});
     return questions;
   },
 
-  questionsConnection(parent, args, ctx: Context, info) {
+  questionsConnection(_, args, ctx: Context, info) {
     return ctx.prismaBinding.query.questionsConnection(args, info);
   },
 
-  async schools(parent, args, ctx: Context, info) {
+  async schools(_, args, ctx: Context, info) {
     // The prisma-client api is different, it only returns scalar fields
     const schools = await ctx.db.schools({});
     // Relation fields can be fetched individually...
@@ -58,19 +60,19 @@ export const Query = {
     }));
   },
 
-  school(parent, { id }, ctx: Context, info) {
+  school(_, { id }, ctx: Context, info) {
     return ctx.db.school({ id });
   },
 
-  tests(parent, args, ctx: Context, info) {
+  tests(_, args, ctx: Context, info) {
     return ctx.db.tests({});
   },
 
-  test(parent, { id }, ctx: Context, info) {
+  test(_, { id }, ctx: Context, info) {
     return ctx.db.test({ id });
   },
 
-  me(parent, args, ctx: Context, info) {
+  me(_, args, ctx: Context, info) {
     const id = getUserId(ctx);
     return ctx.db.user({ id });
   },

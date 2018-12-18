@@ -2,8 +2,10 @@ import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
 import { Context } from '../../utils';
 
+// O primeiro argumento dos resolvers, 'parent', sempre será
+// vazio porque ele se refere à raíz do grafo.
 export const auth = {
-  async signup(parent, args, ctx: Context, info) {
+  async signup(_, args, ctx: Context, info) {
     const password = await bcrypt.hash(args.password, 10);
     const user = await ctx.db.createUser({ ...args, password });
 
@@ -13,7 +15,7 @@ export const auth = {
     };
   },
 
-  async login(parent, { email, password }, ctx: Context, info) {
+  async login(_, { email, password }, ctx: Context, info) {
     const user = await ctx.db.user({ email });
     if (!user) {
       throw new Error(`No such user found for email: ${email}`);
