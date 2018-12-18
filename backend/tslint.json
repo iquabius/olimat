@@ -12,6 +12,6 @@
   },
   "jsRules": {},
   "linterOptions": {
-    "exclude": ["./src/generated/**/*"]
+    "exclude": ["./src/__generated__/**/*"]
   }
 }

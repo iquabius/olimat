@@ -12,7 +12,7 @@ esquema do Prisma GraphQL. O prisma-client é melhor quando o esquema da aplica�
 deve ser desacoplado do esquema do Prisma GraphQL. Outros aspectos importantes
 são os 'resolvers' completamente seguros quanto aos tipos ('type-safe').
 */
-import { prisma } from '../../src/generated/prisma-client';
+import { prisma } from '../../src/__generated__/prisma-client';
 import data from './data';
 
 const setup = async () => {

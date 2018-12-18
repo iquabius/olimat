@@ -9,19 +9,25 @@ secret: ${env:PRISMA_SECRET}
 datamodel: datamodel.graphql
 
 # Semeia o BD com dados iniciais (veja seed/seed.ts)
+# Isto nem sempre funciona, porque o prisma-client é gerado no 'post-deploy',
+# depois que 'seed.ts' é executado. Execute 'prisma generate' antes de
+# 'prisma deploy'. Veja: https://github.com/prisma/prisma/issues/3596
 seed:
   run: npx ts-node -r dotenv/config prisma/seed/seed.ts
 
 # Comandos executados depois do 'prisma deploy'
+# graphql get-schema -p prisma -> Gera o esquema usado pelo prisma-binding
 hooks:
   post-deploy:
     - npm run clean:files
     - npm run copy:files
     - tree ./files
     - graphql get-schema -p prisma
-    - graphql codegen
+    # Não funciona com a versão 14.0 do 'graphql', por algum motivo.
+    # De qualquer forma, 'graphqlgen' parece mais apropriado
+    # - graphql codegen
     - prisma generate
 
 generate:
   - generator: typescript-client
-    output: ../src/generated/prisma-client/
+    output: ../src/__generated__/prisma-client/

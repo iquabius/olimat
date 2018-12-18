@@ -1,4 +1,4 @@
-# import * from "./generated/prisma.graphql"
+# import * from "./__generated__/prisma.graphql"
 scalar DateTime
 
 type Query {

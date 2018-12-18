@@ -6,7 +6,7 @@ import { schools } from './Mutation/schools';
 import { olympiads } from './Mutation/olympiads';
 import { questions } from './Mutation/questions';
 import { AuthPayload } from './AuthPayload';
-import { prisma } from '../generated/prisma-client';
+import { prisma } from '../__generated__/prisma-client';
 
 export default {
   Query,

@@ -1,6 +1,6 @@
 import { ApolloServer, gql } from 'apollo-server-express';
 import { importSchema } from 'graphql-import';
-import { prisma } from './generated/prisma-client';
+import { prisma } from './__generated__/prisma-client';
 import { Prisma as PrismaBinding } from 'prisma-binding';
 import resolvers from './resolvers';
 import * as path from 'path';
@@ -22,7 +22,7 @@ export const appConfig = {
 
 // We fallback to prisma-binding because prisma-client xsConnections doesn't work
 const prismaBinding = new PrismaBinding({
-  typeDefs: 'src/generated/prisma.graphql',
+  typeDefs: 'src/__generated__/prisma.graphql',
   endpoint: process.env.PRISMA_ENDPOINT, // the endpoint of the Prisma DB service (value is set in .env)
   secret: process.env.PRISMA_SECRET, // taken from database/prisma.yml (value is set in .env)
 });

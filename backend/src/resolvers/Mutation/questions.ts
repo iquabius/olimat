@@ -2,7 +2,9 @@ import { Context } from '../../utils';
 import * as fs from 'fs';
 import mv from 'mv';
 import * as path from 'path';
-// import { Question, QuestionCreateInput, QuestionUpdateInput } from '../../generated/prisma-client';
+// Estes tipos são gerados pelo 'prisma generate'
+// Talvez não precisamos usá-los diretamente, mas através do 'graphqlgen'
+// import { Question, QuestionCreateInput, QuestionUpdateInput } from '../../__generated__/prisma-client';
 
 export const questions = {
   async createQuestion(parent, { input }, ctx: Context, info) {
