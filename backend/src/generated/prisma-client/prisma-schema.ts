@@ -446,6 +446,40 @@ type QuestionChoicePreviousValues {
   text: String!
 }
 
+input QuestionChoiceScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  text: String
+  text_not: String
+  text_in: [String!]
+  text_not_in: [String!]
+  text_lt: String
+  text_lte: String
+  text_gt: String
+  text_gte: String
+  text_contains: String
+  text_not_contains: String
+  text_starts_with: String
+  text_not_starts_with: String
+  text_ends_with: String
+  text_not_ends_with: String
+  AND: [QuestionChoiceScalarWhereInput!]
+  OR: [QuestionChoiceScalarWhereInput!]
+  NOT: [QuestionChoiceScalarWhereInput!]
+}
+
 type QuestionChoiceSubscriptionPayload {
   mutation: MutationType!
   node: QuestionChoice
@@ -472,6 +506,10 @@ input QuestionChoiceUpdateInput {
   text: String
 }
 
+input QuestionChoiceUpdateManyDataInput {
+  text: String
+}
+
 input QuestionChoiceUpdateManyInput {
   create: [QuestionChoiceCreateInput!]
   update: [QuestionChoiceUpdateWithWhereUniqueNestedInput!]
@@ -479,10 +517,17 @@ input QuestionChoiceUpdateManyInput {
   delete: [QuestionChoiceWhereUniqueInput!]
   connect: [QuestionChoiceWhereUniqueInput!]
   disconnect: [QuestionChoiceWhereUniqueInput!]
+  deleteMany: [QuestionChoiceScalarWhereInput!]
+  updateMany: [QuestionChoiceUpdateManyWithWhereNestedInput!]
 }
 
 input QuestionChoiceUpdateManyMutationInput {
   text: String
+}
+
+input QuestionChoiceUpdateManyWithWhereNestedInput {
+  where: QuestionChoiceScalarWhereInput!
+  data: QuestionChoiceUpdateManyDataInput!
 }
 
 input QuestionChoiceUpdateWithWhereUniqueNestedInput {
@@ -583,6 +628,72 @@ type QuestionPreviousValues {
   secondaryWording: String
 }
 
+input QuestionScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  type: QUESTION_TYPE
+  type_not: QUESTION_TYPE
+  type_in: [QUESTION_TYPE!]
+  type_not_in: [QUESTION_TYPE!]
+  wording: String
+  wording_not: String
+  wording_in: [String!]
+  wording_not_in: [String!]
+  wording_lt: String
+  wording_lte: String
+  wording_gt: String
+  wording_gte: String
+  wording_contains: String
+  wording_not_contains: String
+  wording_starts_with: String
+  wording_not_starts_with: String
+  wording_ends_with: String
+  wording_not_ends_with: String
+  imageUrl: String
+  imageUrl_not: String
+  imageUrl_in: [String!]
+  imageUrl_not_in: [String!]
+  imageUrl_lt: String
+  imageUrl_lte: String
+  imageUrl_gt: String
+  imageUrl_gte: String
+  imageUrl_contains: String
+  imageUrl_not_contains: String
+  imageUrl_starts_with: String
+  imageUrl_not_starts_with: String
+  imageUrl_ends_with: String
+  imageUrl_not_ends_with: String
+  secondaryWording: String
+  secondaryWording_not: String
+  secondaryWording_in: [String!]
+  secondaryWording_not_in: [String!]
+  secondaryWording_lt: String
+  secondaryWording_lte: String
+  secondaryWording_gt: String
+  secondaryWording_gte: String
+  secondaryWording_contains: String
+  secondaryWording_not_contains: String
+  secondaryWording_starts_with: String
+  secondaryWording_not_starts_with: String
+  secondaryWording_ends_with: String
+  secondaryWording_not_ends_with: String
+  AND: [QuestionScalarWhereInput!]
+  OR: [QuestionScalarWhereInput!]
+  NOT: [QuestionScalarWhereInput!]
+}
+
 type QuestionSubscriptionPayload {
   mutation: MutationType!
   node: Question
@@ -617,6 +728,13 @@ input QuestionUpdateInput {
   choices: QuestionChoiceUpdateManyInput
 }
 
+input QuestionUpdateManyDataInput {
+  type: QUESTION_TYPE
+  wording: String
+  imageUrl: String
+  secondaryWording: String
+}
+
 input QuestionUpdateManyInput {
   create: [QuestionCreateInput!]
   update: [QuestionUpdateWithWhereUniqueNestedInput!]
@@ -624,6 +742,8 @@ input QuestionUpdateManyInput {
   delete: [QuestionWhereUniqueInput!]
   connect: [QuestionWhereUniqueInput!]
   disconnect: [QuestionWhereUniqueInput!]
+  deleteMany: [QuestionScalarWhereInput!]
+  updateMany: [QuestionUpdateManyWithWhereNestedInput!]
 }
 
 input QuestionUpdateManyMutationInput {
@@ -631,6 +751,11 @@ input QuestionUpdateManyMutationInput {
   wording: String
   imageUrl: String
   secondaryWording: String
+}
+
+input QuestionUpdateManyWithWhereNestedInput {
+  where: QuestionScalarWhereInput!
+  data: QuestionUpdateManyDataInput!
 }
 
 input QuestionUpdateWithWhereUniqueNestedInput {
@@ -1001,6 +1126,70 @@ type TestPreviousValues {
   updatedAt: DateTime!
 }
 
+input TestScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  title: String
+  title_not: String
+  title_in: [String!]
+  title_not_in: [String!]
+  title_lt: String
+  title_lte: String
+  title_gt: String
+  title_gte: String
+  title_contains: String
+  title_not_contains: String
+  title_starts_with: String
+  title_not_starts_with: String
+  title_ends_with: String
+  title_not_ends_with: String
+  description: String
+  description_not: String
+  description_in: [String!]
+  description_not_in: [String!]
+  description_lt: String
+  description_lte: String
+  description_gt: String
+  description_gte: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [TestScalarWhereInput!]
+  OR: [TestScalarWhereInput!]
+  NOT: [TestScalarWhereInput!]
+}
+
 type TestSubscriptionPayload {
   mutation: MutationType!
   node: Test
@@ -1026,6 +1215,11 @@ input TestUpdateInput {
   questions: QuestionUpdateManyInput
 }
 
+input TestUpdateManyDataInput {
+  title: String
+  description: String
+}
+
 input TestUpdateManyMutationInput {
   title: String
   description: String
@@ -1038,6 +1232,13 @@ input TestUpdateManyWithoutAuthorInput {
   disconnect: [TestWhereUniqueInput!]
   update: [TestUpdateWithWhereUniqueWithoutAuthorInput!]
   upsert: [TestUpsertWithWhereUniqueWithoutAuthorInput!]
+  deleteMany: [TestScalarWhereInput!]
+  updateMany: [TestUpdateManyWithWhereNestedInput!]
+}
+
+input TestUpdateManyWithWhereNestedInput {
+  where: TestScalarWhereInput!
+  data: TestUpdateManyDataInput!
 }
 
 input TestUpdateWithoutAuthorDataInput {
