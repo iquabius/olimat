@@ -31,9 +31,8 @@ export const Query = {
   },
 
   olympiadsFeed(_, { first, after }, ctx: Context, info) {
-    // Por enquanto as xsConnections do Prisma Client não funcionam
-    // https://github.com/prisma/prisma/issues/3309
-    return ctx.prismaBinding.query.olympiadsConnection({ first, after }, info);
+    // As xsConnections do Prisma Client foram concertadas na versão 1.23.0
+    return ctx.db.olympiadsConnection({ first, after });
   },
 
   async question(_, { id }, ctx: Context) {
@@ -47,7 +46,7 @@ export const Query = {
   },
 
   questionsConnection(_, args, ctx: Context, info) {
-    return ctx.prismaBinding.query.questionsConnection(args, info);
+    return ctx.db.questionsConnection(args);
   },
 
   async schools(_, args, ctx: Context, info) {

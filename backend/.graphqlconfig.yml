@@ -1,3 +1,9 @@
+# Acho que posso remover esse arquivo depois que schema.graphql não
+# precisar mais do src/__generated__/prisma.graphql
+# Remover também os pacotes 'graphql-cli' e 'graphql'
+# Por enquando vou deixá-los pra evitar copiar e colar no schema.graphql
+# Talvez possamos usar o Apollo CLI pra essa tarefa
+# Parece que a extensão prisma.vscode-graphql usa este arquivo
 projects:
   app:
     schemaPath: "src/schema.graphql"

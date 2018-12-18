@@ -22,6 +22,7 @@ hooks:
     - npm run clean:files
     - npm run copy:files
     - tree ./files
+    # Por enquanto não podemos remover isso pra evitar copiar/colar no schema.graphql
     - graphql get-schema -p prisma
     # Não funciona com a versão 14.0 do 'graphql', por algum motivo.
     # De qualquer forma, 'graphqlgen' parece mais apropriado
