@@ -1,5 +1,5 @@
 # source: http://localhost:4466/olimat-backend/dev
-# timestamp: Wed Dec 05 2018 22:23:57 GMT-0300 (Amazon Summer Time)
+# timestamp: Tue Dec 18 2018 04:34:27 GMT-0300 (Amazon Summer Time)
 
 type AggregateCity {
   count: Int!

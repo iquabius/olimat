@@ -5,7 +5,7 @@ import {
   SchoolCreateInput,
   TestCreateInput,
   UserCreateInput,
-} from '../../src/generated/prisma-client';
+} from '../../src/__generated__/prisma-client';
 
 const users: UserCreateInput[] = [
   {

@@ -5,7 +5,7 @@ projects:
       endpoints:
         default: "http://localhost:4000"
   prisma:
-    schemaPath: "src/generated/prisma.graphql"
+    schemaPath: "src/__generated__/prisma.graphql"
     extensions:
       prisma: prisma/prisma.yml
       # Não funciona com a versão 14.0 do 'graphql'
@@ -13,4 +13,4 @@ projects:
       # - generator: prisma-binding
       #   language: typescript
       #   output:
-      #     binding: src/generated/prisma.ts
+      #     binding: src/__generated__/prisma.ts

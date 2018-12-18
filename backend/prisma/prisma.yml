@@ -30,4 +30,4 @@ hooks:
 
 generate:
   - generator: typescript-client
-    output: ../src/generated/prisma-client/
+    output: ../src/__generated__/prisma-client/
