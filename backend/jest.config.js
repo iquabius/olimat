@@ -3,7 +3,7 @@ module.exports = {
     '\\.ts?$': 'ts-jest',
   },
   testRegex: '/__tests__/.*\\.(ts|js)$',
-  testPathIgnorePatterns: ['/lib/', '/node_modules/'],
+  testPathIgnorePatterns: ['/node_modules/', '/__utils'],
   moduleFileExtensions: ['ts', 'js'],
   // collectCoverage: true,
 };

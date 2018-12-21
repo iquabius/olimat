@@ -19,16 +19,18 @@ export const appConfig = {
   },
 };
 
-const typeDefs = gql(importSchema('src/schema.graphql'));
+export const typeDefs = gql(importSchema('src/schema.graphql'));
+
+export const context = ({ req, res }) => ({
+  req,
+  db: prisma,
+  appConfig,
+});
 
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: ({ req, res }) => ({
-    req,
-    db: prisma,
-    appConfig,
-  }),
+  context,
 });
 
 const app = new express();
@@ -58,6 +60,10 @@ app.post('/upload', (req, res, next) => {
 
 app.get('/upload', handleGET);
 
-app.listen({ port: 4000 }, () =>
-  console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`),
-);
+// Start our server if we're not in a test env.
+// if we're in a test env, we'll manually start it in a test
+if (process.env.NODE_ENV !== 'test') {
+  app.listen({ port: 4000 }, () =>
+    console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`),
+  );
+}

@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Queries fetches list of cities 1`] = `
+Object {
+  "data": Object {
+    "cities": Array [
+      Object {
+        "id": "cId1",
+        "name": "Cáceres",
+      },
+      Object {
+        "id": "cId2",
+        "name": "Cuiabá",
+      },
+      Object {
+        "id": "cId3",
+        "name": "Sinop",
+      },
+    ],
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
