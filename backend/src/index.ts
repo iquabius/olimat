@@ -27,7 +27,7 @@ export const context = ({ req, res }) => ({
   appConfig,
 });
 
-const server = new ApolloServer({
+export const server = new ApolloServer({
   typeDefs,
   resolvers,
   context,

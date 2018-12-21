@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Backend - e2e gets a single city 1`] = `
+Object {
+  "data": Object {
+    "city": Object {
+      "name": "Sinop",
+    },
+  },
+}
+`;
+
+exports[`Backend - e2e gets list of cities 1`] = `
+Object {
+  "data": Object {
+    "cities": Array [
+      Object {
+        "name": "Sinop",
+      },
+      Object {
+        "name": "Cáceres",
+      },
+      Object {
+        "name": "Barra do Bugres",
+      },
+    ],
+  },
+}
+`;
