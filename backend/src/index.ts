@@ -23,7 +23,7 @@ export const typeDefs = gql(importSchema('src/schema.graphql'));
 
 export const context = ({ req, res }) => ({
   req,
-  db: prisma,
+  prisma,
   appConfig,
 });
 

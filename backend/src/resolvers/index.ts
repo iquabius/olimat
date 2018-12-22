@@ -19,15 +19,15 @@ export default {
      * Busca o usuário que criou a prova.
      * @param parent instância da prova (Test)
      */
-    author(parent, _, { db }) {
-      return db.test({ id: parent.id }).author();
+    author(parent, _, { prisma }) {
+      return prisma.test({ id: parent.id }).author();
     },
     /**
      * Busca as questões relacionadas a uma prova.
      * @param parent instância da prova (Test)
      */
-    questions(parent, _, { db }) {
-      return db.test({ id: parent.id }).questions();
+    questions(parent, _, { prisma }) {
+      return prisma.test({ id: parent.id }).questions();
     },
   },
   Question: {
@@ -35,8 +35,8 @@ export default {
      * Busca as alternativas relacionadas a uma questão.
      * @param parent instância da questão (Question)
      */
-    choices(parent, _, { db }) {
-      return db.question({ id: parent.id }).choices();
+    choices(parent, _, { prisma }) {
+      return prisma.question({ id: parent.id }).choices();
     },
   },
   // https://github.com/prisma/prisma/issues/2225#issuecomment-413265367

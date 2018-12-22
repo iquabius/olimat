@@ -1,7 +1,7 @@
 import resolvers from '../../resolvers';
 
 const mockContext = {
-  db: {
+  prisma: {
     question: jest.fn(),
   },
 };
@@ -11,13 +11,13 @@ describe('[Question.choices]', () => {
   test('uses question id from parent to lookup choices', async () => {
     const mockChoices = [{ id: 'cId1' }];
     // o prisma client usa métodos encadeados pra buscar relações
-    mockContext.db.question.mockReturnValueOnce({
+    mockContext.prisma.question.mockReturnValueOnce({
       choices: () => mockChoices,
     });
 
     const res = await resolvers.Question.choices(mockQuestion, null, mockContext);
     expect(res).toEqual(mockChoices);
 
-    expect(mockContext.db.question).toBeCalledWith(mockQuestion);
+    expect(mockContext.prisma.question).toBeCalledWith(mockQuestion);
   });
 });

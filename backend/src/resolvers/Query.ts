@@ -7,72 +7,72 @@ import { getUserId, Context } from '../utils';
 export const Query = {
   // https://github.com/prisma/prisma/issues/2225#issuecomment-413265367
   node(_, { id }, ctx: Context, info) {
-    return ctx.db.node({ id });
+    return ctx.prisma.node({ id });
   },
 
   city(_, { id }, ctx: Context, info) {
-    return ctx.db.city({ id });
+    return ctx.prisma.city({ id });
   },
 
   cities(_, args, ctx: Context, info) {
-    return ctx.db.cities({});
+    return ctx.prisma.cities({});
   },
 
   olympiad(_, { id }, ctx: Context, info) {
-    return ctx.db.olympiad({ id });
+    return ctx.prisma.olympiad({ id });
   },
 
   async olympiads(_, args, ctx: Context, info) {
-    const olympiads = await ctx.db.olympiads({});
+    const olympiads = await ctx.prisma.olympiads({});
     return olympiads.map(o => ({
       ...o,
-      createdBy: ctx.db.olympiad({ id: o.id }).createdBy(),
+      createdBy: ctx.prisma.olympiad({ id: o.id }).createdBy(),
     }));
   },
 
   olympiadsFeed(_, { first, after }, ctx: Context, info) {
     // As xsConnections do Prisma Client foram concertadas na versão 1.23.0
-    return ctx.db.olympiadsConnection({ first, after });
+    return ctx.prisma.olympiadsConnection({ first, after });
   },
 
   async question(_, { id }, ctx: Context) {
-    const question = await ctx.db.question({ id });
+    const question = await ctx.prisma.question({ id });
     return question;
   },
 
   async questions(_, args, ctx: Context) {
-    const questions = await ctx.db.questions({});
+    const questions = await ctx.prisma.questions({});
     return questions;
   },
 
   questionsConnection(_, args, ctx: Context, info) {
-    return ctx.db.questionsConnection(args);
+    return ctx.prisma.questionsConnection(args);
   },
 
   async schools(_, args, ctx: Context, info) {
     // The prisma-client api is different, it only returns scalar fields
-    const schools = await ctx.db.schools({});
+    const schools = await ctx.prisma.schools({});
     // Relation fields can be fetched individually...
     return schools.map(s => ({
       ...s,
-      city: ctx.db.school({ id: s.id }).city(), // ...with a chained method
+      city: ctx.prisma.school({ id: s.id }).city(), // ...with a chained method
     }));
   },
 
   school(_, { id }, ctx: Context, info) {
-    return ctx.db.school({ id });
+    return ctx.prisma.school({ id });
   },
 
   tests(_, args, ctx: Context, info) {
-    return ctx.db.tests({});
+    return ctx.prisma.tests({});
   },
 
   test(_, { id }, ctx: Context, info) {
-    return ctx.db.test({ id });
+    return ctx.prisma.test({ id });
   },
 
   me(_, args, ctx: Context, info) {
     const id = getUserId(ctx);
-    return ctx.db.user({ id });
+    return ctx.prisma.user({ id });
   },
 };

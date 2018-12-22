@@ -1,7 +1,7 @@
 import resolvers from '../../resolvers';
 
 const mockContext = {
-  db: {
+  prisma: {
     test: jest.fn(),
   },
 };
@@ -11,7 +11,7 @@ describe('[Test.author]', () => {
   test('uses test id from parent to lookup author', async () => {
     const mockAuthor = { id: 'aId1' };
     // o prisma client usa métodos encadeados pra buscar relações
-    mockContext.db.test.mockReturnValueOnce({
+    mockContext.prisma.test.mockReturnValueOnce({
       author: () => mockAuthor,
     });
 
@@ -20,25 +20,25 @@ describe('[Test.author]', () => {
     expect(res).toEqual(mockAuthor);
 
     // verifica se o Prisma Client foi chamado corretamente
-    expect(mockContext.db.test).toBeCalledWith(mockTest);
+    expect(mockContext.prisma.test).toBeCalledWith(mockTest);
   });
 });
 
 describe('[Test.questions]', () => {
   test('uses test id from parent to lookup questions', async () => {
     const mockQuestions = [{ id: 'qId1', wording: 'Questão 1' }];
-    mockContext.db.test.mockReturnValueOnce({
+    mockContext.prisma.test.mockReturnValueOnce({
       questions: () => mockQuestions,
     });
 
     const res = await resolvers.Test.questions(mockTest, null, mockContext);
     expect(res).toEqual(mockQuestions);
 
-    expect(mockContext.db.test).toBeCalledWith(mockTest);
+    expect(mockContext.prisma.test).toBeCalledWith(mockTest);
   });
 
   test('returns empty array if no response', async () => {
-    mockContext.db.test.mockReturnValueOnce({
+    mockContext.prisma.test.mockReturnValueOnce({
       questions: () => [],
     });
 
