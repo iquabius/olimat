@@ -8,8 +8,9 @@ import fileUpload from 'express-fileupload';
 import { generate } from 'shortid';
 import { extension } from 'mime-types';
 import { handleGET } from './filepond';
-const express = require('express');
+import express from 'express';
 
+// TODO: Move appConfig to a config file
 export const appConfig = {
   uploads: {
     server: 'http://localhost:4000',
@@ -33,7 +34,7 @@ export const server = new ApolloServer({
   context,
 });
 
-const app = new express();
+const app = express();
 server.applyMiddleware({ app });
 app.use(cors({ origin: '*' }));
 
@@ -44,7 +45,7 @@ app.use('/files', express.static(appConfig.uploads.publicDir));
 app.use(fileUpload());
 
 app.post('/upload', (req, res, next) => {
-  const uploadFile = req.files.imageUrl;
+  const uploadFile = req.files.imageUrl as fileUpload.UploadedFile;
   // We don't need the extension here, just the ID is enough
   const fileName = generate() + '.' + extension(uploadFile.mimetype);
   console.log('FILE: ');
