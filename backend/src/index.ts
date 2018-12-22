@@ -1,12 +1,12 @@
 import { ApolloServer, gql } from 'apollo-server-express';
+import express from 'express';
+import fileUpload from 'express-fileupload';
+import cors from 'cors';
+import * as path from 'path';
 import { importSchema } from 'graphql-import';
 import { prisma } from './__generated__/prisma-client';
 import resolvers from './resolvers';
-import * as path from 'path';
-import cors from 'cors';
-import fileUpload from 'express-fileupload';
 import { handleGET, handlePost } from './filepond';
-import express from 'express';
 
 // TODO: Move appConfig to a config file
 export const appConfig = {
@@ -22,32 +22,29 @@ export const appConfig = {
 
 export const typeDefs = gql(importSchema('src/schema.graphql'));
 
-export const context = ({ req, res }) => ({
-  req,
-  prisma,
-  appConfig,
-});
+export const context = ({ req, res }) => ({ appConfig, prisma, req });
 
-export const server = new ApolloServer({
-  typeDefs,
-  resolvers,
-  context,
-});
+export const server = new ApolloServer({ context, resolvers, typeDefs });
 
+// Vincula o Express ao Apollo Server
 const app = express();
 server.applyMiddleware({ app });
-app.use(cors({ origin: '*' }));
 
-app.use('/files', express.static(appConfig.uploads.publicDir));
+// Configura as partes necessárias para upload de arquivos
+app.use(cors({ origin: '*' }));
 
 app.use(fileUpload());
 
+// Configura a rota para processar upload de arquivos
+app.get('/upload', handleGET);
 app.post('/upload', handlePost);
 
-app.get('/upload', handleGET);
+// Configura a rota para servir os arquivos upados
+app.use('/files', express.static(appConfig.uploads.publicDir));
 
-// Start our server if we're not in a test env.
-// if we're in a test env, we'll manually start it in a test
+// Inicia o servidor se não estivermos no ambiente de testes.
+// Se estivermos no ambiente de teste, o servidor é iniciado
+// manualmente nos testes (e2e no caso).
 if (process.env.NODE_ENV !== 'test') {
   app.listen({ port: 4000 }, () =>
     console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`),
