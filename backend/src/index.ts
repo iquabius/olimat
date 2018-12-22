@@ -5,15 +5,15 @@ import resolvers from './resolvers';
 import * as path from 'path';
 import cors from 'cors';
 import fileUpload from 'express-fileupload';
-import { generate } from 'shortid';
-import { extension } from 'mime-types';
-import { handleGET } from './filepond';
+import { handleGET, handlePost } from './filepond';
 import express from 'express';
 
 // TODO: Move appConfig to a config file
 export const appConfig = {
   uploads: {
     server: 'http://localhost:4000',
+    // The 'files' directory should be a docker volume,
+    // maybe in a dedicated container
     basePath: 'files',
     tempDir: path.join(__dirname, '..', 'files', 'tmp'),
     publicDir: path.join(__dirname, '..', 'files', 'public'),
@@ -38,26 +38,11 @@ const app = express();
 server.applyMiddleware({ app });
 app.use(cors({ origin: '*' }));
 
-// The 'files' directory should be a docker volume, maybe in a dedicated container
-const UPLOAD_PATH = path.join(__dirname, '..', 'files');
 app.use('/files', express.static(appConfig.uploads.publicDir));
 
 app.use(fileUpload());
 
-app.post('/upload', (req, res, next) => {
-  const uploadFile = req.files.imageUrl as fileUpload.UploadedFile;
-  // We don't need the extension here, just the ID is enough
-  const fileName = generate() + '.' + extension(uploadFile.mimetype);
-  console.log('FILE: ');
-  console.log(uploadFile);
-  uploadFile.mv(`${appConfig.uploads.tempDir}/${fileName}`, err => {
-    if (err) {
-      return res.status(500).send(err);
-    }
-
-    res.send(fileName);
-  });
-});
+app.post('/upload', handlePost);
 
 app.get('/upload', handleGET);
 
