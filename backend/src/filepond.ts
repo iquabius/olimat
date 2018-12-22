@@ -21,10 +21,10 @@ const mime = {
 
 const handleLoad = (id, res) => {
   const filename = path.join(config.uploads.publicDir, path.sep, id);
-  const extension = path.extname(filename).slice(1);
+  const ext = path.extname(filename).slice(1);
   console.log(filename);
-  console.log(extension);
-  const type = mime[extension] || 'text/plain';
+  console.log(ext);
+  const type = mime[ext] || 'text/plain';
   console.log(type);
 
   const fileStream = fs.createReadStream(filename);
