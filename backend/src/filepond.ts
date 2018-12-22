@@ -3,7 +3,7 @@ import * as path from 'path';
 import { UploadedFile } from 'express-fileupload';
 import { generate } from 'shortid';
 import { extension } from 'mime-types';
-import { appConfig } from '.';
+import config from './config';
 
 // https://stackoverflow.com/a/40899767/1787829
 // express' res.sendFile? https://stackoverflow.com/a/17516733/1787829
@@ -20,7 +20,7 @@ const mime = {
 };
 
 const handleLoad = (id, res) => {
-  const filename = path.join(appConfig.uploads.publicDir, path.sep, id);
+  const filename = path.join(config.uploads.publicDir, path.sep, id);
   const extension = path.extname(filename).slice(1);
   console.log(filename);
   console.log(extension);
@@ -58,7 +58,7 @@ export const handlePost = (req, res, next) => {
   const fileName = generate() + '.' + extension(uploadFile.mimetype);
   console.log('FILE: ');
   console.log(uploadFile);
-  uploadFile.mv(`${appConfig.uploads.tempDir}/${fileName}`, err => {
+  uploadFile.mv(`${config.uploads.tempDir}/${fileName}`, err => {
     if (err) {
       return res.status(500).send(err);
     }
