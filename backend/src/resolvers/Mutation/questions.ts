@@ -10,20 +10,20 @@ export const questions = {
   async createQuestion(_, { input }, ctx: Context, info) {
     // move image file from tmp to public directory, if there's one
     if (input.imageUrl !== '') {
-      const tempFile = path.join(ctx.appConfig.uploads.tempDir, input.imageUrl);
-      const destFile = path.join(ctx.appConfig.uploads.publicDir, input.imageUrl);
+      const tempFile = path.join(ctx.config.uploads.tempDir, input.imageUrl);
+      const destFile = path.join(ctx.config.uploads.publicDir, input.imageUrl);
       mv(tempFile, destFile, err => {
         if (err) {
           throw new Error(err);
         }
       });
     }
-    const newQuestion = await ctx.db.createQuestion({
+    const newQuestion = await ctx.prisma.createQuestion({
       ...input,
     });
     const newQuestionWithChoices = {
       ...newQuestion,
-      choices: await ctx.db.question({ id: newQuestion.id }).choices(),
+      choices: await ctx.prisma.question({ id: newQuestion.id }).choices(),
     };
     return {
       question: newQuestionWithChoices,
@@ -31,7 +31,7 @@ export const questions = {
   },
 
   async deleteQuestion(_, { id }, ctx: Context, info) {
-    const questionExists = await ctx.db.$exists.question({
+    const questionExists = await ctx.prisma.$exists.question({
       id,
     });
     if (!questionExists) {
@@ -39,15 +39,15 @@ export const questions = {
     }
 
     return {
-      question: await ctx.db.deleteQuestion({ id }),
+      question: await ctx.prisma.deleteQuestion({ id }),
     };
   },
 
   async updateQuestion(_, { input: { id, patch } }, ctx: Context, info) {
     console.log('--- updateQuestion Mutation START');
-    const oldQuestion = await ctx.db.question({ id });
+    const oldQuestion = await ctx.prisma.question({ id });
     console.log(`DB Image: '${oldQuestion.imageUrl}' | Patch Image: '${patch.imageUrl}'`);
-    const updatedQuestion = await ctx.db.updateQuestion({
+    const updatedQuestion = await ctx.prisma.updateQuestion({
       data: {
         ...patch,
       },
@@ -59,8 +59,8 @@ export const questions = {
     if (patch.imageUrl && !oldQuestion.imageUrl) {
       // A questão não tinha imagem, mas o usuário fez o upload de uma.
       // Move new image to public directory
-      const newFile = path.join(ctx.appConfig.uploads.tempDir, patch.imageUrl);
-      const destNewFile = path.join(ctx.appConfig.uploads.publicDir, patch.imageUrl);
+      const newFile = path.join(ctx.config.uploads.tempDir, patch.imageUrl);
+      const destNewFile = path.join(ctx.config.uploads.publicDir, patch.imageUrl);
       // Maybe we don't need 'mv' package.
       // https://nodejs.org/api/fs.html#fs_fs_rename_oldpath_newpath_callback
       mv(newFile, destNewFile, err => {
@@ -74,7 +74,7 @@ export const questions = {
       });
     } else if (!patch.imageUrl && oldQuestion.imageUrl) {
       // A questão tinha uma imagem, que está sendo removida
-      const oldFile = path.join(ctx.appConfig.uploads.publicDir, oldQuestion.imageUrl);
+      const oldFile = path.join(ctx.config.uploads.publicDir, oldQuestion.imageUrl);
       fs.unlink(oldFile, err => {
         if (err) {
           throw err;
@@ -90,7 +90,7 @@ export const questions = {
     return {
       question: {
         ...updatedQuestion,
-        choices: await ctx.db.question({ id: updatedQuestion.id }).choices(),
+        choices: await ctx.prisma.question({ id: updatedQuestion.id }).choices(),
       },
     };
   },

@@ -1,6 +1,9 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { appConfig } from '.';
+import { UploadedFile } from 'express-fileupload';
+import { generate } from 'shortid';
+import { extension } from 'mime-types';
+import config from './config';
 
 // https://stackoverflow.com/a/40899767/1787829
 // express' res.sendFile? https://stackoverflow.com/a/17516733/1787829
@@ -17,11 +20,11 @@ const mime = {
 };
 
 const handleLoad = (id, res) => {
-  const filename = path.join(appConfig.uploads.publicDir, path.sep, id);
-  const extension = path.extname(filename).slice(1);
+  const filename = path.join(config.uploads.publicDir, path.sep, id);
+  const ext = path.extname(filename).slice(1);
   console.log(filename);
-  console.log(extension);
-  const type = mime[extension] || 'text/plain';
+  console.log(ext);
+  const type = mime[ext] || 'text/plain';
   console.log(type);
 
   const fileStream = fs.createReadStream(filename);
@@ -47,4 +50,18 @@ export const handleGET = (req, res, next) => {
     res.status(400);
     res.send('Invalid file id');
   }
+};
+
+export const handlePost = (req, res, next) => {
+  const uploadFile = req.files.imageUrl as UploadedFile;
+  // We don't need the extension here, just the ID is enough
+  const fileName = generate() + '.' + extension(uploadFile.mimetype);
+  console.log('FILE: ');
+  console.log(uploadFile);
+  uploadFile.mv(`${config.uploads.tempDir}/${fileName}`, err => {
+    if (err) {
+      return res.status(500).send(err);
+    }
+    res.send(fileName);
+  });
 };

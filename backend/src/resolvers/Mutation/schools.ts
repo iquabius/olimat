@@ -8,7 +8,7 @@ export const schools = {
     info,
   ) {
     const userId = getUserId(ctx);
-    const newSchool = await ctx.db.createSchool({
+    const newSchool = await ctx.prisma.createSchool({
       name,
       email,
       phone,
@@ -23,13 +23,13 @@ export const schools = {
     // createSchool() only returns scalar fields
     return {
       ...newSchool,
-      city: ctx.db.school({ id: newSchool.id }).city(),
+      city: ctx.prisma.school({ id: newSchool.id }).city(),
     };
   },
 
   async deleteSchool(_, { id }, ctx: Context, info) {
     const userId = getUserId(ctx);
-    const schoolExists = await ctx.db.$exists.school({
+    const schoolExists = await ctx.prisma.$exists.school({
       id,
       olympiadCood: { id: userId },
     });
@@ -37,6 +37,6 @@ export const schools = {
       throw new Error(`School not found or you're not authorized`);
     }
 
-    return ctx.db.deleteSchool({ id });
+    return ctx.prisma.deleteSchool({ id });
   },
 };

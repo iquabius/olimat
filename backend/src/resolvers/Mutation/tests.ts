@@ -3,7 +3,7 @@ import { getUserId, Context } from '../../utils';
 export const tests = {
   async createTest(_, { title, description }, ctx: Context, info) {
     const userId = getUserId(ctx);
-    return ctx.db.createTest({
+    return ctx.prisma.createTest({
       title,
       description,
       author: {
@@ -14,7 +14,7 @@ export const tests = {
 
   async deleteTest(_, { id }, ctx: Context, info) {
     const userId = getUserId(ctx);
-    const testExists = await ctx.db.$exists.test({
+    const testExists = await ctx.prisma.$exists.test({
       id,
       author: { id: userId },
     });
@@ -22,6 +22,6 @@ export const tests = {
       throw new Error(`Test not found or you're not the author`);
     }
 
-    return ctx.db.deleteTest({ id });
+    return ctx.prisma.deleteTest({ id });
   },
 };

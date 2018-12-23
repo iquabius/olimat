@@ -6,7 +6,6 @@ import { schools } from './Mutation/schools';
 import { olympiads } from './Mutation/olympiads';
 import { questions } from './Mutation/questions';
 import { AuthPayload } from './AuthPayload';
-import { prisma } from '../__generated__/prisma-client';
 
 export default {
   Query,
@@ -20,14 +19,14 @@ export default {
      * Busca o usuário que criou a prova.
      * @param parent instância da prova (Test)
      */
-    author(parent) {
+    author(parent, _, { prisma }) {
       return prisma.test({ id: parent.id }).author();
     },
     /**
      * Busca as questões relacionadas a uma prova.
      * @param parent instância da prova (Test)
      */
-    questions(parent) {
+    questions(parent, _, { prisma }) {
       return prisma.test({ id: parent.id }).questions();
     },
   },
@@ -36,7 +35,7 @@ export default {
      * Busca as alternativas relacionadas a uma questão.
      * @param parent instância da questão (Question)
      */
-    choices(parent) {
+    choices(parent, _, { prisma }) {
       return prisma.question({ id: parent.id }).choices();
     },
   },

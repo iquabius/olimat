@@ -3,9 +3,9 @@ import jwt from 'jsonwebtoken';
 import { Prisma } from './__generated__/prisma-client';
 
 export interface Context {
-  db: Prisma;
+  prisma: Prisma;
   req: express.Request;
-  appConfig: any;
+  config: any;
 }
 
 export function getUserId(ctx: Context) {

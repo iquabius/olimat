@@ -1,63 +1,40 @@
 import { ApolloServer, gql } from 'apollo-server-express';
+import express from 'express';
+import fileUpload from 'express-fileupload';
+import cors from 'cors';
 import { importSchema } from 'graphql-import';
+import config from './config';
 import { prisma } from './__generated__/prisma-client';
 import resolvers from './resolvers';
-import * as path from 'path';
-import cors from 'cors';
-import fileUpload from 'express-fileupload';
-import { generate } from 'shortid';
-import { extension } from 'mime-types';
-import { handleGET } from './filepond';
-const express = require('express');
+import { handleGET, handlePost } from './filepond';
 
-export const appConfig = {
-  uploads: {
-    server: 'http://localhost:4000',
-    basePath: 'files',
-    tempDir: path.join(__dirname, '..', 'files', 'tmp'),
-    publicDir: path.join(__dirname, '..', 'files', 'public'),
-  },
-};
+export const typeDefs = gql(importSchema('src/schema.graphql'));
 
-const typeDefs = gql(importSchema('src/schema.graphql'));
+export const context = ({ req, res }) => ({ config, prisma, req });
 
-const server = new ApolloServer({
-  typeDefs,
-  resolvers,
-  context: ({ req, res }) => ({
-    req,
-    db: prisma,
-    appConfig,
-  }),
-});
+export const server = new ApolloServer({ context, resolvers, typeDefs });
 
-const app = new express();
+// Vincula o Express ao Apollo Server
+const app = express();
 server.applyMiddleware({ app });
-app.use(cors({ origin: '*' }));
 
-// The 'files' directory should be a docker volume, maybe in a dedicated container
-const UPLOAD_PATH = path.join(__dirname, '..', 'files');
-app.use('/files', express.static(appConfig.uploads.publicDir));
+// Configura as partes necessárias para upload de arquivos
+app.use(cors({ origin: '*' }));
 
 app.use(fileUpload());
 
-app.post('/upload', (req, res, next) => {
-  const uploadFile = req.files.imageUrl;
-  // We don't need the extension here, just the ID is enough
-  const fileName = generate() + '.' + extension(uploadFile.mimetype);
-  console.log('FILE: ');
-  console.log(uploadFile);
-  uploadFile.mv(`${appConfig.uploads.tempDir}/${fileName}`, err => {
-    if (err) {
-      return res.status(500).send(err);
-    }
-
-    res.send(fileName);
-  });
-});
-
+// Configura a rota para processar upload de arquivos
 app.get('/upload', handleGET);
+app.post('/upload', handlePost);
 
-app.listen({ port: 4000 }, () =>
-  console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`),
-);
+// Configura a rota para servir os arquivos upados
+app.use('/files', express.static(config.uploads.publicDir));
+
+// Inicia o servidor se não estivermos no ambiente de testes.
+// Se estivermos no ambiente de teste, o servidor é iniciado
+// manualmente nos testes (e2e no caso).
+if (process.env.NODE_ENV !== 'test') {
+  app.listen({ port: 4000 }, () =>
+    console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`),
+  );
+}
