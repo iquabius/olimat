@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import gql from 'graphql-tag';
 import { Query, compose } from 'react-apollo';
-import { questionWithFullUrl } from './DetailsConnector';
 import { withState } from 'recompose';
 
 export const questionsConnectionQuery = gql`
@@ -20,6 +19,7 @@ export const questionsConnectionQuery = gql`
           type
           wording
           imageUrl
+          imageFullUrl
           choices {
             id
             text
@@ -57,12 +57,8 @@ const ListConnector = ({ children, hasMore, loadingMore, setHasMore, setLoadingM
       if (loading) return <p>Carregando questões...</p>;
       if (error) return <p>{`Erro ao carregar questões: ${error}`}</p>;
 
-      const questions = data.questionsConnection.edges.map(
-        compose(
-          questionWithFullUrl,
-          questionEdgeToNode,
-        ),
-      );
+      const questions = data.questionsConnection.edges.map(questionEdgeToNode);
+
       const loadMoreHandler = async () => {
         setLoadingMore(true);
         // A função fetchMore() do Apollo Client retorna Promise<ApolloQueryResult>
