@@ -9,7 +9,7 @@
     "start": "node -r dotenv/config dist/index.js",
     "dev": "nodemon -e ts,graphql -x ts-node -r dotenv/config src/index.ts",
     "debug": "nodemon --config nodemon.debug.json",
-    "test": "jest --setupFiles dotenv/config",
+    "test": "jest",
     "lint": "tslint 'src/**/*.ts'",
     "lint:fix": "tslint 'src/**/*.ts' --fix && echo \"tslint: no lint errors\"",
     "tslint-check": "tslint-config-prettier-check ./tslint.json",
