@@ -79,6 +79,20 @@ cd ../frontend
 npm run dev
 ```
 
+### 5. Abra o repositório no VS Code
+
+Esse repositório está configurado pra funcionar como um [espaço de trabalho multi-raiz do Visual Studio Code](https://code.visualstudio.com/docs/editor/multi-root-workspaces).
+Isso garante o funcionamento correto de algumas integrações, como o a extensão
+[Apollo GraphQL](https://marketplace.visualstudio.com/items?itemName=apollographql.vscode-apollo). Há duas formas de abrir este repositório como um espaço de trabalho:
+
+Se abrir esse projeto como pasta, um aviso aparecerá no canto inferior direito:
+
+> This folder contains a workspace file 'olimat.code-workspace'. Do you want to open it? [Learn more](https://code.visualstudio.com/docs/editor/multi-root-workspaces) about workspace files.
+
+Clique em 'Open Workspace' para abrir o projeto como espaço de trabalho.
+
+Para abrir a espaço de trabalho diretamente, abra o VS Code, clique em `File -> Open Workspace`, navegue até o diretório do projeto e selecione o arquivo `olimat.code-workspace`.
+
 ## Licença
 
 [AGPL-3.0](./LICENSE)
