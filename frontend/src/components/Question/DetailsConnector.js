@@ -10,6 +10,7 @@ export const questionQuery = gql`
       type
       wording
       imageUrl
+      imageFullUrl
       secondaryWording
       choices {
         id
@@ -27,6 +28,7 @@ export const updateQuestionMutation = gql`
         type
         wording
         imageUrl
+        imageFullUrl
         choices {
           id
           text
@@ -35,16 +37,6 @@ export const updateQuestionMutation = gql`
     }
   }
 `;
-
-// Maybe put this in responseToFormValues()
-const filesHost = 'http://localhost:4000/files';
-
-export const questionWithFullUrl = question => ({
-  ...question,
-  imageUrl: question.imageUrl,
-  // This doesn't seam a very good solution
-  imageFullUrl: question.imageUrl ? `${filesHost}/${question.imageUrl}` : null,
-});
 
 const QuestionDetailsConnector = ({ children, id }) => (
   <Query query={questionQuery} variables={{ id }}>
@@ -56,7 +48,7 @@ const QuestionDetailsConnector = ({ children, id }) => (
 
           return children({
             isLoading: loading,
-            question: questionWithFullUrl(data.question),
+            question: data.question,
             updateQuestion,
           });
         }}

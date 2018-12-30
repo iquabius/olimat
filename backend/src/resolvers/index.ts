@@ -38,6 +38,15 @@ export default {
     choices(parent, _, { prisma }) {
       return prisma.question({ id: parent.id }).choices();
     },
+    /**
+     * Computa a url completa da imagem.
+     * @param parent instância da questão (Question)
+     */
+    imageFullUrl(parent) {
+      const filesHost = 'http://localhost:4000/files';
+
+      return parent.imageUrl ? `${filesHost}/${parent.imageUrl}` : null;
+    },
   },
   // https://github.com/prisma/prisma/issues/2225#issuecomment-413265367
   Node: {

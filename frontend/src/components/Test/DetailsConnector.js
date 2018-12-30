@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
 import ErrorMessage from '../ErrorMessage';
-import { questionWithFullUrl } from '../Question/DetailsConnector';
 
 export const testQuery = gql`
   query testQuery($id: ID!) {
@@ -13,6 +12,7 @@ export const testQuery = gql`
         id
         wording
         imageUrl
+        imageFullUrl
         secondaryWording
         choices {
           id
@@ -30,13 +30,7 @@ const TestDetailsConnector = ({ children, id }) => (
       if (loading) return <div>Loading...</div>;
       const test = data.test;
 
-      return children({
-        test: {
-          ...test,
-          // TODO: Mover essa lógica para o backend, usando 'computed fields'
-          questions: test.questions.map(questionWithFullUrl),
-        },
-      });
+      return children({ test });
     }}
   </Query>
 );
