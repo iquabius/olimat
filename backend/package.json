@@ -42,6 +42,7 @@
     "@types/nock": "^9.3.0",
     "@types/node": "^10.12.15",
     "@types/shortid": "0.0.29",
+    "apollo": "^2.1.8",
     "apollo-link": "^1.2.6",
     "apollo-link-http": "^1.5.9",
     "apollo-server-testing": "^2.3.1",
