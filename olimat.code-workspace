@@ -1,15 +1,15 @@
 {
-	"folders": [
-		{
+  "folders": [
+    {
       // Servidor Apollo + Prisma
       "name": "Backend",
-			"path": "backend"
-		},
-		{
+      "path": "backend"
+    },
+    {
       // Aplicação Next.js + React.js
       "name": "Frontend",
-			"path": "frontend"
-		},
+      "path": "frontend"
+    }
   ],
   "launch": {
     "version": "0.2.0",
@@ -30,6 +30,14 @@
         "name": "Apollo Server",
         "port": 9239
       }
-    ],
+    ]
+  },
+  "extensions": {
+    "recommendations": [
+      "apollographql.vscode-apollo",
+      "editorconfig.editorconfig",
+      "dbaeumer.vscode-eslint",
+      "eg2.tslint"
+    ]
   }
 }
