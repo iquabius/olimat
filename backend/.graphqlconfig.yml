@@ -1,8 +1,3 @@
-# Acho que posso remover esse arquivo depois que schema.graphql não
-# precisar mais do src/__generated__/prisma.graphql
-# Remover também os pacotes 'graphql-cli' e 'graphql'
-# Por enquando vou deixá-los pra evitar copiar e colar no schema.graphql
-# Talvez possamos usar o Apollo CLI pra essa tarefa
 # Parece que a extensão prisma.vscode-graphql usa este arquivo
 projects:
   app:
@@ -10,10 +5,12 @@ projects:
     extensions:
       endpoints:
         default: "http://localhost:4000"
-  prisma:
-    schemaPath: "src/__generated__/prisma.graphql"
-    extensions:
-      prisma: prisma/prisma.yml
+  # O 'graphql-cli' usava essa configuração para os comandos
+  # 'graphql get-schema' e 'graphql codegen'
+  # prisma:
+  #   schemaPath: "src/__generated__/prisma.graphql"
+  #   extensions:
+  #     prisma: prisma/prisma.yml
       # Não funciona com a versão 14.0 do 'graphql'
       # codegen:
       # - generator: prisma-binding
