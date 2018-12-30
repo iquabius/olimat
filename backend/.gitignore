@@ -4,7 +4,6 @@ node_modules
 .idea
 .vscode
 *.log
-.env*
 
 # Uploaded files
 files/
