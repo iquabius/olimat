@@ -57,7 +57,7 @@ Para criar as tabelas no BD, implante a API do Prisma definida em `backend/prism
 npx prisma deploy
 ```
 
-> Quando a implantação do serviço do Prisma é feita pela primeira vez, o comando irá executar o script [`backend/prisma/seed/seed.ts`](backend/prisma/seed/seed.ts) para semear o banco com dados iniciais. Ele sabe desse script porque está listado em [`backend/prisma/prisma.yml`](backend/prisma/prisma.yml) na propriedade `seed`.
+> Note que quando a implantação do serviço do Prisma é feita pela primeira vez, o comando irá executar o script [`backend/prisma/seed/seed.ts`](backend/prisma/seed/seed.ts) para semear o banco com dados iniciais. Ele sabe desse script porque está listado em [`backend/prisma/prisma.yml`](backend/prisma/prisma.yml) na propriedade `seed`.
 
 ### 3. Inicie o servidor GraphQL
 
@@ -83,7 +83,7 @@ npm run dev
 
 Esse repositório está configurado pra funcionar como um [espaço de trabalho multi-raiz do Visual Studio Code](https://code.visualstudio.com/docs/editor/multi-root-workspaces).
 Isso garante o funcionamento correto de algumas integrações, como o a extensão
-[Apollo GraphQL](https://marketplace.visualstudio.com/items?itemName=apollographql.vscode-apollo). Há duas formas de abrir este repositório como um espaço de trabalho:
+[Apollo GraphQL](https://marketplace.visualstudio.com/items?itemName=apollographql.vscode-apollo). Há duas formas de abrir esse repositório como um espaço de trabalho:
 
 Se abrir esse projeto como pasta, um aviso aparecerá no canto inferior direito:
 
