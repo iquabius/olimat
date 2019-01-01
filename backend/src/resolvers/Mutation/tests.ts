@@ -1,7 +1,13 @@
-import { getUserId, Context } from '../../utils';
+import { getUserId } from '../../utils';
+import { MutationResolvers } from '../../__generated__/graphqlgen';
 
-export const tests = {
-  async createTest(_, { title, description }, ctx: Context, info) {
+interface TestsMutationResolvers {
+  createTest: MutationResolvers.CreateTestResolver;
+  deleteTest: MutationResolvers.DeleteTestResolver;
+}
+
+export const tests: TestsMutationResolvers = {
+  async createTest(_, { title, description }, ctx, info) {
     const userId = getUserId(ctx);
     return ctx.prisma.createTest({
       title,
@@ -12,7 +18,7 @@ export const tests = {
     });
   },
 
-  async deleteTest(_, { id }, ctx: Context, info) {
+  async deleteTest(_, { id }, ctx, info) {
     const userId = getUserId(ctx);
     const testExists = await ctx.prisma.$exists.test({
       id,

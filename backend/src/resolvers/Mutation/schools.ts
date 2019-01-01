@@ -1,12 +1,13 @@
-import { getUserId, Context } from '../../utils';
+import { getUserId } from '../../utils';
+import { MutationResolvers } from '../../__generated__/graphqlgen';
 
-export const schools = {
-  async createSchool(
-    _,
-    { name, email, phone, pedagogyCoord, director, city, address },
-    ctx: Context,
-    info,
-  ) {
+interface SchoolsMutationResolvers {
+  createSchool: MutationResolvers.CreateSchoolResolver;
+  deleteSchool: MutationResolvers.DeleteSchoolResolver;
+}
+
+export const schools: SchoolsMutationResolvers = {
+  async createSchool(_, { name, email, phone, pedagogyCoord, director, city, address }, ctx, info) {
     const userId = getUserId(ctx);
     const newSchool = await ctx.prisma.createSchool({
       name,
@@ -20,14 +21,10 @@ export const schools = {
       city: { connect: { name: city } },
       address,
     });
-    // createSchool() only returns scalar fields
-    return {
-      ...newSchool,
-      city: ctx.prisma.school({ id: newSchool.id }).city(),
-    };
+    return newSchool;
   },
 
-  async deleteSchool(_, { id }, ctx: Context, info) {
+  async deleteSchool(_, { id }, ctx, info) {
     const userId = getUserId(ctx);
     const schoolExists = await ctx.prisma.$exists.school({
       id,

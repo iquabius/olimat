@@ -1,11 +1,17 @@
-import { Context } from '../../utils';
+import { MutationResolvers } from '../../__generated__/graphqlgen';
 
-export const cities = {
-  async createCity(_, { name }, ctx: Context, info) {
+interface CitiesMutationResolvers {
+  createCity: MutationResolvers.CreateCityResolver;
+  deleteCity: MutationResolvers.DeleteCityResolver;
+  updateCity: MutationResolvers.UpdateCityResolver;
+}
+
+export const cities: CitiesMutationResolvers = {
+  createCity(_, { name }, ctx, info) {
     return ctx.prisma.createCity({ name });
   },
 
-  async deleteCity(_, { id }, ctx: Context, info) {
+  async deleteCity(_, { id }, ctx, info) {
     const cityExists = await ctx.prisma.$exists.city({ id });
     if (!cityExists) {
       throw new Error(`City not found or you're not authorized`);
@@ -14,7 +20,7 @@ export const cities = {
     return ctx.prisma.deleteCity({ id });
   },
 
-  async updateCity(_, { id, name }, ctx: Context, info) {
+  updateCity(_, { id, name }, ctx, info) {
     return ctx.prisma.updateCity({
       data: {
         name,

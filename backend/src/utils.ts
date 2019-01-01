@@ -1,12 +1,5 @@
-import express from 'express';
 import jwt from 'jsonwebtoken';
-import { Prisma } from './__generated__/prisma-client';
-
-export interface Context {
-  prisma: Prisma;
-  req: express.Request;
-  config: any;
-}
+import { Context } from './types';
 
 export function getUserId(ctx: Context) {
   const Authorization = ctx.req.get('Authorization');

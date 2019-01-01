@@ -1,77 +1,72 @@
-import { getUserId, Context } from '../utils';
+import { getUserId } from '../utils';
+import { QueryResolvers } from '../__generated__/graphqlgen';
 // Esse tipo é gerado pelo 'graphql codegen'
 // import { OlympiadConnection } from '../__generated__/prisma';
 
 // O primeiro argumento dos resolvers, 'parent', sempre será
 // 'blank' porque ele se refere à raíz do grafo.
-export const Query = {
+export const Query: QueryResolvers.Type = {
+  ...QueryResolvers.defaultResolvers,
+
   // https://github.com/prisma/prisma/issues/2225#issuecomment-413265367
-  node(_, { id }, ctx: Context, info) {
+  node(_, { id }, ctx, info) {
     return ctx.prisma.node({ id });
   },
 
-  city(_, { id }, ctx: Context, info) {
+  city(_, { id }, ctx, info) {
     return ctx.prisma.city({ id });
   },
 
-  cities(_, args, ctx: Context, info) {
+  cities(_, args, ctx, info) {
     return ctx.prisma.cities({});
   },
 
-  olympiad(_, { id }, ctx: Context, info) {
+  olympiad(_, { id }, ctx, info) {
     return ctx.prisma.olympiad({ id });
   },
 
-  async olympiads(_, args, ctx: Context, info) {
+  async olympiads(_, args, ctx, info) {
     const olympiads = await ctx.prisma.olympiads({});
-    return olympiads.map(o => ({
-      ...o,
-      createdBy: ctx.prisma.olympiad({ id: o.id }).createdBy(),
-    }));
+    return olympiads;
   },
 
-  olympiadsFeed(_, { first, after }, ctx: Context, info) {
+  olympiadsFeed(_, { first, after }, ctx, info) {
     // As xsConnections do Prisma Client foram concertadas na versão 1.23.0
     return ctx.prisma.olympiadsConnection({ first, after });
   },
 
-  async question(_, { id }, ctx: Context) {
+  async question(_, { id }, ctx) {
     const question = await ctx.prisma.question({ id });
     return question;
   },
 
-  async questions(_, args, ctx: Context) {
+  async questions(_, args, ctx) {
     const questions = await ctx.prisma.questions({});
     return questions;
   },
 
-  questionsConnection(_, args, ctx: Context, info) {
+  questionsConnection(_, args, ctx, info) {
     return ctx.prisma.questionsConnection(args);
   },
 
-  async schools(_, args, ctx: Context, info) {
-    // The prisma-client api is different, it only returns scalar fields
+  async schools(_, args, ctx, info) {
     const schools = await ctx.prisma.schools({});
-    // Relation fields can be fetched individually...
-    return schools.map(s => ({
-      ...s,
-      city: ctx.prisma.school({ id: s.id }).city(), // ...with a chained method
-    }));
+    return schools;
   },
 
-  school(_, { id }, ctx: Context, info) {
+  school(_, { id }, ctx, info) {
     return ctx.prisma.school({ id });
   },
 
-  tests(_, args, ctx: Context, info) {
+  tests(_, args, ctx, info) {
     return ctx.prisma.tests({});
   },
 
-  test(_, { id }, ctx: Context, info) {
+  test(_, { id }, ctx, info) {
     return ctx.prisma.test({ id });
   },
 
-  me(_, args, ctx: Context, info) {
+  me(_, args, ctx, info) {
     const id = getUserId(ctx);
     return ctx.prisma.user({ id });
   },

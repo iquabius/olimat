@@ -5,14 +5,18 @@ import cors from 'cors';
 import { importSchema } from 'graphql-import';
 import config from './config';
 import { prisma } from './__generated__/prisma-client';
-import resolvers from './resolvers';
+import { resolvers } from './resolvers';
 import { handleGET, handlePost } from './filepond';
 
 export const typeDefs = gql(importSchema('src/schema.graphql'));
 
 export const context = ({ req, res }) => ({ config, prisma, req });
 
-export const server = new ApolloServer({ context, resolvers, typeDefs });
+export const server = new ApolloServer({
+  context,
+  resolvers: resolvers as any,
+  typeDefs,
+});
 
 // Vincula o Express ao Apollo Server
 const app = express();

@@ -1,7 +1,13 @@
-import { getUserId, Context } from '../../utils';
+import { getUserId } from '../../utils';
+import { MutationResolvers } from '../../__generated__/graphqlgen';
 
-export const olympiads = {
-  async createOlympiad(_, { name, year }, ctx: Context, info) {
+interface OlympiadsMutationResolvers {
+  createOlympiad: MutationResolvers.CreateOlympiadResolver;
+  deleteOlympiad: MutationResolvers.DeleteOlympiadResolver;
+}
+
+export const olympiads: OlympiadsMutationResolvers = {
+  async createOlympiad(_, { name, year }, ctx, info) {
     const userId = getUserId(ctx);
     const newOlympiad = await ctx.prisma.createOlympiad({
       name,
@@ -10,14 +16,10 @@ export const olympiads = {
         connect: { id: userId },
       },
     });
-    // createOlympiad() only returns scalar fields
-    return {
-      ...newOlympiad,
-      createdBy: ctx.prisma.olympiad({ id: newOlympiad.id }).createdBy(),
-    };
+    return newOlympiad;
   },
 
-  async deleteOlympiad(_, { id }, ctx: Context, info) {
+  async deleteOlympiad(_, { id }, ctx, info) {
     const userId = getUserId(ctx);
     const olympiadExists = await ctx.prisma.$exists.olympiad({
       id,
