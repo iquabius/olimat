@@ -2,7 +2,7 @@
 scalar DateTime
 
 type Query {
-  node(id: ID!): Node
+  # node(id: ID!): Node
   city(id: ID!): City
   cities: [City!]!
   olympiad(id: ID!): Olympiad

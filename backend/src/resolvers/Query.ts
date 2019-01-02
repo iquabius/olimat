@@ -6,9 +6,12 @@ import { getUserId, Context } from '../utils';
 // 'blank' porque ele se refere à raíz do grafo.
 export const Query = {
   // https://github.com/prisma/prisma/issues/2225#issuecomment-413265367
-  node(_, { id }, ctx: Context, info) {
-    return ctx.prisma.node({ id });
-  },
+  // O 'prisma generate' gera um tipo inconpatível, a interface Node está vazia,
+  // e é usado como retorno do resolver 'node'.
+  // No entanto, ele gera o NodeNode com o 'id', que não é usado em lugar nenhum.
+  // node(_, { id }, ctx: Context, info) {
+  //   return ctx.prisma.node({ id });
+  // },
 
   city(_, { id }, ctx: Context, info) {
     return ctx.prisma.city({ id });
