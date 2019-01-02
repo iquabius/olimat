@@ -10,11 +10,7 @@ export const olympiads = {
         connect: { id: userId },
       },
     });
-    // createOlympiad() only returns scalar fields
-    return {
-      ...newOlympiad,
-      createdBy: ctx.prisma.olympiad({ id: newOlympiad.id }).createdBy(),
-    };
+    return newOlympiad;
   },
 
   async deleteOlympiad(_, { id }, ctx: Context, info) {
