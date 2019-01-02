@@ -6,6 +6,7 @@ import { Olympiad } from './Olympiad';
 import { Question } from './Question';
 import { School } from './School';
 import { Test } from './Test';
+import { User } from './User';
 
 export default {
   Query,
@@ -16,4 +17,5 @@ export default {
   AuthPayload,
   Olympiad,
   School,
+  User,
 };
