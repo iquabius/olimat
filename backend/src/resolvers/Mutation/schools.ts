@@ -1,6 +1,7 @@
 import { getUserId } from '../../utils';
+import { MutationResolvers } from '../../__generated__/resolvers-types';
 
-export const schools = {
+export const schools: MutationResolvers.Resolvers = {
   async createSchool(_, { name, email, phone, pedagogyCoord, director, city, address }, ctx, info) {
     const userId = getUserId(ctx);
     const newSchool = await ctx.prisma.createSchool({

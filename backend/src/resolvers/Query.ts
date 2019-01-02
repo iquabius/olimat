@@ -1,10 +1,9 @@
 import { getUserId } from '../utils';
-// Esse tipo é gerado pelo 'graphql codegen'
-// import { OlympiadConnection } from '../__generated__/prisma';
+import { QueryResolvers } from '../__generated__/resolvers-types';
 
 // O primeiro argumento dos resolvers, 'parent', sempre será
 // 'blank' porque ele se refere à raíz do grafo.
-export const Query = {
+export const Query: QueryResolvers.Resolvers = {
   // https://github.com/prisma/prisma/issues/2225#issuecomment-413265367
   // O 'prisma generate' gera um tipo inconpatível, a interface Node está vazia,
   // e é usado como retorno do resolver 'node'.
@@ -13,6 +12,8 @@ export const Query = {
   //   return ctx.prisma.node({ id });
   // },
 
+  // TODO: [upstream] 'parent' na verdade é 'undefined' pros resolvers da raiz
+  // graphqlgen faz isso correto
   city(_, { id }, ctx, info) {
     return ctx.prisma.city({ id });
   },

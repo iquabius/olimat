@@ -2,13 +2,15 @@ import express from 'express';
 import jwt from 'jsonwebtoken';
 import { Prisma } from './__generated__/prisma-client';
 
-export interface Context {
+// Tem que ser um nome diferente de 'Context', porque o graphql-code-generator
+// usa esse nome internamente.
+export interface OliContext {
   prisma: Prisma;
   req: express.Request;
   config: any;
 }
 
-export function getUserId(ctx: Context) {
+export function getUserId(ctx: OliContext) {
   const Authorization = ctx.req.get('Authorization');
   // Apollo Client sets header to the string 'null' when not logged in
   if (Authorization && Authorization !== 'null') {

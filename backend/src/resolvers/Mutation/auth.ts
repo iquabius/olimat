@@ -1,9 +1,10 @@
 import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
+import { MutationResolvers } from '../../__generated__/resolvers-types';
 
 // O primeiro argumento dos resolvers, 'parent', sempre será
 // vazio porque ele se refere à raíz do grafo.
-export const auth = {
+export const auth: MutationResolvers.Resolvers = {
   async signup(_, args, ctx, info) {
     const password = await bcrypt.hash(args.password, 10);
     const user = await ctx.prisma.createUser({ ...args, password });

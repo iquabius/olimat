@@ -1,11 +1,8 @@
 import resolvers from '../../resolvers';
+import { Test } from '../../__generated__/prisma-client';
+import mockContext from './__utils/mockContext';
 
-const mockContext = {
-  prisma: {
-    test: jest.fn(),
-  },
-};
-const mockTest = { id: 'tId1' };
+const mockTest: Test = { id: 'tId1', title: 'Prova 1', createdAt: '', updatedAt: '' };
 
 describe('[Test.author]', () => {
   test('uses test id from parent to lookup author', async () => {
@@ -16,11 +13,11 @@ describe('[Test.author]', () => {
     });
 
     // confere a resposta do resolver
-    const res = await resolvers.Test.author(mockTest, null, mockContext);
+    const res = await resolvers.Test.author(mockTest, null, mockContext, null);
     expect(res).toEqual(mockAuthor);
 
     // verifica se o Prisma Client foi chamado corretamente
-    expect(mockContext.prisma.test).toBeCalledWith(mockTest);
+    expect(mockContext.prisma.test).toBeCalledWith({ id: mockTest.id });
   });
 });
 
@@ -31,10 +28,10 @@ describe('[Test.questions]', () => {
       questions: () => mockQuestions,
     });
 
-    const res = await resolvers.Test.questions(mockTest, null, mockContext);
+    const res = await resolvers.Test.questions(mockTest, null, mockContext, null);
     expect(res).toEqual(mockQuestions);
 
-    expect(mockContext.prisma.test).toBeCalledWith(mockTest);
+    expect(mockContext.prisma.test).toBeCalledWith({ id: mockTest.id });
   });
 
   test('returns empty array if no response', async () => {
@@ -42,7 +39,7 @@ describe('[Test.questions]', () => {
       questions: () => [],
     });
 
-    const res = await resolvers.Test.questions(mockTest, null, mockContext);
+    const res = await resolvers.Test.questions(mockTest, null, mockContext, null);
     expect(res).toEqual([]);
   });
 });
