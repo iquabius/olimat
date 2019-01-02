@@ -1,11 +1,12 @@
 import resolvers from '../../resolvers';
+import { Question } from '../../__generated__/prisma-client';
+import mockContext from './__utils/mockContext';
 
-const mockContext = {
-  prisma: {
-    question: jest.fn(),
-  },
+const mockQuestion: Question = {
+  id: 'tId1',
+  type: 'OPEN_ENDED',
+  wording: 'Maria comprou 10 maças...',
 };
-const mockQuestion = { id: 'tId1' };
 
 describe('[Question.choices]', () => {
   test('uses question id from parent to lookup choices', async () => {
@@ -15,9 +16,9 @@ describe('[Question.choices]', () => {
       choices: () => mockChoices,
     });
 
-    const res = await resolvers.Question.choices(mockQuestion, null, mockContext);
+    const res = await resolvers.Question.choices(mockQuestion, null, mockContext, null);
     expect(res).toEqual(mockChoices);
 
-    expect(mockContext.prisma.question).toBeCalledWith(mockQuestion);
+    expect(mockContext.prisma.question).toBeCalledWith({ id: mockQuestion.id });
   });
 });

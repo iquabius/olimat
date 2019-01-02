@@ -12,7 +12,7 @@ import resolvers from '../resolvers';
 export const createTestServer = (context = defaultContext) => {
   const server = new ApolloServer({
     typeDefs,
-    resolvers,
+    resolvers: resolvers as any,
     context,
   });
 

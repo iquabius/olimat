@@ -4,8 +4,9 @@ import { tests } from './tests';
 import { schools } from './schools';
 import { olympiads } from './olympiads';
 import { questions } from './questions';
+import { MutationResolvers } from '../../__generated__/resolvers-types';
 
-export const Mutation = {
+export const Mutation: MutationResolvers.Resolvers = {
   ...cities,
   ...auth,
   ...tests,

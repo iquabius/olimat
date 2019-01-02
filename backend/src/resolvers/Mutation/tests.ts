@@ -1,6 +1,7 @@
 import { getUserId } from '../../utils';
+import { MutationResolvers } from '../../__generated__/resolvers-types';
 
-export const tests = {
+export const tests: MutationResolvers.Resolvers = {
   async createTest(_, { title, description }, ctx, info) {
     const userId = getUserId(ctx);
     return ctx.prisma.createTest({

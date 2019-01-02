@@ -1,6 +1,7 @@
 import { getUserId } from '../../utils';
+import { MutationResolvers } from '../../__generated__/resolvers-types';
 
-export const olympiads = {
+export const olympiads: MutationResolvers.Resolvers = {
   async createOlympiad(_, { name, year }, ctx, info) {
     const userId = getUserId(ctx);
     const newOlympiad = await ctx.prisma.createOlympiad({

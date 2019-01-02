@@ -1,11 +1,12 @@
 import * as fs from 'fs';
 import mv from 'mv';
 import * as path from 'path';
+import { MutationResolvers } from '../../__generated__/resolvers-types';
 // Estes tipos são gerados pelo 'prisma generate'
 // Talvez não precisamos usá-los diretamente, mas através do 'graphqlgen'
 // import { Question, QuestionCreateInput, QuestionUpdateInput } from '../../__generated__/prisma-client';
 
-export const questions = {
+export const questions: MutationResolvers.Resolvers = {
   async createQuestion(_, { input }, ctx, info) {
     // move image file from tmp to public directory, if there's one
     if (input.imageUrl !== '') {
@@ -20,12 +21,8 @@ export const questions = {
     const newQuestion = await ctx.prisma.createQuestion({
       ...input,
     });
-    const newQuestionWithChoices = {
-      ...newQuestion,
-      choices: await ctx.prisma.question({ id: newQuestion.id }).choices(),
-    };
     return {
-      question: newQuestionWithChoices,
+      question: newQuestion,
     };
   },
 
@@ -87,10 +84,7 @@ export const questions = {
     }
     console.log('--- updateQuestion Mutation END');
     return {
-      question: {
-        ...updatedQuestion,
-        choices: await ctx.prisma.question({ id: updatedQuestion.id }).choices(),
-      },
+      question: updatedQuestion,
     };
   },
 };

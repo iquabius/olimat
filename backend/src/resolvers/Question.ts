@@ -1,4 +1,6 @@
-export const Question = {
+import { QuestionResolvers } from '../__generated__/resolvers-types';
+
+export const Question: QuestionResolvers.Resolvers = {
   /**
    * Busca as alternativas relacionadas a uma questão.
    * @param parent instância da questão (Question)

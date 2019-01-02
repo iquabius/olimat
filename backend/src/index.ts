@@ -12,7 +12,12 @@ export const typeDefs = gql(importSchema('src/schema.graphql'));
 
 export const context = ({ req, res }) => ({ config, prisma, req });
 
-export const server = new ApolloServer({ context, resolvers, typeDefs });
+export const server = new ApolloServer({
+  context,
+  // Why does graphql-code-generator's interface is incompatible with Apollo's?
+  resolvers: resolvers as any,
+  typeDefs,
+});
 
 // Vincula o Express ao Apollo Server
 const app = express();

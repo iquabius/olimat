@@ -1,4 +1,6 @@
-export const cities = {
+import { MutationResolvers } from '../../__generated__/resolvers-types';
+
+export const cities: MutationResolvers.Resolvers = {
   async createCity(_, { name }, ctx, info) {
     return ctx.prisma.createCity({ name });
   },
