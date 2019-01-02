@@ -30,7 +30,7 @@ export const Query = {
     return olympiads;
   },
 
-  olympiadsFeed(_, { first, after }, ctx, info) {
+  olympiadsConnection(_, { first, after }, ctx, info) {
     // As xsConnections do Prisma Client foram concertadas na versão 1.23.0
     return ctx.prisma.olympiadsConnection({ first, after });
   },
