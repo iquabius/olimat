@@ -1,7 +1,7 @@
-import { getUserId, Context } from '../../utils';
+import { getUserId } from '../../utils';
 
 export const olympiads = {
-  async createOlympiad(_, { name, year }, ctx: Context, info) {
+  async createOlympiad(_, { name, year }, ctx, info) {
     const userId = getUserId(ctx);
     const newOlympiad = await ctx.prisma.createOlympiad({
       name,
@@ -13,7 +13,7 @@ export const olympiads = {
     return newOlympiad;
   },
 
-  async deleteOlympiad(_, { id }, ctx: Context, info) {
+  async deleteOlympiad(_, { id }, ctx, info) {
     const userId = getUserId(ctx);
     const olympiadExists = await ctx.prisma.$exists.olympiad({
       id,
