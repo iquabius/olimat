@@ -24,10 +24,7 @@ export const Query = {
 
   async olympiads(_, args, ctx: Context, info) {
     const olympiads = await ctx.prisma.olympiads({});
-    return olympiads.map(o => ({
-      ...o,
-      createdBy: ctx.prisma.olympiad({ id: o.id }).createdBy(),
-    }));
+    return olympiads;
   },
 
   olympiadsFeed(_, { first, after }, ctx: Context, info) {
