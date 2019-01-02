@@ -1,4 +1,3 @@
-import { Context } from '../../utils';
 import * as fs from 'fs';
 import mv from 'mv';
 import * as path from 'path';
@@ -7,7 +6,7 @@ import * as path from 'path';
 // import { Question, QuestionCreateInput, QuestionUpdateInput } from '../../__generated__/prisma-client';
 
 export const questions = {
-  async createQuestion(_, { input }, ctx: Context, info) {
+  async createQuestion(_, { input }, ctx, info) {
     // move image file from tmp to public directory, if there's one
     if (input.imageUrl !== '') {
       const tempFile = path.join(ctx.config.uploads.tempDir, input.imageUrl);
@@ -30,7 +29,7 @@ export const questions = {
     };
   },
 
-  async deleteQuestion(_, { id }, ctx: Context, info) {
+  async deleteQuestion(_, { id }, ctx, info) {
     const questionExists = await ctx.prisma.$exists.question({
       id,
     });
@@ -43,7 +42,7 @@ export const questions = {
     };
   },
 
-  async updateQuestion(_, { input: { id, patch } }, ctx: Context, info) {
+  async updateQuestion(_, { input: { id, patch } }, ctx, info) {
     console.log('--- updateQuestion Mutation START');
     const oldQuestion = await ctx.prisma.question({ id });
     console.log(`DB Image: '${oldQuestion.imageUrl}' | Patch Image: '${patch.imageUrl}'`);

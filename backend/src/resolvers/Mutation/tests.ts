@@ -1,7 +1,7 @@
-import { getUserId, Context } from '../../utils';
+import { getUserId } from '../../utils';
 
 export const tests = {
-  async createTest(_, { title, description }, ctx: Context, info) {
+  async createTest(_, { title, description }, ctx, info) {
     const userId = getUserId(ctx);
     return ctx.prisma.createTest({
       title,
@@ -12,7 +12,7 @@ export const tests = {
     });
   },
 
-  async deleteTest(_, { id }, ctx: Context, info) {
+  async deleteTest(_, { id }, ctx, info) {
     const userId = getUserId(ctx);
     const testExists = await ctx.prisma.$exists.test({
       id,

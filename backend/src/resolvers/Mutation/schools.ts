@@ -1,12 +1,7 @@
-import { getUserId, Context } from '../../utils';
+import { getUserId } from '../../utils';
 
 export const schools = {
-  async createSchool(
-    _,
-    { name, email, phone, pedagogyCoord, director, city, address },
-    ctx: Context,
-    info,
-  ) {
+  async createSchool(_, { name, email, phone, pedagogyCoord, director, city, address }, ctx, info) {
     const userId = getUserId(ctx);
     const newSchool = await ctx.prisma.createSchool({
       name,
@@ -23,7 +18,7 @@ export const schools = {
     return newSchool;
   },
 
-  async deleteSchool(_, { id }, ctx: Context, info) {
+  async deleteSchool(_, { id }, ctx, info) {
     const userId = getUserId(ctx);
     const schoolExists = await ctx.prisma.$exists.school({
       id,
