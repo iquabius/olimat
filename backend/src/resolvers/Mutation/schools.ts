@@ -20,11 +20,7 @@ export const schools = {
       city: { connect: { name: city } },
       address,
     });
-    // createSchool() only returns scalar fields
-    return {
-      ...newSchool,
-      city: ctx.prisma.school({ id: newSchool.id }).city(),
-    };
+    return newSchool;
   },
 
   async deleteSchool(_, { id }, ctx: Context, info) {

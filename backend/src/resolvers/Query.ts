@@ -50,13 +50,8 @@ export const Query = {
   },
 
   async schools(_, args, ctx: Context, info) {
-    // The prisma-client api is different, it only returns scalar fields
     const schools = await ctx.prisma.schools({});
-    // Relation fields can be fetched individually...
-    return schools.map(s => ({
-      ...s,
-      city: ctx.prisma.school({ id: s.id }).city(), // ...with a chained method
-    }));
+    return schools;
   },
 
   school(_, { id }, ctx: Context, info) {

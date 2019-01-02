@@ -3,6 +3,7 @@ import { Mutation } from './Mutation';
 import { AuthPayload } from './AuthPayload';
 import { Node } from './Node';
 import { Question } from './Question';
+import { School } from './School';
 import { Test } from './Test';
 
 export default {
@@ -12,4 +13,5 @@ export default {
   Node,
   Mutation,
   AuthPayload,
+  School,
 };
