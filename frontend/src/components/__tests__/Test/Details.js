@@ -30,6 +30,7 @@ const testSample = {
       id: 'questionId1',
       wording: 'Enunciado da questão de amostra',
       imageUrl: 'test-sample-image.jpg',
+      imageFullUrl: 'http://host.com/test-sample-image.jpg',
       secondaryWording: '',
       choices: [
         {
