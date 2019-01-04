@@ -30,6 +30,8 @@ function create(initialState, { getToken }) {
     credentials: 'same-origin',
   });
 
+  // To do this with apollo-boost:
+  // https://github.com/apollographql/apollo-client/issues/3044
   const authLink = setContext((_, { headers }) => {
     const token = getToken();
     return {
@@ -43,7 +45,10 @@ function create(initialState, { getToken }) {
   const cache = new InMemoryCache().restore(initialState || {});
 
   return new ApolloClient({
+    // Check if apollo-boost would need this for ssrMode
     connectToDevTools: process.browser,
+    // apollo-boost doesn't support ssrMode
+    // https://github.com/apollographql/apollo-client/issues/3335
     ssrMode: !process.browser, // Disables forceFetch on the server (so queries are only run once)
     link: ApolloLink.from([errorLink, authLink, httpLink]),
     cache,
