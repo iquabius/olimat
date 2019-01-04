@@ -17,6 +17,21 @@ test("renders the dialog if it's open", () => {
   expect(getByTestId('cancel-dialog')).toHaveTextContent('Descartar rascunho da questão?');
 });
 
+// TODO: Move test case to <QuestionUpdateForm/> suit (unit -> integration)
+/*
+Instead of mocking onContinue handler, we should mock Router.push.
+This would test a lot more stuff, like the integration between all
+subcomponents of <QuestionUpdateForm/>. We should strive to mock as
+little as possible.
+
+This could even be tested in the pages level, to test the integration
+between the form and rest of the page, like the <AppBar/>, <AppDrawer/>,
+or <AppFooter/>.
+
+On an end-to-end level of testing, with Cypress for example, this redirect
+could tested in a real browser, and even check if the question data was
+actually deleted from the database.
+*/
 test('calls onContinue handler when clicking "Descartar"', () => {
   const handleContinue = jest.fn();
   const { getByText } = render(

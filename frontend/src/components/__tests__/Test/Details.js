@@ -49,6 +49,7 @@ describe('<TestDetails />', () => {
   });
 
   test('renders the details of a test', async () => {
+    // Maybe we should use 'nock' to make the integration test more high level
     const mocks = [
       {
         request: {
