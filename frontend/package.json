@@ -63,6 +63,8 @@
     "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-prettier": "^3.0.0",
     "eslint-plugin-react": "^7.11.1",
+    "graphql-import": "^0.7.1",
+    "graphql-tools": "^4.0.3",
     "jest": "^23.6.0",
     "jest-dom": "^3.0.0",
     "prettier": "^1.14.3",
