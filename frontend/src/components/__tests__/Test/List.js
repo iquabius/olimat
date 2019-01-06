@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import React from 'react';
 import { waitForElement } from 'react-testing-library';
-import { renderApollo } from '../../../utils/test-utils';
+import { renderApollo, mockData } from '../../../utils/test-utils';
 import TestList from '../../Test/List';
 import { allTests } from '../../Test/ListConnector';
 
@@ -15,22 +15,19 @@ describe('<TestList />', () => {
   });
 
   test('renders some tests', async () => {
-    const allTestsData = [
-      { id: '1', title: 'Prova 1' },
-      { id: '2', title: 'Prova 2' },
-      { id: '3', title: 'Prova 3' },
-    ];
+    const data = await mockData(allTests);
+    // console.log(JSON.stringify(data, null, 2));
 
     const mocks = [
       {
         request: { query: allTests },
-        result: { data: { tests: allTestsData } },
+        result: { data },
       },
     ];
 
     const { container, getByText } = renderApollo(<TestList />, { mocks });
 
-    await waitForElement(() => getByText(allTestsData[0].title));
-    expect(container.querySelector('ul').children.length).toBe(allTestsData.length);
+    await waitForElement(() => getByText(data.tests[0].title));
+    expect(container.querySelector('ul').children.length).toBe(data.tests.length);
   });
 });

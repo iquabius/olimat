@@ -7,6 +7,7 @@ import ErrorMessage from '../ErrorMessage';
 export const testQuery = gql`
   query testQuery($id: ID!) {
     test(id: $id) {
+      id
       title
       questions {
         id
