@@ -53,6 +53,7 @@
     "@babel/core": "^7.2.0",
     "@types/faker": "^4.1.4",
     "@types/next": "^7.0.4",
+    "apollo-link-schema": "^1.1.4",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^23.6.0",
