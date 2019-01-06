@@ -41,12 +41,12 @@ const typeDefs = gql(importSchema(schemaPath));
 // Make a GraphQL schema with no resolvers
 // https://www.apollographql.com/docs/apollo-server/v2/api/graphql-tools.html#makeExecutableSchema
 
-const schema = makeExecutableSchema({
+export const schema = makeExecutableSchema({
   resolverValidationOptions: { requireResolversForResolveType: false },
   typeDefs,
 });
 
-const mocks = {
+export const globalMocks = {
   // Makes all ID types random ids instead of a hello world string
   ID: () => faker.random.uuid(),
   // Uses 'faker' to generate more meaninful data
@@ -64,12 +64,16 @@ const mocks = {
 };
 
 // Add mocks, modifies schema in place
-addMockFunctionsToSchema({ schema, mocks });
+addMockFunctionsToSchema({ schema, globalMocks });
 
 // Takes a query and args and returns mocked data
 export const mockData = async (query, args = {}) => {
   try {
     const res = await graphql(schema, query.loc.source.body, null, null, args);
+    if (!res) {
+      console.warn('Response to mock GraphQL query was empty: ');
+      console.warn(res);
+    }
     return res.data;
   } catch (e) {
     return console.log(e.message);
