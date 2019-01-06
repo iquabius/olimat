@@ -10,10 +10,8 @@ import { importSchema } from 'graphql-import';
 import path from 'path';
 
 // eslint-disable-next-line import/prefer-default-export
-export const renderApollo = (
-  node,
-  { mocks, addTypename = false, defaultOptions, cache, ...options } = {},
-) => {
+export const renderApollo = (node, options = {}) => {
+  const { mocks, addTypename = false, defaultOptions, cache, ...otherOptions } = options;
   return render(
     <MockedProvider
       mocks={mocks}
@@ -23,7 +21,7 @@ export const renderApollo = (
     >
       {node}
     </MockedProvider>,
-    options,
+    otherOptions,
   );
 };
 
