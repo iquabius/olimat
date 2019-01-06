@@ -1,12 +1,12 @@
 /* eslint-env jest */
 import React from 'react';
 import QuestionDetails from './Details';
-import { renderApollo, mockData } from '../../utils/test-utils';
+import { renderApollo, mockData } from '../../utils/test/test-utils';
 import { questionQuery } from './DetailsConnector';
 import { waitForElement, fireEvent, render, prettyDOM } from 'react-testing-library';
 import Router from 'next/router';
 import { SnackbarProvider } from 'notistack';
-import FakeDataProvider from '../../utils/FakeDataProvider';
+import FakeDataProvider from '../../utils/test/FakeDataProvider';
 
 jest.mock('next/router', () => ({
   withRouter: component => {
