@@ -35,7 +35,7 @@ export const renderApollo = (node, options = {}) => {
 
 // We have to use importSchema() because schema.graphql imports from
 // 'backend/src/__generated__/prisma.graphql'
-const schemaPath = path.join(__dirname, '../../../backend/src/schema.graphql');
+const schemaPath = path.join(__dirname, '../../../../backend/src/schema.graphql');
 const typeDefs = gql(importSchema(schemaPath));
 
 // Make a GraphQL schema with no resolvers
