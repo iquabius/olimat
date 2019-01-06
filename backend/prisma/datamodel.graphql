@@ -25,6 +25,7 @@ type Question {
   type: QUESTION_TYPE!
   """Enunciado da questão."""
   wording: String!
+  # TODO: Rename imageUrl to imageFileName and remove it from public API
   imageUrl: String
   """Enunciado secundário, depois da imagem."""
   secondaryWording: String

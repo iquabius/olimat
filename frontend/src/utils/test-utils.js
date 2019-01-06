@@ -8,6 +8,7 @@ import { graphql } from 'graphql';
 import gql from 'graphql-tag';
 import { importSchema } from 'graphql-import';
 import path from 'path';
+import faker from 'faker/locale/pt_BR';
 
 // eslint-disable-next-line import/prefer-default-export
 export const renderApollo = (node, options = {}) => {
@@ -45,16 +46,21 @@ const schema = makeExecutableSchema({
   typeDefs,
 });
 
-// Creates random id
-const revisedRandId = () =>
-  Math.random()
-    .toString(36)
-    .replace(/[^a-z]+/g, '')
-    .substr(2, 10);
-
-// Makes all ID types random ids instead of a hello world string
 const mocks = {
-  ID: () => revisedRandId(),
+  // Makes all ID types random ids instead of a hello world string
+  ID: () => faker.random.uuid(),
+  // Uses 'faker' to generate more meaninful data
+  Test: () => ({
+    title: () => faker.lorem.sentence(),
+  }),
+  Question: () => ({
+    wording: () => faker.lorem.sentences(),
+    imageFullUrl: () => faker.image.technics(300, 300),
+    secondaryWording: () => faker.lorem.sentences(),
+  }),
+  QuestionChoice: () => ({
+    text: () => faker.hacker.phrase(),
+  }),
 };
 
 // Add mocks, modifies schema in place
