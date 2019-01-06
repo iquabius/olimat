@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import gql from 'graphql-tag';
 import { Query, Mutation } from 'react-apollo';
+import ErrorMessage from '../ErrorMessage';
 
 export const questionQuery = gql`
   query questionQuery($id: ID!) {
@@ -43,6 +44,8 @@ const QuestionDetailsConnector = ({ children, id }) => (
     {({ data, error, loading }) => (
       <Mutation mutation={updateQuestionMutation}>
         {updateQuestion => {
+          if (error)
+            return <ErrorMessage message={`Erro ao carregar questão (${error.message})`} />;
           if (loading) return <h1>Carregando questão...</h1>;
           // TODO: Handle error when the backend is down
 
