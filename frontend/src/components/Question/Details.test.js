@@ -3,9 +3,10 @@ import React from 'react';
 import QuestionDetails from './Details';
 import { renderApollo, mockData } from '../../utils/test-utils';
 import { questionQuery } from './DetailsConnector';
-import { waitForElement, fireEvent } from 'react-testing-library';
+import { waitForElement, fireEvent, render, prettyDOM } from 'react-testing-library';
 import Router from 'next/router';
 import { SnackbarProvider } from 'notistack';
+import FakeDataProvider from '../../utils/FakeDataProvider';
 
 jest.mock('next/router', () => ({
   withRouter: component => {
@@ -46,46 +47,41 @@ describe('<QuestionDetails />', () => {
   });
 
   test('renders the details of a question', async () => {
-    const data = await mockData(questionQuery, { id: mockQuestionId });
-    // console.log(JSON.stringify(data, null, 2));
+    const customResolvers = {
+      Question: () => ({
+        wording: 'Maria comprou três maças...',
+        secondaryWording: null,
+        imageFullUrl: 'http://host.test/image.jpg',
+        choices: [{ text: '5 maças' }, { text: '3 maças' }],
+      }),
+    };
+    const { container, getByText, getByAltText } = render(
+      <FakeDataProvider customResolvers={customResolvers}>
+        <QuestionDetailsWithSnackbar />
+      </FakeDataProvider>,
+    );
 
-    const mocks = [
-      {
-        request: { query: questionQuery, variables: { id: mockQuestionId } },
-        result: { data },
-      },
-    ];
-
-    const { container, getByText, getByAltText } = renderApollo(<QuestionDetailsWithSnackbar />, {
-      mocks,
-    });
-
-    await waitForElement(() => getByText(data.question.wording));
+    await waitForElement(() => getByText(customResolvers.Question().wording));
 
     // TODO: Add imageAltDescription to Question type
     const questionImage = getByAltText('Imagem da questão');
-    expect(questionImage).toHaveAttribute('src', data.question.imageFullUrl);
+    expect(questionImage).toHaveAttribute('src', customResolvers.Question().imageFullUrl);
 
-    getByText(data.question.secondaryWording);
     // Confere se a lista de alternativas foi renderizada,
     // com a quantidade certa de itens
     const choicesList = container.querySelector('ul');
-    expect(choicesList.children.length).toBe(data.question.choices.length);
+    expect(choicesList).toHaveTextContent(customResolvers.Question().choices[0].text);
+    expect(choicesList.children.length).toBe(customResolvers.Question().choices.length);
   });
 
   test('clicking on delete button shows a warning dialog', async () => {
-    const data = await mockData(questionQuery, { id: mockQuestionId });
+    const { getByText, getByLabelText } = render(
+      <FakeDataProvider>
+        <QuestionDetailsWithSnackbar />
+      </FakeDataProvider>,
+    );
 
-    const mocks = [
-      {
-        request: { query: questionQuery, variables: { id: mockQuestionId } },
-        result: { data },
-      },
-    ];
-
-    const { getByText, getByLabelText } = renderApollo(<QuestionDetailsWithSnackbar />, { mocks });
-
-    await waitForElement(() => getByText(data.question.wording));
+    await waitForElement(() => getByLabelText('Excluir questão'));
 
     const deleteButton = getByLabelText('Excluir questão');
     fireEvent.click(deleteButton);
