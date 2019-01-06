@@ -1,7 +1,7 @@
 /* eslint-env jest */
 import React from 'react';
 import { waitForElement } from 'react-testing-library';
-import { renderApollo } from '../../../utils/test-utils';
+import { renderApollo, mockData } from '../../../utils/test-utils';
 import TestDetails from '../../Test/Details';
 import { testQuery } from '../../Test/DetailsConnector';
 
@@ -11,7 +11,7 @@ jest.mock('next/router', () => ({
   withRouter: component => {
     component.defaultProps = {
       ...component.defaultProps,
-      router: { query: { id: 'testId1' } },
+      router: { query: { id: 'theTestId1' } },
     };
     return component;
   },
@@ -22,26 +22,6 @@ jest.mock('next/router', () => ({
 // Outra opção é exportar o componente sem embrulhá-lo com os HoC, e passar os mocks
 // https://stackoverflow.com/questions/44204828
 
-const testSample = {
-  id: 'testId1',
-  title: 'Amostra de prova',
-  questions: [
-    {
-      id: 'questionId1',
-      wording: 'Enunciado da questão de amostra',
-      imageUrl: 'test-sample-image.jpg',
-      imageFullUrl: 'http://host.com/test-sample-image.jpg',
-      secondaryWording: '',
-      choices: [
-        {
-          id: 'choiceId1',
-          text: '',
-        },
-      ],
-    },
-  ],
-};
-
 describe('<TestDetails />', () => {
   test('renders loading state initially', () => {
     const { getByText } = renderApollo(<TestDetails />);
@@ -49,33 +29,41 @@ describe('<TestDetails />', () => {
   });
 
   test('renders the details of a test', async () => {
+    // The way we're handling this id is weird
+    // Maybe mockData could build the object for the mocks Array,
+    // and return it too:
+    // const { data, mock } mockOperation(getCitiesQuery);
+    // <MockedProvider mocks={[mock]}></MockedProvider>
+    const data = await mockData(testQuery, { id: 'theTestId1' });
+    // console.log(JSON.stringify(data, null, 2));
+
     // Maybe we should use 'nock' to make the integration test more high level
     const mocks = [
       {
         request: {
           query: testQuery,
           variables: {
-            id: testSample.id,
+            id: 'theTestId1',
           },
         },
-        result: { data: { test: testSample } },
+        result: { data },
       },
     ];
 
     const { getByText, getByTestId } = renderApollo(<TestDetails />, { mocks });
 
-    await waitForElement(() => getByText(testSample.title));
+    await waitForElement(() => getByText(data.test.title));
 
     const questionListNode = getByTestId('questionList');
     expect(questionListNode).toBeInTheDocument();
-    expect(questionListNode.children.length).toBe(testSample.questions.length);
+    expect(questionListNode.children.length).toBe(data.test.questions.length);
   });
 
   test('renders error message', async () => {
     const errorMsg = 'Que pena';
     const mocks = [
       {
-        request: { query: testQuery, variables: { id: testSample.id } },
+        request: { query: testQuery, variables: { id: 'theTestId1' } },
         error: new Error(errorMsg),
       },
     ];
