@@ -74,7 +74,7 @@ function SafeDeleteIconButton({
         <React.Fragment>
           <IconButton
             className={classes.root}
-            disabled={submitting}
+            disabled={submitting || deleteWarningOpen}
             onClick={() => setDeleteWarningOpen(true)}
             {...otherProps}
           >
