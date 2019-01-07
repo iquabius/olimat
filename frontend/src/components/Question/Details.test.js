@@ -1,35 +1,25 @@
 /* eslint-env jest */
 import React from 'react';
 import QuestionDetails from './Details';
-import { renderApollo, mockData } from '../../utils/test/test-utils';
-import { questionQuery } from './DetailsConnector';
+import { renderApollo } from '../../utils/test/test-utils';
 import { waitForElement, fireEvent, render } from 'react-testing-library';
 import Router from 'next/router';
 import { SnackbarProvider } from 'notistack';
 import FakeDataProvider from '../../utils/test/FakeDataProvider';
 import MockErrorProvider from '../../utils/test/MockErrorProvider';
+import MockNextContext from '../../utils/test/MockNextContext';
 
-jest.mock('next/router', () => ({
-  withRouter: component => {
-    component.defaultProps = {
-      ...component.defaultProps,
-      router: { query: { id: 'theQuestionId1' } },
-    };
-    return component;
-  },
-}));
-
-const QuestionDetailsWithSnackbar = () => (
-  <SnackbarProvider maxSnack={3}>
-    <QuestionDetails />
-  </SnackbarProvider>
+const MockQuestionDetails = () => (
+  <MockNextContext router={{ query: { id: 'theQuestionId1' } }}>
+    <SnackbarProvider maxSnack={3}>
+      <QuestionDetails />
+    </SnackbarProvider>
+  </MockNextContext>
 );
 
 describe('<QuestionDetails />', () => {
-  const mockQuestionId = 'theQuestionId1';
-
   test('renders loading state initially', () => {
-    const { getByText } = renderApollo(<QuestionDetailsWithSnackbar />);
+    const { getByText } = renderApollo(<MockQuestionDetails />);
     getByText(/carregando/i);
   });
 
@@ -38,7 +28,7 @@ describe('<QuestionDetails />', () => {
 
     const { getByText } = render(
       <MockErrorProvider graphqlErrors={[{ message: errorMsg }]}>
-        <QuestionDetailsWithSnackbar />
+        <MockQuestionDetails />
       </MockErrorProvider>,
     );
 
@@ -56,7 +46,7 @@ describe('<QuestionDetails />', () => {
     };
     const { container, getByText, getByAltText } = render(
       <FakeDataProvider customResolvers={customResolvers}>
-        <QuestionDetailsWithSnackbar />
+        <MockQuestionDetails />
       </FakeDataProvider>,
     );
 
@@ -76,7 +66,7 @@ describe('<QuestionDetails />', () => {
   test('clicking on delete button shows a warning dialog', async () => {
     const { getByText, getByLabelText } = render(
       <FakeDataProvider>
-        <QuestionDetailsWithSnackbar />
+        <MockQuestionDetails />
       </FakeDataProvider>,
     );
 
@@ -94,33 +84,24 @@ describe('<QuestionDetails />', () => {
     expect(deleteButton).not.toBeDisabled();
   });
 
-  // Could not mock Router.push()
-  xtest('clicking on edit link should go edit form page', async () => {
-    const data = await mockData(questionQuery, { id: mockQuestionId });
-    // console.log(JSON.stringify(data, null, 2));
+  test('clicking edit link should go to edit form page', async () => {
+    const customResolvers = {
+      Question: () => ({
+        // Used by the router to send users to edit question page
+        id: 'AranDOMquestionID',
+      }),
+    };
+    const { getByLabelText } = render(
+      <FakeDataProvider customResolvers={customResolvers}>
+        <MockQuestionDetails />
+      </FakeDataProvider>,
+    );
 
-    const mocks = [
-      {
-        request: {
-          query: questionQuery,
-          variables: {
-            id: mockQuestionId,
-          },
-        },
-        result: { data },
-      },
-    ];
+    await waitForElement(() => getByLabelText('Editar questão'));
 
-    const { container, getByText, getByTestId } = renderApollo(<QuestionDetailsWithSnackbar />, {
-      mocks,
-    });
-
-    await waitForElement(() => getByText(data.question.wording));
-
-    const editLink = container.querySelector('[aria-label~=Editar]');
-    // prettyDOM(editLink);
+    const editLink = getByLabelText('Editar questão');
     fireEvent.click(editLink);
-    expect(Router.push).toHaveBeenCalled();
-    // expect(editLink).toHaveAttribute('title', 'Editar');
+
+    expect(Router.pathname).toMatchSnapshot();
   });
 });
