@@ -3,10 +3,11 @@ import React from 'react';
 import QuestionDetails from './Details';
 import { renderApollo, mockData } from '../../utils/test/test-utils';
 import { questionQuery } from './DetailsConnector';
-import { waitForElement, fireEvent, render, prettyDOM } from 'react-testing-library';
+import { waitForElement, fireEvent, render } from 'react-testing-library';
 import Router from 'next/router';
 import { SnackbarProvider } from 'notistack';
 import FakeDataProvider from '../../utils/test/FakeDataProvider';
+import MockErrorProvider from '../../utils/test/MockErrorProvider';
 
 jest.mock('next/router', () => ({
   withRouter: component => {
@@ -34,14 +35,12 @@ describe('<QuestionDetails />', () => {
 
   test('renders error message', async () => {
     const errorMsg = 'Que pena';
-    const mocks = [
-      {
-        request: { query: questionQuery, variables: { id: mockQuestionId } },
-        error: new Error(errorMsg),
-      },
-    ];
 
-    const { getByText } = renderApollo(<QuestionDetailsWithSnackbar />, { mocks });
+    const { getByText } = render(
+      <MockErrorProvider graphqlErrors={[{ message: errorMsg }]}>
+        <QuestionDetailsWithSnackbar />
+      </MockErrorProvider>,
+    );
 
     await waitForElement(() => getByText(errorMsg, { exact: false }));
   });
@@ -63,7 +62,7 @@ describe('<QuestionDetails />', () => {
 
     await waitForElement(() => getByText(customResolvers.Question().wording));
 
-    // TODO: Add imageAltDescription to Question type
+    // TODO: Add imageAltText to Question type
     const questionImage = getByAltText('Imagem da questão');
     expect(questionImage).toHaveAttribute('src', customResolvers.Question().imageFullUrl);
 
