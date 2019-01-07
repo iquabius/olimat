@@ -63,7 +63,7 @@ describe('<QuestionDetails />', () => {
     expect(choicesList.children.length).toBe(customResolvers.Question().choices.length);
   });
 
-  test('clicking on delete button shows a warning dialog', async () => {
+  test('clicking on delete button shows the warning dialog', async () => {
     const { getByText, getByLabelText } = render(
       <FakeDataProvider>
         <MockQuestionDetails />
@@ -77,6 +77,21 @@ describe('<QuestionDetails />', () => {
 
     expect(deleteButton).toBeDisabled();
     getByText(/será apagada permanentemente/);
+  });
+
+  test('clicking on cancel button hides the warning dialog', async () => {
+    const { getByLabelText } = render(
+      <FakeDataProvider>
+        <MockQuestionDetails />
+      </FakeDataProvider>,
+    );
+
+    await waitForElement(() => getByLabelText('Excluir questão'));
+
+    const deleteButton = getByLabelText('Excluir questão');
+    fireEvent.click(deleteButton);
+
+    expect(deleteButton).toBeDisabled();
 
     const cancelDeleteButton = getByLabelText('Cancelar excluir questão');
     fireEvent.click(cancelDeleteButton);
