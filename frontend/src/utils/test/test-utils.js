@@ -2,7 +2,7 @@
 import React from 'react';
 import { render } from 'react-testing-library';
 import { MockedProvider } from 'react-apollo/test-utils';
-import { makeExecutableSchema, addMockFunctionsToSchema } from 'graphql-tools';
+import { makeExecutableSchema, addMockFunctionsToSchema, MockList } from 'graphql-tools';
 // https://graphql.org/graphql-js/graphql/
 import { graphql } from 'graphql';
 import gql from 'graphql-tag';
@@ -52,6 +52,7 @@ export const globalMocks = {
   // Uses 'faker' to generate more meaninful data
   Test: () => ({
     title: () => faker.lorem.sentence(),
+    questions: () => new MockList(10),
   }),
   Question: () => ({
     wording: () => faker.lorem.sentences(),

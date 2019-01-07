@@ -1,21 +1,17 @@
 /* eslint-env jest */
 import React from 'react';
-import { waitForElement } from 'react-testing-library';
-import { renderApollo, mockData } from '../../../utils/test-utils';
+import { waitForElement, render } from 'react-testing-library';
+import { renderApollo } from '../../../utils/test/test-utils';
 import TestDetails from '../../Test/Details';
-import { testQuery } from '../../Test/DetailsConnector';
+import MockNextContext from '../../../utils/test/MockNextContext';
+import FakeDataProvider from '../../../utils/test/FakeDataProvider';
+import MockErrorProvider from '../../../utils/test/MockErrorProvider';
 
-// <TestDetails /> usa o router pra pegar o id da prova na url
-// https://devblog.xero.com/mocking-a-react-higher-order-component-hoc-with-jest-mock-fd59d5a20a97
-jest.mock('next/router', () => ({
-  withRouter: component => {
-    component.defaultProps = {
-      ...component.defaultProps,
-      router: { query: { id: 'theTestId1' } },
-    };
-    return component;
-  },
-}));
+const MockTestDetails = () => (
+  <MockNextContext router={{ query: { id: 'theTestId1' } }}>
+    <TestDetails />
+  </MockNextContext>
+);
 
 // Talvez uma solução melhor seria criar um mock para o contexto do Next.js
 // https://github.com/zeit/next.js/issues/5205
@@ -24,51 +20,37 @@ jest.mock('next/router', () => ({
 
 describe('<TestDetails />', () => {
   test('renders loading state initially', () => {
-    const { getByText } = renderApollo(<TestDetails />);
+    const { getByText } = renderApollo(<MockTestDetails />);
     getByText(/loading/i);
   });
 
   test('renders the details of a test', async () => {
-    // The way we're handling this id is weird
-    // Maybe mockData could build the object for the mocks Array,
-    // and return it too:
-    // const { data, mock } mockOperation(getCitiesQuery);
-    // <MockedProvider mocks={[mock]}></MockedProvider>
-    const data = await mockData(testQuery, { id: 'theTestId1' });
-    // console.log(JSON.stringify(data, null, 2));
+    const customResolvers = {
+      Test: () => ({
+        title: '2017 - Fase 3 - Ano 5',
+      }),
+    };
+    const { getByText, getByTestId } = render(
+      <FakeDataProvider customResolvers={customResolvers}>
+        <MockTestDetails />
+      </FakeDataProvider>,
+    );
 
-    // Maybe we should use 'nock' to make the integration test more high level
-    const mocks = [
-      {
-        request: {
-          query: testQuery,
-          variables: {
-            id: 'theTestId1',
-          },
-        },
-        result: { data },
-      },
-    ];
-
-    const { getByText, getByTestId } = renderApollo(<TestDetails />, { mocks });
-
-    await waitForElement(() => getByText(data.test.title));
+    await waitForElement(() => getByText(customResolvers.Test().title));
 
     const questionListNode = getByTestId('questionList');
     expect(questionListNode).toBeInTheDocument();
-    expect(questionListNode.children.length).toBe(data.test.questions.length);
+    expect(questionListNode.children.length).toBe(10);
   });
 
   test('renders error message', async () => {
     const errorMsg = 'Que pena';
-    const mocks = [
-      {
-        request: { query: testQuery, variables: { id: 'theTestId1' } },
-        error: new Error(errorMsg),
-      },
-    ];
 
-    const { getByText } = renderApollo(<TestDetails />, { mocks });
+    const { getByText } = render(
+      <MockErrorProvider graphqlErrors={[{ message: errorMsg }]}>
+        <MockTestDetails />
+      </MockErrorProvider>,
+    );
 
     await waitForElement(() => getByText(errorMsg, { exact: false }));
   });
