@@ -40,6 +40,8 @@ describe('<TestDetails />', () => {
 
     const questionListNode = getByTestId('questionList');
     expect(questionListNode).toBeInTheDocument();
+    // toBe(10) couples the test with the mocked server
+    // https://youtu.be/K445DtQ5oHY?t=1476
     expect(questionListNode.children.length).toBe(10);
   });
 

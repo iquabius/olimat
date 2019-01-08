@@ -22,7 +22,7 @@ const typeDefs = gql(importSchema(schemaPath));
 
 // Make a GraphQL schema with no resolvers
 // https://www.apollographql.com/docs/apollo-server/v2/api/graphql-tools.html#makeExecutableSchema
-const schema = makeExecutableSchema({
+export const schema = makeExecutableSchema({
   resolverValidationOptions: { requireResolversForResolveType: false },
   typeDefs,
 });
@@ -53,6 +53,8 @@ const FakeDataProvider = props => {
   const mocks = mergeResolvers(globalMocks, customResolvers);
   addMockFunctionsToSchema({ schema, mocks });
 
+  // Check out <MockedProvider/> and <MockLink/> from react-apollo to see how
+  // to implement error and loading links.
   const client = new ApolloClient({
     link: new SchemaLink({ schema }),
     cache: new InMemoryCache(),
