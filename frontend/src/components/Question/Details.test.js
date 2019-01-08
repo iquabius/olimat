@@ -25,13 +25,11 @@ describe('<QuestionDetails />', () => {
 
   test('renders error message', async () => {
     const errorMsg = 'Que pena';
-
     const { getByText } = render(
       <MockErrorProvider graphqlErrors={[{ message: errorMsg }]}>
         <MockQuestionDetails />
       </MockErrorProvider>,
     );
-
     await waitForElement(() => getByText(errorMsg, { exact: false }));
   });
 
@@ -49,7 +47,6 @@ describe('<QuestionDetails />', () => {
         <MockQuestionDetails />
       </FakeDataProvider>,
     );
-
     await waitForElement(() => getByText(customResolvers.Question().wording));
 
     // TODO: Add imageAltText to Question type
@@ -69,7 +66,6 @@ describe('<QuestionDetails />', () => {
         <MockQuestionDetails />
       </FakeDataProvider>,
     );
-
     await waitForElement(() => getByLabelText('Excluir questão'));
 
     const deleteButton = getByLabelText('Excluir questão');
@@ -85,7 +81,6 @@ describe('<QuestionDetails />', () => {
         <MockQuestionDetails />
       </FakeDataProvider>,
     );
-
     await waitForElement(() => getByLabelText('Excluir questão'));
 
     const deleteButton = getByLabelText('Excluir questão');
@@ -97,6 +92,25 @@ describe('<QuestionDetails />', () => {
     fireEvent.click(cancelDeleteButton);
 
     expect(deleteButton).not.toBeDisabled();
+  });
+
+  test('clicking on confirm button deletes the question', async () => {
+    const { getByLabelText, getByText } = render(
+      <FakeDataProvider>
+        <MockQuestionDetails />
+      </FakeDataProvider>,
+    );
+    await waitForElement(() => getByLabelText('Excluir questão'));
+
+    const deleteButton = getByLabelText('Excluir questão');
+    fireEvent.click(deleteButton);
+    const confirmDeleteButton = getByLabelText('Confirmar excluir questão');
+    fireEvent.click(confirmDeleteButton);
+
+    expect(deleteButton).toBeDisabled();
+    expect(confirmDeleteButton).toBeDisabled();
+    await waitForElement(() => getByText('Questão excluída'));
+    expect(Router.pathname).toMatchSnapshot();
   });
 
   test('clicking edit link should go to edit form page', async () => {
@@ -111,7 +125,6 @@ describe('<QuestionDetails />', () => {
         <MockQuestionDetails />
       </FakeDataProvider>,
     );
-
     await waitForElement(() => getByLabelText('Editar questão'));
 
     const editLink = getByLabelText('Editar questão');
