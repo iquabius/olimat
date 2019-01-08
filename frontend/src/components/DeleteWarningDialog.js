@@ -29,7 +29,13 @@ const DeleteWarningDialog = ({ content, isSubmitting, open, onCancel, onSuccess,
       >
         Cancelar
       </Button>
-      <Button disabled={isSubmitting} onClick={onSuccess} color="secondary" autoFocus>
+      <Button
+        aria-label="Confirmar excluir questão"
+        disabled={isSubmitting}
+        onClick={onSuccess}
+        color="secondary"
+        autoFocus
+      >
         Excluir
       </Button>
     </DialogActions>

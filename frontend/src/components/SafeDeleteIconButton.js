@@ -24,9 +24,7 @@ const deleteHandler = (deleteQuestion, question, enqueueSnackbar, setSubmitting)
       id: question.id,
     },
   })
-    .then(response => {
-      console.log(`Delete Question Mutation response: `); // eslint-disable-line no-console
-      console.log(response); // eslint-disable-line no-console
+    .then(() => {
       // TODO: Implement 'undo' feature (it needs backend support, like flagging as deleted)
       enqueueSnackbar('Questão excluída', { variant: 'success' });
       setSubmitting(false);
