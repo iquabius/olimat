@@ -1,19 +1,16 @@
 module.exports = {
-  'parser': 'babel-eslint',
-  'extends': ['airbnb', 'plugin:prettier/recommended'],
-  'env': {
-    'es6': true
+  parser: 'babel-eslint',
+  extends: ['airbnb', 'plugin:prettier/recommended'],
+  env: {
+    'cypress/globals': true,
+    es6: true,
   },
-  'plugins': [
-    'react',
-    'jsx-a11y',
-    'import'
-  ],
-  'globals': {
-    'document': true,
-    'navigator': true,
+  plugins: ['eslint-plugin-cypress', 'react', 'jsx-a11y', 'import'],
+  globals: {
+    document: true,
+    navigator: true,
   },
-  'rules': {
+  rules: {
     'linebreak-style': 'off', // Don't play nicely with Windows.
     'arrow-body-style': 'off', // Not our taste?
     'consistent-this': ['error', 'self'],
@@ -67,5 +64,5 @@ module.exports = {
     'react/sort-prop-types': 'error', // airbnb do nothing here.
     'react/default-props-match-prop-types': 'off', // Buggy
     'react/jsx-curly-brace-presence': 'off', // Buggy
-  }
-}
+  },
+};
