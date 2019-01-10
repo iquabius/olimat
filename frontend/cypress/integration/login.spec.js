@@ -15,8 +15,8 @@ describe('Login', () => {
       .getByLabelText(/senha/i)
       .type(this.admin.password)
       .getByLabelText(/entrar/i)
-      .click();
-
-    cy.location('pathname').should('eq', '/');
+      .click()
+      .assertHome()
+      .assertLoggedIn();
   });
 });
