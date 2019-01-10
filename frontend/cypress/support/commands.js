@@ -23,3 +23,12 @@
 //
 // -- This is will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+Cypress.Commands.add('assertHome', () => {
+  cy.location('pathname').should('eq', '/');
+});
+
+Cypress.Commands.add('assertLoggedIn', () => {
+  cy.getCookie('token')
+    .should('exist')
+    .should('have.property', 'value');
+});
