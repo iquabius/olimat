@@ -65,6 +65,7 @@ class SignUpForm extends React.Component {
         <Divider />
         <form onSubmit={this.props.createUser}>
           <TextField
+            id="name"
             name="name"
             label="Nome"
             margin="normal"
@@ -72,6 +73,7 @@ class SignUpForm extends React.Component {
             onChange={this.handleChange('name')}
           />
           <TextField
+            id="email"
             name="email"
             label="Email"
             margin="normal"
@@ -79,6 +81,7 @@ class SignUpForm extends React.Component {
             onChange={this.handleChange('email')}
           />
           <TextField
+            id="confirmEmail"
             name="confirmEmail"
             label="Confirmar email"
             margin="normal"
@@ -88,6 +91,7 @@ class SignUpForm extends React.Component {
           <FormControl fullWidth margin="normal">
             <InputLabel htmlFor="password">Senha</InputLabel>
             <Input
+              id="password"
               name="password"
               inputProps={{ className: classes.passwordInput }}
               type={this.state.showPassword ? 'text' : 'password'}
@@ -102,11 +106,12 @@ class SignUpForm extends React.Component {
                   >
                     {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
                   </IconButton>
-</InputAdornment>
+                </InputAdornment>
               }
             />
           </FormControl>
           <Button
+            aria-label="Criar conta"
             className={classes.signUpButton}
             fullWidth
             variant="contained"
