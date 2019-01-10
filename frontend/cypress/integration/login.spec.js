@@ -7,17 +7,15 @@ describe('Login', () => {
 
   // eslint-disable-next-line func-names
   it('should login an existing user', function() {
-    cy.visit('/login');
-
-    cy.get('input[name="email"]')
+    cy.visit('/')
+      .getByText(/login/i)
+      .click()
+      .getByLabelText(/email/i)
       .type(this.admin.email)
-      .should('have.value', this.admin.email);
-
-    cy.get('input[name="password"]')
+      .getByLabelText(/senha/i)
       .type(this.admin.password)
-      .should('have.value', this.admin.password);
-
-    cy.get('button[type="submit"]').click();
+      .getByLabelText(/entrar/i)
+      .click();
 
     cy.location('pathname').should('eq', '/');
   });

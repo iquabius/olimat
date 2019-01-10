@@ -99,6 +99,7 @@ class LoginForm extends React.Component {
         <Divider />
         <form onSubmit={handleSignIn}>
           <TextField
+            id="email"
             name="email"
             label="Email"
             margin="normal"
@@ -108,6 +109,7 @@ class LoginForm extends React.Component {
           <FormControl fullWidth margin="normal">
             <InputLabel htmlFor="password">Senha</InputLabel>
             <Input
+              id="password"
               name="password"
               inputProps={{ className: classes.passwordInput }}
               type={this.state.showPassword ? 'text' : 'password'}
@@ -123,6 +125,7 @@ class LoginForm extends React.Component {
             <Link href="#">Esqueceu a senha?</Link>
           </Typography> */}
           <Button
+            aria-label="Entrar"
             className={classes.loginButton}
             fullWidth
             variant="contained"
