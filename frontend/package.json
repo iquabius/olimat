@@ -9,6 +9,8 @@
     "build": "next build ./src",
     "start": "next start ./src",
     "test": "jest",
+    "cy:run": "cypress run",
+    "cy:open": "cypress open",
     "lint": "eslint src",
     "lint:fix": "eslint src --cache --fix && echo \"eslint: no lint errors\"",
     "analyze": "cross-env ANALYZE=1 next build ./src"
