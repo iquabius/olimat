@@ -6,6 +6,7 @@ Uma aplicação web de código aberto para as Olimpíadas de Matemática da [UNE
 
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-brightgreen.svg)](https://www.gnu.org/licenses/agpl-3.0)
 ![Code style](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)
+[![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lernajs.io/)
 
 </div>
 
