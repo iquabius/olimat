@@ -2,13 +2,11 @@
   "folders": [
     {
       // Servidor Apollo + Prisma
-      "name": "Backend",
-      "path": "backend"
+      "path": "api"
     },
     {
       // Aplicação Next.js + React.js
-      "name": "Frontend",
-      "path": "frontend"
+      "path": "web"
     }
   ],
   "launch": {
@@ -18,11 +16,11 @@
         "type": "node",
         "request": "launch",
         "name": "Next: Node",
-        "runtimeExecutable": "${workspaceFolder:Frontend}/node_modules/next/dist/bin/next",
+        "runtimeExecutable": "${workspaceFolder:web}/node_modules/next/dist/bin/next",
         "runtimeArgs": ["--inspect"],
         "port": 9229,
         "console": "integratedTerminal",
-        "cwd": "${workspaceFolder:Frontend}/src"
+        "cwd": "${workspaceFolder:web}/src"
       },
       {
         "type": "node",

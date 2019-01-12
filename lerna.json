@@ -1,4 +1,4 @@
 {
-  "packages": ["backend", "frontend"],
+  "packages": ["api", "web"],
   "version": "0.0.1"
 }
