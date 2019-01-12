@@ -19,7 +19,7 @@ export const Query: QueryResolvers.Resolvers = {
   },
 
   cities(_, args, ctx, info) {
-    return ctx.prisma.cities({});
+    return ctx.prisma.cities({ orderBy: 'name_ASC' });
   },
 
   olympiad(_, { id }, ctx, info) {
