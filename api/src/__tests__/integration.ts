@@ -40,7 +40,7 @@ describe('Queries', () => {
     // Use o 'recorder' pra inspecionar as requisições.
     // nock.recorder.rec();
     nock('http://localhost:4466')
-      .post('/olimat-backend/dev')
+      .post('/olimat-api/dev')
       .reply(200, [
         {
           data: {
@@ -65,7 +65,7 @@ describe('Queries', () => {
 
   //   // nock.recorder.rec();
   //   nock('http://localhost:4466')
-  //     .post('/olimat-backend/dev')
+  //     .post('/olimat-api/dev')
   //     .reply(200, [
   //       {
   //         data: {

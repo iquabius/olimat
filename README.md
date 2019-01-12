@@ -6,10 +6,11 @@ Uma aplicação web de código aberto para as Olimpíadas de Matemática da [UNE
 
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-brightgreen.svg)](https://www.gnu.org/licenses/agpl-3.0)
 ![Code style](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)
+[![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lernajs.io/)
 
 </div>
 
-## Desenvolvimento
+## Desenvolvimento local
 
 ### Pré-requisitos
 
@@ -27,37 +28,38 @@ Clone o repositório para o seu computador:
 git clone https://github.com/iquabius/olimat.git
 ```
 
-Navegue até o diretório do *backend* e instale as dependências do NPM:
+Instale as dependências do monorepositório:
 
 ```bash
-cd olimat/backend && npm install
+cd olimat
+npm install
 ```
 
-Agora instale as dependências do *frontend*:
+Instale as dependências da API e do *frontend*:
 
 ```bash
-cd ../frontend && npm install
+npx lerna bootstrap
 ```
 
 ### 2. Levante o serviço de banco de dados do Prisma
 
-Levante os serviços *prisma* e *postgres* definidos em `backend/docker-compose.yml`:
+Levante os serviços *prisma* e *postgres* definidos em `api/docker-compose.yml`:
 
 ```bash
-cd ../backend
+cd ../api
 docker-compose up -d
 ```
 
 O Prisma agora está conectado ao banco de dados e roda em `http://localhost:4466`.
 Ele é utilizado pelo servidor GraphQL para ler e escrever no BD.
 
-Para criar as tabelas no BD, implante a API do Prisma definida em `backend/prisma/datamodel.graphql`:
+Para criar as tabelas no BD, implante a API do Prisma definida em `api/prisma/datamodel.graphql`:
 
 ```bash
 npx prisma deploy
 ```
 
-> Note que quando a implantação do serviço do Prisma é feita pela primeira vez, o comando irá executar o script [`backend/prisma/seed/seed.ts`](backend/prisma/seed/seed.ts) para semear o banco com dados iniciais. Ele sabe desse script porque está listado em [`backend/prisma/prisma.yml`](backend/prisma/prisma.yml) na propriedade `seed`.
+> Note que quando a implantação do serviço do Prisma é feita pela primeira vez, o comando irá executar o script [`api/prisma/seed/seed.ts`](api/prisma/seed/seed.ts) para semear o banco com dados iniciais. Ele sabe desse script porque está listado em [`api/prisma/prisma.yml`](api/prisma/prisma.yml) na propriedade `seed`.
 
 ### 3. Inicie o servidor GraphQL
 
@@ -75,7 +77,7 @@ O script `dev` inicia o servidor em [`http://localhost:4000/graphql`](http://loc
 Inicia a aplicação em [`http://localhost:3000`](http://localhost:3000):
 
 ```bash
-cd ../frontend
+cd ../web
 npm run dev
 ```
 

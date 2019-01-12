@@ -1,0 +1,13 @@
+{
+  "name": "@olimat/workspace",
+  "description": "OliMAT's monorepo workspace package",
+  "license": "AGPL-3.0",
+  "author": "Josias Iquabius <iquabius@gmail.com>",
+  "private": true,
+  "devDependencies": {
+    "lerna": "^3.10.5"
+  },
+  "scripts": {
+    "test": "lerna run test"
+  }
+}

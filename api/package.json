@@ -1,5 +1,6 @@
 {
-  "name": "olimat-backend",
+  "name": "@olimat/api",
+  "private": true,
   "version": "0.0.1",
   "license": "AGPL-3.0",
   "author": "Josias Iquabius <iquabius@gmail.com>",

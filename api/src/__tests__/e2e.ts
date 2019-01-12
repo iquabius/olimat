@@ -42,7 +42,7 @@ const getCityQuery = gql`
   }
 `;
 
-describe('Backend - e2e', () => {
+describe('API - e2e', () => {
   let stop;
   let graphql;
 

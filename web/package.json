@@ -1,5 +1,6 @@
 {
-  "name": "olimat-frontend",
+  "name": "@olimat/web",
+  "private": true,
   "version": "0.0.1",
   "license": "AGPL-3.0",
   "description": "Aplicação Web (cliente) para gerenciamento das Olímpiadas de Matemática da UNEMAT",
