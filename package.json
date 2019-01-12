@@ -5,9 +5,14 @@
   "author": "Josias Iquabius <iquabius@gmail.com>",
   "private": true,
   "devDependencies": {
+    "cypress": "^3.1.4",
+    "cypress-testing-library": "^2.3.5",
+    "faker": "^4.1.0",
     "lerna": "^3.10.5"
   },
   "scripts": {
+    "cy:run": "cypress run",
+    "cy:open": "cypress open",
     "test": "lerna run test"
   }
 }
