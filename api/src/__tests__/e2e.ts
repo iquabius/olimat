@@ -42,6 +42,10 @@ const getCityQuery = gql`
   }
 `;
 
+interface GetCitiesQueryResponse {
+  data: { cities: City[] };
+}
+
 describe('API - e2e', () => {
   let stop;
   let graphql;
@@ -55,7 +59,7 @@ describe('API - e2e', () => {
   afterEach(() => stop());
 
   test('gets list of cities', async () => {
-    const res = await toPromise(
+    const res: GetCitiesQueryResponse = await toPromise(
       graphql({
         query: getCitiesQuery,
       }),
@@ -67,7 +71,7 @@ describe('API - e2e', () => {
   test('gets a single city', async () => {
     // O id sempre muda, então primeiro buscamos uma lista de todas as cidades.
     // graphqlgen talvez gere um tipo que podemos usar aqui.
-    const allCitiesRes: { data: { cities: City[] } } = await toPromise(
+    const allCitiesRes: GetCitiesQueryResponse = await toPromise(
       graphql({
         query: getCitiesWithIdsQuery,
       }),
