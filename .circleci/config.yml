@@ -33,7 +33,6 @@ jobs:
       - run: npm --version
       # Install monorepo dependencies
       - run: npm ci
-      - run: npx lerna --version
       - run: npx lerna bootstrap --ci
 
       - save_cache:
@@ -50,4 +49,4 @@ jobs:
           key: web-modules-{{ checksum "web/package.json" }}
         
       # run tests!
-      - run: npx lerna run test --scope {@olimat/web}  
+      - run: npx lerna run test --scope @olimat/web
