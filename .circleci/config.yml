@@ -1,0 +1,53 @@
+version: 2.0
+jobs:
+  build:
+    docker:
+      # specify the version you desire here
+      - image: circleci/node:10.15
+      
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # - image: circleci/mongo:3.4.4
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - monorepo-modules-{{ checksum "package.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - monorepo-modules-
+      - restore_cache:
+          keys:
+          - api-modules-{{ checksum "api/package.json" }}
+          - api-modules-
+      - restore_cache:
+          keys:
+          - web-modules-{{ checksum "web/package.json" }}
+          - web-modules-
+
+      - run: npm --version
+      # Install monorepo dependencies
+      - run: npm ci
+      - run: npx lerna --version
+      - run: npx lerna bootstrap --ci
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: monorepo-modules-{{ checksum "package.json" }}
+      - save_cache:
+          paths:
+            - api/node_modules
+          key: api-modules-{{ checksum "api/package.json" }}
+      - save_cache:
+          paths:
+            - web/node_modules
+          key: web-modules-{{ checksum "web/package.json" }}
+        
+      # run tests!
+      - run: npx lerna run test --scope {@olimat/web}  
