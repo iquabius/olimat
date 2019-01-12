@@ -10,7 +10,7 @@ Uma aplicação web de código aberto para as Olimpíadas de Matemática da [UNE
 
 </div>
 
-## Desenvolvimento
+## Desenvolvimento local
 
 ### Pré-requisitos
 
@@ -28,16 +28,17 @@ Clone o repositório para o seu computador:
 git clone https://github.com/iquabius/olimat.git
 ```
 
-Navegue até o diretório da API e instale as dependências do NPM:
+Instale as dependências do monorepositório:
 
 ```bash
-cd olimat/api && npm install
+cd olimat
+npm install
 ```
 
-Agora instale as dependências do *frontend*:
+Instale as dependências da API e do *frontend*:
 
 ```bash
-cd ../web && npm install
+npx lerna bootstrap
 ```
 
 ### 2. Levante o serviço de banco de dados do Prisma
