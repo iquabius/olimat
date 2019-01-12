@@ -1,6 +1,6 @@
-version: 2.0
-jobs:
-  build:
+version: 2.1
+executors:
+  prisma:
     docker:
       - image: circleci/node:10.15
       - image: postgres:10.5
@@ -19,6 +19,9 @@ jobs:
                 user: prisma
                 password: prisma
                 migrations: true
+jobs:
+  test:
+    executor: prisma
     working_directory: ~/olimat
 
     steps:
@@ -62,3 +65,8 @@ jobs:
         
       # run tests!
       - run: npx lerna run test
+
+workflows:
+  "Testing Workflow":
+    jobs:
+      - test
