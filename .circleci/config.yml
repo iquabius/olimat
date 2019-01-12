@@ -2,15 +2,24 @@ version: 2.0
 jobs:
   build:
     docker:
-      # specify the version you desire here
       - image: circleci/node:10.15
-      
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/mongo:3.4.4
-
-    working_directory: ~/repo
+      - image: postgres:10.5
+        environment:
+          POSTGRES_USER: prisma
+          POSTGRES_PASSWORD: prisma
+      - image: prismagraphql/prisma:1.23
+        environment:
+          PRISMA_CONFIG: |
+            port: 4466
+            databases:
+              default:
+                connector: postgres
+                host: localhost
+                port: 5432
+                user: prisma
+                password: prisma
+                migrations: true
+    working_directory: ~/olimat
 
     steps:
       - checkout
@@ -30,10 +39,13 @@ jobs:
           - web-modules-{{ checksum "web/package.json" }}
           - web-modules-
 
-      - run: npm --version
       # Install monorepo dependencies
       - run: npm ci
+      # Install 'api' and 'web' dependencies
       - run: npx lerna bootstrap --ci
+      - run:
+          name: Start Prisma server
+          command: cd api && npx prisma deploy
 
       - save_cache:
           paths:
@@ -49,4 +61,4 @@ jobs:
           key: web-modules-{{ checksum "web/package.json" }}
         
       # run tests!
-      - run: npx lerna run test --scope @olimat/web
+      - run: npx lerna run test
