@@ -6,6 +6,3 @@ node_modules/
 
 # Cache files
 .eslintcache
-
-cypress/videos
-cypress/screenshots
