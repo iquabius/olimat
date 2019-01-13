@@ -1,14 +1,14 @@
 import React from 'react';
 import AppFrame from '../../components/AppFrame';
 import AppContent from '../../components/AppContent';
-import OlympiadList from '../../components/OlympiadList';
+import QuestionDetails from '../../components/Question/Details';
 
-const PageOlympiads = () => (
+const PageQuestion: React.FunctionComponent = () => (
   <AppFrame>
     <AppContent>
-      <OlympiadList />
+      <QuestionDetails />
     </AppContent>
   </AppFrame>
 );
 
-export default PageOlympiads;
+export default PageQuestion;

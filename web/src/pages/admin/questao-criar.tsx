@@ -1,14 +1,14 @@
 import React from 'react';
 import AppFrame from '../../components/AppFrame';
 import AppContent from '../../components/AppContent';
-import CityList from '../../components/City/List';
+import QuestionCreateForm from '../../components/Question/CreateForm';
 
-const PageCities = () => (
+const PageQuestionCreate: React.FunctionComponent = () => (
   <AppFrame>
     <AppContent>
-      <CityList />
+      <QuestionCreateForm />
     </AppContent>
   </AppFrame>
 );
 
-export default PageCities;
+export default PageQuestionCreate;

@@ -1,14 +1,14 @@
 import React from 'react';
 import AppFrame from '../../components/AppFrame';
 import AppContent from '../../components/AppContent';
-import QuestionCreateForm from '../../components/Question/CreateForm';
+import QuestionUpdateForm from '../../components/Question/UpdateForm';
 
-const PageQuestionCreate = () => (
+const PageQuestionUpdate: React.FunctionComponent = () => (
   <AppFrame>
     <AppContent>
-      <QuestionCreateForm />
+      <QuestionUpdateForm />
     </AppContent>
   </AppFrame>
 );
 
-export default PageQuestionCreate;
+export default PageQuestionUpdate;

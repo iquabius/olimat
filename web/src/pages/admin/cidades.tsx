@@ -1,14 +1,14 @@
 import React from 'react';
 import AppFrame from '../../components/AppFrame';
 import AppContent from '../../components/AppContent';
-import QuestionDetails from '../../components/Question/Details';
+import CityList from '../../components/City/List';
 
-const PageQuestion = () => (
+const PageCities: React.FunctionComponent = () => (
   <AppFrame>
     <AppContent>
-      <QuestionDetails />
+      <CityList />
     </AppContent>
   </AppFrame>
 );
 
-export default PageQuestion;
+export default PageCities;

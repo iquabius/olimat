@@ -5,7 +5,7 @@ import AppFrame from '../../components/AppFrame';
 import AppContent from '../../components/AppContent';
 import TestList from '../../components/Test/List';
 
-const PageAdmin = () => (
+const PageAdmin: React.FunctionComponent = () => (
   <AppFrame>
     <AppContent>
       <TestList />

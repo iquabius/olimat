@@ -3,7 +3,7 @@ import AppFrame from '../../components/AppFrame';
 import AppContent from '../../components/AppContent';
 import SchoolTable from '../../components/SchoolTable';
 
-const PageSchools = () => (
+const PageSchools: React.FunctionComponent = () => (
   <AppFrame>
     <AppContent>
       <SchoolTable />
