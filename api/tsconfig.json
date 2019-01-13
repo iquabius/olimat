@@ -9,7 +9,10 @@
     "outDir": "dist",
     "lib": [
       "esnext", "dom"
-    ]
+    ],
+    // Cypress mocha vs jest types issue
+    // https://github.com/cypress-io/cypress/issues/1087
+    "skipLibCheck": true,
   },
   "include": [
       "src/**/*"

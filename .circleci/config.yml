@@ -1,8 +1,11 @@
 version: 2.1
+orbs:
+  cypress: cypress-io/cypress@1.4.0
+
 executors:
   prisma:
     docker:
-      - image: circleci/node:10.15
+      - image: cypress/base:10
       - image: postgres:10.5
         environment:
           POSTGRES_USER: prisma
@@ -19,11 +22,11 @@ executors:
                 user: prisma
                 password: prisma
                 migrations: true
+
 jobs:
-  test:
+  test_unit:
     executor: prisma
     working_directory: ~/olimat
-
     steps:
       - checkout
 
@@ -67,6 +70,16 @@ jobs:
       - run: npx lerna run test
 
 workflows:
-  "Testing Workflow":
+  version: 2
+  pipeline:
     jobs:
-      - test
+      - test_unit
+      - cypress/run:
+          executor: prisma
+          build: |
+            npx lerna bootstrap --ci
+            npx lerna run build
+            cd api
+            npx prisma deploy
+          start: npm start
+          wait-on: http://localhost:3000
