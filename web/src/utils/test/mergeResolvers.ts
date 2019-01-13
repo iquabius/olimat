@@ -8,6 +8,7 @@
  * desired mocks. Generally, `target` will be the default mocked values,
  * and `input` will be the values desired for a portal example or Jest tests.
  */
+// TODO: Add TypeScript types
 const mergeResolvers = (target, input) => {
   const inputTypenames = Object.keys(input);
   const merged = inputTypenames.reduce(

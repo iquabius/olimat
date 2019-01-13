@@ -1,4 +1,3 @@
-/* eslint import/no-extraneous-dependencies: ["error", {"devDependencies": true}] */
 import React from 'react';
 import { render } from 'react-testing-library';
 import { MockedProvider } from 'react-apollo/test-utils';

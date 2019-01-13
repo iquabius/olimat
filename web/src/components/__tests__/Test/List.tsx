@@ -1,4 +1,3 @@
-/* eslint-env jest */
 import React from 'react';
 import { waitForElement, render } from 'react-testing-library';
 import { renderApollo } from '../../../utils/test/test-utils';

@@ -1,4 +1,3 @@
-/* eslint-env jest */
 import React from 'react';
 import QuestionDetails from './Details';
 import { renderApollo } from '../../utils/test/test-utils';

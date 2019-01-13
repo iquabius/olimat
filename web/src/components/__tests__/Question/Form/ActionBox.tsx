@@ -1,4 +1,3 @@
-/* eslint-env jest */
 import React from 'react';
 import { fireEvent, render } from 'react-testing-library';
 import ActionBox from '../../../Question/Form/ActionBox';

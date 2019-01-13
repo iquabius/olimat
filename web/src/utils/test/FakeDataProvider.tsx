@@ -1,7 +1,6 @@
 // Este arquivo só é usado no servidor, pra testes.
 // Podemos importar dependências de desenvolvimento.
 // Talvez não funcione num ambiente de Integração Contínua (CI).
-/* eslint import/no-extraneous-dependencies: ["error", {"devDependencies": true}] */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { addMockFunctionsToSchema, makeExecutableSchema, MockList } from 'graphql-tools';
