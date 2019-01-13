@@ -24,7 +24,7 @@ executors:
                 migrations: true
 
 jobs:
-  test_unit:
+  integration_tests:
     executor: prisma
     working_directory: ~/olimat
     steps:
@@ -73,7 +73,8 @@ workflows:
   version: 2
   pipeline:
     jobs:
-      - test_unit
+      - integration_tests:
+          name: 'integration tests'
       - cypress/run:
           name: 'end-to-end tests'
           executor: prisma
