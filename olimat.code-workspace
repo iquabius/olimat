@@ -34,7 +34,6 @@
     "recommendations": [
       "apollographql.vscode-apollo",
       "editorconfig.editorconfig",
-      "dbaeumer.vscode-eslint",
       "eg2.tslint"
     ]
   }
