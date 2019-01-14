@@ -13,6 +13,7 @@ deve ser desacoplado do esquema do Prisma GraphQL. Outros aspectos importantes
 são os 'resolvers' completamente seguros quanto aos tipos ('type-safe').
 */
 import { prisma } from '../../src/__generated__/prisma-client';
+
 import data from './data';
 
 const setup = async () => {

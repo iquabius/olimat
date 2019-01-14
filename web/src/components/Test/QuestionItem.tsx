@@ -41,10 +41,9 @@ const TestQuestionItem = ({ classes, className, questionNumber, question }) => (
     {question.imageFullUrl && (
       <img className={classes.questionImg} src={question.imageFullUrl} alt="Imagem da questão" />
     )}
-    {question.choices &&
-      question.choices.length > 0 && (
-        <ChoicesBox choices={question.choices} className={classes.choices} />
-      )}
+    {question.choices && question.choices.length > 0 && (
+      <ChoicesBox choices={question.choices} className={classes.choices} />
+    )}
   </div>
 );
 

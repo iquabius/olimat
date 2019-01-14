@@ -18,6 +18,7 @@
     "object-shorthand-properties-first": false,
     // Pra permitir PascalCase nos componentes do React
     // https://github.com/palantir/tslint-react/issues/120
-    "variable-name": [true, "allow-pascal-case"]
+    "variable-name": [true, "allow-pascal-case"],
+    "function-name": [false]
   }
 }

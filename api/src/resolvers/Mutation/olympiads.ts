@@ -1,5 +1,5 @@
-import { getUserId } from '../../utils';
 import { MutationResolvers } from '../../__generated__/resolvers-types';
+import { getUserId } from '../../utils';
 
 export const olympiads: MutationResolvers.Resolvers = {
   async createOlympiad(_, { name, year }, ctx, info) {

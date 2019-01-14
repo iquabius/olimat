@@ -1,5 +1,5 @@
-import { createTestClient } from 'apollo-server-testing';
 import { gql } from 'apollo-server-express';
+import { createTestClient } from 'apollo-server-testing';
 // https://www.prisma.io/forum/t/testing-with-graphql-request/537
 import nock from 'nock';
 

@@ -75,8 +75,9 @@ const QuestionDetails = ({ classes, router }) => {
                   {question.secondaryWording}
                 </Typography>
               )}
-              {question.choices &&
-                question.choices.length > 0 && <ChoicesBox choices={question.choices} />}
+              {question.choices && question.choices.length > 0 && (
+                <ChoicesBox choices={question.choices} />
+              )}
             </div>
           </Paper>
         );

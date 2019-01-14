@@ -1,10 +1,11 @@
-import { cities } from './cities';
+import { MutationResolvers } from '../../__generated__/resolvers-types';
+
 import { auth } from './auth';
-import { tests } from './tests';
-import { schools } from './schools';
+import { cities } from './cities';
 import { olympiads } from './olympiads';
 import { questions } from './questions';
-import { MutationResolvers } from '../../__generated__/resolvers-types';
+import { schools } from './schools';
+import { tests } from './tests';
 
 export const Mutation: MutationResolvers.Resolvers = {
   ...cities,

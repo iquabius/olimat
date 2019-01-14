@@ -9,11 +9,12 @@
  */
 
 // import our production apollo-server instance
-import { server } from '../';
 import { gql } from 'apollo-server-express';
 
-import { startTestServer, toPromise } from './__utils';
+import { server } from '../';
 import { City } from '../__generated__/prisma-client';
+
+import { startTestServer, toPromise } from './__utils';
 
 // O id muda toda vez que semeamos o serviço do prisma,
 // então os testes com 'snapshot' falham.

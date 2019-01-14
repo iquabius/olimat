@@ -1,5 +1,6 @@
-import resolvers from '../../resolvers';
 import { Test } from '../../__generated__/prisma-client';
+import resolvers from '../../resolvers';
+
 import mockContext from './__utils/mockContext';
 
 const mockTest: Test = { id: 'tId1', title: 'Prova 1', createdAt: '', updatedAt: '' };

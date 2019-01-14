@@ -1,5 +1,5 @@
-import { getUserId } from '../utils';
 import { QueryResolvers } from '../__generated__/resolvers-types';
+import { getUserId } from '../utils';
 
 // O primeiro argumento dos resolvers, 'parent', sempre será
 // 'blank' porque ele se refere à raíz do grafo.

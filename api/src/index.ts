@@ -1,12 +1,13 @@
 import { ApolloServer, gql } from 'apollo-server-express';
+import cors from 'cors';
 import express from 'express';
 import fileUpload from 'express-fileupload';
-import cors from 'cors';
 import { importSchema } from 'graphql-import';
-import config from './config';
+
 import { prisma } from './__generated__/prisma-client';
-import resolvers from './resolvers';
+import config from './config';
 import { handleGET, handlePost } from './filepond';
+import resolvers from './resolvers';
 
 export const typeDefs = gql(importSchema('src/schema.graphql'));
 

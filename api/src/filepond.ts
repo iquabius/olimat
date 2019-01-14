@@ -1,8 +1,9 @@
-import * as fs from 'fs';
-import * as path from 'path';
 import { UploadedFile } from 'express-fileupload';
-import { generate } from 'shortid';
+import * as fs from 'fs';
 import { extension } from 'mime-types';
+import * as path from 'path';
+import { generate } from 'shortid';
+
 import config from './config';
 
 // https://stackoverflow.com/a/40899767/1787829
@@ -55,7 +56,7 @@ export const handleGET = (req, res, next) => {
 export const handlePost = (req, res, next) => {
   const uploadFile = req.files.imageUrl as UploadedFile;
   // We don't need the extension here, just the ID is enough
-  const fileName = generate() + '.' + extension(uploadFile.mimetype);
+  const fileName = `${generate()}.${extension(uploadFile.mimetype)}`;
   console.log('FILE: ');
   console.log(uploadFile);
   uploadFile.mv(`${config.uploads.tempDir}/${fileName}`, err => {
