@@ -1,10 +1,11 @@
 import React from 'react';
-import { waitForElement, render } from 'react-testing-library';
-import { renderApollo } from '../../../utils/test/test-utils';
-import TestDetails from '../../Test/Details';
-import MockNextContext from '../../../utils/test/MockNextContext';
+import { render, waitForElement } from 'react-testing-library';
+
 import FakeDataProvider from '../../../utils/test/FakeDataProvider';
 import MockErrorProvider from '../../../utils/test/MockErrorProvider';
+import MockNextContext from '../../../utils/test/MockNextContext';
+import { renderApollo } from '../../../utils/test/test-utils';
+import TestDetails from '../../Test/Details';
 
 const MockTestDetails = () => (
   <MockNextContext router={{ query: { id: 'theTestId1' } }}>

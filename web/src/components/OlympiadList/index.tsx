@@ -1,15 +1,16 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { compose, graphql } from 'react-apollo';
-import { withState } from 'recompose';
-import gql from 'graphql-tag';
-import { withStyles } from '@material-ui/core/styles';
-import { ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails } from '@material-ui/core';
-import Typography from '@material-ui/core/Typography';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
+import { withStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import gql from 'graphql-tag';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { compose, graphql } from 'react-apollo';
+import { withState } from 'recompose';
+
 import OlympiadAddDialog from './OlympiadAddDialog';
 
 const styles = theme => ({

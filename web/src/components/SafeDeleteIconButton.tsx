@@ -1,13 +1,14 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles, IconButton } from '@material-ui/core';
+import { IconButton, withStyles } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
-import compose from 'recompose/compose';
-import { withState } from 'recompose';
-import DeleteConnector from './Question/DeleteConnector';
 import Router from 'next/router';
-import DeleteWarningDialog from './DeleteWarningDialog';
 import { withSnackbar } from 'notistack';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { withState } from 'recompose';
+import compose from 'recompose/compose';
+
+import DeleteWarningDialog from './DeleteWarningDialog';
+import DeleteConnector from './Question/DeleteConnector';
 
 const styles = theme => ({
   root: {

@@ -1,18 +1,20 @@
-import React from 'react';
-import classNames from 'classnames';
-import PropTypes from 'prop-types';
+import Divider from '@material-ui/core/Divider';
+import Drawer from '@material-ui/core/Drawer';
+import Hidden from '@material-ui/core/Hidden';
+import List from '@material-ui/core/List';
 import { withStyles } from '@material-ui/core/styles';
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
-import List from '@material-ui/core/List';
-import Toolbar from '@material-ui/core/Toolbar';
-import Drawer from '@material-ui/core/Drawer';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
+import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import Hidden from '@material-ui/core/Hidden';
+import classNames from 'classnames';
+import PropTypes from 'prop-types';
+import React from 'react';
+
+import { pageToTitle } from '../utils/helpers';
+
 import AppDrawerNavItem from './AppDrawerNavItem';
 import Link from './Link';
-import { pageToTitle } from '../utils/helpers';
 import PageContext from './PageContext';
 
 /**

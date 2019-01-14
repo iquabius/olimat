@@ -1,5 +1,6 @@
-import React from 'react';
 import Head from 'next/head';
+import React from 'react';
+
 import OnlyFormFrame from '../components/OnlyFormFrame';
 import LoginForm from '../components/User/LoginForm';
 import checkLoggedIn from '../utils/checkLoggedIn';

@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import gql from 'graphql-tag';
-import { Query } from 'react-apollo';
 import { CircularProgress } from '@material-ui/core';
+import gql from 'graphql-tag';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { Query } from 'react-apollo';
 
 // https://www.prisma.io/forum/t/23
 export const questionTypeOptions = gql`

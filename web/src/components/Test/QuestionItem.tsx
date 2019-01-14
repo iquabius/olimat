@@ -1,10 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles, Typography } from '@material-ui/core';
-import classNames from 'classnames';
-import ChoicesBox from '../Question/ChoicesBox';
+import { Typography, withStyles } from '@material-ui/core';
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import { StyleRules } from '@material-ui/core/styles/withStyles';
+import classNames from 'classnames';
+import PropTypes from 'prop-types';
+import React from 'react';
+
+import ChoicesBox from '../Question/ChoicesBox';
 
 /**
  * This callback function is used to create the styles

@@ -1,11 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Head from 'next/head';
+import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import AppFrame from '../components/AppFrame';
+import Head from 'next/head';
+import PropTypes from 'prop-types';
+import React from 'react';
+
 import AppFooter from '../components/AppFooter';
+import AppFrame from '../components/AppFrame';
 import Link from '../components/Link';
 
 const styles = theme => ({

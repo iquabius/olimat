@@ -1,6 +1,7 @@
 import React from 'react';
-import AppFrame from '../../components/AppFrame';
+
 import AppContent from '../../components/AppContent';
+import AppFrame from '../../components/AppFrame';
 import QuestionCreateForm from '../../components/Question/CreateForm';
 
 const PageQuestionCreate: React.FunctionComponent = () => (

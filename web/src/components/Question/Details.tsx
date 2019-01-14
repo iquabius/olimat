@@ -1,15 +1,17 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Error from 'next/error';
-import QuestionDetailsConnector from './DetailsConnector';
-import { Typography, withStyles, Paper, Tooltip, Toolbar } from '@material-ui/core';
-import ChoicesBox from './ChoicesBox';
-import FAButton from '../FAButton';
+import { Paper, Toolbar, Tooltip, Typography, withStyles } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
+import Error from 'next/error';
 import NextLink from 'next/link';
-import compose from 'recompose/compose';
 import { withRouter } from 'next/router';
+import PropTypes from 'prop-types';
+import React from 'react';
+import compose from 'recompose/compose';
+
+import FAButton from '../FAButton';
 import SafeDeleteIconButton from '../SafeDeleteIconButton';
+
+import ChoicesBox from './ChoicesBox';
+import QuestionDetailsConnector from './DetailsConnector';
 
 const styles = theme => ({
   root: {},

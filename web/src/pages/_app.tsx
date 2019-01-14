@@ -1,14 +1,15 @@
 // <App> customizado: https://nextjs.org/docs#custom-app
-import React from 'react';
+import find from 'lodash/find';
 import App, { Container } from 'next/app';
 import { SnackbarProvider } from 'notistack';
-import find from 'lodash/find';
-import checkLoggedIn from '../utils/checkLoggedIn';
-import withData from '../utils/withData';
+import React from 'react';
+
 import AppWrapper from '../components/AppWrapper';
 import PageContext from '../components/PageContext';
+import checkLoggedIn from '../utils/checkLoggedIn';
 import getPageContext, { updatePageContext } from '../utils/getPageContext';
 import { parseCookies } from '../utils/helpers';
+import withData from '../utils/withData';
 
 const pages = [
   {

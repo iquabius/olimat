@@ -1,23 +1,24 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import NProgress from 'nprogress';
-import NProgressBar from '@material-ui/docs/NProgressBar';
-import Router from 'next/router';
-import { withStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import LightbulbOutlineIcon from '@material-ui/docs/svgIcons/LightbulbOutline';
-import LightbulbFullIcon from '@material-ui/docs/svgIcons/LightbulbFull';
-import AppDrawer from './AppDrawer';
-import UserMenuAppBar from './UserMenuAppBar';
-import PageTitle from './PageTitle';
 import { Tooltip } from '@material-ui/core';
+import AppBar from '@material-ui/core/AppBar';
+import IconButton from '@material-ui/core/IconButton';
+import { withStyles } from '@material-ui/core/styles';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import NProgressBar from '@material-ui/docs/NProgressBar';
+import LightbulbFullIcon from '@material-ui/docs/svgIcons/LightbulbFull';
+import LightbulbOutlineIcon from '@material-ui/docs/svgIcons/LightbulbOutline';
+import MenuIcon from '@material-ui/icons/Menu';
+import Router from 'next/router';
+import NProgress from 'nprogress';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { compose } from 'react-apollo';
 import fromRenderProps from 'recompose/fromRenderProps';
+
+import AppDrawer from './AppDrawer';
 import PageContext from './PageContext';
+import PageTitle from './PageTitle';
+import UserMenuAppBar from './UserMenuAppBar';
 
 Router.onRouteChangeStart = () => {
   NProgress.start();

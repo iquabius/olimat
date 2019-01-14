@@ -1,21 +1,22 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
-import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
+import { withStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
-import { compose, Query } from 'react-apollo';
 import gql from 'graphql-tag';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { compose, Query } from 'react-apollo';
 import { withState } from 'recompose';
+
 import AddDialog from './AddDialog';
-import EditListItem from './EditListItem';
 import DeleteItemButton from './DeleteItemButton';
+import EditListItem from './EditListItem';
 
 const styles = theme => ({
   root: {

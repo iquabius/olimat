@@ -1,12 +1,14 @@
-import React from 'react';
+import { Menu, MenuItem } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import { Menu, MenuItem } from '@material-ui/core';
 import cookie from 'cookie';
+import React from 'react';
 import { withApollo } from 'react-apollo';
-import Link from './Link';
+
 import redirect from '../utils/redirect';
+
+import Link from './Link';
 import PageContext from './PageContext';
 
 class UserMenuAppBar extends React.Component {

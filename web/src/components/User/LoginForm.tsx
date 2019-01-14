@@ -1,26 +1,28 @@
-import React from 'react';
-import { compose } from 'react-apollo';
-import { withStyles } from '@material-ui/core/styles';
-import IconButton from '@material-ui/core/IconButton';
 import {
   FormControl,
-  FormGroup,
   FormControlLabel,
+  FormGroup,
   Input,
-  InputLabel,
   InputAdornment,
+  InputLabel,
 } from '@material-ui/core';
-import Divider from '@material-ui/core/Divider';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
-import Switch from '@material-ui/core/Switch';
 import Button from '@material-ui/core/Button';
+import Divider from '@material-ui/core/Divider';
+import IconButton from '@material-ui/core/IconButton';
+import Paper from '@material-ui/core/Paper';
+import { withStyles } from '@material-ui/core/styles';
+import Switch from '@material-ui/core/Switch';
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import Link from '../Link';
-import LoginConnector from './LoginConnector';
+import React from 'react';
+import { compose } from 'react-apollo';
 import { fromRenderProps } from 'recompose';
+
+import Link from '../Link';
+
+import LoginConnector from './LoginConnector';
 
 const styles = theme => ({
   loginBox: {

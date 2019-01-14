@@ -1,6 +1,8 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
+
 import { pageToTitle } from '../utils/helpers';
+
 import PageContext from './PageContext';
 
 // TODO: it really wants to be named useTitle but we're not quite there yet.

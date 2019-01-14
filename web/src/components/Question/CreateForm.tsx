@@ -1,13 +1,15 @@
-import React from 'react';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import Router from 'next/router';
+import { withSnackbar } from 'notistack';
 import PropTypes from 'prop-types';
+import React from 'react';
+
+import FAButton from '../FAButton';
+
+import CancelDialog from './CancelDialog';
 import CreateConnector from './CreateConnector';
 import QuestionForm from './Form';
 import { formValuesToRequest } from './transforms';
-import FAButton from '../FAButton';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import Router from 'next/router';
-import CancelDialog from './CancelDialog';
-import { withSnackbar } from 'notistack';
 
 const createHandleSubmit = (createQuestion, enqueueSnackbar) => (values, addHandlers) => {
   console.log('VALUES: ');

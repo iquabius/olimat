@@ -1,18 +1,20 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import ListConnector from './ListConnector';
 import {
-  List,
-  withStyles,
-  ListItem,
-  ListItemText,
-  ListItemSecondaryAction,
   IconButton,
+  List,
+  ListItem,
+  ListItemSecondaryAction,
+  ListItemText,
+  withStyles,
 } from '@material-ui/core';
-import EditIcon from '@material-ui/icons/Edit';
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import { StyleRules } from '@material-ui/core/styles/withStyles';
+import EditIcon from '@material-ui/icons/Edit';
+import PropTypes from 'prop-types';
+import React from 'react';
+
 import Link from '../Link';
+
+import ListConnector from './ListConnector';
 
 /**
  * This callback function is used to create the styles

@@ -1,7 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import gql from 'graphql-tag';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { Query } from 'react-apollo';
+
 import ErrorMessage from '../ErrorMessage';
 
 export const allTests = gql`

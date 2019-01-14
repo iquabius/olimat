@@ -1,11 +1,12 @@
-import React from 'react';
+import Router, { withRouter } from 'next/router';
+import { withSnackbar } from 'notistack';
 import PropTypes from 'prop-types';
+import React from 'react';
+import compose from 'recompose/compose';
+
+import QuestionDetailsConnector from './DetailsConnector';
 import QuestionForm from './Form';
 import { formValuesToRequest, responseToFormValues } from './transforms';
-import QuestionDetailsConnector from './DetailsConnector';
-import Router, { withRouter } from 'next/router';
-import compose from 'recompose/compose';
-import { withSnackbar } from 'notistack';
 
 export const createSubmitHandler = (question, updateQuestion, enqueueSnackbar) => (
   values,

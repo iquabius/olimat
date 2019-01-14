@@ -1,6 +1,6 @@
 import React from 'react';
-import { render } from 'react-testing-library';
 import { MockedProvider } from 'react-apollo/test-utils';
+import { render } from 'react-testing-library';
 
 export const renderApollo = (node, options = {}) => {
   const { mocks, addTypename = false, defaultOptions, cache, ...otherOptions } = options;

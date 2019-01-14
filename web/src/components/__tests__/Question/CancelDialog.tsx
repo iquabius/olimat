@@ -1,6 +1,7 @@
 // tslint:disable:no-empty
 import React from 'react';
 import { fireEvent, render } from 'react-testing-library';
+
 import CancelDialog from '../../Question/CancelDialog';
 
 test("doesn't render the dialog if it's closed", () => {

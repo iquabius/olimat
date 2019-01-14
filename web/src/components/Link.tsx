@@ -1,10 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import compose from 'recompose/compose';
-import { withRouter } from 'next/router';
-import NextLink from 'next/link';
 import { withStyles } from '@material-ui/core/styles';
+import classNames from 'classnames';
+import NextLink from 'next/link';
+import { withRouter } from 'next/router';
+import PropTypes from 'prop-types';
+import React from 'react';
+import compose from 'recompose/compose';
 
 const styles = theme => ({
   root: {

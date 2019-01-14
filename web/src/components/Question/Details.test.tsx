@@ -1,15 +1,17 @@
-import React from 'react';
-import QuestionDetails from './Details';
-import { renderApollo } from '../../utils/test/test-utils';
-import { waitForElement, fireEvent, render } from 'react-testing-library';
 import Router from 'next/router';
 import { SnackbarProvider } from 'notistack';
+import React from 'react';
+import { fireEvent, render, waitForElement } from 'react-testing-library';
+
 import FakeDataProvider from '../../utils/test/FakeDataProvider';
 import MockErrorProvider from '../../utils/test/MockErrorProvider';
-import MockNextContext from '../../utils/test/MockNextContext';
 import mockGraphql from '../../utils/test/mockGraphql';
-import { questionQuery } from './DetailsConnector';
+import MockNextContext from '../../utils/test/MockNextContext';
+import { renderApollo } from '../../utils/test/test-utils';
+
 import { deleteQuestionMutation } from './DeleteConnector';
+import QuestionDetails from './Details';
+import { questionQuery } from './DetailsConnector';
 
 const MockQuestionDetails = () => (
   <MockNextContext router={{ query: { id: 'theQuestionId1' } }}>

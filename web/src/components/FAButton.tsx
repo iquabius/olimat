@@ -1,6 +1,6 @@
-import React from 'react';
+import { Fab, withStyles } from '@material-ui/core';
 import PropTypes from 'prop-types';
-import { withStyles, Fab } from '@material-ui/core';
+import React from 'react';
 
 const styles = theme => ({
   FAButton: {

@@ -4,8 +4,9 @@
 // https://gist.github.com/stolinski/7cea67d470b4299828b1293aa8cbde0c
 // An example with 'apollo-link-state':
 // https://gist.github.com/kristianmandrup/1f7e4a550e6c32b99881aa1b78a4a440
-import { schema } from './FakeDataProvider';
 import { graphql } from 'graphql';
+
+import { schema } from './FakeDataProvider';
 
 // Takes a query and args and returns mocked data
 const mockGraphql = async (query, args = {}) => {

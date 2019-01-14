@@ -1,12 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import { TextField } from '@material-ui/core';
 import { Formik } from 'formik';
-import * as Yup from 'yup';
-import QuestionFormChoicesBox from './ChoicesBox';
-import QuestionFormActionBox from './ActionBox';
-import QuestionFormFilePondField from './FilePondField';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { withState } from 'recompose';
+import * as Yup from 'yup';
+
+import QuestionFormActionBox from './ActionBox';
+import QuestionFormChoicesBox from './ChoicesBox';
+import QuestionFormFilePondField from './FilePondField';
 
 const FormSchema = Yup.object().shape({
   wording: Yup.string()

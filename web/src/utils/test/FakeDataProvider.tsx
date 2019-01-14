@@ -1,17 +1,18 @@
 // Este arquivo só é usado no servidor, pra testes.
 // Podemos importar dependências de desenvolvimento.
 // Talvez não funcione num ambiente de Integração Contínua (CI).
-import React from 'react';
-import PropTypes from 'prop-types';
-import { addMockFunctionsToSchema, makeExecutableSchema, MockList } from 'graphql-tools';
+import { InMemoryCache } from 'apollo-cache-inmemory';
 import ApolloClient from 'apollo-client';
 import { SchemaLink } from 'apollo-link-schema';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import { ApolloProvider } from 'react-apollo';
-import gql from 'graphql-tag';
-import { importSchema } from 'graphql-import';
-import path from 'path';
 import faker from 'faker/locale/pt_BR';
+import { importSchema } from 'graphql-import';
+import gql from 'graphql-tag';
+import { addMockFunctionsToSchema, makeExecutableSchema, MockList } from 'graphql-tools';
+import path from 'path';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { ApolloProvider } from 'react-apollo';
+
 import mergeResolvers from './mergeResolvers';
 
 // We have to use importSchema() because schema.graphql imports from

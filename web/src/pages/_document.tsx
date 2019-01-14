@@ -1,6 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import Document, { Head, Main, NextScript } from 'next/document';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 class MyDocument extends Document {
   render() {

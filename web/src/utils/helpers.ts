@@ -1,7 +1,7 @@
 // import warning from 'warning';
-import upperFirst from 'lodash/upperFirst';
-import camelCase from 'lodash/camelCase';
 import cookie from 'cookie';
+import camelCase from 'lodash/camelCase';
+import upperFirst from 'lodash/upperFirst';
 
 export function titleize(pathname) {
   // warning(

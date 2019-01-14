@@ -1,7 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { Mutation } from 'react-apollo';
+
 import { questionsConnectionQuery } from './ListConnector';
 
 export const deleteQuestionMutation = gql`

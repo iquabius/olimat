@@ -1,11 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import { Dialog, DialogActions, DialogContent, DialogTitle } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import { Dialog, DialogActions, DialogContent, DialogTitle } from '@material-ui/core';
-import { Mutation } from 'react-apollo';
-import gql from 'graphql-tag';
 import { Formik } from 'formik';
+import gql from 'graphql-tag';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { Mutation } from 'react-apollo';
+
 import { allCitiesQuery } from './List';
 
 export const newCityMutation = gql`

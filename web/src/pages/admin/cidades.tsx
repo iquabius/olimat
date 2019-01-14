@@ -1,6 +1,7 @@
 import React from 'react';
-import AppFrame from '../../components/AppFrame';
+
 import AppContent from '../../components/AppContent';
+import AppFrame from '../../components/AppFrame';
 import CityList from '../../components/City/List';
 
 const PageCities: React.FunctionComponent = () => (

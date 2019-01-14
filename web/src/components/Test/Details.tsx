@@ -1,12 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { withRouter } from 'next/router';
-import TestDetailsConnector from './DetailsConnector';
-import { withStyles, Paper, Typography } from '@material-ui/core';
-import compose from 'recompose/compose';
-import Error from 'next/error';
+import { Paper, Typography, withStyles } from '@material-ui/core';
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import { StyleRules } from '@material-ui/core/styles/withStyles';
+import Error from 'next/error';
+import { withRouter } from 'next/router';
+import PropTypes from 'prop-types';
+import React from 'react';
+import compose from 'recompose/compose';
+
+import TestDetailsConnector from './DetailsConnector';
 import TestQuestionItem from './QuestionItem';
 
 /**

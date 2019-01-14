@@ -1,6 +1,7 @@
 import React from 'react';
-import AppFrame from '../../../components/AppFrame';
+
 import AppContent from '../../../components/AppContent';
+import AppFrame from '../../../components/AppFrame';
 import TestDetails from '../../../components/Test/Details';
 
 const PageAdminTestDetails: React.FunctionComponent = () => (

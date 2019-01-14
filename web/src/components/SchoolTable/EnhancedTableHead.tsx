@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import { TableCell, TableHead, TableRow, TableSortLabel } from '@material-ui/core';
 import Checkbox from '@material-ui/core/Checkbox';
 import Tooltip from '@material-ui/core/Tooltip';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 const columnData = [
   { id: 'name', numeric: false, disablePadding: true, label: 'Escola' },

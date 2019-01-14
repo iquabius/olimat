@@ -1,7 +1,8 @@
-import PropTypes from 'prop-types';
-import gql from 'graphql-tag';
-import { compose, graphql, withApollo } from 'react-apollo';
 import cookie from 'cookie';
+import gql from 'graphql-tag';
+import PropTypes from 'prop-types';
+import { compose, graphql, withApollo } from 'react-apollo';
+
 import redirect from '../../utils/redirect';
 
 export const loginMutation = gql`

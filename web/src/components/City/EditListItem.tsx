@@ -1,14 +1,15 @@
-import React from 'react';
+import IconButton from '@material-ui/core/IconButton';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
-import IconButton from '@material-ui/core/IconButton';
+import { withStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
 import CloseIcon from '@material-ui/icons/Close';
 import SaveIcon from '@material-ui/icons/Save';
-import TextField from '@material-ui/core/TextField';
 import { Formik } from 'formik';
-import { withStyles } from '@material-ui/core/styles';
-import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
+import React from 'react';
+import { Mutation } from 'react-apollo';
+
 import { allCitiesQuery } from './List';
 
 const styles = theme => ({

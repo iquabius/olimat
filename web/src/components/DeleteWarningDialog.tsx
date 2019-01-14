@@ -1,5 +1,3 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import {
   Button,
   Dialog,
@@ -8,6 +6,8 @@ import {
   DialogContentText,
   DialogTitle,
 } from '@material-ui/core';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 const DeleteWarningDialog = ({ content, isSubmitting, open, onCancel, onSuccess, title }) => (
   <Dialog

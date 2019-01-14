@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import gql from 'graphql-tag';
-import { Query, compose } from 'react-apollo';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { compose, Query } from 'react-apollo';
 import { withState } from 'recompose';
 
 export const questionsConnectionQuery = gql`

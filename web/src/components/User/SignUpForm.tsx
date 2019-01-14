@@ -1,19 +1,20 @@
-import React from 'react';
-import { graphql, withApollo, compose } from 'react-apollo';
-import cookie from 'cookie';
-import gql from 'graphql-tag';
-import { withStyles } from '@material-ui/core/styles';
-import IconButton from '@material-ui/core/IconButton';
-import { FormControl, Input, InputLabel, InputAdornment } from '@material-ui/core';
-import Divider from '@material-ui/core/Divider';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
+import { FormControl, Input, InputAdornment, InputLabel } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
+import Divider from '@material-ui/core/Divider';
+import IconButton from '@material-ui/core/IconButton';
+import Paper from '@material-ui/core/Paper';
+import { withStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import Link from '../Link';
+import cookie from 'cookie';
+import gql from 'graphql-tag';
+import React from 'react';
+import { compose, graphql, withApollo } from 'react-apollo';
+
 import redirect from '../../utils/redirect';
+import Link from '../Link';
 
 const styles = theme => ({
   signUpBox: {

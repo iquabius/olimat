@@ -1,8 +1,3 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { compose, graphql } from 'react-apollo';
-import gql from 'graphql-tag';
-import { withStyles } from '@material-ui/core/styles';
 import {
   Table,
   TableBody,
@@ -11,8 +6,14 @@ import {
   TablePagination,
   TableRow,
 } from '@material-ui/core';
-import Paper from '@material-ui/core/Paper';
 import Checkbox from '@material-ui/core/Checkbox';
+import Paper from '@material-ui/core/Paper';
+import { withStyles } from '@material-ui/core/styles';
+import gql from 'graphql-tag';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { compose, graphql } from 'react-apollo';
+
 import EnhancedTableHead from './EnhancedTableHead';
 import EnhancedTableToolbar from './EnhancedTableToolbar';
 import SchoolAddDialog from './SchoolAddDialog';

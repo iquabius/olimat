@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { MuiThemeProvider } from '@material-ui/core/styles';
-import JssProvider from 'react-jss/lib/JssProvider';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import { MuiThemeProvider } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
+import React from 'react';
+import JssProvider from 'react-jss/lib/JssProvider';
 
 // Inject the <!--insertion-point-jss--> at the end of <head> (see pages/_document.js)
 if (process.browser && !global.__INSERTION_POINT__) {

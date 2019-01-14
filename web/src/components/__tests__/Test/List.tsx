@@ -1,8 +1,9 @@
 import React from 'react';
-import { waitForElement, render } from 'react-testing-library';
+import { render, waitForElement } from 'react-testing-library';
+
+import FakeDataProvider from '../../../utils/test/FakeDataProvider';
 import { renderApollo } from '../../../utils/test/test-utils';
 import TestList from '../../Test/List';
-import FakeDataProvider from '../../../utils/test/FakeDataProvider';
 
 // <Link /> usa 'next/router' pra definir se o link está ativo (páginal atual)
 jest.mock('next/router');

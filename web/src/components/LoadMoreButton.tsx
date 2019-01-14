@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Button, withStyles, CircularProgress } from '@material-ui/core';
+import { Button, CircularProgress, withStyles } from '@material-ui/core';
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 /**
  * This callback function is used to create the styles

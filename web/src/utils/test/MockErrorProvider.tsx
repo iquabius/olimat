@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { ApolloLink, Observable } from 'apollo-link';
-import ApolloClient from 'apollo-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
+import ApolloClient from 'apollo-client';
+import { ApolloLink, Observable } from 'apollo-link';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { ApolloProvider } from 'react-apollo';
 
 const MockErrorProvider = ({ children, graphqlErrors }) => {
