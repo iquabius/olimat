@@ -14,14 +14,14 @@ const getCitiesQuery = gql`
   }
 `;
 
-const getCityQuery = gql`
-  query getCity($id: ID!) {
-    city(id: $id) {
-      id
-      name
-    }
-  }
-`;
+// const getCityQuery = gql`
+//   query getCity($id: ID!) {
+//     city(id: $id) {
+//       id
+//       name
+//     }
+//   }
+// `;
 
 describe('Queries', () => {
   beforeAll(() => nock.disableNetConnect());

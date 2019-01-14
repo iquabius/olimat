@@ -11,9 +11,6 @@
     "dev": "nodemon -e ts,graphql -x ts-node -r dotenv/config src/index.ts",
     "debug": "nodemon --config nodemon.debug.json",
     "test": "jest",
-    "lint": "tslint 'src/**/*.ts'",
-    "lint:fix": "tslint 'src/**/*.ts' --fix && echo \"tslint: no lint errors\"",
-    "tslint-check": "tslint-config-prettier-check ./tslint.json",
     "clean:files": "rimraf files",
     "copy:files": "copyfiles -V -u 2 ./prisma/seed_files/**/* ./files",
     "graphql:generate-types": "gql-gen --config codegen.yml"
@@ -58,15 +55,10 @@
     "nock": "^10.0.4",
     "node-fetch": "^2.3.0",
     "nodemon": "^1.18.9",
-    "prettier": "^1.14.3",
     "prisma": "^1.23.2",
     "rimraf": "^2.6.2",
     "ts-jest": "^23.10.5",
-    "ts-node": "^7.0.1",
-    "tslint": "^5.11.0",
-    "tslint-config-prettier": "^1.15.0",
-    "tslint-plugin-prettier": "^2.0.0",
-    "typescript": "^3.2.2"
+    "ts-node": "^7.0.1"
   },
   "repository": "github:iquabius/olimat"
 }

@@ -1,20 +1,12 @@
 {
+  "extends": "../tsconfig.json",
   "compilerOptions": {
-    "esModuleInterop": true,
-    "target": "es2018",
-    "moduleResolution": "node",
-    "module": "commonjs",
-    "sourceMap": true,
     "rootDir": "src",
     "outDir": "dist",
-    "lib": [
-      "esnext", "dom"
-    ],
-    // Cypress mocha vs jest types issue
-    // https://github.com/cypress-io/cypress/issues/1087
-    "skipLibCheck": true,
+    // Prisma client needs ESNext.AsyncIterable
+    "lib": ["es2018", "esnext.asynciterable"],
   },
   "include": [
-      "src/**/*"
+    "src/**/*"
   ],
 }
