@@ -4,7 +4,7 @@
   "extends": ["tslint:latest", "tslint-config-airbnb", "tslint-react", "tslint-config-prettier"],
   "rulesDirectory": ["tslint-plugin-prettier"],
   "rules": {
-    "curly": false,
+    "curly": [true, "ignore-same-line"],
     "prettier": true,
     "no-console": false,
     "no-implicit-dependencies": [true, "dev"],
