@@ -5,9 +5,7 @@ import TestDetailsConnector from './DetailsConnector';
 import { withStyles, Paper, Typography } from '@material-ui/core';
 import compose from 'recompose/compose';
 import Error from 'next/error';
-// eslint-disable-next-line no-unused-vars
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
-// eslint-disable-next-line no-unused-vars
 import { StyleRules } from '@material-ui/core/styles/withStyles';
 import TestQuestionItem from './QuestionItem';
 

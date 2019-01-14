@@ -16,7 +16,6 @@ const styles = theme => ({
   },
 });
 
-// eslint-disable-next-line react/prefer-stateless-function
 class QuestionList extends React.Component {
   render() {
     const { classes } = this.props;

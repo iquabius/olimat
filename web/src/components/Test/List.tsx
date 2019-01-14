@@ -10,9 +10,7 @@ import {
   IconButton,
 } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
-// eslint-disable-next-line no-unused-vars
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
-// eslint-disable-next-line no-unused-vars
 import { StyleRules } from '@material-ui/core/styles/withStyles';
 import Link from '../Link';
 

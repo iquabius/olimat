@@ -2,7 +2,6 @@ import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-// eslint-disable-next-line no-unused-vars
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import List from '@material-ui/core/List';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -47,16 +46,9 @@ const styles = ({ palette }) => ({
   },
 });
 
-// eslint-disable-next-line react/prop-types
 function renderNavItems({ pages, ...params }) {
   return (
-    <List>
-      {pages.reduce(
-        // eslint-disable-next-line no-use-before-define
-        (items, page) => reduceChildRoutes({ items, page, ...params }),
-        [],
-      )}
-    </List>
+    <List>{pages.reduce((items, page) => reduceChildRoutes({ items, page, ...params }), [])}</List>
   );
 }
 

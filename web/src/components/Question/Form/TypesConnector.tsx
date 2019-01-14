@@ -41,7 +41,6 @@ const QuestionTypeConnector = ({ children }) => (
       if (loading) {
         return <CircularProgress size={50} color="secondary" />;
       }
-      /* eslint no-underscore-dangle: ["error", { "allow": ["__type"] }] */
       return children({ questionTypes: data.__type.enumValues });
     }}
   </Query>

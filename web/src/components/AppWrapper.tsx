@@ -1,5 +1,3 @@
-/* eslint-disable no-underscore-dangle */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import { MuiThemeProvider } from '@material-ui/core/styles';
@@ -49,7 +47,6 @@ class AppWrapper extends React.Component {
 
 AppWrapper.propTypes = {
   children: PropTypes.node.isRequired,
-  // eslint-disable-next-line react/no-unused-prop-types
   pageContext: PropTypes.object,
 };
 

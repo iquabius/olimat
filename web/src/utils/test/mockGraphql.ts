@@ -13,7 +13,6 @@ const mockGraphql = async (query, args = {}) => {
     const res = await graphql(schema, query.loc.source.body, null, null, args);
     return res.data;
   } catch (e) {
-    // eslint-disable-next-line no-console
     return console.log(e.message);
   }
 };

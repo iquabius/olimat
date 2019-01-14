@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, withStyles, CircularProgress } from '@material-ui/core';
-// eslint-disable-next-line no-unused-vars
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
 
 /**

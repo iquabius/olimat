@@ -40,7 +40,6 @@ const updateQuery = (previousResult, { fetchMoreResult }) => {
         // Put the new questions at the end of the list and update `pageInfo`
         // so we have the new `endCursor` and `hasNextPage` values
         questionsConnection: {
-          // eslint-disable-next-line no-underscore-dangle
           __typename: previousResult.questionsConnection.__typename,
           edges: [...previousResult.questionsConnection.edges, ...newEdges],
           pageInfo,

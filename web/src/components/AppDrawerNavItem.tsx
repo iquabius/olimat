@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
-// eslint-disable-next-line no-unused-vars
 import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import ListItem from '@material-ui/core/ListItem';
 import Button from '@material-ui/core/Button';

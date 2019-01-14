@@ -1,4 +1,3 @@
-/* eslint-env jest */
 import { pageToTitle } from './helpers';
 
 describe('pageToTitle', () => {
