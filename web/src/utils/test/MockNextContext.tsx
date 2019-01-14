@@ -1,3 +1,4 @@
+// tslint:disable:no-empty
 import React from 'react';
 import PropTypes from 'prop-types';
 import Router from 'next/router';
@@ -47,6 +48,7 @@ export default class MockNextContext extends React.Component {
         updateHead() {},
         ...headManager,
       },
+      // tslint:disable-next-line:prefer-object-spread
       router: Object.assign(mockRouter, router),
     };
   }

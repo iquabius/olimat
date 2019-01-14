@@ -12,6 +12,7 @@ const PageContext = React.createContext({
   pages: [],
   uiTheme: {
     paletteType: '',
+    // tslint:disable-next-line:no-empty
     handleTogglePaletteType: () => {},
   },
 });

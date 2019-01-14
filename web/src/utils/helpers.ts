@@ -3,13 +3,13 @@ import upperFirst from 'lodash/upperFirst';
 import camelCase from 'lodash/camelCase';
 import cookie from 'cookie';
 
-export function titleize(string) {
+export function titleize(pathname) {
   // warning(
-  //   typeof string === 'string' && string.length > 0,
-  //   'titleize(string) expects a non empty string argument.',
+  //   typeof pathname === 'pathname' && pathname.length > 0,
+  //   'titleize(pathname) expects a non empty pathname argument.',
   // );
 
-  return string
+  return pathname
     .split('-')
     .map(word => word.charAt(0).toUpperCase() + word.slice(1))
     .join(' ');

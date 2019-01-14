@@ -31,10 +31,10 @@ const styles = theme => ({
   },
 });
 
-const TestQuestionItem = ({ classes, className, number, question }) => (
+const TestQuestionItem = ({ classes, className, questionNumber, question }) => (
   <div className={classNames(classes.root, className)}>
     <Typography gutterBottom paragraph>
-      <span className={classes.questionNumber}>{`Questão ${number}) `}</span>
+      <span className={classes.questionNumber}>{`Questão ${questionNumber}) `}</span>
       {question.wording}
     </Typography>
     {question.imageFullUrl && (
@@ -50,7 +50,7 @@ const TestQuestionItem = ({ classes, className, number, question }) => (
 TestQuestionItem.propTypes = {
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
-  number: PropTypes.number.isRequired,
+  questionNumber: PropTypes.number.isRequired,
   question: PropTypes.object.isRequired,
 };
 

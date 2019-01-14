@@ -3,9 +3,20 @@
   "extends": ["tslint:latest", "tslint-config-prettier"],
   "rulesDirectory": ["tslint-plugin-prettier"],
   "rules": {
+    "curly": false,
     "prettier": true,
     "no-console": false,
     "no-implicit-dependencies": [true, "dev"],
+    "no-submodule-imports": [
+      true,
+      "faker",
+      "lodash",
+      "@material-ui",
+      "next",
+      "react-apollo",
+      "react-jss",
+      "recompose"
+    ],
     "member-access": false,
     "object-literal-sort-keys": false,
     "ordered-imports": false,

@@ -72,9 +72,8 @@ function OlympiadList(props) {
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
             <Typography>
-              Olimpíada criada por <em>{olympiad.createdBy.email}</em>
-.
-</Typography>
+              Olimpíada criada por <em>{olympiad.createdBy.email}</em>.
+            </Typography>
           </ExpansionPanelDetails>
         </ExpansionPanel>
       ))}

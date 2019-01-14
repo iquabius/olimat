@@ -57,7 +57,7 @@ const TestDetails = ({ classes, router }) => {
               {test.questions.map((question, index) => (
                 <TestQuestionItem
                   key={question.id}
-                  number={index + 1}
+                  questionNumber={index + 1}
                   className={classes.question}
                   question={question}
                 />
