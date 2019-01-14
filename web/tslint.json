@@ -1,6 +1,7 @@
 {
   "defaultSeverity": "error",
-  "extends": ["tslint:latest", "tslint-config-prettier"],
+  // "tslint-config-prettier" tem que ser sempre o último da lista
+  "extends": ["tslint:latest", "tslint-react", "tslint-config-prettier"],
   "rulesDirectory": ["tslint-plugin-prettier"],
   "rules": {
     "curly": false,
@@ -20,6 +21,9 @@
     "member-access": false,
     "object-literal-sort-keys": false,
     "ordered-imports": false,
-    "interface-name": false
+    "interface-name": false,
+    // Regras relacinadas ao React
+    "jsx-boolean-value": ["never"],
+    "jsx-no-lambda": false
   }
 }

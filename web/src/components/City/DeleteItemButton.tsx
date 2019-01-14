@@ -52,6 +52,14 @@ const onSubmitDelete = (deleteCity, city, enqueueSnackbar) => () => {
     });
 };
 
+const updateCache = (cache, { data: { deleteCity } }) => {
+  const { cities } = cache.readQuery({ query: allCitiesQuery });
+  cache.writeQuery({
+    query: allCitiesQuery,
+    data: { cities: cities.filter(c => c.id !== deleteCity.id) },
+  });
+};
+
 // TODO: While deleting the edit button should also be disabled
 const CityDeleteItemButton = ({
   city,
@@ -59,17 +67,7 @@ const CityDeleteItemButton = ({
   enqueueSnackbar,
   setDeleteWarningOpen,
 }) => (
-  <Mutation
-    mutation={deleteCityMutation}
-    update={(cache, { data: { deleteCity } }) => {
-      const { cities } = cache.readQuery({ query: allCitiesQuery });
-
-      cache.writeQuery({
-        query: allCitiesQuery,
-        data: { cities: cities.filter(c => c.id !== deleteCity.id) },
-      });
-    }}
-  >
+  <Mutation mutation={deleteCityMutation} update={updateCache}>
     {deleteCity => (
       <Formik onSubmit={openDeleteWarningDialog(setDeleteWarningOpen)}>
         {({ handleSubmit, isSubmitting, setSubmitting }) => (

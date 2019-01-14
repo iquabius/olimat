@@ -53,19 +53,16 @@ const onSubmitEdit = (updateCity, handleCloseEdit) => (values, { setSubmitting }
     });
 };
 
+const updateCache = (proxy, { data: { updateCity } }) => {
+  const data = proxy.readQuery({ query: allCitiesQuery });
+  const index = data.cities.map(c => c.id).indexOf(updateCity.id);
+  data.cities[index].name = updateCity.name;
+  proxy.writeQuery({ query: allCitiesQuery, data });
+};
+
 const EditListItem = ({ city, handleCloseEdit, classes }) => {
   return (
-    <Mutation
-      mutation={updateCityMutation}
-      update={(proxy, { data: { updateCity } }) => {
-        const data = proxy.readQuery({ query: allCitiesQuery });
-
-        const index = data.cities.map(c => c.id).indexOf(updateCity.id);
-        data.cities[index].name = updateCity.name;
-
-        proxy.writeQuery({ query: allCitiesQuery, data });
-      }}
-    >
+    <Mutation mutation={updateCityMutation} update={updateCache}>
       {updateCity => (
         <Formik initialValues={city} onSubmit={onSubmitEdit(updateCity, handleCloseEdit)}>
           {({ handleSubmit, handleChange, handleBlur, isSubmitting, values }) => (

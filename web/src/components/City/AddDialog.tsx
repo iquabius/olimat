@@ -36,16 +36,14 @@ const onSubmitCity = (newCity, onClose) => (values, { resetForm }) => {
     });
 };
 
-const AddDialog = ({ open, onClose }) => (
-  <Mutation
-    mutation={newCityMutation}
-    update={(proxy, { data: { createCity } }) => {
-      const data = proxy.readQuery({ query: allCitiesQuery });
-      data.cities.push(createCity);
+const updateCache = (proxy, { data: { createCity } }) => {
+  const data = proxy.readQuery({ query: allCitiesQuery });
+  data.cities.push(createCity);
+  proxy.writeQuery({ query: allCitiesQuery, data });
+};
 
-      proxy.writeQuery({ query: allCitiesQuery, data });
-    }}
-  >
+const AddDialog = ({ open, onClose }) => (
+  <Mutation mutation={newCityMutation} update={updateCache}>
     {(newCity, { data }) => (
       <Formik initialValues={{ name: '' }} onSubmit={onSubmitCity(newCity, onClose)}>
         {({ handleSubmit, handleChange, handleBlur, isSubmitting, values }) => (
