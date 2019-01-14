@@ -14,7 +14,6 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
-/* eslint import/no-extraneous-dependencies: ["error", {"devDependencies": true}] */
 import 'cypress-testing-library/add-commands';
 import './commands';
 

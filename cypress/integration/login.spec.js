@@ -5,7 +5,6 @@ describe('Login', () => {
     cy.fixture('users/admin').as('admin');
   });
 
-  // eslint-disable-next-line func-names
   it('should login an existing user', function() {
     cy.visit('/')
       .getByText(/login/i)
