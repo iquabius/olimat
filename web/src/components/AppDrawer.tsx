@@ -68,6 +68,7 @@ function reduceChildRoutes({ props, activePage, items, page, depth }) {
     );
   } else {
     const title = pageToTitle(page);
+    // tslint:disable-next-line no-parameter-reassignment
     page = page.children && page.children.length === 1 ? page.children[0] : page;
 
     items.push(
@@ -89,7 +90,7 @@ function reduceChildRoutes({ props, activePage, items, page, depth }) {
 // So: <SwipeableDrawer disableBackdropTransition={false} />
 const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
-function AppDrawer(props) {
+const AppDrawer = props => {
   const { classes, className, disablePermanent, mobileOpen, onClose, onOpen } = props;
 
   const drawer = (
@@ -146,7 +147,7 @@ function AppDrawer(props) {
       )}
     </nav>
   );
-}
+};
 
 AppDrawer.propTypes = {
   classes: PropTypes.object.isRequired,

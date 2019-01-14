@@ -31,7 +31,7 @@ const styles = theme => ({
   },
 });
 
-function OlympiadList(props) {
+const OlympiadList = props => {
   const {
     addDialogOpen,
     setAddDialogOpen,
@@ -79,7 +79,7 @@ function OlympiadList(props) {
       ))}
     </Paper>
   );
-}
+};
 
 OlympiadList.propTypes = {
   classes: PropTypes.object.isRequired,

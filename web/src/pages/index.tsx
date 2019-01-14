@@ -63,7 +63,7 @@ const styles = theme => ({
   },
 });
 
-function PageHome(props) {
+const PageHome = props => {
   const classes = props.classes;
 
   return (
@@ -108,7 +108,7 @@ function PageHome(props) {
       </div>
     </AppFrame>
   );
-}
+};
 
 PageHome.propTypes = {
   classes: PropTypes.object.isRequired,

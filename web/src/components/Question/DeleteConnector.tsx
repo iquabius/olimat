@@ -15,7 +15,7 @@ export const deleteQuestionMutation = gql`
   }
 `;
 
-function DeleteConnector({ children }) {
+const DeleteConnector = ({ children }) => {
   return (
     <Mutation
       mutation={deleteQuestionMutation}
@@ -24,7 +24,7 @@ function DeleteConnector({ children }) {
       {deleteQuestion => children(deleteQuestion)}
     </Mutation>
   );
-}
+};
 
 DeleteConnector.propTypes = {
   children: PropTypes.func.isRequired,

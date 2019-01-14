@@ -29,7 +29,7 @@ const styles = theme => ({
   },
 });
 
-function Link(props) {
+const Link = props => {
   const {
     activeClassName,
     children: childrenProp,
@@ -88,7 +88,7 @@ function Link(props) {
   }
 
   return <ComponentRoot {...RootProps}>{children}</ComponentRoot>;
-}
+};
 
 Link.defaultProps = {
   variant: 'default',

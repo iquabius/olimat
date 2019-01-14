@@ -23,7 +23,7 @@ const styleSheet = theme => ({
   },
 });
 
-function AppFooter(props) {
+const AppFooter = props => {
   const { classes } = props;
 
   return (
@@ -67,7 +67,7 @@ function AppFooter(props) {
       </div>
     </footer>
   );
-}
+};
 
 AppFooter.propTypes = {
   classes: PropTypes.object.isRequired,

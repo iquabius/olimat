@@ -1,7 +1,7 @@
 {
   "defaultSeverity": "error",
   // "tslint-config-prettier" tem que ser sempre o último da lista
-  "extends": ["tslint:latest", "tslint-react", "tslint-config-prettier"],
+  "extends": ["tslint:latest", "tslint-config-airbnb", "tslint-react", "tslint-config-prettier"],
   "rulesDirectory": ["tslint-plugin-prettier"],
   "rules": {
     "curly": false,
@@ -22,6 +22,14 @@
     "object-literal-sort-keys": false,
     "ordered-imports": false,
     "interface-name": false,
+
+    // Personalização do Style Guide do Airbnb
+    "import-name": [false],
+    "object-shorthand-properties-first": false,
+    // Pra permitir PascalCase nos componentes do React
+    // https://github.com/palantir/tslint-react/issues/120
+    "variable-name": [true, "allow-pascal-case"],
+
     // Regras relacinadas ao React
     "jsx-boolean-value": ["never"],
     "jsx-no-lambda": false

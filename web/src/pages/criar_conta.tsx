@@ -5,7 +5,7 @@ import SignUpForm from '../components/User/SignUpForm';
 import checkLoggedIn from '../utils/checkLoggedIn';
 import redirect from '../utils/redirect';
 
-function PageSignUp(props) {
+const PageSignUp = () => {
   return (
     <OnlyFormFrame>
       <Head>
@@ -14,7 +14,7 @@ function PageSignUp(props) {
       <SignUpForm />
     </OnlyFormFrame>
   );
-}
+};
 
 PageSignUp.getInitialProps = async context => {
   const { loggedInUser } = await checkLoggedIn(context.apolloClient);

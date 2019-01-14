@@ -55,7 +55,7 @@ const truncate = (str, noWords) =>
     .join(' ')
     .concat(' [...]');
 
-function SafeDeleteIconButton({
+const SafeDeleteIconButton = ({
   classes,
   deleteWarningOpen,
   enqueueSnackbar,
@@ -65,7 +65,7 @@ function SafeDeleteIconButton({
   setSubmitting,
   submitting,
   ...otherProps
-}) {
+}) => {
   return (
     <DeleteConnector>
       {deleteQuestion => (
@@ -90,7 +90,7 @@ function SafeDeleteIconButton({
       )}
     </DeleteConnector>
   );
-}
+};
 
 SafeDeleteIconButton.propTypes = {
   classes: PropTypes.object.isRequired,

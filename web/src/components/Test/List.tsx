@@ -26,11 +26,11 @@ const styles = theme => ({
   },
 });
 
-function TestItemLink(props) {
+const TestItemLink = props => {
   return <ListItem variant="button" button dense component={Link} {...props} />;
-}
+};
 
-function TestList({ classes }) {
+const TestList = ({ classes }) => {
   return (
     <ListConnector>
       {({ tests }) => (
@@ -49,7 +49,7 @@ function TestList({ classes }) {
       )}
     </ListConnector>
   );
-}
+};
 
 TestList.propTypes = {
   classes: PropTypes.object.isRequired,

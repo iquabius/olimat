@@ -23,7 +23,7 @@ const styles = theme => ({
   },
 });
 
-function AppContent(props) {
+const AppContent = props => {
   const { className, classes, children } = props;
 
   return (
@@ -32,7 +32,7 @@ function AppContent(props) {
       <div className={classNames(classes.root, className)}>{children}</div>
     </div>
   );
-}
+};
 
 AppContent.propTypes = {
   children: PropTypes.node.isRequired,

@@ -4,7 +4,7 @@ import { pageToTitle } from '../utils/helpers';
 import PageContext from './PageContext';
 
 // TODO: it really wants to be named useTitle but we're not quite there yet.
-function PageTitle(props) {
+const PageTitle = props => {
   return (
     <PageContext.Consumer>
       {({ activePage }) => {
@@ -17,7 +17,7 @@ function PageTitle(props) {
       }}
     </PageContext.Consumer>
   );
-}
+};
 
 PageTitle.propTypes = {
   children: PropTypes.func.isRequired,
