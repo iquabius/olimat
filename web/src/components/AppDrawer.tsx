@@ -90,6 +90,7 @@ function reduceChildRoutes({ props, activePage, items, page, depth }) {
 // iOS is hosted on high-end devices. We can enable the backdrop transition without
 // dropping frames. The performance will be good enough.
 // So: <SwipeableDrawer disableBackdropTransition={false} />
+// https://github.com/zeit/next.js/issues/2177
 const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
 const AppDrawer = props => {

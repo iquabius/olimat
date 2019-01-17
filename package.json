@@ -5,6 +5,7 @@
   "author": "Josias Iquabius <iquabius@gmail.com>",
   "private": true,
   "devDependencies": {
+    "@types/node": "^10.12.18",
     "cypress": "^3.1.4",
     "cypress-testing-library": "^2.3.5",
     "faker": "^4.1.0",
