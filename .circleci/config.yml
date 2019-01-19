@@ -67,7 +67,9 @@ jobs:
           key: web-modules-{{ checksum "web/package.json" }}
         
       # run tests!
-      - run: npm run test:this-breaks-api-integration-tests
+      # For some reason Jest's multi-project runner breaks backend integration
+      # and e2e tests. It doesn't work locally nor in the CI.
+      - run: npm run test
 
 workflows:
   version: 2
