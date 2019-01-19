@@ -1,5 +1,5 @@
 import Button from '@material-ui/core/Button';
-import { withStyles } from '@material-ui/core/styles';
+import { createStyles, Theme, withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Head from 'next/head';
 import PropTypes from 'prop-types';
@@ -9,60 +9,61 @@ import AppFooter from '../components/AppFooter';
 import AppFrame from '../components/AppFrame';
 import Link from '../components/Link';
 
-const styles = theme => ({
-  root: {
-    flex: '1 0 100%',
-  },
-  hero: {
-    minHeight: '95vh',
-    flex: '0 0 auto',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor:
-      theme.palette.type === 'light' ? theme.palette.primary.main : theme.palette.primary.dark,
-    color: theme.palette.primary.contrastText,
-  },
-  content: {
-    paddingTop: theme.spacing.unit * 8,
-    paddingBottom: theme.spacing.unit * 8,
-    [theme.breakpoints.up('sm')]: {
-      paddingTop: theme.spacing.unit * 12,
-      paddingBottom: theme.spacing.unit * 10,
+const styles = (theme: Theme) =>
+  createStyles({
+    root: {
+      flex: '1 0 100%',
     },
-  },
-  text: {
-    paddingLeft: theme.spacing.unit * 4,
-    paddingRight: theme.spacing.unit * 4,
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  headline: {
-    maxWidth: 500,
-    textAlign: 'center',
-  },
-  button: {
-    marginTop: theme.spacing.unit * 3,
-  },
-  logo: {
-    margin: '20px 0',
-    width: '100%',
-    height: '35vw',
-    maxHeight: 200,
-  },
-  backers: {
-    backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing.unit * 2,
-    display: 'flex',
-    justifyContent: 'center',
-    minHeight: 600,
-  },
-  backersBody: {
-    maxWidth: theme.spacing.unit * 90,
-  },
-});
+    hero: {
+      minHeight: '95vh',
+      flex: '0 0 auto',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor:
+        theme.palette.type === 'light' ? theme.palette.primary.main : theme.palette.primary.dark,
+      color: theme.palette.primary.contrastText,
+    },
+    content: {
+      paddingTop: theme.spacing.unit * 8,
+      paddingBottom: theme.spacing.unit * 8,
+      [theme.breakpoints.up('sm')]: {
+        paddingTop: theme.spacing.unit * 12,
+        paddingBottom: theme.spacing.unit * 10,
+      },
+    },
+    text: {
+      paddingLeft: theme.spacing.unit * 4,
+      paddingRight: theme.spacing.unit * 4,
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    headline: {
+      maxWidth: 500,
+      textAlign: 'center',
+    },
+    button: {
+      marginTop: theme.spacing.unit * 3,
+    },
+    logo: {
+      margin: '20px 0',
+      width: '100%',
+      height: '35vw',
+      maxHeight: 200,
+    },
+    backers: {
+      backgroundColor: theme.palette.background.paper,
+      padding: theme.spacing.unit * 2,
+      display: 'flex',
+      justifyContent: 'center',
+      minHeight: 600,
+    },
+    backersBody: {
+      maxWidth: theme.spacing.unit * 90,
+    },
+  });
 
 const PageHome = props => {
   const classes = props.classes;

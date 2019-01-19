@@ -1,4 +1,4 @@
-import { Tooltip } from '@material-ui/core';
+import { createStyles, Theme, Tooltip } from '@material-ui/core';
 import AppBar from '@material-ui/core/AppBar';
 import IconButton from '@material-ui/core/IconButton';
 import { withStyles } from '@material-ui/core/styles';
@@ -32,45 +32,46 @@ Router.onRouteChangeError = () => {
   NProgress.done();
 };
 
-const styles = theme => ({
-  root: {
-    display: 'flex',
-    alignItems: 'stretch',
-    minHeight: '100vh',
-    width: '100%',
-  },
-  grow: {
-    flex: '1 1 auto',
-  },
-  title: {
-    marginLeft: 24,
-    flex: '0 1 auto',
-  },
-  appBar: {
-    transition: theme.transitions.create('width'),
-    '@media print': {
-      position: 'absolute',
+const styles = (theme: Theme) =>
+  createStyles({
+    root: {
+      display: 'flex',
+      alignItems: 'stretch',
+      minHeight: '100vh',
+      width: '100%',
     },
-  },
-  appBarHome: {
-    boxShadow: 'none',
-  },
-  appBarShift: {
-    [theme.breakpoints.up('lg')]: {
-      width: 'calc(100% - 250px)',
+    grow: {
+      flex: '1 1 auto',
     },
-  },
-  drawer: {
-    [theme.breakpoints.up('lg')]: {
-      width: 250,
+    title: {
+      marginLeft: 24,
+      flex: '0 1 auto',
     },
-  },
-  navIconHide: {
-    [theme.breakpoints.up('lg')]: {
-      display: 'none',
+    appBar: {
+      transition: theme.transitions.create('width'),
+      '@media print': {
+        position: 'absolute',
+      },
     },
-  },
-});
+    appBarHome: {
+      boxShadow: 'none',
+    },
+    appBarShift: {
+      [theme.breakpoints.up('lg')]: {
+        width: 'calc(100% - 250px)',
+      },
+    },
+    drawer: {
+      [theme.breakpoints.up('lg')]: {
+        width: 250,
+      },
+    },
+    navIconHide: {
+      [theme.breakpoints.up('lg')]: {
+        display: 'none',
+      },
+    },
+  });
 
 class AppFrame extends React.Component {
   state = {

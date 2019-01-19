@@ -1,6 +1,4 @@
-import { Paper, Typography, withStyles } from '@material-ui/core';
-import { Theme } from '@material-ui/core/styles/createMuiTheme';
-import { StyleRules } from '@material-ui/core/styles/withStyles';
+import { createStyles, Paper, Theme, Typography, withStyles } from '@material-ui/core';
 import Error from 'next/error';
 import { withRouter } from 'next/router';
 import PropTypes from 'prop-types';
@@ -10,33 +8,29 @@ import compose from 'recompose/compose';
 import TestDetailsConnector from './DetailsConnector';
 import TestQuestionItem from './QuestionItem';
 
-/**
- * This callback function is used to create the styles
- * @param {Theme} theme Material-UI theme
- * @return {StyleRules}
- */
-const styles = theme => ({
-  root: {},
-  title: {
-    padding: theme.spacing.unit,
-    textAlign: 'center',
-  },
-  questionList: {
-    display: 'flex',
-    flexFlow: 'column wrap',
-    justifyContent: 'space-between',
-    alignContent: 'space-between',
-    maxHeight: 2000,
-  },
-  question: {
-    // Sempre que usarmos as propriedades 'padding' e 'width' juntas, é bom
-    // adicionar "boxSizing: 'border-box'", para que a matemática fique o
-    // mais simples possível.
-    // boxSizing: 'border-box',
-    // padding: theme.spacing.unit,
-    width: '49.5%',
-  },
-});
+const styles = (theme: Theme) =>
+  createStyles({
+    root: {},
+    title: {
+      padding: theme.spacing.unit,
+      textAlign: 'center',
+    },
+    questionList: {
+      display: 'flex',
+      flexFlow: 'column wrap',
+      justifyContent: 'space-between',
+      alignContent: 'space-between',
+      maxHeight: 2000,
+    },
+    question: {
+      // Sempre que usarmos as propriedades 'padding' e 'width' juntas, é bom
+      // adicionar "boxSizing: 'border-box'", para que a matemática fique o
+      // mais simples possível.
+      // boxSizing: 'border-box',
+      // padding: theme.spacing.unit,
+      width: '49.5%',
+    },
+  });
 
 const TestDetails = ({ classes, router }) => {
   const id = router.query.id;

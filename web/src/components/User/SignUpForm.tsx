@@ -1,4 +1,11 @@
-import { FormControl, Input, InputAdornment, InputLabel } from '@material-ui/core';
+import {
+  createStyles,
+  FormControl,
+  Input,
+  InputAdornment,
+  InputLabel,
+  Theme,
+} from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
@@ -16,27 +23,28 @@ import { compose, graphql, withApollo } from 'react-apollo';
 import redirect from '../../utils/redirect';
 import Link from '../Link';
 
-const styles = theme => ({
-  signUpBox: {
-    position: 'relative',
-    width: 350,
-    // maxHeight: 390,
-    padding: theme.spacing.unit * 4,
-  },
-  signUpHead: {
-    marginBottom: theme.spacing.unit * 2,
-    textAlign: 'center',
-  },
-  passwordInput: {
-    height: 'inherit',
-  },
-  signUpButton: {
-    marginTop: theme.spacing.unit * 2,
-  },
-  helpMessage: {
-    marginTop: theme.spacing.unit * 2,
-  },
-});
+const styles = (theme: Theme) =>
+  createStyles({
+    signUpBox: {
+      position: 'relative',
+      width: 350,
+      // maxHeight: 390,
+      padding: theme.spacing.unit * 4,
+    },
+    signUpHead: {
+      marginBottom: theme.spacing.unit * 2,
+      textAlign: 'center',
+    },
+    passwordInput: {
+      height: 'inherit',
+    },
+    signUpButton: {
+      marginTop: theme.spacing.unit * 2,
+    },
+    helpMessage: {
+      marginTop: theme.spacing.unit * 2,
+    },
+  });
 
 class SignUpForm extends React.Component {
   state = {

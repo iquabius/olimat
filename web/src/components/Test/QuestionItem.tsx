@@ -1,36 +1,30 @@
-import { Typography, withStyles } from '@material-ui/core';
-import { Theme } from '@material-ui/core/styles/createMuiTheme';
-import { StyleRules } from '@material-ui/core/styles/withStyles';
+import { createStyles, Theme, Typography, withStyles } from '@material-ui/core';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
 
 import ChoicesBox from '../Question/ChoicesBox';
 
-/**
- * This callback function is used to create the styles
- * @param {Theme} theme Material-UI theme
- * @return {StyleRules}
- */
-const styles = theme => ({
-  root: {
-    textAlign: 'justify',
-    padding: theme.spacing.unit * 2,
-  },
-  questionNumber: {
-    fontWeight: 'bold',
-  },
-  questionImg: {
-    display: 'block',
-    margin: 'auto',
-    marginBottom: theme.spacing.unit * 3,
-    marginTop: theme.spacing.unit,
-    maxWidth: '100%',
-  },
-  choices: {
-    marginBottom: theme.spacing.unit * 4,
-  },
-});
+const styles = (theme: Theme) =>
+  createStyles({
+    root: {
+      textAlign: 'justify',
+      padding: theme.spacing.unit * 2,
+    },
+    questionNumber: {
+      fontWeight: 'bold',
+    },
+    questionImg: {
+      display: 'block',
+      margin: 'auto',
+      marginBottom: theme.spacing.unit * 3,
+      marginTop: theme.spacing.unit,
+      maxWidth: '100%',
+    },
+    choices: {
+      marginBottom: theme.spacing.unit * 4,
+    },
+  });
 
 const TestQuestionItem = ({ classes, className, questionNumber, question }) => (
   <div className={classNames(classes.root, className)}>

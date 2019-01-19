@@ -1,35 +1,31 @@
-import { Button, CircularProgress, withStyles } from '@material-ui/core';
-import { Theme } from '@material-ui/core/styles/createMuiTheme';
+import { Button, CircularProgress, createStyles, Theme, withStyles } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-/**
- * This callback function is used to create the styles
- * @param {Theme} theme Material-UI theme
- */
-const styles = ({ breakpoints, palette, spacing }) => ({
-  loadMoreButton: {
-    color: palette.type === 'light' ? palette.primary.main : palette.primary.light,
-    borderColor: palette.type === 'light' ? palette.primary.main : palette.primary.light,
-    width: '100%',
-    // Centraliza o botão verticalmente
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    display: 'table',
-    // Fixa a altura, porque o CircularProgress aumenta o botão
-    height: 40,
-  },
-  [breakpoints.up('sm')]: {
+const styles = ({ breakpoints, palette, spacing }: Theme) =>
+  createStyles({
     loadMoreButton: {
-      width: '49%',
+      color: palette.type === 'light' ? palette.primary.main : palette.primary.light,
+      borderColor: palette.type === 'light' ? palette.primary.main : palette.primary.light,
+      width: '100%',
+      // Centraliza o botão verticalmente
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      display: 'table',
+      // Fixa a altura, porque o CircularProgress aumenta o botão
+      height: 40,
     },
-  },
-  [breakpoints.up('md')]: {
-    loadMoreButton: {
-      maxWidth: '32%',
+    [breakpoints.up('sm')]: {
+      loadMoreButton: {
+        width: '49%',
+      },
     },
-  },
-});
+    [breakpoints.up('md')]: {
+      loadMoreButton: {
+        maxWidth: '32%',
+      },
+    },
+  });
 
 class LoadMoreButton extends React.Component {
   state = {

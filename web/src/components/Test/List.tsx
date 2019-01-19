@@ -1,13 +1,13 @@
 import {
+  createStyles,
   IconButton,
   List,
   ListItem,
   ListItemSecondaryAction,
   ListItemText,
+  Theme,
   withStyles,
 } from '@material-ui/core';
-import { Theme } from '@material-ui/core/styles/createMuiTheme';
-import { StyleRules } from '@material-ui/core/styles/withStyles';
 import EditIcon from '@material-ui/icons/Edit';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -16,17 +16,13 @@ import Link from '../Link';
 
 import ListConnector from './ListConnector';
 
-/**
- * This callback function is used to create the styles
- * @param {Theme} theme Material-UI theme
- * @return {StyleRules}
- */
-const styles = theme => ({
-  root: {
-    ...theme.shape,
-    backgroundColor: theme.palette.background.paper,
-  },
-});
+const styles = (theme: Theme) =>
+  createStyles({
+    root: {
+      ...theme.shape,
+      backgroundColor: theme.palette.background.paper,
+    },
+  });
 
 const TestItemLink = props => {
   return <ListItem variant="button" button dense component={Link} {...props} />;

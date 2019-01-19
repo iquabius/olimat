@@ -1,4 +1,4 @@
-import { withStyles } from '@material-ui/core/styles';
+import { createStyles, Theme, withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 import NextLink from 'next/link';
 import { withRouter } from 'next/router';
@@ -6,28 +6,29 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import compose from 'recompose/compose';
 
-const styles = theme => ({
-  root: {
-    textDecoration: 'none',
-    '&:hover': {
-      textDecoration: 'underline',
+const styles = (theme: Theme) =>
+  createStyles({
+    root: {
+      textDecoration: 'none',
+      '&:hover': {
+        textDecoration: 'underline',
+      },
     },
-  },
-  default: {
-    color: 'inherit',
-  },
-  primary: {
-    color: theme.palette.primary.main,
-  },
-  secondary: {
-    color: theme.palette.secondary.main,
-  },
-  button: {
-    '&:hover': {
-      textDecoration: 'inherit',
+    default: {
+      color: 'inherit',
     },
-  },
-});
+    primary: {
+      color: theme.palette.primary.main,
+    },
+    secondary: {
+      color: theme.palette.secondary.main,
+    },
+    button: {
+      '&:hover': {
+        textDecoration: 'inherit',
+      },
+    },
+  });
 
 const Link = props => {
   const {

@@ -1,4 +1,4 @@
-import { IconButton, withStyles } from '@material-ui/core';
+import { createStyles, IconButton, Theme, withStyles } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Router from 'next/router';
 import { withSnackbar } from 'notistack';
@@ -10,13 +10,14 @@ import compose from 'recompose/compose';
 import DeleteWarningDialog from './DeleteWarningDialog';
 import DeleteConnector from './Question/DeleteConnector';
 
-const styles = theme => ({
-  root: {
-    '&:hover': {
-      color: 'inherit',
+const styles = (theme: Theme) =>
+  createStyles({
+    root: {
+      '&:hover': {
+        color: 'inherit',
+      },
     },
-  },
-});
+  });
 
 const deleteHandler = (deleteQuestion, question, enqueueSnackbar, setSubmitting) => () => {
   setSubmitting(true);

@@ -1,50 +1,46 @@
 import Button from '@material-ui/core/Button';
 import Collapse from '@material-ui/core/Collapse';
 import ListItem from '@material-ui/core/ListItem';
-import { withStyles } from '@material-ui/core/styles';
-import { Theme } from '@material-ui/core/styles/createMuiTheme';
+import { createStyles, Theme, withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
 
 import Link from './Link';
 
-/**
- * This callback function is used to create the styles
- * @param {Theme} theme Material-UI theme
- */
-const styles = ({ palette, typography }) => ({
-  item: {
-    display: 'block',
-    paddingTop: 0,
-    paddingBottom: 0,
-  },
-  itemLeaf: {
-    display: 'flex',
-    paddingTop: 0,
-    paddingBottom: 0,
-  },
-  button: {
-    letterSpacing: 0,
-    justifyContent: 'flex-start',
-    textTransform: 'none',
-    width: '100%',
-  },
-  buttonLeaf: {
-    letterSpacing: 0,
-    justifyContent: 'flex-start',
-    textTransform: 'none',
-    width: '100%',
-    fontWeight: typography.fontWeightRegular,
-    '&.depth-0': {
+const styles = ({ palette, typography }: Theme) =>
+  createStyles({
+    item: {
+      display: 'block',
+      paddingTop: 0,
+      paddingBottom: 0,
+    },
+    itemLeaf: {
+      display: 'flex',
+      paddingTop: 0,
+      paddingBottom: 0,
+    },
+    button: {
+      letterSpacing: 0,
+      justifyContent: 'flex-start',
+      textTransform: 'none',
+      width: '100%',
+    },
+    buttonLeaf: {
+      letterSpacing: 0,
+      justifyContent: 'flex-start',
+      textTransform: 'none',
+      width: '100%',
+      fontWeight: typography.fontWeightRegular,
+      '&.depth-0': {
+        fontWeight: typography.fontWeightMedium,
+      },
+    },
+    active: {
+      color: palette.type === 'light' ? palette.primary.main : palette.primary.light,
       fontWeight: typography.fontWeightMedium,
     },
-  },
-  active: {
-    color: palette.type === 'light' ? palette.primary.main : palette.primary.light,
-    fontWeight: typography.fontWeightMedium,
-  },
-});
+  });
 
 class AppDrawerNavItem extends React.Component {
   state = {

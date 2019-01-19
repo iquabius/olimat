@@ -1,35 +1,36 @@
-import { withStyles } from '@material-ui/core';
+import { createStyles, Theme, withStyles } from '@material-ui/core';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-const styles = theme => ({
-  root: {
-    // Remove list-style e padding padrão da tag 'ul'
-    listStyle: 'none',
-    padding: 0,
-    // Layout com flexBox
-    display: 'flex',
-    justifyContent: 'space-between',
-    flexWrap: 'wrap',
-    marginBottom: -2,
-  },
-  option: {
-    ...theme.typography.body2,
-    paddingTop: theme.spacing.unit,
-    paddingBottom: theme.spacing.unit,
-  },
-  dense: {
-    width: 250,
-    whiteSpace: 'nowrap',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    padding: theme.spacing.unit / 3,
-  },
-  optionLabel: {
-    fontWeight: 'bold',
-  },
-});
+const styles = (theme: Theme) =>
+  createStyles({
+    root: {
+      // Remove list-style e padding padrão da tag 'ul'
+      listStyle: 'none',
+      padding: 0,
+      // Layout com flexBox
+      display: 'flex',
+      justifyContent: 'space-between',
+      flexWrap: 'wrap',
+      marginBottom: -2,
+    },
+    option: {
+      ...theme.typography.body2,
+      paddingTop: theme.spacing.unit,
+      paddingBottom: theme.spacing.unit,
+    },
+    dense: {
+      width: 250,
+      whiteSpace: 'nowrap',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      padding: theme.spacing.unit / 3,
+    },
+    optionLabel: {
+      fontWeight: 'bold',
+    },
+  });
 
 const optionLabels = ['a', 'b', 'c', 'd', 'e', 'f'];
 

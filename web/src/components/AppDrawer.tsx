@@ -2,8 +2,7 @@ import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
 import List from '@material-ui/core/List';
-import { withStyles } from '@material-ui/core/styles';
-import { Theme } from '@material-ui/core/styles/createMuiTheme';
+import { createStyles, Theme, withStyles } from '@material-ui/core/styles';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -17,36 +16,33 @@ import AppDrawerNavItem from './AppDrawerNavItem';
 import Link from './Link';
 import PageContext from './PageContext';
 
-/**
- * This callback function is used to create the styles
- * @param {Theme} theme Material-UI theme
- */
-const styles = ({ palette }) => ({
-  paper: {
-    width: 250,
-    backgroundColor: palette.background.paper,
-  },
-  title: {
-    color: palette.text.secondary,
-    '&:hover': {
-      color: palette.type === 'light' ? palette.primary.main : palette.primary.light,
-      textDecoration: 'none',
+const styles = ({ palette }: Theme) =>
+  createStyles({
+    paper: {
+      width: 250,
+      backgroundColor: palette.background.paper,
     },
-  },
-  // https://github.com/philipwalton/flexbugs#3-min-height-on-a-flex-container-wont-apply-to-its-flex-items
-  toolbarIe11: {
-    display: 'flex',
-  },
-  toolbar: {
-    flexGrow: 1,
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  anchor: {
-    color: palette.text.secondary,
-  },
-});
+    title: {
+      color: palette.text.secondary,
+      '&:hover': {
+        color: palette.type === 'light' ? palette.primary.main : palette.primary.light,
+        textDecoration: 'none',
+      },
+    },
+    // https://github.com/philipwalton/flexbugs#3-min-height-on-a-flex-container-wont-apply-to-its-flex-items
+    toolbarIe11: {
+      display: 'flex',
+    },
+    toolbar: {
+      flexGrow: 1,
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    anchor: {
+      color: palette.text.secondary,
+    },
+  });
 
 function renderNavItems({ pages, ...params }) {
   return (

@@ -1,10 +1,12 @@
 import {
+  createStyles,
   FormControl,
   FormControlLabel,
   FormGroup,
   Input,
   InputAdornment,
   InputLabel,
+  Theme,
 } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
@@ -24,27 +26,28 @@ import Link from '../Link';
 
 import LoginConnector from './LoginConnector';
 
-const styles = theme => ({
-  loginBox: {
-    position: 'relative',
-    width: 350,
-    maxHeight: 390,
-    padding: theme.spacing.unit * 4,
-  },
-  loginHead: {
-    marginBottom: theme.spacing.unit * 2,
-    textAlign: 'center',
-  },
-  passwordInput: {
-    height: 'inherit',
-  },
-  loginButton: {
-    marginTop: theme.spacing.unit * 2,
-  },
-  helpMessage: {
-    marginTop: theme.spacing.unit * 2,
-  },
-});
+const styles = (theme: Theme) =>
+  createStyles({
+    loginBox: {
+      position: 'relative',
+      width: 350,
+      maxHeight: 390,
+      padding: theme.spacing.unit * 4,
+    },
+    loginHead: {
+      marginBottom: theme.spacing.unit * 2,
+      textAlign: 'center',
+    },
+    passwordInput: {
+      height: 'inherit',
+    },
+    loginButton: {
+      marginTop: theme.spacing.unit * 2,
+    },
+    helpMessage: {
+      marginTop: theme.spacing.unit * 2,
+    },
+  });
 
 class LoginForm extends React.Component {
   state = {
