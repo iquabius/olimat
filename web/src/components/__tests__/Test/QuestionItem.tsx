@@ -18,7 +18,7 @@ describe('<TestQuestionItem />', () => {
 
   test('renders a question', () => {
     const { container, getByAltText, getByText } = render(
-      <QuestionItem number={1} question={questionSample} />,
+      <QuestionItem questionNumber={1} question={questionSample} />,
     );
 
     // Confere se a imagem foi renderizada com o atributo 'src' correto

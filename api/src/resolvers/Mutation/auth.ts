@@ -1,5 +1,6 @@
 import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
+
 import { MutationResolvers } from '../../__generated__/resolvers-types';
 
 // O primeiro argumento dos resolvers, 'parent', sempre será

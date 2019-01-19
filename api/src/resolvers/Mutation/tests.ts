@@ -1,5 +1,5 @@
-import { getUserId } from '../../utils';
 import { MutationResolvers } from '../../__generated__/resolvers-types';
+import { getUserId } from '../../utils';
 
 export const tests: MutationResolvers.Resolvers = {
   async createTest(_, { title, description }, ctx, info) {

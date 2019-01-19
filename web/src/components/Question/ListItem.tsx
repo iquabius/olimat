@@ -81,11 +81,9 @@ const ListItem = props => {
           {question.imageFullUrl && (
             <CardMedia className={classes.media} image={question.imageFullUrl} />
           )}
-          {!question.imageFullUrl &&
-            question.choices &&
-            question.choices.length > 0 && (
-              <ChoicesBox choices={question.choices} className={classes.choices} dense />
-            )}
+          {!question.imageFullUrl && question.choices && question.choices.length > 0 && (
+            <ChoicesBox choices={question.choices} className={classes.choices} dense />
+          )}
         </CardActionArea>
       </NextLink>
       <CardActions>

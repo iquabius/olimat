@@ -1,5 +1,5 @@
-import { createTestClient } from 'apollo-server-testing';
 import { gql } from 'apollo-server-express';
+import { createTestClient } from 'apollo-server-testing';
 // https://www.prisma.io/forum/t/testing-with-graphql-request/537
 import nock from 'nock';
 
@@ -14,14 +14,14 @@ const getCitiesQuery = gql`
   }
 `;
 
-const getCityQuery = gql`
-  query getCity($id: ID!) {
-    city(id: $id) {
-      id
-      name
-    }
-  }
-`;
+// const getCityQuery = gql`
+//   query getCity($id: ID!) {
+//     city(id: $id) {
+//       id
+//       name
+//     }
+//   }
+// `;
 
 describe('Queries', () => {
   beforeAll(() => nock.disableNetConnect());

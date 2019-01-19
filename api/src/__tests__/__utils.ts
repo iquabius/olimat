@@ -1,4 +1,12 @@
+import { execute, toPromise } from 'apollo-link';
+import { HttpLink } from 'apollo-link-http';
 import { ApolloServer } from 'apollo-server-express';
+import express from 'express';
+import { AddressInfo } from 'net';
+// @types/node-fetch possui tipo incompatível com o HttpLink,
+// por isso não foi instalado.
+import fetch from 'node-fetch';
+
 import { context as defaultContext, typeDefs } from '..';
 import resolvers from '../resolvers';
 
@@ -20,14 +28,6 @@ export const createTestServer = (context = defaultContext) => {
 };
 
 // e2e Testing Utils ----------------------------------------------------------
-
-import { HttpLink } from 'apollo-link-http';
-// @types/node-fetch possui tipo incompatível com o HttpLink,
-// por isso não foi instalado.
-import fetch from 'node-fetch';
-import { execute, toPromise } from 'apollo-link';
-import express from 'express';
-import { AddressInfo } from 'net';
 
 export { toPromise };
 

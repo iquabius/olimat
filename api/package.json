@@ -6,14 +6,11 @@
   "author": "Josias Iquabius <iquabius@gmail.com>",
   "main": "src/index.ts",
   "scripts": {
-    "build": "rimraf dist && tsc",
+    "build": "rimraf dist && tsc && copyfiles -V -u 1 ./src/schema.graphql ./src/**/*.graphql ./dist",
     "start": "node -r dotenv/config dist/index.js",
     "dev": "nodemon -e ts,graphql -x ts-node -r dotenv/config src/index.ts",
     "debug": "nodemon --config nodemon.debug.json",
-    "test": "jest",
-    "lint": "tslint 'src/**/*.ts'",
-    "lint:fix": "tslint 'src/**/*.ts' --fix && echo \"tslint: no lint errors\"",
-    "tslint-check": "tslint-config-prettier-check ./tslint.json",
+    "test": "../node_modules/jest/bin/jest.js",
     "clean:files": "rimraf files",
     "copy:files": "copyfiles -V -u 2 ./prisma/seed_files/**/* ./files",
     "graphql:generate-types": "gql-gen --config codegen.yml"
@@ -37,12 +34,10 @@
     "@types/express": "^4.16.0",
     "@types/express-fileupload": "^0.4.0",
     "@types/graphql": "^14.0.3",
-    "@types/jest": "^23.3.10",
     "@types/jsonwebtoken": "^8.3.0",
     "@types/mime-types": "^2.1.0",
     "@types/mv": "^2.1.0",
     "@types/nock": "^9.3.0",
-    "@types/node": "^10.12.15",
     "@types/shortid": "0.0.29",
     "apollo": "^2.1.8",
     "apollo-link": "^1.2.6",
@@ -54,18 +49,13 @@
     "graphql-codegen-typescript-common": "0.15.2",
     "graphql-codegen-typescript-resolvers": "^0.15.2",
     "graphql-codegen-typescript-server": "^0.15.2",
-    "jest": "^23.6.0",
     "nock": "^10.0.4",
     "node-fetch": "^2.3.0",
     "nodemon": "^1.18.9",
-    "prettier": "^1.14.3",
     "prisma": "^1.23.2",
     "rimraf": "^2.6.2",
     "ts-jest": "^23.10.5",
-    "ts-node": "^7.0.1",
-    "tslint": "^5.11.0",
-    "tslint-config-prettier": "^1.15.0",
-    "tslint-plugin-prettier": "^2.0.0",
-    "typescript": "^3.2.2"
-  }
+    "ts-node": "^7.0.1"
+  },
+  "repository": "github:iquabius/olimat"
 }

@@ -13,17 +13,18 @@ deve ser desacoplado do esquema do Prisma GraphQL. Outros aspectos importantes
 são os 'resolvers' completamente seguros quanto aos tipos ('type-safe').
 */
 import { prisma } from '../../src/__generated__/prisma-client';
+
 import data from './data';
 
 const setup = async () => {
   // Insere as cidades
-  const cities = await Promise.all(data.cities.map(prisma.createCity));
+  await Promise.all(data.cities.map(prisma.createCity));
 
   // Insere os usuários
-  const users = await Promise.all(data.users.map(prisma.createUser));
+  await Promise.all(data.users.map(prisma.createUser));
 
   // Insere as olimpíadas
-  const olympiads = await Promise.all(data.olympiads.map(prisma.createOlympiad));
+  await Promise.all(data.olympiads.map(prisma.createOlympiad));
 
   // Insere as questões
   const questions = await Promise.all(data.questions.map(prisma.createQuestion));
@@ -38,10 +39,10 @@ const setup = async () => {
     },
   }));
   // Insere as provas
-  const tests = await Promise.all(data.tests.map(prisma.createTest));
+  await Promise.all(data.tests.map(prisma.createTest));
 
   // Insere as escolas
-  const schoolsCreate = await Promise.all(data.schools.map(prisma.createSchool));
+  await Promise.all(data.schools.map(prisma.createSchool));
 };
 
 setup();
