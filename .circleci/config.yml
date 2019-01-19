@@ -67,7 +67,7 @@ jobs:
           key: web-modules-{{ checksum "web/package.json" }}
         
       # run tests!
-      - run: npm test:this-breaks-api-integration-tests
+      - run: npm run test:this-breaks-api-integration-tests
 
 workflows:
   version: 2
