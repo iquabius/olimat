@@ -5,10 +5,15 @@
   "author": "Josias Iquabius <iquabius@gmail.com>",
   "private": true,
   "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@types/jest": "^23.3.12",
     "@types/node": "^10.12.18",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^23.6.0",
     "cypress": "^3.1.4",
     "cypress-testing-library": "^2.3.5",
     "faker": "^4.1.0",
+    "jest": "^23.6.0",
     "lerna": "^3.10.5",
     "npm-run-all": "^4.1.5",
     "prettier": "^1.15.3",
@@ -30,6 +35,7 @@
     "lint": "tslint --project tsconfig.json && echo \"TSLint: no lint errors\"",
     "lint:fix": "tslint --project tsconfig.json --fix && echo \"TSLint: no lint errors\"",
     "lint:check": "tslint-config-prettier-check ./tslint.json ./api/tslint.json ./web/tslint.json",
-    "test": "lerna run test"
+    "test": "lerna run test",
+    "test:this-breaks-api-integration-tests": "jest"
   }
 }
