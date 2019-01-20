@@ -4,6 +4,7 @@ import React from 'react';
 // It's here to improve DX by enabling autocompletion for editors supporting TypeScript.
 const PageContext = React.createContext({
   activePage: {
+    title: false,
     pathname: '',
   },
   loggedInUser: {
