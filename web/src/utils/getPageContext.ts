@@ -68,5 +68,5 @@ export default function getPageContext(paletteType): PageContext {
     global.__MUI_PAGE_CONTEXT__ = createPageContext(paletteType);
   }
 
-  return global.__MUI_PAGE_CONTEXT__;
+  return global.__MUI_PAGE_CONTEXT__ as PageContext;
 }
