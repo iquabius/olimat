@@ -1,5 +1,6 @@
-import { createGenerateClassName, createMuiTheme } from '@material-ui/core/styles';
-import { SheetsRegistry } from 'jss';
+import { createGenerateClassName, createMuiTheme, Theme } from '@material-ui/core/styles';
+import { MuiThemeProviderProps } from '@material-ui/core/styles/MuiThemeProvider';
+import { GenerateClassName, SheetsRegistry } from 'jss';
 
 function getTheme(uiTheme) {
   return createMuiTheme({
@@ -21,10 +22,18 @@ const defaultTheme = {
   },
 };
 
-function createPageContext(paletteType) {
+// Check MuiThemeProviderProps interface
+export interface PageContext extends MuiThemeProviderProps {
+  generateClassName: GenerateClassName<string>; // not sure what goes here
+  sheetsRegistry: SheetsRegistry;
+}
+
+function createPageContext(paletteType): PageContext {
   const theme = getTheme({ ...defaultTheme, paletteType });
 
   return {
+    // PageContext should extend a more appropriate interface
+    children: undefined,
     theme,
     // This is needed in order to deduplicate the injection of CSS in the page.
     sheetsManager: new Map(),
@@ -47,7 +56,7 @@ export function updatePageContext(paletteType) {
   return pageContext;
 }
 
-export default function getPageContext(paletteType) {
+export default function getPageContext(paletteType): PageContext {
   // Make sure to create a new context for every server-side request so that data
   // isn't shared between connections (which would be bad).
   if (!process.browser) {

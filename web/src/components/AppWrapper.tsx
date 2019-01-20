@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import JssProvider from 'react-jss/lib/JssProvider';
 
+import { PageContext } from '../utils/getPageContext';
+
 // Inject the <!--insertion-point-jss--> at the end of <head> (see pages/_document.js)
 if (process.browser && !global.__INSERTION_POINT__) {
   global.__INSERTION_POINT__ = true;
@@ -15,7 +17,11 @@ if (process.browser && !global.__INSERTION_POINT__) {
   }
 }
 
-class AppWrapper extends React.Component {
+interface Props {
+  pageContext: PageContext;
+}
+
+class AppWrapper extends React.Component<Props> {
   state = {};
 
   componentDidMount() {
