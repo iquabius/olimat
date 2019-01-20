@@ -35,7 +35,23 @@ const styles = (theme: Theme) =>
     },
   });
 
-class SchoolTable extends React.Component {
+interface City {
+  name: string;
+}
+
+interface School {
+  id: string;
+  name: string;
+  city: City;
+  phone: string;
+}
+interface Props {
+  data: {
+    schools: School[];
+  };
+}
+
+class SchoolTable extends React.Component<Props> {
   constructor(props, context) {
     super(props, context);
 
