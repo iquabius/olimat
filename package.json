@@ -6,6 +6,7 @@
   "private": true,
   "devDependencies": {
     "@babel/core": "^7.2.2",
+    "@types/classnames": "^2.2.7",
     "@types/cookie": "^0.3.2",
     "@types/jest": "^23.3.12",
     "@types/node": "^10.12.18",
