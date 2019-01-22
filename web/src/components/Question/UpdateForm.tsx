@@ -38,7 +38,7 @@ export const createSubmitHandler = (question, updateQuestion, enqueueSnackbar) =
 interface Props extends InjectedNotistackProps, WithRouterProps {}
 
 const QuestionUpdateForm: React.FunctionComponent<Props> = ({ enqueueSnackbar, router }) => (
-  <QuestionDetailsConnector id={router.query.id}>
+  <QuestionDetailsConnector id={router.query.id as string}>
     {({ isLoading, question, updateQuestion }) => (
       <QuestionForm
         initialValues={responseToFormValues(question)}

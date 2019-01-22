@@ -34,7 +34,7 @@ const styles = (theme: Theme) =>
 interface Props extends WithRouterProps, WithStyles<typeof styles> {}
 
 const TestDetails: React.FunctionComponent<Props> = ({ classes, router }) => {
-  const id = router.query.id;
+  const id = router.query.id as string;
   if (!id) return <Error statusCode={404} />;
 
   return (
