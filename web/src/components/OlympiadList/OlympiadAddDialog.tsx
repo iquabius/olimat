@@ -90,8 +90,18 @@ export const newOlympiadMutation = gql`
   }
 `;
 
+interface Olympiad {
+  id: string;
+  name: string;
+  isPublished: boolean;
+}
+
+interface Data {
+  createOlympiad: Olympiad;
+}
+
 interface OlympiadFormProps {
-  newOlympiad: MutationFn;
+  newOlympiad: MutationFn<Data>;
   onClose: Props['onClose'];
 }
 
@@ -115,7 +125,7 @@ export default compose(
           year: new Date(values.year),
         },
         update: (proxy, { data: { createOlympiad } }) => {
-          const data = proxy.readQuery({ query: allOlympiadsQuery });
+          const data = proxy.readQuery<{ olympiads: Olympiad[] }>({ query: allOlympiadsQuery });
           data.olympiads.push(createOlympiad);
 
           proxy.writeQuery({ query: allOlympiadsQuery, data });
