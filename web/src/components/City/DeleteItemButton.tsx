@@ -60,17 +60,20 @@ const updateCache = (cache, { data: { deleteCity } }) => {
   });
 };
 
-interface Props extends InjectedNotistackProps {
-  city: {
-    id: string;
-    name: string;
-  };
+interface InnerProps extends InjectedNotistackProps {
   deleteWarningOpen: boolean;
   setDeleteWarningOpen: (open: boolean) => void;
 }
 
+interface OuterProps {
+  city: {
+    id: string;
+    name: string;
+  };
+}
+
 // TODO: While deleting the edit button should also be disabled
-const CityDeleteItemButton: React.FunctionComponent<Props> = ({
+const CityDeleteItemButton: React.FunctionComponent<InnerProps & OuterProps> = ({
   city,
   deleteWarningOpen,
   enqueueSnackbar,
@@ -123,7 +126,7 @@ const CityDeleteItemButton: React.FunctionComponent<Props> = ({
   </Mutation>
 );
 
-export default compose(
+export default compose<InnerProps, OuterProps>(
   withSnackbar,
   withState('deleteWarningOpen', 'setDeleteWarningOpen', false),
 )(CityDeleteItemButton);
