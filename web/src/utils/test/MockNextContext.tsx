@@ -1,28 +1,28 @@
 // tslint:disable:no-empty
-import Router, { WithRouterProps } from 'next/router';
+import Router, { PopStateCallback, RouterProps, WithRouterProps } from 'next/router';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-export const mockRouter = {
+export const mockRouter: RouterProps = {
   asPath: '/',
   route: '/',
   pathname: '/',
   query: {},
+  components: {},
   // TODO: Properly mock the following methods
   back() {},
-  beforePopState() {},
-  prefetch() {},
+  beforePopState: (cb: PopStateCallback) => undefined,
+  prefetch: async (url: string) => props => <div />,
   push(href, as, options) {
     this.pathname = href;
     return new Promise(resolve => resolve());
   },
-  reload() {},
-  replace() {},
+  reload: async (route: string) => {},
+  replace: async () => true,
   events: {
     // TODO: Implement EventEmitter
     on() {},
     off() {},
-    trigger() {},
   },
 };
 
