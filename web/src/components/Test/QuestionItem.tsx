@@ -1,6 +1,5 @@
-import { createStyles, Theme, Typography, withStyles } from '@material-ui/core';
+import { createStyles, Theme, Typography, withStyles, WithStyles } from '@material-ui/core';
 import classNames from 'classnames';
-import PropTypes from 'prop-types';
 import React from 'react';
 
 import ChoicesBox from '../Question/ChoicesBox';
@@ -26,7 +25,22 @@ const styles = (theme: Theme) =>
     },
   });
 
-const TestQuestionItem = ({ classes, className, questionNumber, question }) => (
+interface Props extends WithStyles<typeof styles> {
+  className?: string;
+  question: {
+    wording: string;
+    choices: Array<{ id: string; text: string }>;
+    imageFullUrl?: string;
+  };
+  questionNumber: number;
+}
+
+const TestQuestionItem: React.FunctionComponent<Props> = ({
+  classes,
+  className,
+  questionNumber,
+  question,
+}) => (
   <div className={classNames(classes.root, className)}>
     <Typography gutterBottom paragraph>
       <span className={classes.questionNumber}>{`Questão ${questionNumber}) `}</span>
@@ -40,12 +54,5 @@ const TestQuestionItem = ({ classes, className, questionNumber, question }) => (
     )}
   </div>
 );
-
-TestQuestionItem.propTypes = {
-  classes: PropTypes.object.isRequired,
-  className: PropTypes.string,
-  questionNumber: PropTypes.number.isRequired,
-  question: PropTypes.object.isRequired,
-};
 
 export default withStyles(styles)(TestQuestionItem);

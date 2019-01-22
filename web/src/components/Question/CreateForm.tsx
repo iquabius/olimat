@@ -1,7 +1,6 @@
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import Router from 'next/router';
-import { withSnackbar } from 'notistack';
-import PropTypes from 'prop-types';
+import { InjectedNotistackProps, withSnackbar } from 'notistack';
 import React from 'react';
 
 import FAButton from '../FAButton';
@@ -45,7 +44,7 @@ const questionInitialValues = {
   choices: [{ text: '' }, { text: '' }, { text: '' }, { text: '' }, { text: '' }],
 };
 
-class QuestionCreateForm extends React.Component {
+class QuestionCreateForm extends React.Component<InjectedNotistackProps> {
   state = {
     warningDialogOpen: false,
   };
@@ -102,9 +101,5 @@ class QuestionCreateForm extends React.Component {
     );
   }
 }
-
-QuestionCreateForm.propTypes = {
-  enqueueSnackbar: PropTypes.func.isRequired,
-};
 
 export default withSnackbar(QuestionCreateForm);

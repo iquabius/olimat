@@ -136,7 +136,14 @@ function findActivePage(currentPages, router) {
   return activePage;
 }
 
-class OliApp extends App {
+interface Props {
+  loggedInUser: {
+    name: string;
+    email: string;
+  };
+}
+
+class OliApp extends App<Props> {
   constructor(props) {
     super(props);
 

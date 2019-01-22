@@ -1,5 +1,5 @@
 // tslint:disable:no-empty
-import Router from 'next/router';
+import Router, { WithRouterProps } from 'next/router';
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -30,8 +30,9 @@ Router.router = mockRouter;
 
 // API de contexto antiga do React
 // https://github.com/zeit/next.js/issues/5205#issuecomment-422846339
-export default class MockNextContext extends React.Component {
+export default class MockNextContext extends React.Component<WithRouterProps> {
   static propTypes = {
+    // children: PropTypes.node.isRequired,
     headManager: PropTypes.object,
     router: PropTypes.object,
   };
@@ -42,12 +43,8 @@ export default class MockNextContext extends React.Component {
   };
 
   getChildContext() {
-    const { headManager, router } = this.props;
+    const { router } = this.props;
     return {
-      headManager: {
-        updateHead() {},
-        ...headManager,
-      },
       // tslint:disable-next-line:prefer-object-spread
       router: Object.assign(mockRouter, router),
     };
@@ -57,7 +54,3 @@ export default class MockNextContext extends React.Component {
     return this.props.children;
   }
 }
-
-MockNextContext.propTypes = {
-  children: PropTypes.node.isRequired,
-};

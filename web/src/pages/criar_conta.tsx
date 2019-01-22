@@ -1,3 +1,4 @@
+import { NextFunctionComponent } from 'next';
 import Head from 'next/head';
 import React from 'react';
 
@@ -6,7 +7,7 @@ import SignUpForm from '../components/User/SignUpForm';
 import checkLoggedIn from '../utils/checkLoggedIn';
 import redirect from '../utils/redirect';
 
-const PageSignUp = () => {
+const PageSignUp: NextFunctionComponent = () => {
   return (
     <OnlyFormFrame>
       <Head>

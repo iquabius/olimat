@@ -7,12 +7,12 @@ import {
   TablePagination,
   TableRow,
   Theme,
+  WithStyles,
 } from '@material-ui/core';
 import Checkbox from '@material-ui/core/Checkbox';
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
 import gql from 'graphql-tag';
-import PropTypes from 'prop-types';
 import React from 'react';
 import { compose, graphql } from 'react-apollo';
 
@@ -35,7 +35,7 @@ const styles = (theme: Theme) =>
     },
   });
 
-interface City {
+export interface City {
   name: string;
 }
 
@@ -45,7 +45,7 @@ interface School {
   city: City;
   phone: string;
 }
-interface Props {
+interface Props extends WithStyles<typeof styles> {
   data: {
     schools: School[];
   };
@@ -207,20 +207,6 @@ class SchoolTable extends React.Component<Props> {
     );
   }
 }
-
-SchoolTable.propTypes = {
-  classes: PropTypes.object.isRequired,
-  data: PropTypes.shape({
-    schools: PropTypes.arrayOf(
-      PropTypes.shape({
-        city: PropTypes.shape({ name: PropTypes.string.isRequired }),
-        id: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        phone: PropTypes.string,
-      }),
-    ).isRequired,
-  }).isRequired,
-};
 
 export const allSchoolsQuery = gql`
   query allSchoolsQuery {

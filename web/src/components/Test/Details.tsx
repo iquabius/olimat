@@ -1,7 +1,6 @@
-import { createStyles, Paper, Theme, Typography, withStyles } from '@material-ui/core';
+import { createStyles, Paper, Theme, Typography, withStyles, WithStyles } from '@material-ui/core';
 import Error from 'next/error';
-import { withRouter } from 'next/router';
-import PropTypes from 'prop-types';
+import { withRouter, WithRouterProps } from 'next/router';
 import React from 'react';
 import compose from 'recompose/compose';
 
@@ -32,7 +31,9 @@ const styles = (theme: Theme) =>
     },
   });
 
-const TestDetails = ({ classes, router }) => {
+interface Props extends WithRouterProps, WithStyles<typeof styles> {}
+
+const TestDetails: React.FunctionComponent<Props> = ({ classes, router }) => {
   const id = router.query.id;
   if (!id) return <Error statusCode={404} />;
 
@@ -61,11 +62,6 @@ const TestDetails = ({ classes, router }) => {
       }}
     </TestDetailsConnector>
   );
-};
-
-TestDetails.propTypes = {
-  classes: PropTypes.object.isRequired,
-  router: PropTypes.object.isRequired,
 };
 
 export default compose(

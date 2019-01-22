@@ -1,7 +1,6 @@
-import { createStyles, Theme, withStyles } from '@material-ui/core';
+import { createStyles, Theme, withStyles, WithStyles } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import Link from 'next/link';
-import PropTypes from 'prop-types';
 import React from 'react';
 
 import FAButton from '../FAButton';
@@ -19,7 +18,9 @@ const styles = (theme: Theme) =>
     },
   });
 
-class QuestionList extends React.Component {
+interface Props extends WithStyles<typeof styles> {}
+
+class QuestionList extends React.Component<Props> {
   render() {
     const { classes } = this.props;
 
@@ -52,9 +53,5 @@ class QuestionList extends React.Component {
     );
   }
 }
-
-QuestionList.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
 export default withStyles(styles)(QuestionList);

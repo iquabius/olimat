@@ -1,8 +1,7 @@
-import { createStyles, IconButton, Theme, withStyles } from '@material-ui/core';
+import { createStyles, IconButton, Theme, withStyles, WithStyles } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Router from 'next/router';
-import { withSnackbar } from 'notistack';
-import PropTypes from 'prop-types';
+import { InjectedNotistackProps, withSnackbar } from 'notistack';
 import React from 'react';
 import { withState } from 'recompose';
 import compose from 'recompose/compose';
@@ -57,7 +56,20 @@ const truncate = (str, noWords) =>
     .join(' ')
     .concat(' [...]');
 
-const SafeDeleteIconButton = ({
+interface Props extends InjectedNotistackProps, WithStyles<typeof styles> {
+  deleteWarningOpen: boolean;
+  question: {
+    id: string;
+    wording: string;
+    // choices: Array<{ id: string; text: string }>;
+    // imageFullUrl?: string;
+  };
+  setDeleteWarningOpen: (open: boolean) => void;
+  setSubmitting: (submitting: boolean) => void;
+  submitting: boolean;
+}
+
+const SafeDeleteIconButton: React.FunctionComponent<Props> = ({
   classes,
   deleteWarningOpen,
   enqueueSnackbar,
@@ -92,18 +104,6 @@ const SafeDeleteIconButton = ({
       )}
     </DeleteConnector>
   );
-};
-
-SafeDeleteIconButton.propTypes = {
-  classes: PropTypes.object.isRequired,
-  deleteWarningOpen: PropTypes.bool.isRequired,
-  enqueueSnackbar: PropTypes.func.isRequired,
-  question: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-  }).isRequired,
-  setDeleteWarningOpen: PropTypes.func.isRequired,
-  setSubmitting: PropTypes.func.isRequired,
-  submitting: PropTypes.bool.isRequired,
 };
 
 export default compose(

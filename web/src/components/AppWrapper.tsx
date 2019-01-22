@@ -1,6 +1,5 @@
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { MuiThemeProvider } from '@material-ui/core/styles';
-import PropTypes from 'prop-types';
 import React from 'react';
 import JssProvider from 'react-jss/lib/JssProvider';
 
@@ -50,10 +49,5 @@ class AppWrapper extends React.Component<Props> {
     );
   }
 }
-
-AppWrapper.propTypes = {
-  children: PropTypes.node.isRequired,
-  pageContext: PropTypes.object,
-};
 
 export default AppWrapper;

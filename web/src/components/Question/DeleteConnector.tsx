@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Mutation } from 'react-apollo';
+import { Mutation, MutationFn } from 'react-apollo';
 
 import { questionsConnectionQuery } from './ListConnector';
 
@@ -16,7 +16,11 @@ export const deleteQuestionMutation = gql`
   }
 `;
 
-const DeleteConnector = ({ children }) => {
+interface DeleteConnectorProps {
+  children(deleteQuestion: MutationFn): JSX.Element;
+}
+
+const DeleteConnector: React.FunctionComponent<DeleteConnectorProps> = ({ children }) => {
   return (
     <Mutation
       mutation={deleteQuestionMutation}

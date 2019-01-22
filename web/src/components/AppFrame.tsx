@@ -1,4 +1,4 @@
-import { createStyles, Theme, Tooltip } from '@material-ui/core';
+import { createStyles, Theme, Tooltip, WithStyles } from '@material-ui/core';
 import AppBar from '@material-ui/core/AppBar';
 import IconButton from '@material-ui/core/IconButton';
 import { withStyles } from '@material-ui/core/styles';
@@ -10,8 +10,7 @@ import LightbulbOutlineIcon from '@material-ui/docs/svgIcons/LightbulbOutline';
 import MenuIcon from '@material-ui/icons/Menu';
 import Router from 'next/router';
 import NProgress from 'nprogress';
-import PropTypes from 'prop-types';
-import React from 'react';
+import React, { MouseEventHandler } from 'react';
 import { compose } from 'react-apollo';
 import fromRenderProps from 'recompose/fromRenderProps';
 
@@ -73,7 +72,14 @@ const styles = (theme: Theme) =>
     },
   });
 
-class AppFrame extends React.Component {
+interface Props extends WithStyles<typeof styles> {
+  uiTheme: {
+    handleTogglePaletteType: MouseEventHandler;
+    paletteType: string;
+  };
+}
+
+class AppFrame extends React.Component<Props> {
   state = {
     mobileOpen: false,
   };
@@ -160,15 +166,6 @@ class AppFrame extends React.Component {
     );
   }
 }
-
-AppFrame.propTypes = {
-  children: PropTypes.node.isRequired,
-  classes: PropTypes.object.isRequired,
-  uiTheme: PropTypes.shape({
-    handleTogglePaletteType: PropTypes.func.isRequired,
-    paletteType: PropTypes.string.isRequired,
-  }).isRequired,
-};
 
 const pageContext = fromRenderProps(PageContext.Consumer, ({ uiTheme }) => ({ uiTheme }));
 

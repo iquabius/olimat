@@ -6,12 +6,12 @@ import {
   Tooltip,
   Typography,
   withStyles,
+  WithStyles,
 } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import Error from 'next/error';
 import NextLink from 'next/link';
-import { withRouter } from 'next/router';
-import PropTypes from 'prop-types';
+import { withRouter, WithRouterProps } from 'next/router';
 import React from 'react';
 import compose from 'recompose/compose';
 
@@ -44,7 +44,9 @@ const styles = (theme: Theme) =>
     },
   });
 
-const QuestionDetails = ({ classes, router }) => {
+interface Props extends WithRouterProps, WithStyles<typeof styles> {}
+
+const QuestionDetails: React.FunctionComponent<Props> = ({ classes, router }) => {
   const id = router.query.id;
   if (!id) return <Error statusCode={404} />;
 
@@ -93,11 +95,6 @@ const QuestionDetails = ({ classes, router }) => {
       }}
     </QuestionDetailsConnector>
   );
-};
-
-QuestionDetails.propTypes = {
-  classes: PropTypes.object.isRequired,
-  router: PropTypes.object.isRequired,
 };
 
 export default compose(

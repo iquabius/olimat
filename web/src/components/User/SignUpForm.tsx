@@ -5,6 +5,7 @@ import {
   InputAdornment,
   InputLabel,
   Theme,
+  WithStyles,
 } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
@@ -17,7 +18,7 @@ import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import cookie from 'cookie';
 import gql from 'graphql-tag';
-import React from 'react';
+import React, { FormEventHandler } from 'react';
 import { compose, graphql, withApollo } from 'react-apollo';
 
 import redirect from '../../utils/redirect';
@@ -46,7 +47,11 @@ const styles = (theme: Theme) =>
     },
   });
 
-class SignUpForm extends React.Component {
+interface Props extends WithStyles<typeof styles> {
+  createUser: FormEventHandler;
+}
+
+class SignUpForm extends React.Component<Props> {
   state = {
     password: '',
     showPassword: false,

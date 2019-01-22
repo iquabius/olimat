@@ -1,6 +1,5 @@
-import { createStyles, Theme, withStyles } from '@material-ui/core';
+import { createStyles, Theme, withStyles, WithStyles } from '@material-ui/core';
 import classNames from 'classnames';
-import PropTypes from 'prop-types';
 import React from 'react';
 
 const styles = (theme: Theme) =>
@@ -34,7 +33,13 @@ const styles = (theme: Theme) =>
 
 const optionLabels = ['a', 'b', 'c', 'd', 'e', 'f'];
 
-const ChoicesBox = ({ choices, dense, classes, className }) => {
+interface Props extends WithStyles<typeof styles> {
+  className?: string;
+  choices: Array<{ id: string; text: string }>;
+  dense?: boolean;
+}
+
+const ChoicesBox: React.FunctionComponent<Props> = ({ choices, dense, classes, className }) => {
   const optionClassName = dense ? classNames(classes.option, classes.dense) : classes.option;
   return (
     <ul className={classNames(classes.root, className)}>
@@ -46,17 +51,6 @@ const ChoicesBox = ({ choices, dense, classes, className }) => {
       ))}
     </ul>
   );
-};
-
-ChoicesBox.propTypes = {
-  choices: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      text: PropTypes.string.isRequired,
-    }),
-  ).isRequired,
-  classes: PropTypes.object.isRequired,
-  dense: PropTypes.bool,
 };
 
 export default withStyles(styles)(ChoicesBox);

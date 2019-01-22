@@ -5,11 +5,10 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import Paper from '@material-ui/core/Paper';
-import { createStyles, Theme, withStyles } from '@material-ui/core/styles';
+import { createStyles, Theme, withStyles, WithStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import EditIcon from '@material-ui/icons/Edit';
 import gql from 'graphql-tag';
-import PropTypes from 'prop-types';
 import React from 'react';
 import { compose, Query } from 'react-apollo';
 import { withState } from 'recompose';
@@ -36,7 +35,12 @@ export const allCitiesQuery = gql`
   }
 `;
 
-class CityList extends React.Component {
+interface Props extends WithStyles<typeof styles> {
+  addDialogOpen: boolean;
+  setAddDialogOpen: (open: boolean) => void;
+}
+
+class CityList extends React.Component<Props> {
   state = {
     editing: null,
   };
@@ -52,12 +56,7 @@ class CityList extends React.Component {
     return (
       <Paper className={classes.root}>
         <Toolbar>
-          <Button
-            onClick={handleOpenAddCity}
-            variant="contained"
-            color="primary"
-            className={classes.button}
-          >
+          <Button onClick={handleOpenAddCity} variant="contained" color="primary">
             Adicionar
           </Button>
         </Toolbar>
@@ -93,10 +92,6 @@ class CityList extends React.Component {
     );
   }
 }
-
-CityList.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
 export default compose(
   withState('addDialogOpen', 'setAddDialogOpen', false),

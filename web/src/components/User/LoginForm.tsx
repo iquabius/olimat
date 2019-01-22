@@ -7,6 +7,7 @@ import {
   InputAdornment,
   InputLabel,
   Theme,
+  WithStyles,
 } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
@@ -18,7 +19,7 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import React from 'react';
+import React, { FormEventHandler } from 'react';
 import { compose } from 'react-apollo';
 import { fromRenderProps } from 'recompose';
 
@@ -49,7 +50,11 @@ const styles = (theme: Theme) =>
     },
   });
 
-class LoginForm extends React.Component {
+interface Props extends WithStyles<typeof styles> {
+  handleSignIn: FormEventHandler;
+}
+
+class LoginForm extends React.Component<Props> {
   state = {
     password: '',
     showPassword: false,

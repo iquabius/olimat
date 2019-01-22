@@ -19,6 +19,7 @@
     // Pra permitir PascalCase nos componentes do React
     // https://github.com/palantir/tslint-react/issues/120
     "variable-name": [true, "allow-pascal-case"],
-    "function-name": [false]
+    "function-name": [false],
+    "prefer-array-literal": [ true, { "allow-type-parameters": true } ]
   }
 }

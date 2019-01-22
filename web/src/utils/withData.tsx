@@ -9,6 +9,8 @@ import initApollo from './initApollo';
 // Gets the display name of a JSX component for dev tools
 const getDisplayName = ({ displayName, name }) => displayName || name || 'Unknown';
 
+// Maybe we should keep the Apollo Client instance in the state, instead of a property
+
 export default App => {
   return class WithData extends React.Component {
     static displayName = `WithData(${getDisplayName(App)})`;

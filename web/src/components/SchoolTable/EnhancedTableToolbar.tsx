@@ -1,6 +1,6 @@
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, WithStyles } from '@material-ui/core/styles';
 import { lighten } from '@material-ui/core/styles/colorManipulator';
 import Toolbar from '@material-ui/core/Toolbar';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -8,8 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import classNames from 'classnames';
-import PropTypes from 'prop-types';
-import React from 'react';
+import React, { MouseEventHandler } from 'react';
 
 const toolbarStyles = theme => ({
   root: {
@@ -36,7 +35,12 @@ const toolbarStyles = theme => ({
   },
 });
 
-const EnhancedTableToolbar = props => {
+interface Props extends WithStyles<typeof toolbarStyles> {
+  numSelected: number;
+  onOpenAddSchool: MouseEventHandler;
+}
+
+const EnhancedTableToolbar: React.FunctionComponent<Props> = props => {
   const { numSelected, classes, onOpenAddSchool } = props;
 
   return (
@@ -51,12 +55,7 @@ const EnhancedTableToolbar = props => {
             {numSelected} selected
           </Typography>
         ) : (
-          <Button
-            onClick={onOpenAddSchool}
-            variant="contained"
-            color="primary"
-            className={classes.button}
-          >
+          <Button onClick={onOpenAddSchool} variant="contained" color="primary">
             Adicionar
           </Button>
         )}
@@ -79,12 +78,6 @@ const EnhancedTableToolbar = props => {
       </div>
     </Toolbar>
   );
-};
-
-EnhancedTableToolbar.propTypes = {
-  classes: PropTypes.object.isRequired,
-  numSelected: PropTypes.number.isRequired,
-  onOpenAddSchool: PropTypes.func.isRequired,
 };
 
 export default withStyles(toolbarStyles)(EnhancedTableToolbar);

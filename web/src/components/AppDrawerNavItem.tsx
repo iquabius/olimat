@@ -1,10 +1,9 @@
 import Button from '@material-ui/core/Button';
 import Collapse from '@material-ui/core/Collapse';
 import ListItem from '@material-ui/core/ListItem';
-import { createStyles, Theme, withStyles } from '@material-ui/core/styles';
+import { createStyles, Theme, withStyles, WithStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
-import PropTypes from 'prop-types';
-import React from 'react';
+import React, { MouseEventHandler } from 'react';
 
 import Link from './Link';
 
@@ -42,7 +41,19 @@ const styles = ({ palette, typography }: Theme) =>
     },
   });
 
-class AppDrawerNavItem extends React.Component {
+interface Props extends WithStyles<typeof styles> {
+  depth: number;
+  href?: string;
+  onClick?: MouseEventHandler;
+  openImmediately?: boolean;
+  title: string;
+}
+
+class AppDrawerNavItem extends React.Component<Props> {
+  defaultProps = {
+    openImmediately: false,
+  };
+
   state = {
     open: this.props.openImmediately,
   };
@@ -117,19 +128,5 @@ class AppDrawerNavItem extends React.Component {
     );
   }
 }
-
-AppDrawerNavItem.propTypes = {
-  children: PropTypes.node,
-  classes: PropTypes.object.isRequired,
-  depth: PropTypes.number.isRequired,
-  href: PropTypes.string,
-  onClick: PropTypes.func,
-  openImmediately: PropTypes.bool,
-  title: PropTypes.string.isRequired,
-};
-
-AppDrawerNavItem.defaultProps = {
-  openImmediately: false,
-};
 
 export default withStyles(styles)(AppDrawerNavItem);

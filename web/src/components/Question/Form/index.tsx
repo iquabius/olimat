@@ -1,7 +1,6 @@
 import { TextField } from '@material-ui/core';
-import { Formik } from 'formik';
-import PropTypes from 'prop-types';
-import React from 'react';
+import { Formik, FormikProps } from 'formik';
+import React, { FormEventHandler } from 'react';
 import { withState } from 'recompose';
 import * as Yup from 'yup';
 
@@ -15,6 +14,30 @@ const FormSchema = Yup.object().shape({
     .required('Wording is required'),
 });
 
+interface QuestionFormValues {
+  wording: string;
+  secondaryWording?: string;
+}
+
+type AddHandlersFn = (operation: Promise<any>) => Promise<any>;
+
+interface Props {
+  imageFile: object;
+  initialValues?: QuestionFormValues;
+  onSubmit: (values: QuestionFormValues, addHandlers: AddHandlersFn) => void;
+  setImageFile: (image: any) => void;
+  children?: (
+    formProps: {
+      form: React.ReactNode;
+      isDirty: boolean;
+      isSubmitting: boolean;
+      // This should include addHandlers as second argument
+      handleSubmit: FormEventHandler;
+      handleCancel: (nextValues?: QuestionFormValues) => void;
+    },
+  ) => JSX.Element;
+}
+
 // This is used to keep a reference to FilePond, created in FilePondField
 // We need this to be able to 'clear' the pond when reseting the form.
 let filePond;
@@ -22,7 +45,13 @@ const getFilePondRef = ref => {
   filePond = ref;
 };
 
-const QuestionForm = ({ children, initialValues, onSubmit, imageFile, setImageFile }) => (
+const QuestionForm: React.FunctionComponent<Props> = ({
+  children,
+  initialValues,
+  onSubmit,
+  imageFile,
+  setImageFile,
+}) => (
   <Formik
     initialValues={initialValues}
     validationSchema={FormSchema}
@@ -31,7 +60,7 @@ const QuestionForm = ({ children, initialValues, onSubmit, imageFile, setImageFi
       // to be able to encapsulate attaching state handling
       // upon submission within the form. The details/create
       // component just `addHandlers` to it's mutation.
-      const addHandlers = promise =>
+      const addHandlers: AddHandlersFn = promise =>
         promise.then(
           result => {
             formikBag.resetForm();
@@ -53,7 +82,7 @@ const QuestionForm = ({ children, initialValues, onSubmit, imageFile, setImageFi
       // passing it through addHandlers()
       return onSubmit(values, addHandlers);
     }}
-    render={formikProps => {
+    render={(formikProps: FormikProps<QuestionFormValues>) => {
       const form = (
         <form onSubmit={formikProps.handleSubmit}>
           <TextField
@@ -108,13 +137,5 @@ const QuestionForm = ({ children, initialValues, onSubmit, imageFile, setImageFi
     }}
   />
 );
-
-QuestionForm.propTypes = {
-  children: PropTypes.func,
-  imageFile: PropTypes.object,
-  initialValues: PropTypes.object,
-  onSubmit: PropTypes.func.isRequired,
-  setImageFile: PropTypes.func.isRequired,
-};
 
 export default withState('imageFile', 'setImageFile', null)(QuestionForm);

@@ -1,6 +1,12 @@
-import { Button, CircularProgress, createStyles, Theme, withStyles } from '@material-ui/core';
-import PropTypes from 'prop-types';
-import React from 'react';
+import {
+  Button,
+  CircularProgress,
+  createStyles,
+  Theme,
+  withStyles,
+  WithStyles,
+} from '@material-ui/core';
+import React, { MouseEventHandler } from 'react';
 
 const styles = ({ breakpoints, palette, spacing }: Theme) =>
   createStyles({
@@ -15,6 +21,7 @@ const styles = ({ breakpoints, palette, spacing }: Theme) =>
       // Fixa a altura, porque o CircularProgress aumenta o botão
       height: 40,
     },
+    // How does this influence TypeScript types in WithStyles<typeof styles> below
     [breakpoints.up('sm')]: {
       loadMoreButton: {
         width: '49%',
@@ -27,7 +34,13 @@ const styles = ({ breakpoints, palette, spacing }: Theme) =>
     },
   });
 
-class LoadMoreButton extends React.Component {
+interface Props extends WithStyles<typeof styles> {
+  hasMore: boolean;
+  loadingMore: boolean;
+  onLoadMore: MouseEventHandler;
+}
+
+class LoadMoreButton extends React.Component<Props> {
   state = {
     tooLong: false,
   };
@@ -95,13 +108,5 @@ class LoadMoreButton extends React.Component {
     );
   }
 }
-
-LoadMoreButton.propTypes = {
-  children: PropTypes.node.isRequired,
-  classes: PropTypes.object.isRequired,
-  hasMore: PropTypes.bool.isRequired,
-  loadingMore: PropTypes.bool.isRequired,
-  onLoadMore: PropTypes.func,
-};
 
 export default withStyles(styles)(LoadMoreButton);

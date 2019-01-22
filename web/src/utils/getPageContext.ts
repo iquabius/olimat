@@ -1,4 +1,4 @@
-import { createGenerateClassName, createMuiTheme, Theme } from '@material-ui/core/styles';
+import { createGenerateClassName, createMuiTheme } from '@material-ui/core/styles';
 import { MuiThemeProviderProps } from '@material-ui/core/styles/MuiThemeProvider';
 import { GenerateClassName, SheetsRegistry } from 'jss';
 

@@ -4,14 +4,14 @@ import IconButton from '@material-ui/core/IconButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import cookie from 'cookie';
 import React from 'react';
-import { withApollo } from 'react-apollo';
+import { withApollo, WithApolloClient } from 'react-apollo';
 
 import redirect from '../utils/redirect';
 
 import Link from './Link';
 import PageContext from './PageContext';
 
-class UserMenuAppBar extends React.Component {
+class UserMenuAppBar extends React.Component<WithApolloClient<{}>> {
   state = {
     anchorEl: null,
   };
@@ -92,4 +92,5 @@ class UserMenuAppBar extends React.Component {
   }
 }
 
-export default withApollo(UserMenuAppBar);
+// https://github.com/apollographql/react-apollo/issues/1759
+export default withApollo<{}, {}>(UserMenuAppBar);

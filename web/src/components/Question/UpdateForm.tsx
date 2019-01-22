@@ -1,6 +1,5 @@
-import Router, { withRouter } from 'next/router';
-import { withSnackbar } from 'notistack';
-import PropTypes from 'prop-types';
+import Router, { withRouter, WithRouterProps } from 'next/router';
+import { InjectedNotistackProps, withSnackbar } from 'notistack';
 import React from 'react';
 import compose from 'recompose/compose';
 
@@ -36,7 +35,9 @@ export const createSubmitHandler = (question, updateQuestion, enqueueSnackbar) =
   );
 };
 
-const QuestionUpdateForm = ({ enqueueSnackbar, router }) => (
+interface Props extends InjectedNotistackProps, WithRouterProps {}
+
+const QuestionUpdateForm: React.FunctionComponent<Props> = ({ enqueueSnackbar, router }) => (
   <QuestionDetailsConnector id={router.query.id}>
     {({ isLoading, question, updateQuestion }) => (
       <QuestionForm
@@ -46,11 +47,6 @@ const QuestionUpdateForm = ({ enqueueSnackbar, router }) => (
     )}
   </QuestionDetailsConnector>
 );
-
-QuestionUpdateForm.propTypes = {
-  enqueueSnackbar: PropTypes.func.isRequired,
-  router: PropTypes.object.isRequired,
-};
 
 export default compose(
   withSnackbar,

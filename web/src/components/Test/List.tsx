@@ -7,9 +7,9 @@ import {
   ListItemText,
   Theme,
   withStyles,
+  WithStyles,
 } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
-import PropTypes from 'prop-types';
 import React from 'react';
 
 import Link from '../Link';
@@ -28,7 +28,9 @@ const TestItemLink = props => {
   return <ListItem variant="button" button dense component={Link} {...props} />;
 };
 
-const TestList = ({ classes }) => {
+interface Props extends WithStyles<typeof styles> {}
+
+const TestList: React.FunctionComponent<Props> = ({ classes }) => {
   return (
     <ListConnector>
       {({ tests }) => (
@@ -47,10 +49,6 @@ const TestList = ({ classes }) => {
       )}
     </ListConnector>
   );
-};
-
-TestList.propTypes = {
-  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(TestList);
