@@ -8,7 +8,10 @@ const PageContext = React.createContext({
     pathname: '',
   },
   loggedInUser: {
-    email: '',
+    me: {
+      id: '',
+      name: '',
+    },
   },
   pages: [],
   uiTheme: {

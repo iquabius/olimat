@@ -137,9 +137,12 @@ function findActivePage(currentPages, router) {
 }
 
 interface Props {
+  // We should change the query in checkLoggedIn to get more user fields
   loggedInUser: {
-    name: string;
-    email: string;
+    me: {
+      id: string;
+      name: string;
+    };
   };
 }
 
