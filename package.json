@@ -10,6 +10,7 @@
     "@types/cookie": "^0.3.2",
     "@types/jest": "^23.3.12",
     "@types/node": "^10.12.18",
+    "@types/react-jss": "^8.6.0",
     "@types/recompose": "^0.30.2",
     "@types/yup": "^0.26.5",
     "babel-core": "^7.0.0-bridge.0",
