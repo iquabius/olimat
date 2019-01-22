@@ -15,15 +15,7 @@ interface Props {
   isSubmitting: boolean;
   onClose: () => void;
   open: boolean;
-  values: {
-    address?: string;
-    city: string;
-    director?: string;
-    email: string;
-    name: string;
-    pedagogyCoord?: string;
-    phone: string;
-  };
+  values: SchoolFormValues;
 }
 
 const SchoolAddDialog: React.FunctionComponent<Props> = ({
@@ -132,11 +124,11 @@ export const newSchoolMutation = gql`
 interface SchoolFormValues {
   name: string;
   email: string;
-  phone: string;
-  pedagogyCoord: string;
-  director: string;
+  phone?: string;
+  pedagogyCoord?: string;
+  director?: string;
   city: City;
-  address: string;
+  address?: string;
 }
 
 interface SchoolFormProps {
@@ -171,7 +163,7 @@ export default compose(
           address: values.address,
         },
         update: (proxy, { data: { createSchool } }) => {
-          const data = proxy.readQuery({ query: allSchoolsQuery });
+          const data = proxy.readQuery<{ schools: SchoolFormValues[] }>({ query: allSchoolsQuery });
           data.schools.push(createSchool);
 
           proxy.writeQuery({ query: allSchoolsQuery, data });
