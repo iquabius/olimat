@@ -25,7 +25,7 @@ import { fromRenderProps } from 'recompose';
 
 import Link from '../Link';
 
-import LoginConnector from './LoginConnector';
+import LoginConnector, { LoginConnectorProps } from './LoginConnector';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -50,9 +50,11 @@ const styles = (theme: Theme) =>
     },
   });
 
-interface Props extends WithStyles<typeof styles> {
+interface InnerProps {
   handleSignIn: FormEventHandler;
 }
+
+interface OuterProps extends WithStyles<typeof styles> {}
 
 interface State {
   keepLoggedIn: boolean;
@@ -60,7 +62,7 @@ interface State {
   showPassword: boolean;
 }
 
-class LoginForm extends React.Component<Props, State> {
+class LoginForm extends React.Component<InnerProps & OuterProps, State> {
   state = {
     password: '',
     showPassword: false,
@@ -163,7 +165,14 @@ class LoginForm extends React.Component<Props, State> {
   }
 }
 
-const loginConnector = fromRenderProps(LoginConnector, ({ handleSignIn }) => ({ handleSignIn }));
+interface RenderProps {
+  handleSignIn: LoginConnectorProps['handleSignIn'];
+}
+
+const loginConnector = fromRenderProps<InnerProps, OuterProps, RenderProps>(
+  LoginConnector,
+  ({ handleSignIn }) => ({ handleSignIn }),
+);
 
 export default compose(
   loginConnector,

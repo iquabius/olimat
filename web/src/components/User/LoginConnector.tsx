@@ -14,12 +14,12 @@ export const loginMutation = gql`
   }
 `;
 
-interface Props {
+export interface LoginConnectorProps {
   children: (connectorProps: { handleSignIn: FormEventHandler }) => JSX.Element;
   handleSignIn: FormEventHandler;
 }
 
-const LoginConnector: React.FunctionComponent<Props> = ({ children, handleSignIn }) =>
+const LoginConnector: React.FunctionComponent<LoginConnectorProps> = ({ children, handleSignIn }) =>
   children({ handleSignIn });
 
 interface Response {
