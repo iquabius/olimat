@@ -167,7 +167,17 @@ class AppFrame extends React.Component<Props> {
   }
 }
 
-const pageContext = fromRenderProps(PageContext.Consumer, ({ uiTheme }) => ({ uiTheme }));
+interface RenderProps {
+  uiTheme: {};
+}
+
+// Higher Order Components and TypeScript is terrible
+const pageContext = fromRenderProps<RenderProps, Props, RenderProps>(
+  PageContext.Consumer,
+  ({ uiTheme }) => ({
+    uiTheme,
+  }),
+);
 
 export default compose(
   pageContext,
