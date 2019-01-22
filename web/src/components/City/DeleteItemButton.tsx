@@ -83,9 +83,11 @@ const CityDeleteItemButton: React.FunctionComponent<Props> = ({
           // Maybe the wrapping element should de a <form/>
           // We set IconButton type to 'submit'
           <React.Fragment>
-            <IconButton disabled={isSubmitting} onClick={handleSubmit} aria-label="Excluir cidade">
-              <DeleteIcon />
-            </IconButton>
+            <form onSubmit={handleSubmit} style={{ display: 'inline' }}>
+              <IconButton disabled={isSubmitting} type="submit" aria-label="Excluir cidade">
+                <DeleteIcon />
+              </IconButton>
+            </form>
             <Dialog
               open={deleteWarningOpen}
               onClose={onCancelDelete(setDeleteWarningOpen, setSubmitting)}
