@@ -1,8 +1,20 @@
 import React from 'react';
-import { MockedProvider } from 'react-apollo/test-utils';
+import { MockedProvider, MockedProviderProps } from 'react-apollo/test-utils';
 import { render } from 'react-testing-library';
 
-export const renderApollo = (node, options = {}) => {
+interface RenderApolloOptions {
+  addTypename?: boolean;
+  cache?: MockedProviderProps['cache'];
+  defaultOptions?: MockedProviderProps['defaultOptions'];
+  mocks?: MockedProviderProps['mocks'];
+}
+
+interface RenderOptions {
+  container: HTMLElement;
+  baseElement?: HTMLElement;
+}
+
+export const renderApollo = (node, options: RenderApolloOptions = {}) => {
   const { mocks, addTypename = false, defaultOptions, cache, ...otherOptions } = options;
   return render(
     <MockedProvider
@@ -13,6 +25,6 @@ export const renderApollo = (node, options = {}) => {
     >
       {node}
     </MockedProvider>,
-    otherOptions,
+    otherOptions as RenderOptions, // I don't know how to type the rest expression above
   );
 };
