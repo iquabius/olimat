@@ -1,4 +1,5 @@
 import { NormalizedCacheObject } from 'apollo-cache-inmemory';
+import ApolloClient from 'apollo-client';
 import Head from 'next/head';
 import React from 'react';
 import { ApolloProvider, getDataFromTree } from 'react-apollo';
@@ -12,8 +13,6 @@ const getDisplayName = ({ displayName, name }) => displayName || name || 'Unknow
 interface Props {
   apolloState: NormalizedCacheObject;
 }
-
-// Maybe we should keep the Apollo Client instance in the state, instead of a property
 
 export default App => {
   return class WithData extends React.Component<Props> {
@@ -70,6 +69,8 @@ export default App => {
         ...appProps,
       };
     }
+
+    apolloClient: ApolloClient<any>;
 
     constructor(props) {
       super(props);
