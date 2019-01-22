@@ -49,7 +49,11 @@ interface Props extends WithStyles<typeof styles> {
   title: string;
 }
 
-class AppDrawerNavItem extends React.Component<Props> {
+interface State {
+  open: boolean;
+}
+
+class AppDrawerNavItem extends React.Component<Props, State> {
   defaultProps = {
     openImmediately: false,
   };

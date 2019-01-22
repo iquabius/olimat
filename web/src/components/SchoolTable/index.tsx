@@ -51,7 +51,19 @@ interface Props extends WithStyles<typeof styles> {
   };
 }
 
-class SchoolTable extends React.Component<Props> {
+type SchoolTableOrder = 'asc' | 'desc';
+
+interface State {
+  addDialogOpen: boolean;
+  order: SchoolTableOrder;
+  orderBy: 'name' | 'city' | 'fone';
+  selected: string[];
+  schools: School[];
+  page: number;
+  rowsPerPage: number;
+}
+
+class SchoolTable extends React.Component<Props, State> {
   constructor(props, context) {
     super(props, context);
 
@@ -76,7 +88,7 @@ class SchoolTable extends React.Component<Props> {
 
   handleRequestSort = (event, property) => {
     const orderBy = property;
-    let order = 'desc';
+    let order: SchoolTableOrder = 'desc';
 
     if (this.state.orderBy === property && this.state.order === 'desc') {
       order = 'asc';

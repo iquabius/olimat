@@ -143,6 +143,7 @@ interface Props {
   };
 }
 
+// @types/next doesn't allow us to use state with the App component
 class OliApp extends App<Props> {
   constructor(props) {
     super(props);

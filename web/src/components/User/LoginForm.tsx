@@ -54,7 +54,13 @@ interface Props extends WithStyles<typeof styles> {
   handleSignIn: FormEventHandler;
 }
 
-class LoginForm extends React.Component<Props> {
+interface State {
+  keepLoggedIn: boolean;
+  password: string;
+  showPassword: boolean;
+}
+
+class LoginForm extends React.Component<Props, State> {
   state = {
     password: '',
     showPassword: false,
@@ -62,7 +68,7 @@ class LoginForm extends React.Component<Props> {
   };
 
   handleChange = prop => event => {
-    this.setState({ [prop]: event.target.value });
+    this.setState({ [prop]: event.target.value } as any);
   };
 
   handleMouseDownPassword = event => {
