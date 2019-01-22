@@ -56,20 +56,23 @@ const truncate = (str, noWords) =>
     .join(' ')
     .concat(' [...]');
 
-interface Props extends InjectedNotistackProps, WithStyles<typeof styles> {
+interface InnerProps extends InjectedNotistackProps, WithStyles<typeof styles> {
   deleteWarningOpen: boolean;
+  setDeleteWarningOpen: (open: boolean) => void;
+  setSubmitting: (submitting: boolean) => void;
+  submitting: boolean;
+}
+
+interface OuterProps {
   question: {
     id: string;
     wording: string;
     // choices: Array<{ id: string; text: string }>;
     // imageFullUrl?: string;
   };
-  setDeleteWarningOpen: (open: boolean) => void;
-  setSubmitting: (submitting: boolean) => void;
-  submitting: boolean;
 }
 
-const SafeDeleteIconButton: React.FunctionComponent<Props> = ({
+const SafeDeleteIconButton: React.FunctionComponent<InnerProps & OuterProps> = ({
   classes,
   deleteWarningOpen,
   enqueueSnackbar,
@@ -106,7 +109,7 @@ const SafeDeleteIconButton: React.FunctionComponent<Props> = ({
   );
 };
 
-export default compose(
+export default compose<InnerProps, OuterProps>(
   withSnackbar,
   withState('deleteWarningOpen', 'setDeleteWarningOpen', false),
   withState('submitting', 'setSubmitting', false),
