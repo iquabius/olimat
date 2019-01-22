@@ -40,6 +40,13 @@ export const updateQuestionMutation = gql`
   }
 `;
 
+export interface Question {
+  id: string;
+  wording: string;
+  choices: Array<{ id: string; text: string }>;
+  imageFullUrl?: string;
+}
+
 const QuestionDetailsConnector = ({ children, id }) => (
   <Query query={questionQuery} variables={{ id }}>
     {({ data, error, loading }) => (

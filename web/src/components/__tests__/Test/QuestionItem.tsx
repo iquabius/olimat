@@ -5,6 +5,7 @@ import QuestionItem from '../../Test/QuestionItem';
 
 describe('<TestQuestionItem />', () => {
   const questionSample = {
+    id: 'qId1',
     wording: 'Amostra de questão',
     imageFullUrl: 'test-sample-image.jpg',
     choices: [

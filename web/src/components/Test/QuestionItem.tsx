@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import React from 'react';
 
 import ChoicesBox from '../Question/ChoicesBox';
+import { Question } from '../Question/DetailsConnector';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -27,11 +28,7 @@ const styles = (theme: Theme) =>
 
 interface Props extends WithStyles<typeof styles> {
   className?: string;
-  question: {
-    wording: string;
-    choices: Array<{ id: string; text: string }>;
-    imageFullUrl?: string;
-  };
+  question: Question;
   questionNumber: number;
 }
 

@@ -1,9 +1,9 @@
 import gql from 'graphql-tag';
-import PropTypes from 'prop-types';
 import React from 'react';
 import { Query } from 'react-apollo';
 
 import ErrorMessage from '../ErrorMessage';
+import { Question } from '../Question/DetailsConnector';
 
 export const testQuery = gql`
   query testQuery($id: ID!) {
@@ -25,7 +25,21 @@ export const testQuery = gql`
   }
 `;
 
-const TestDetailsConnector = ({ children, id }) => (
+interface Test {
+  id: string;
+  questions: [Question];
+  title: string;
+}
+
+interface TestDetailsConnectorProps {
+  id: Test['id'];
+  children: (connectorProps: { test: Test }) => JSX.Element;
+}
+
+const TestDetailsConnector: React.FunctionComponent<TestDetailsConnectorProps> = ({
+  children,
+  id,
+}) => (
   <Query query={testQuery} variables={{ id }}>
     {({ data, error, loading }) => {
       if (error) return <ErrorMessage message={`Erro ao carregar questão (${error.message})`} />;
@@ -36,10 +50,5 @@ const TestDetailsConnector = ({ children, id }) => (
     }}
   </Query>
 );
-
-TestDetailsConnector.propTypes = {
-  children: PropTypes.func.isRequired,
-  id: PropTypes.string.isRequired,
-};
 
 export default TestDetailsConnector;
