@@ -1,3 +1,4 @@
+import { Theme } from '@material-ui/core';
 import Document, { Head, Main, NextScript } from 'next/document';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -11,6 +12,7 @@ interface Props {
 class MyDocument extends Document<Props> {
   render() {
     const { pageContext } = this.props;
+    const theme = pageContext.theme as Theme;
 
     return (
       <html lang="en" dir="ltr">
@@ -22,7 +24,7 @@ class MyDocument extends Document<Props> {
             content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
           />
           {/* PWA primary color */}
-          <meta name="theme-color" content={pageContext.theme.palette.primary[500]} />
+          <meta name="theme-color" content={theme.palette.primary[500]} />
           <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
