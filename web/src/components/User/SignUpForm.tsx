@@ -16,10 +16,11 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import ApolloClient from 'apollo-client';
 import cookie from 'cookie';
 import gql from 'graphql-tag';
 import React, { FormEventHandler } from 'react';
-import { compose, graphql, withApollo } from 'react-apollo';
+import { compose, FetchResult, graphql, MutationFn, NamedProps, withApollo } from 'react-apollo';
 
 import redirect from '../../utils/redirect';
 import Link from '../Link';
@@ -147,11 +148,27 @@ class SignUpForm extends React.Component<Props> {
   }
 }
 
+interface Response {
+  signup: {
+    token: string;
+  };
+}
+
+interface Variables {
+  name: string;
+  email: string;
+  password: string;
+}
+
+interface InputProps {
+  client: ApolloClient<any>;
+}
+
 export default compose(
   withStyles(styles),
   // withApollo exposes `this.props.client` used when logging out
   withApollo,
-  graphql(
+  graphql<InputProps, Response, Variables, {}>(
     // The `createUser` & `signinUser` mutations are provided by graph.cool by
     // default.
     // Multiple mutations are executed by graphql sequentially
@@ -170,7 +187,7 @@ export default compose(
         createWithEmail,
         // `client` is provided by the `withApollo` HOC
         ownProps: { client },
-      }) => ({
+      }: NamedProps<{ createWithEmail: MutationFn<Response, Variables> }, InputProps>) => ({
         // `createUser` is the name of the prop passed to the component
         createUser: event => {
           /* global FormData */
@@ -181,12 +198,12 @@ export default compose(
 
           createWithEmail({
             variables: {
-              email: data.get('email'),
-              password: data.get('password'),
-              name: data.get('name'),
+              email: data.get('email').toString(),
+              password: data.get('password').toString(),
+              name: data.get('name').toString(),
             },
           })
-            .then(({ data: { signup: { token } } }) => {
+            .then(({ data: { signup: { token } } }: FetchResult<Response>) => {
               // Store the token in cookie
               document.cookie = cookie.serialize('token', token, {
                 maxAge: 30 * 24 * 60 * 60, // 30 days
