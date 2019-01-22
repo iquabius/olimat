@@ -1,6 +1,6 @@
 import { createGenerateClassName, createMuiTheme } from '@material-ui/core/styles';
 import { MuiThemeProviderProps } from '@material-ui/core/styles/MuiThemeProvider';
-import { GenerateClassName, SheetsRegistry } from 'jss';
+import { GenerateClassName, JSS, SheetsRegistry } from 'jss';
 
 function getTheme(uiTheme) {
   return createMuiTheme({
@@ -25,6 +25,7 @@ const defaultTheme = {
 // Check MuiThemeProviderProps interface
 export interface PageContext extends MuiThemeProviderProps {
   generateClassName: GenerateClassName<string>; // not sure what goes here
+  jss?: JSS;
   sheetsRegistry: SheetsRegistry;
 }
 
