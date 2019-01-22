@@ -44,6 +44,7 @@ export interface Question {
   id: string;
   wording: string;
   choices: Array<{ id: string; text: string }>;
+  imageUrl?: string;
   imageFullUrl?: string;
 }
 
