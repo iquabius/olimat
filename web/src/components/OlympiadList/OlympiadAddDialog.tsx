@@ -56,8 +56,10 @@ const OlympiadAddDialog: React.FunctionComponent<Props> = ({
           margin="dense"
           label="Ano"
           type="number"
-          min="1999"
-          max="2018"
+          inputProps={{
+            min: '1999',
+            max: '2018',
+          }}
           fullWidth
           value={values.year}
           onChange={handleChange}
