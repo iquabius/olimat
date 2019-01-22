@@ -1,5 +1,5 @@
+import { NormalizedCacheObject } from 'apollo-cache-inmemory';
 import Head from 'next/head';
-import PropTypes from 'prop-types';
 import React from 'react';
 import { ApolloProvider, getDataFromTree } from 'react-apollo';
 
@@ -9,15 +9,15 @@ import initApollo from './initApollo';
 // Gets the display name of a JSX component for dev tools
 const getDisplayName = ({ displayName, name }) => displayName || name || 'Unknown';
 
+interface Props {
+  apolloState: NormalizedCacheObject;
+}
+
 // Maybe we should keep the Apollo Client instance in the state, instead of a property
 
 export default App => {
-  return class WithData extends React.Component {
+  return class WithData extends React.Component<Props> {
     static displayName = `WithData(${getDisplayName(App)})`;
-
-    static propTypes = {
-      apolloState: PropTypes.object.isRequired,
-    };
 
     static async getInitialProps(ctx) {
       const {
