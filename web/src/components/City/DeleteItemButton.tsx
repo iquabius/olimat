@@ -10,8 +10,7 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { Formik } from 'formik';
 import gql from 'graphql-tag';
-import { withSnackbar } from 'notistack';
-import PropTypes from 'prop-types';
+import { InjectedNotistackProps, withSnackbar } from 'notistack';
 import React from 'react';
 import { Mutation } from 'react-apollo';
 import { withState } from 'recompose';
@@ -61,8 +60,20 @@ const updateCache = (cache, { data: { deleteCity } }) => {
   });
 };
 
+interface InnerProps extends InjectedNotistackProps {
+  deleteWarningOpen: boolean;
+  setDeleteWarningOpen: (open: boolean) => void;
+}
+
+interface OuterProps {
+  city: {
+    id: string;
+    name: string;
+  };
+}
+
 // TODO: While deleting the edit button should also be disabled
-const CityDeleteItemButton = ({
+const CityDeleteItemButton: React.FunctionComponent<InnerProps & OuterProps> = ({
   city,
   deleteWarningOpen,
   enqueueSnackbar,
@@ -70,12 +81,16 @@ const CityDeleteItemButton = ({
 }) => (
   <Mutation mutation={deleteCityMutation} update={updateCache}>
     {deleteCity => (
-      <Formik onSubmit={openDeleteWarningDialog(setDeleteWarningOpen)}>
+      <Formik initialValues={{ id: '' }} onSubmit={openDeleteWarningDialog(setDeleteWarningOpen)}>
         {({ handleSubmit, isSubmitting, setSubmitting }) => (
+          // Maybe the wrapping element should de a <form/>
+          // We set IconButton type to 'submit'
           <React.Fragment>
-            <IconButton disabled={isSubmitting} onClick={handleSubmit} aria-label="Excluir cidade">
-              <DeleteIcon />
-            </IconButton>
+            <form onSubmit={handleSubmit} style={{ display: 'inline' }}>
+              <IconButton disabled={isSubmitting} type="submit" aria-label="Excluir cidade">
+                <DeleteIcon />
+              </IconButton>
+            </form>
             <Dialog
               open={deleteWarningOpen}
               onClose={onCancelDelete(setDeleteWarningOpen, setSubmitting)}
@@ -111,15 +126,7 @@ const CityDeleteItemButton = ({
   </Mutation>
 );
 
-CityDeleteItemButton.propTypes = {
-  city: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-  }),
-  enqueueSnackbar: PropTypes.func.isRequired,
-};
-
-export default compose(
+export default compose<InnerProps, OuterProps>(
   withSnackbar,
   withState('deleteWarningOpen', 'setDeleteWarningOpen', false),
 )(CityDeleteItemButton);

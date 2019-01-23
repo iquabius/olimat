@@ -1,4 +1,10 @@
-import { ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary } from '@material-ui/core';
+import {
+  createStyles,
+  ExpansionPanel,
+  ExpansionPanelDetails,
+  ExpansionPanelSummary,
+  Theme,
+} from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
@@ -13,24 +19,25 @@ import { withState } from 'recompose';
 
 import OlympiadAddDialog from './OlympiadAddDialog';
 
-const styles = theme => ({
-  root: {
-    flexGrow: 1,
-    marginTop: theme.spacing.unit * 3,
-    marginBottom: theme.spacing.unit * 6,
-  },
-  heading: {
-    fontSize: theme.typography.pxToRem(15),
-    fontWeight: theme.typography.fontWeightRegular,
-  },
-  secondaryHeading: {
-    fontSize: theme.typography.pxToRem(15),
-    color: theme.palette.text.secondary,
-  },
-  column: {
-    flexBasis: '50%',
-  },
-});
+const styles = (theme: Theme) =>
+  createStyles({
+    root: {
+      flexGrow: 1,
+      marginTop: theme.spacing.unit * 3,
+      marginBottom: theme.spacing.unit * 6,
+    },
+    heading: {
+      fontSize: theme.typography.pxToRem(15),
+      fontWeight: theme.typography.fontWeightRegular,
+    },
+    secondaryHeading: {
+      fontSize: theme.typography.pxToRem(15),
+      color: theme.palette.text.secondary,
+    },
+    column: {
+      flexBasis: '50%',
+    },
+  });
 
 const OlympiadList = props => {
   const {

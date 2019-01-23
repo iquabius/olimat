@@ -1,10 +1,18 @@
+import { Theme } from '@material-ui/core';
 import Document, { Head, Main, NextScript } from 'next/document';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-class MyDocument extends Document {
+import { PageContextThemeProps } from '../utils/getPageContext';
+
+interface Props {
+  pageContext: PageContextThemeProps;
+}
+
+class MyDocument extends Document<Props> {
   render() {
     const { pageContext } = this.props;
+    const theme = pageContext.theme as Theme;
 
     return (
       <html lang="en" dir="ltr">
@@ -16,7 +24,7 @@ class MyDocument extends Document {
             content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
           />
           {/* PWA primary color */}
-          <meta name="theme-color" content={pageContext.theme.palette.primary[500]} />
+          <meta name="theme-color" content={theme.palette.primary[500]} />
           <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
@@ -60,7 +68,7 @@ MyDocument.getInitialProps = ctx => {
   // 4. page.render
 
   // Render app and page and get the context of the page with collected side effects.
-  let pageContext;
+  let pageContext: PageContextThemeProps;
   const page = ctx.renderPage(Component => {
     const WrappedComponent = props => {
       pageContext = props.pageContext;

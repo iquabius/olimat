@@ -3,13 +3,22 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { withFormik } from 'formik';
 import gql from 'graphql-tag';
-import PropTypes from 'prop-types';
-import React from 'react';
-import { compose, graphql } from 'react-apollo';
+import React, { FormEventHandler } from 'react';
+import { compose, graphql, MutationFn } from 'react-apollo';
 
-import { allSchoolsQuery } from '.';
+import { allSchoolsQuery, City } from '.';
 
-const SchoolAddDialog = ({
+interface Props {
+  handleBlur: FormEventHandler;
+  handleChange: FormEventHandler;
+  handleSubmit: FormEventHandler;
+  isSubmitting: boolean;
+  onClose: () => void;
+  open: boolean;
+  values: SchoolFormValues;
+}
+
+const SchoolAddDialog: React.FunctionComponent<Props> = ({
   open,
   onClose,
   handleSubmit,
@@ -82,24 +91,6 @@ const SchoolAddDialog = ({
   </Dialog>
 );
 
-SchoolAddDialog.propTypes = {
-  handleBlur: PropTypes.func.isRequired,
-  handleChange: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
-  isSubmitting: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
-  open: PropTypes.bool.isRequired,
-  values: PropTypes.shape({
-    address: PropTypes.string,
-    city: PropTypes.string.isRequired,
-    director: PropTypes.string,
-    email: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    pedagogyCoord: PropTypes.string,
-    phone: PropTypes.string.isRequired,
-  }).isRequired,
-};
-
 export const newSchoolMutation = gql`
   mutation newSchoolMutation(
     $name: String!
@@ -130,19 +121,34 @@ export const newSchoolMutation = gql`
   }
 `;
 
+interface SchoolFormValues {
+  name: string;
+  email: string;
+  phone?: string;
+  pedagogyCoord?: string;
+  director?: string;
+  city: City;
+  address?: string;
+}
+
+interface SchoolFormProps {
+  newSchool: MutationFn;
+  onClose: Props['onClose'];
+}
+
 export default compose(
   graphql(newSchoolMutation, {
     // Use an unambiguous name for use in the `props` section below
     name: 'newSchool',
   }),
-  withFormik({
+  withFormik<SchoolFormProps, SchoolFormValues>({
     mapPropsToValues: () => ({
       name: '',
       email: '',
       phone: '',
       pedagogyCoord: '',
       director: '',
-      city: '',
+      city: { name: '' },
       address: '',
     }),
     handleSubmit: (values, { props: { newSchool, onClose }, setSubmitting }) => {
@@ -157,7 +163,7 @@ export default compose(
           address: values.address,
         },
         update: (proxy, { data: { createSchool } }) => {
-          const data = proxy.readQuery({ query: allSchoolsQuery });
+          const data = proxy.readQuery<{ schools: SchoolFormValues[] }>({ query: allSchoolsQuery });
           data.schools.push(createSchool);
 
           proxy.writeQuery({ query: allSchoolsQuery, data });

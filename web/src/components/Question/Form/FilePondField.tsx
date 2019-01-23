@@ -1,4 +1,4 @@
-import { withStyles } from '@material-ui/core';
+import { createStyles, Theme, withStyles } from '@material-ui/core';
 import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation';
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
 import PropTypes from 'prop-types';
@@ -12,11 +12,12 @@ import { File, FilePond, registerPlugin } from 'react-filepond';
 
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 
-const styles = theme => ({
-  filePond: {
-    marginTop: theme.spacing.unit * 2,
-  },
-});
+const styles = (theme: Theme) =>
+  createStyles({
+    filePond: {
+      marginTop: theme.spacing.unit * 2,
+    },
+  });
 
 // FilePond's file object has a property 'origin', but it holds an integer
 // value: 1 for input, 2 for limbo, and 3 for local

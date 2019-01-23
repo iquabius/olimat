@@ -1,28 +1,29 @@
 import IconButton from '@material-ui/core/IconButton';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
-import { withStyles } from '@material-ui/core/styles';
+import { createStyles, Theme, withStyles, WithStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import CloseIcon from '@material-ui/icons/Close';
 import SaveIcon from '@material-ui/icons/Save';
 import { Formik } from 'formik';
 import gql from 'graphql-tag';
-import React from 'react';
+import React, { MouseEventHandler } from 'react';
 import { Mutation } from 'react-apollo';
 
 import { allCitiesQuery } from './List';
 
-const styles = theme => ({
-  textField: {
-    marginLeft: -theme.spacing.unit,
-    // marginRight: theme.spacing.unit,
-    marginBottom: -7,
-    marginTop: -7,
-  },
-  textFieldInput: {
-    padding: '10px 10px',
-  },
-});
+const styles = (theme: Theme) =>
+  createStyles({
+    textField: {
+      marginLeft: -theme.spacing.unit,
+      // marginRight: theme.spacing.unit,
+      marginBottom: -7,
+      marginTop: -7,
+    },
+    textFieldInput: {
+      padding: '10px 10px',
+    },
+  });
 
 export const updateCityMutation = gql`
   mutation updateCityMutation($id: ID!, $name: String!) {
@@ -61,7 +62,16 @@ const updateCache = (proxy, { data: { updateCity } }) => {
   proxy.writeQuery({ query: allCitiesQuery, data });
 };
 
-const EditListItem = ({ city, handleCloseEdit, classes }) => {
+interface EditListItemProps extends WithStyles<typeof styles> {
+  city: {};
+  handleCloseEdit: MouseEventHandler;
+}
+
+const EditListItem: React.FunctionComponent<EditListItemProps> = ({
+  city,
+  handleCloseEdit,
+  classes,
+}) => {
   return (
     <Mutation mutation={updateCityMutation} update={updateCache}>
       {updateCity => (

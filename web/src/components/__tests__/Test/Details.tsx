@@ -8,7 +8,7 @@ import { renderApollo } from '../../../utils/test/test-utils';
 import TestDetails from '../../Test/Details';
 
 const MockTestDetails = () => (
-  <MockNextContext router={{ query: { id: 'theTestId1' } }}>
+  <MockNextContext router={{ query: { id: 'theTestId1' } } as any}>
     <TestDetails />
   </MockNextContext>
 );

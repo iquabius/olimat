@@ -1,8 +1,7 @@
-import { IconButton, withStyles } from '@material-ui/core';
+import { createStyles, IconButton, Theme, withStyles, WithStyles } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Router from 'next/router';
-import { withSnackbar } from 'notistack';
-import PropTypes from 'prop-types';
+import { InjectedNotistackProps, withSnackbar } from 'notistack';
 import React from 'react';
 import { withState } from 'recompose';
 import compose from 'recompose/compose';
@@ -10,13 +9,14 @@ import compose from 'recompose/compose';
 import DeleteWarningDialog from './DeleteWarningDialog';
 import DeleteConnector from './Question/DeleteConnector';
 
-const styles = theme => ({
-  root: {
-    '&:hover': {
-      color: 'inherit',
+const styles = (theme: Theme) =>
+  createStyles({
+    root: {
+      '&:hover': {
+        color: 'inherit',
+      },
     },
-  },
-});
+  });
 
 const deleteHandler = (deleteQuestion, question, enqueueSnackbar, setSubmitting) => () => {
   setSubmitting(true);
@@ -56,7 +56,23 @@ const truncate = (str, noWords) =>
     .join(' ')
     .concat(' [...]');
 
-const SafeDeleteIconButton = ({
+interface InnerProps extends InjectedNotistackProps, WithStyles<typeof styles> {
+  deleteWarningOpen: boolean;
+  setDeleteWarningOpen: (open: boolean) => void;
+  setSubmitting: (submitting: boolean) => void;
+  submitting: boolean;
+}
+
+interface OuterProps {
+  question: {
+    id: string;
+    wording: string;
+    // choices: Array<{ id: string; text: string }>;
+    // imageFullUrl?: string;
+  };
+}
+
+const SafeDeleteIconButton: React.FunctionComponent<InnerProps & OuterProps> = ({
   classes,
   deleteWarningOpen,
   enqueueSnackbar,
@@ -93,19 +109,7 @@ const SafeDeleteIconButton = ({
   );
 };
 
-SafeDeleteIconButton.propTypes = {
-  classes: PropTypes.object.isRequired,
-  deleteWarningOpen: PropTypes.bool.isRequired,
-  enqueueSnackbar: PropTypes.func.isRequired,
-  question: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-  }).isRequired,
-  setDeleteWarningOpen: PropTypes.func.isRequired,
-  setSubmitting: PropTypes.func.isRequired,
-  submitting: PropTypes.bool.isRequired,
-};
-
-export default compose(
+export default compose<InnerProps, OuterProps>(
   withSnackbar,
   withState('deleteWarningOpen', 'setDeleteWarningOpen', false),
   withState('submitting', 'setSubmitting', false),

@@ -1,10 +1,13 @@
 import {
+  createStyles,
   FormControl,
   FormControlLabel,
   FormGroup,
   Input,
   InputAdornment,
   InputLabel,
+  Theme,
+  WithStyles,
 } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
@@ -16,37 +19,50 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import React from 'react';
+import React, { FormEventHandler } from 'react';
 import { compose } from 'react-apollo';
 import { fromRenderProps } from 'recompose';
 
 import Link from '../Link';
 
-import LoginConnector from './LoginConnector';
+import LoginConnector, { LoginConnectorProps } from './LoginConnector';
 
-const styles = theme => ({
-  loginBox: {
-    position: 'relative',
-    width: 350,
-    maxHeight: 390,
-    padding: theme.spacing.unit * 4,
-  },
-  loginHead: {
-    marginBottom: theme.spacing.unit * 2,
-    textAlign: 'center',
-  },
-  passwordInput: {
-    height: 'inherit',
-  },
-  loginButton: {
-    marginTop: theme.spacing.unit * 2,
-  },
-  helpMessage: {
-    marginTop: theme.spacing.unit * 2,
-  },
-});
+const styles = (theme: Theme) =>
+  createStyles({
+    loginBox: {
+      position: 'relative',
+      width: 350,
+      maxHeight: 390,
+      padding: theme.spacing.unit * 4,
+    },
+    loginHead: {
+      marginBottom: theme.spacing.unit * 2,
+      textAlign: 'center',
+    },
+    passwordInput: {
+      height: 'inherit',
+    },
+    loginButton: {
+      marginTop: theme.spacing.unit * 2,
+    },
+    helpMessage: {
+      marginTop: theme.spacing.unit * 2,
+    },
+  });
 
-class LoginForm extends React.Component {
+interface InnerProps {
+  handleSignIn: FormEventHandler;
+}
+
+interface OuterProps extends WithStyles<typeof styles> {}
+
+interface State {
+  keepLoggedIn: boolean;
+  password: string;
+  showPassword: boolean;
+}
+
+class LoginForm extends React.Component<InnerProps & OuterProps, State> {
   state = {
     password: '',
     showPassword: false,
@@ -54,7 +70,7 @@ class LoginForm extends React.Component {
   };
 
   handleChange = prop => event => {
-    this.setState({ [prop]: event.target.value });
+    this.setState({ [prop]: event.target.value } as any);
   };
 
   handleMouseDownPassword = event => {
@@ -149,7 +165,14 @@ class LoginForm extends React.Component {
   }
 }
 
-const loginConnector = fromRenderProps(LoginConnector, ({ handleSignIn }) => ({ handleSignIn }));
+interface RenderProps {
+  handleSignIn: LoginConnectorProps['handleSignIn'];
+}
+
+const loginConnector = fromRenderProps<InnerProps, OuterProps, RenderProps>(
+  LoginConnector,
+  ({ handleSignIn }) => ({ handleSignIn }),
+);
 
 export default compose(
   loginConnector,

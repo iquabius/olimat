@@ -1,16 +1,18 @@
 import {
+  createStyles,
   Table,
   TableBody,
   TableCell,
   TableFooter,
   TablePagination,
   TableRow,
+  Theme,
+  WithStyles,
 } from '@material-ui/core';
 import Checkbox from '@material-ui/core/Checkbox';
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
 import gql from 'graphql-tag';
-import PropTypes from 'prop-types';
 import React from 'react';
 import { compose, graphql } from 'react-apollo';
 
@@ -18,21 +20,50 @@ import EnhancedTableHead from './EnhancedTableHead';
 import EnhancedTableToolbar from './EnhancedTableToolbar';
 import SchoolAddDialog from './SchoolAddDialog';
 
-const styles = theme => ({
-  root: {
-    width: '100%',
-    marginTop: theme.spacing.unit * 3,
-    marginBottom: theme.spacing.unit * 6,
-  },
-  table: {
-    minWidth: 800,
-  },
-  tableWrapper: {
-    overflowX: 'auto',
-  },
-});
+const styles = (theme: Theme) =>
+  createStyles({
+    root: {
+      width: '100%',
+      marginTop: theme.spacing.unit * 3,
+      marginBottom: theme.spacing.unit * 6,
+    },
+    table: {
+      minWidth: 800,
+    },
+    tableWrapper: {
+      overflowX: 'auto',
+    },
+  });
 
-class SchoolTable extends React.Component {
+export interface City {
+  name: string;
+}
+
+interface School {
+  id: string;
+  name: string;
+  city: City;
+  phone: string;
+}
+interface Props extends WithStyles<typeof styles> {
+  data: {
+    schools: School[];
+  };
+}
+
+type SchoolTableOrder = 'asc' | 'desc';
+
+interface State {
+  addDialogOpen: boolean;
+  order: SchoolTableOrder;
+  orderBy: 'name' | 'city' | 'fone';
+  selected: string[];
+  schools: School[];
+  page: number;
+  rowsPerPage: number;
+}
+
+class SchoolTable extends React.Component<Props, State> {
   constructor(props, context) {
     super(props, context);
 
@@ -57,7 +88,7 @@ class SchoolTable extends React.Component {
 
   handleRequestSort = (event, property) => {
     const orderBy = property;
-    let order = 'desc';
+    let order: SchoolTableOrder = 'desc';
 
     if (this.state.orderBy === property && this.state.order === 'desc') {
       order = 'asc';
@@ -188,20 +219,6 @@ class SchoolTable extends React.Component {
     );
   }
 }
-
-SchoolTable.propTypes = {
-  classes: PropTypes.object.isRequired,
-  data: PropTypes.shape({
-    schools: PropTypes.arrayOf(
-      PropTypes.shape({
-        city: PropTypes.shape({ name: PropTypes.string.isRequired }),
-        id: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        phone: PropTypes.string,
-      }),
-    ).isRequired,
-  }).isRequired,
-};
 
 export const allSchoolsQuery = gql`
   query allSchoolsQuery {

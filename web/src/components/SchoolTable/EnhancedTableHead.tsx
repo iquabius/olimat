@@ -1,7 +1,7 @@
 import { TableCell, TableHead, TableRow, TableSortLabel } from '@material-ui/core';
 import Checkbox from '@material-ui/core/Checkbox';
+import { SortDirection } from '@material-ui/core/TableCell';
 import Tooltip from '@material-ui/core/Tooltip';
-import PropTypes from 'prop-types';
 import React from 'react';
 
 const columnData = [
@@ -10,7 +10,16 @@ const columnData = [
   { id: 'phone', numeric: false, disablePadding: false, label: 'Telefone' },
 ];
 
-class EnhancedTableHead extends React.Component {
+interface Props {
+  numSelected: number;
+  onRequestSort: (event: React.MouseEvent, property: string) => void;
+  onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => void;
+  order: SortDirection;
+  orderBy: string;
+  rowCount: number;
+}
+
+class EnhancedTableHead extends React.Component<Props> {
   createSortHandler = property => event => {
     this.props.onRequestSort(event, property);
   };
@@ -43,7 +52,7 @@ class EnhancedTableHead extends React.Component {
                 >
                   <TableSortLabel
                     active={orderBy === column.id}
-                    direction={order}
+                    direction={order ? order : 'asc'}
                     onClick={this.createSortHandler(column.id)}
                   >
                     {column.label}
@@ -57,14 +66,5 @@ class EnhancedTableHead extends React.Component {
     );
   }
 }
-
-EnhancedTableHead.propTypes = {
-  numSelected: PropTypes.number.isRequired,
-  onRequestSort: PropTypes.func.isRequired,
-  onSelectAllClick: PropTypes.func.isRequired,
-  order: PropTypes.string.isRequired,
-  orderBy: PropTypes.string.isRequired,
-  rowCount: PropTypes.number.isRequired,
-};
 
 export default EnhancedTableHead;

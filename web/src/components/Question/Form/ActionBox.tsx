@@ -1,4 +1,4 @@
-import { Button, withStyles } from '@material-ui/core';
+import { Button, createStyles, Theme, withStyles } from '@material-ui/core';
 import Router from 'next/router';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -7,33 +7,34 @@ import { withState } from 'recompose';
 
 import CancelDialog from '../CancelDialog';
 
-const styles = theme => ({
-  actionBox: {
-    display: 'flex',
-    flex: '0 0 auto',
-    flexWrap: 'wrap',
-    justifyContent: 'flex-end',
-    marginTop: theme.spacing.unit,
-  },
-  saveButton: {
-    width: '33%',
-  },
-  cancelButton: {
-    width: '25%',
-    marginRight: theme.spacing.unit,
-  },
-  [theme.breakpoints.down('xs')]: {
+const styles = (theme: Theme) =>
+  createStyles({
+    actionBox: {
+      display: 'flex',
+      flex: '0 0 auto',
+      flexWrap: 'wrap',
+      justifyContent: 'flex-end',
+      marginTop: theme.spacing.unit,
+    },
     saveButton: {
-      width: '100%',
+      width: '33%',
     },
     cancelButton: {
-      marginRight: 0,
-      marginTop: theme.spacing.unit,
-      width: '100%',
-      order: 1,
+      width: '25%',
+      marginRight: theme.spacing.unit,
     },
-  },
-});
+    [theme.breakpoints.down('xs')]: {
+      saveButton: {
+        width: '100%',
+      },
+      cancelButton: {
+        marginRight: 0,
+        marginTop: theme.spacing.unit,
+        width: '100%',
+        order: 1,
+      },
+    },
+  });
 
 const createCancelEditingHandler = (formikProps, showWarning) => () => {
   if (formikProps.dirty) {

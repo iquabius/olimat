@@ -1,8 +1,9 @@
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { MuiThemeProvider } from '@material-ui/core/styles';
-import PropTypes from 'prop-types';
 import React from 'react';
 import JssProvider from 'react-jss/lib/JssProvider';
+
+import { PageContextThemeProps } from '../utils/getPageContext';
 
 // Inject the <!--insertion-point-jss--> at the end of <head> (see pages/_document.js)
 if (process.browser && !global.__INSERTION_POINT__) {
@@ -15,7 +16,11 @@ if (process.browser && !global.__INSERTION_POINT__) {
   }
 }
 
-class AppWrapper extends React.Component {
+interface Props {
+  pageContext: PageContextThemeProps;
+}
+
+class AppWrapper extends React.Component<Props> {
   state = {};
 
   componentDidMount() {
@@ -44,10 +49,5 @@ class AppWrapper extends React.Component {
     );
   }
 }
-
-AppWrapper.propTypes = {
-  children: PropTypes.node.isRequired,
-  pageContext: PropTypes.object,
-};
 
 export default AppWrapper;

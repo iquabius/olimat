@@ -1,4 +1,4 @@
-import { Tooltip } from '@material-ui/core';
+import { createStyles, Theme, Tooltip, WithStyles } from '@material-ui/core';
 import AppBar from '@material-ui/core/AppBar';
 import IconButton from '@material-ui/core/IconButton';
 import { withStyles } from '@material-ui/core/styles';
@@ -10,13 +10,12 @@ import LightbulbOutlineIcon from '@material-ui/docs/svgIcons/LightbulbOutline';
 import MenuIcon from '@material-ui/icons/Menu';
 import Router from 'next/router';
 import NProgress from 'nprogress';
-import PropTypes from 'prop-types';
 import React from 'react';
 import { compose } from 'react-apollo';
 import fromRenderProps from 'recompose/fromRenderProps';
 
 import AppDrawer from './AppDrawer';
-import PageContext from './PageContext';
+import PageContext, { UiTheme } from './PageContext';
 import PageTitle from './PageTitle';
 import UserMenuAppBar from './UserMenuAppBar';
 
@@ -32,47 +31,52 @@ Router.onRouteChangeError = () => {
   NProgress.done();
 };
 
-const styles = theme => ({
-  root: {
-    display: 'flex',
-    alignItems: 'stretch',
-    minHeight: '100vh',
-    width: '100%',
-  },
-  grow: {
-    flex: '1 1 auto',
-  },
-  title: {
-    marginLeft: 24,
-    flex: '0 1 auto',
-  },
-  appBar: {
-    transition: theme.transitions.create('width'),
-    '@media print': {
-      position: 'absolute',
+const styles = (theme: Theme) =>
+  createStyles({
+    root: {
+      display: 'flex',
+      alignItems: 'stretch',
+      minHeight: '100vh',
+      width: '100%',
     },
-  },
-  appBarHome: {
-    boxShadow: 'none',
-  },
-  appBarShift: {
-    [theme.breakpoints.up('lg')]: {
-      width: 'calc(100% - 250px)',
+    grow: {
+      flex: '1 1 auto',
     },
-  },
-  drawer: {
-    [theme.breakpoints.up('lg')]: {
-      width: 250,
+    title: {
+      marginLeft: 24,
+      flex: '0 1 auto',
     },
-  },
-  navIconHide: {
-    [theme.breakpoints.up('lg')]: {
-      display: 'none',
+    appBar: {
+      transition: theme.transitions.create('width'),
+      '@media print': {
+        position: 'absolute',
+      },
     },
-  },
-});
+    appBarHome: {
+      boxShadow: 'none',
+    },
+    appBarShift: {
+      [theme.breakpoints.up('lg')]: {
+        width: 'calc(100% - 250px)',
+      },
+    },
+    drawer: {
+      [theme.breakpoints.up('lg')]: {
+        width: 250,
+      },
+    },
+    navIconHide: {
+      [theme.breakpoints.up('lg')]: {
+        display: 'none',
+      },
+    },
+  });
 
-class AppFrame extends React.Component {
+interface Props extends WithStyles<typeof styles> {
+  uiTheme: UiTheme;
+}
+
+class AppFrame extends React.Component<Props> {
   state = {
     mobileOpen: false,
   };
@@ -160,16 +164,17 @@ class AppFrame extends React.Component {
   }
 }
 
-AppFrame.propTypes = {
-  children: PropTypes.node.isRequired,
-  classes: PropTypes.object.isRequired,
-  uiTheme: PropTypes.shape({
-    handleTogglePaletteType: PropTypes.func.isRequired,
-    paletteType: PropTypes.string.isRequired,
-  }).isRequired,
-};
+interface RenderProps {
+  uiTheme: UiTheme;
+}
 
-const pageContext = fromRenderProps(PageContext.Consumer, ({ uiTheme }) => ({ uiTheme }));
+// Higher Order Components and TypeScript is terrible
+const pageContext = fromRenderProps<RenderProps, Props, RenderProps>(
+  PageContext.Consumer,
+  ({ uiTheme }) => ({
+    uiTheme,
+  }),
+);
 
 export default compose(
   pageContext,

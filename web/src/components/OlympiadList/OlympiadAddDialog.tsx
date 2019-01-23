@@ -3,13 +3,32 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { withFormik } from 'formik';
 import gql from 'graphql-tag';
-import PropTypes from 'prop-types';
-import React from 'react';
-import { compose, graphql } from 'react-apollo';
+import React, { FocusEventHandler, FormEventHandler } from 'react';
+import { compose, graphql, MutationFn } from 'react-apollo';
 
 import { allOlympiadsQuery } from '.';
 
-const OlympiadAddDialog = ({
+interface FormValues {
+  createdBy: {
+    email: string;
+  };
+  id: string;
+  isPublished: boolean;
+  name: string;
+  year: string;
+}
+
+interface Props {
+  handleBlur: FocusEventHandler;
+  handleChange: FormEventHandler;
+  handleSubmit: FormEventHandler;
+  isSubmitting: boolean;
+  onClose: () => void;
+  open: boolean;
+  values: FormValues;
+}
+
+const OlympiadAddDialog: React.FunctionComponent<Props> = ({
   open,
   onClose,
   handleSubmit,
@@ -37,8 +56,10 @@ const OlympiadAddDialog = ({
           margin="dense"
           label="Ano"
           type="number"
-          min="1999"
-          max="2018"
+          inputProps={{
+            min: '1999',
+            max: '2018',
+          }}
           fullWidth
           value={values.year}
           onChange={handleChange}
@@ -57,24 +78,6 @@ const OlympiadAddDialog = ({
   </Dialog>
 );
 
-OlympiadAddDialog.propTypes = {
-  handleBlur: PropTypes.func.isRequired,
-  handleChange: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
-  isSubmitting: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
-  open: PropTypes.bool.isRequired,
-  values: PropTypes.shape({
-    createdBy: PropTypes.shape({
-      email: PropTypes.string.isRequired,
-    }),
-    id: PropTypes.string.isRequired,
-    isPublished: PropTypes.bool.isRequired,
-    name: PropTypes.string.isRequired,
-    year: PropTypes.string.isRequired,
-  }).isRequired,
-};
-
 export const newOlympiadMutation = gql`
   mutation newOlympiadMutation($name: String!, $year: DateTime!) {
     createOlympiad(name: $name, year: $year) {
@@ -89,13 +92,31 @@ export const newOlympiadMutation = gql`
   }
 `;
 
+interface Olympiad {
+  id: string;
+  name: string;
+  isPublished: boolean;
+}
+
+interface Data {
+  createOlympiad: Olympiad;
+}
+
+interface OlympiadFormProps {
+  newOlympiad: MutationFn<Data>;
+  onClose: Props['onClose'];
+}
+
 export default compose(
   graphql(newOlympiadMutation, {
     // Use an unambiguous name for use in the `props` section below
     name: 'newOlympiad',
   }),
-  withFormik({
+  withFormik<OlympiadFormProps, FormValues>({
     mapPropsToValues: () => ({
+      id: '',
+      createdBy: { email: '' },
+      isPublished: false,
       name: '',
       year: '',
     }),
@@ -106,7 +127,7 @@ export default compose(
           year: new Date(values.year),
         },
         update: (proxy, { data: { createOlympiad } }) => {
-          const data = proxy.readQuery({ query: allOlympiadsQuery });
+          const data = proxy.readQuery<{ olympiads: Olympiad[] }>({ query: allOlympiadsQuery });
           data.olympiads.push(createOlympiad);
 
           proxy.writeQuery({ query: allOlympiadsQuery, data });

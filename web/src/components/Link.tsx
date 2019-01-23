@@ -1,35 +1,54 @@
-import { withStyles } from '@material-ui/core/styles';
+import { createStyles, Theme, withStyles, WithStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 import NextLink from 'next/link';
 import { withRouter } from 'next/router';
-import PropTypes from 'prop-types';
-import React from 'react';
+import React, { MouseEventHandler } from 'react';
 import compose from 'recompose/compose';
 
-const styles = theme => ({
-  root: {
-    textDecoration: 'none',
-    '&:hover': {
-      textDecoration: 'underline',
+const styles = (theme: Theme) =>
+  createStyles({
+    root: {
+      textDecoration: 'none',
+      '&:hover': {
+        textDecoration: 'underline',
+      },
     },
-  },
-  default: {
-    color: 'inherit',
-  },
-  primary: {
-    color: theme.palette.primary.main,
-  },
-  secondary: {
-    color: theme.palette.secondary.main,
-  },
-  button: {
-    '&:hover': {
-      textDecoration: 'inherit',
+    default: {
+      color: 'inherit',
     },
-  },
-});
+    primary: {
+      color: theme.palette.primary.main,
+    },
+    secondary: {
+      color: theme.palette.secondary.main,
+    },
+    button: {
+      '&:hover': {
+        textDecoration: 'inherit',
+      },
+    },
+  });
 
-const Link = props => {
+interface InnerProps extends WithStyles<typeof styles> {
+  router: {
+    pathname: string;
+  };
+}
+
+type Variant = 'default' | 'primary' | 'secondary' | 'button' | 'inherit';
+
+interface OuterProps {
+  activeClassName?: string;
+  // children: node.isRequired;
+  className?: string;
+  component?: any;
+  href?: string;
+  onClick?: MouseEventHandler;
+  prefetch?: boolean;
+  variant?: Variant;
+}
+
+const Link: React.FunctionComponent<InnerProps & OuterProps> = props => {
   const {
     activeClassName,
     children: childrenProp,
@@ -90,27 +109,12 @@ const Link = props => {
   return <ComponentRoot {...RootProps}>{children}</ComponentRoot>;
 };
 
-Link.defaultProps = {
-  variant: 'default',
-  activeClassName: 'active',
-};
+// Link.defaultProps = {
+//   variant: 'default',
+//   activeClassName: 'active',
+// };
 
-Link.propTypes = {
-  activeClassName: PropTypes.string,
-  children: PropTypes.node.isRequired,
-  classes: PropTypes.object.isRequired,
-  className: PropTypes.string,
-  component: PropTypes.any,
-  href: PropTypes.string,
-  onClick: PropTypes.func,
-  prefetch: PropTypes.bool,
-  router: PropTypes.shape({
-    pathname: PropTypes.string.isRequired,
-  }).isRequired,
-  variant: PropTypes.oneOf(['default', 'primary', 'secondary', 'button', 'inherit']),
-};
-
-export default compose(
+export default compose<InnerProps, OuterProps>(
   withRouter,
   withStyles(styles),
 )(Link);

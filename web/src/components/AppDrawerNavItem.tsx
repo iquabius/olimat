@@ -1,52 +1,63 @@
 import Button from '@material-ui/core/Button';
 import Collapse from '@material-ui/core/Collapse';
 import ListItem from '@material-ui/core/ListItem';
-import { withStyles } from '@material-ui/core/styles';
-import { Theme } from '@material-ui/core/styles/createMuiTheme';
+import { createStyles, Theme, withStyles, WithStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
-import PropTypes from 'prop-types';
-import React from 'react';
+import React, { MouseEventHandler } from 'react';
 
 import Link from './Link';
 
-/**
- * This callback function is used to create the styles
- * @param {Theme} theme Material-UI theme
- */
-const styles = ({ palette, typography }) => ({
-  item: {
-    display: 'block',
-    paddingTop: 0,
-    paddingBottom: 0,
-  },
-  itemLeaf: {
-    display: 'flex',
-    paddingTop: 0,
-    paddingBottom: 0,
-  },
-  button: {
-    letterSpacing: 0,
-    justifyContent: 'flex-start',
-    textTransform: 'none',
-    width: '100%',
-  },
-  buttonLeaf: {
-    letterSpacing: 0,
-    justifyContent: 'flex-start',
-    textTransform: 'none',
-    width: '100%',
-    fontWeight: typography.fontWeightRegular,
-    '&.depth-0': {
+const styles = ({ palette, typography }: Theme) =>
+  createStyles({
+    item: {
+      display: 'block',
+      paddingTop: 0,
+      paddingBottom: 0,
+    },
+    itemLeaf: {
+      display: 'flex',
+      paddingTop: 0,
+      paddingBottom: 0,
+    },
+    button: {
+      letterSpacing: 0,
+      justifyContent: 'flex-start',
+      textTransform: 'none',
+      width: '100%',
+    },
+    buttonLeaf: {
+      letterSpacing: 0,
+      justifyContent: 'flex-start',
+      textTransform: 'none',
+      width: '100%',
+      fontWeight: typography.fontWeightRegular,
+      '&.depth-0': {
+        fontWeight: typography.fontWeightMedium,
+      },
+    },
+    active: {
+      color: palette.type === 'light' ? palette.primary.main : palette.primary.light,
       fontWeight: typography.fontWeightMedium,
     },
-  },
-  active: {
-    color: palette.type === 'light' ? palette.primary.main : palette.primary.light,
-    fontWeight: typography.fontWeightMedium,
-  },
-});
+  });
 
-class AppDrawerNavItem extends React.Component {
+interface Props extends WithStyles<typeof styles> {
+  depth: number;
+  href?: string;
+  onClick?: MouseEventHandler;
+  openImmediately?: boolean;
+  title: string;
+}
+
+interface State {
+  open: boolean;
+}
+
+class AppDrawerNavItem extends React.Component<Props, State> {
+  defaultProps = {
+    openImmediately: false,
+  };
+
   state = {
     open: this.props.openImmediately,
   };
@@ -89,6 +100,9 @@ class AppDrawerNavItem extends React.Component {
         <ListItem className={classes.itemLeaf} disableGutters {...other}>
           <Button
             component={props => (
+              // I'm not sure what to do here. Maybe we should find
+              // a better way to use 'next/link'.
+              // @ts-ignore
               <Link variant="button" activeClassName={classes.active} href={href} {...props} />
             )}
             className={classNames(classes.buttonLeaf, `depth-${depth}`)}
@@ -121,19 +135,5 @@ class AppDrawerNavItem extends React.Component {
     );
   }
 }
-
-AppDrawerNavItem.propTypes = {
-  children: PropTypes.node,
-  classes: PropTypes.object.isRequired,
-  depth: PropTypes.number.isRequired,
-  href: PropTypes.string,
-  onClick: PropTypes.func,
-  openImmediately: PropTypes.bool,
-  title: PropTypes.string.isRequired,
-};
-
-AppDrawerNavItem.defaultProps = {
-  openImmediately: false,
-};
 
 export default withStyles(styles)(AppDrawerNavItem);

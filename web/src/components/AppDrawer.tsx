@@ -2,14 +2,12 @@ import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
 import List from '@material-ui/core/List';
-import { withStyles } from '@material-ui/core/styles';
-import { Theme } from '@material-ui/core/styles/createMuiTheme';
+import { createStyles, Theme, withStyles, WithStyles } from '@material-ui/core/styles';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import classNames from 'classnames';
-import PropTypes from 'prop-types';
-import React from 'react';
+import React, { ReactEventHandler } from 'react';
 
 import { pageToTitle } from '../utils/helpers';
 
@@ -17,39 +15,38 @@ import AppDrawerNavItem from './AppDrawerNavItem';
 import Link from './Link';
 import PageContext from './PageContext';
 
-/**
- * This callback function is used to create the styles
- * @param {Theme} theme Material-UI theme
- */
-const styles = ({ palette }) => ({
-  paper: {
-    width: 250,
-    backgroundColor: palette.background.paper,
-  },
-  title: {
-    color: palette.text.secondary,
-    '&:hover': {
-      color: palette.type === 'light' ? palette.primary.main : palette.primary.light,
-      textDecoration: 'none',
+const styles = ({ palette }: Theme) =>
+  createStyles({
+    paper: {
+      width: 250,
+      backgroundColor: palette.background.paper,
     },
-  },
-  // https://github.com/philipwalton/flexbugs#3-min-height-on-a-flex-container-wont-apply-to-its-flex-items
-  toolbarIe11: {
-    display: 'flex',
-  },
-  toolbar: {
-    flexGrow: 1,
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  anchor: {
-    color: palette.text.secondary,
-  },
-});
+    title: {
+      color: palette.text.secondary,
+      '&:hover': {
+        color: palette.type === 'light' ? palette.primary.main : palette.primary.light,
+        textDecoration: 'none',
+      },
+    },
+    // https://github.com/philipwalton/flexbugs#3-min-height-on-a-flex-container-wont-apply-to-its-flex-items
+    toolbarIe11: {
+      display: 'flex',
+    },
+    toolbar: {
+      flexGrow: 1,
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    anchor: {
+      color: palette.text.secondary,
+    },
+  });
 
 function renderNavItems({ pages, ...params }) {
   return (
+    // I don't know how to type this rest operator...
+    // @ts-ignore
     <List>{pages.reduce((items, page) => reduceChildRoutes({ items, page, ...params }), [])}</List>
   );
 }
@@ -93,13 +90,21 @@ function reduceChildRoutes({ props, activePage, items, page, depth }) {
 // https://github.com/zeit/next.js/issues/2177
 const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
-const AppDrawer = props => {
+interface Props extends WithStyles<typeof styles> {
+  className?: string;
+  disablePermanent: boolean;
+  mobileOpen: boolean;
+  onClose: ReactEventHandler;
+  onOpen: ReactEventHandler;
+}
+
+const AppDrawer: React.FunctionComponent<Props> = props => {
   const { classes, className, disablePermanent, mobileOpen, onClose, onOpen } = props;
 
   const drawer = (
     <PageContext.Consumer>
       {({ activePage, pages }) => (
-        <div className={classes.nav}>
+        <React.Fragment>
           <div className={classes.toolbarIe11}>
             <Toolbar className={classes.toolbar}>
               <Link className={classes.title} href="/" onClick={onClose}>
@@ -111,7 +116,7 @@ const AppDrawer = props => {
             </Toolbar>
           </div>
           {renderNavItems({ props, pages, activePage, depth: 0 })}
-        </div>
+        </React.Fragment>
       )}
     </PageContext.Consumer>
   );
@@ -150,15 +155,6 @@ const AppDrawer = props => {
       )}
     </nav>
   );
-};
-
-AppDrawer.propTypes = {
-  classes: PropTypes.object.isRequired,
-  className: PropTypes.string,
-  disablePermanent: PropTypes.bool.isRequired,
-  mobileOpen: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
-  onOpen: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(AppDrawer);

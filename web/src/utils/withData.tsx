@@ -1,5 +1,6 @@
+import { NormalizedCacheObject } from 'apollo-cache-inmemory';
+import ApolloClient from 'apollo-client';
 import Head from 'next/head';
-import PropTypes from 'prop-types';
 import React from 'react';
 import { ApolloProvider, getDataFromTree } from 'react-apollo';
 
@@ -9,13 +10,13 @@ import initApollo from './initApollo';
 // Gets the display name of a JSX component for dev tools
 const getDisplayName = ({ displayName, name }) => displayName || name || 'Unknown';
 
-export default App => {
-  return class WithData extends React.Component {
-    static displayName = `WithData(${getDisplayName(App)})`;
+interface Props {
+  apolloState: NormalizedCacheObject;
+}
 
-    static propTypes = {
-      apolloState: PropTypes.object.isRequired,
-    };
+export default App => {
+  return class WithData extends React.Component<Props> {
+    static displayName = `WithData(${getDisplayName(App)})`;
 
     static async getInitialProps(ctx) {
       const {
@@ -68,6 +69,8 @@ export default App => {
         ...appProps,
       };
     }
+
+    apolloClient: ApolloClient<any>;
 
     constructor(props) {
       super(props);

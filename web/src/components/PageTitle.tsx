@@ -1,12 +1,15 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 
 import { pageToTitle } from '../utils/helpers';
 
 import PageContext from './PageContext';
 
+interface PageTitleProps {
+  children(title: string): JSX.Element;
+}
+
 // TODO: it really wants to be named useTitle but we're not quite there yet.
-const PageTitle = props => {
+const PageTitle: React.FunctionComponent<PageTitleProps> = props => {
   return (
     <PageContext.Consumer>
       {({ activePage }) => {
@@ -19,10 +22,6 @@ const PageTitle = props => {
       }}
     </PageContext.Consumer>
   );
-};
-
-PageTitle.propTypes = {
-  children: PropTypes.func.isRequired,
 };
 
 export default PageTitle;

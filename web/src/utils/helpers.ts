@@ -1,5 +1,6 @@
 // import warning from 'warning';
 import cookie from 'cookie';
+import http from 'http';
 import camelCase from 'lodash/camelCase';
 import upperFirst from 'lodash/upperFirst';
 
@@ -29,5 +30,5 @@ export function pageToTitle(page) {
   return titleize(name);
 }
 
-export const parseCookies = (req, options = {}) =>
+export const parseCookies = (req?: http.IncomingMessage, options = {}) =>
   cookie.parse(req ? req.headers.cookie || '' : document.cookie, options);

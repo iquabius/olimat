@@ -5,13 +5,13 @@ import { SnackbarProvider } from 'notistack';
 import React from 'react';
 
 import AppWrapper from '../components/AppWrapper';
-import PageContext from '../components/PageContext';
+import PageContext, { LoggedInUser, Page, UiTheme } from '../components/PageContext';
 import checkLoggedIn from '../utils/checkLoggedIn';
-import getPageContext, { updatePageContext } from '../utils/getPageContext';
+import getPageContext, { PageContextThemeProps, updatePageContext } from '../utils/getPageContext';
 import { parseCookies } from '../utils/helpers';
 import withData from '../utils/withData';
 
-const pages = [
+const pages: Page[] = [
   {
     pathname: '/material-didatico',
     children: [
@@ -136,7 +136,17 @@ function findActivePage(currentPages, router) {
   return activePage;
 }
 
-class OliApp extends App {
+interface Props {
+  loggedInUser: LoggedInUser;
+}
+
+interface OliAppState {
+  pageContext: PageContextThemeProps;
+  uiTheme: UiTheme;
+}
+
+// @types/next doesn't allow us to use state with the App component
+class OliApp extends App<Props> {
   constructor(props) {
     super(props);
 
@@ -150,7 +160,7 @@ class OliApp extends App {
   }
 
   handleTogglePaletteType = () => {
-    this.setState(state => {
+    this.setState((state: OliAppState) => {
       const paletteType = state.uiTheme.paletteType === 'light' ? 'dark' : 'light';
       document.cookie = `paletteType=${paletteType};path=/;max-age=31536000`;
 
@@ -166,7 +176,9 @@ class OliApp extends App {
 
   render() {
     const { Component, loggedInUser, pageProps, router } = this.props;
-    const { pageContext, uiTheme } = this.state;
+    // Currently there's no way to pass the state type to Next.js' App component.
+    // Ideally we should be able to extend it like: App<Props, State>
+    const { pageContext, uiTheme } = this.state as OliAppState;
 
     const activePage = findActivePage(pages, router);
 
