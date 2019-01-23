@@ -65,6 +65,14 @@ jobs:
           paths:
             - web/node_modules
           key: web-modules-{{ checksum "web/package.json" }}
+
+      - run:
+        name: Linting
+        command: npm run lint
+
+      - run:
+        name: Typechecking
+        command: npm run typecheck
         
       # run tests!
       # For some reason Jest's multi-project runner breaks backend integration
