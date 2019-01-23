@@ -100,6 +100,9 @@ class AppDrawerNavItem extends React.Component<Props, State> {
         <ListItem className={classes.itemLeaf} disableGutters {...other}>
           <Button
             component={props => (
+              // I'm not sure what to do here. Maybe we should find
+              // a better way to use 'next/link'.
+              // @ts-ignore
               <Link variant="button" activeClassName={classes.active} href={href} {...props} />
             )}
             className={classNames(classes.buttonLeaf, `depth-${depth}`)}

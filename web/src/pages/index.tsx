@@ -91,6 +91,7 @@ const PageHome = props => {
               <Button
                 component={buttonProps => (
                   <Link
+                    // @ts-ignore
                     variant="button"
                     prefetch
                     href="/getting-started/installation"
