@@ -45,6 +45,8 @@ const styles = ({ palette }: Theme) =>
 
 function renderNavItems({ pages, ...params }) {
   return (
+    // I don't know how to type this rest operator...
+    // @ts-ignore
     <List>{pages.reduce((items, page) => reduceChildRoutes({ items, page, ...params }), [])}</List>
   );
 }
