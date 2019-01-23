@@ -3,10 +3,10 @@ import Document, { Head, Main, NextScript } from 'next/document';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import { PageContext } from '../utils/getPageContext';
+import { PageContextThemeProps } from '../utils/getPageContext';
 
 interface Props {
-  pageContext: PageContext;
+  pageContext: PageContextThemeProps;
 }
 
 class MyDocument extends Document<Props> {
@@ -68,7 +68,7 @@ MyDocument.getInitialProps = ctx => {
   // 4. page.render
 
   // Render app and page and get the context of the page with collected side effects.
-  let pageContext: PageContext;
+  let pageContext: PageContextThemeProps;
   const page = ctx.renderPage(Component => {
     const WrappedComponent = props => {
       pageContext = props.pageContext;

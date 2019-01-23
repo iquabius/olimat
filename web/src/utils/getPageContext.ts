@@ -23,13 +23,13 @@ const defaultTheme = {
 };
 
 // Check MuiThemeProviderProps interface
-export interface PageContext extends MuiThemeProviderProps {
+export interface PageContextThemeProps extends MuiThemeProviderProps {
   generateClassName: GenerateClassName<string>; // not sure what goes here
   jss?: JSS;
   sheetsRegistry: SheetsRegistry;
 }
 
-function createPageContext(paletteType): PageContext {
+function createPageContext(paletteType): PageContextThemeProps {
   const theme = getTheme({ ...defaultTheme, paletteType });
 
   return {
@@ -57,7 +57,7 @@ export function updatePageContext(paletteType) {
   return pageContext;
 }
 
-export default function getPageContext(paletteType): PageContext {
+export default function getPageContext(paletteType): PageContextThemeProps {
   // Make sure to create a new context for every server-side request so that data
   // isn't shared between connections (which would be bad).
   if (!process.browser) {
@@ -69,5 +69,5 @@ export default function getPageContext(paletteType): PageContext {
     global.__MUI_PAGE_CONTEXT__ = createPageContext(paletteType);
   }
 
-  return global.__MUI_PAGE_CONTEXT__ as PageContext;
+  return global.__MUI_PAGE_CONTEXT__ as PageContextThemeProps;
 }

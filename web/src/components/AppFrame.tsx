@@ -10,12 +10,12 @@ import LightbulbOutlineIcon from '@material-ui/docs/svgIcons/LightbulbOutline';
 import MenuIcon from '@material-ui/icons/Menu';
 import Router from 'next/router';
 import NProgress from 'nprogress';
-import React, { MouseEventHandler } from 'react';
+import React from 'react';
 import { compose } from 'react-apollo';
 import fromRenderProps from 'recompose/fromRenderProps';
 
 import AppDrawer from './AppDrawer';
-import PageContext from './PageContext';
+import PageContext, { UiTheme } from './PageContext';
 import PageTitle from './PageTitle';
 import UserMenuAppBar from './UserMenuAppBar';
 
@@ -73,10 +73,7 @@ const styles = (theme: Theme) =>
   });
 
 interface Props extends WithStyles<typeof styles> {
-  uiTheme: {
-    handleTogglePaletteType: MouseEventHandler;
-    paletteType: string;
-  };
+  uiTheme: UiTheme;
 }
 
 class AppFrame extends React.Component<Props> {
@@ -168,7 +165,7 @@ class AppFrame extends React.Component<Props> {
 }
 
 interface RenderProps {
-  uiTheme: {};
+  uiTheme: UiTheme;
 }
 
 // Higher Order Components and TypeScript is terrible

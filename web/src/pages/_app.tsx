@@ -5,13 +5,13 @@ import { SnackbarProvider } from 'notistack';
 import React from 'react';
 
 import AppWrapper from '../components/AppWrapper';
-import PageContext from '../components/PageContext';
+import PageContext, { LoggedInUser, Page } from '../components/PageContext';
 import checkLoggedIn from '../utils/checkLoggedIn';
 import getPageContext, { updatePageContext } from '../utils/getPageContext';
 import { parseCookies } from '../utils/helpers';
 import withData from '../utils/withData';
 
-const pages = [
+const pages: Page[] = [
   {
     pathname: '/material-didatico',
     children: [
@@ -137,13 +137,7 @@ function findActivePage(currentPages, router) {
 }
 
 interface Props {
-  // We should change the query in checkLoggedIn to get more user fields
-  loggedInUser: {
-    me: {
-      id: string;
-      name: string;
-    };
-  };
+  loggedInUser: LoggedInUser;
 }
 
 // @types/next doesn't allow us to use state with the App component

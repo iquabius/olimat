@@ -3,7 +3,7 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 import React from 'react';
 import JssProvider from 'react-jss/lib/JssProvider';
 
-import { PageContext } from '../utils/getPageContext';
+import { PageContextThemeProps } from '../utils/getPageContext';
 
 // Inject the <!--insertion-point-jss--> at the end of <head> (see pages/_document.js)
 if (process.browser && !global.__INSERTION_POINT__) {
@@ -17,7 +17,7 @@ if (process.browser && !global.__INSERTION_POINT__) {
 }
 
 interface Props {
-  pageContext: PageContext;
+  pageContext: PageContextThemeProps;
 }
 
 class AppWrapper extends React.Component<Props> {
