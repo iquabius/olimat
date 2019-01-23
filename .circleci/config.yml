@@ -77,7 +77,9 @@ jobs:
       # run tests!
       # For some reason Jest's multi-project runner breaks backend integration
       # and e2e tests. It doesn't work locally nor in the CI.
-      - run: npm run test
+      - run:
+          name: Testing
+          command: npm test
 
 workflows:
   version: 2
