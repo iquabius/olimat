@@ -421,9 +421,9 @@ export interface Query {
 
   school: Maybe<School>;
 
-  tests: Test[];
+  exams: Exam[];
 
-  test: Maybe<Test>;
+  exam: Maybe<Exam>;
 
   me: Maybe<User>;
 }
@@ -457,10 +457,10 @@ export interface User extends Node {
 
   name: string;
 
-  tests: Test[];
+  exams: Exam[];
 }
 
-export interface Test {
+export interface Exam {
   id: string;
 
   title: string;
@@ -575,9 +575,9 @@ export interface Mutation {
 
   updateCity: City;
 
-  createTest: Test;
+  createExam: Exam;
 
-  deleteTest: Test;
+  deleteExam: Exam;
 
   createOlympiad: Olympiad;
 
@@ -640,10 +640,10 @@ export interface QuestionsConnectionQueryArgs {
 export interface SchoolQueryArgs {
   id: string;
 }
-export interface TestQueryArgs {
+export interface ExamQueryArgs {
   id: string;
 }
-export interface QuestionsTestArgs {
+export interface QuestionsExamArgs {
   where: Maybe<QuestionWhereInput>;
 
   orderBy: Maybe<QuestionOrderByInput>;
@@ -681,12 +681,12 @@ export interface UpdateCityMutationArgs {
 
   name: string;
 }
-export interface CreateTestMutationArgs {
+export interface CreateExamMutationArgs {
   title: string;
 
   description: string;
 }
-export interface DeleteTestMutationArgs {
+export interface DeleteExamMutationArgs {
   id: string;
 }
 export interface CreateOlympiadMutationArgs {
@@ -734,7 +734,7 @@ import {
   Question,
   QuestionConnection,
   School,
-  Test,
+  Exam,
   User,
 } from './prisma-client';
 
@@ -804,9 +804,9 @@ export namespace QueryResolvers {
 
     school?: SchoolResolver<Maybe<School>, TypeParent, Context>;
 
-    tests?: TestsResolver<Test[], TypeParent, Context>;
+    exams?: ExamsResolver<Exam[], TypeParent, Context>;
 
-    test?: TestResolver<Maybe<Test>, TypeParent, Context>;
+    exam?: ExamResolver<Maybe<Exam>, TypeParent, Context>;
 
     me?: MeResolver<Maybe<User>, TypeParent, Context>;
   }
@@ -903,18 +903,18 @@ export namespace QueryResolvers {
     id: string;
   }
 
-  export type TestsResolver<R = Test[], Parent = {}, Context = OliContext> = Resolver<
+  export type ExamsResolver<R = Exam[], Parent = {}, Context = OliContext> = Resolver<
     R,
     Parent,
     Context
   >;
-  export type TestResolver<R = Maybe<Test>, Parent = {}, Context = OliContext> = Resolver<
+  export type ExamResolver<R = Maybe<Exam>, Parent = {}, Context = OliContext> = Resolver<
     R,
     Parent,
     Context,
-    TestArgs
+    ExamArgs
   >;
-  export interface TestArgs {
+  export interface ExamArgs {
     id: string;
   }
 
@@ -1006,7 +1006,7 @@ export namespace UserResolvers {
 
     name?: NameResolver<string, TypeParent, Context>;
 
-    tests?: TestsResolver<Test[], TypeParent, Context>;
+    exams?: ExamsResolver<Exam[], TypeParent, Context>;
   }
 
   export type IdResolver<R = string, Parent = User, Context = OliContext> = Resolver<
@@ -1024,15 +1024,15 @@ export namespace UserResolvers {
     Parent,
     Context
   >;
-  export type TestsResolver<R = Test[], Parent = User, Context = OliContext> = Resolver<
+  export type ExamsResolver<R = Exam[], Parent = User, Context = OliContext> = Resolver<
     R,
     Parent,
     Context
   >;
 }
 
-export namespace TestResolvers {
-  export interface Resolvers<Context = OliContext, TypeParent = Test> {
+export namespace ExamResolvers {
+  export interface Resolvers<Context = OliContext, TypeParent = Exam> {
     id?: IdResolver<string, TypeParent, Context>;
 
     title?: TitleResolver<string, TypeParent, Context>;
@@ -1048,29 +1048,29 @@ export namespace TestResolvers {
     updatedAt?: UpdatedAtResolver<DateTime, TypeParent, Context>;
   }
 
-  export type IdResolver<R = string, Parent = Test, Context = OliContext> = Resolver<
+  export type IdResolver<R = string, Parent = Exam, Context = OliContext> = Resolver<
     R,
     Parent,
     Context
   >;
-  export type TitleResolver<R = string, Parent = Test, Context = OliContext> = Resolver<
+  export type TitleResolver<R = string, Parent = Exam, Context = OliContext> = Resolver<
     R,
     Parent,
     Context
   >;
   export type DescriptionResolver<
     R = Maybe<string>,
-    Parent = Test,
+    Parent = Exam,
     Context = OliContext
   > = Resolver<R, Parent, Context>;
-  export type AuthorResolver<R = User, Parent = Test, Context = OliContext> = Resolver<
+  export type AuthorResolver<R = User, Parent = Exam, Context = OliContext> = Resolver<
     R,
     Parent,
     Context
   >;
   export type QuestionsResolver<
     R = Maybe<Question[]>,
-    Parent = Test,
+    Parent = Exam,
     Context = OliContext
   > = Resolver<R, Parent, Context, QuestionsArgs>;
   export interface QuestionsArgs {
@@ -1089,12 +1089,12 @@ export namespace TestResolvers {
     last: Maybe<number>;
   }
 
-  export type CreatedAtResolver<R = DateTime, Parent = Test, Context = OliContext> = Resolver<
+  export type CreatedAtResolver<R = DateTime, Parent = Exam, Context = OliContext> = Resolver<
     R,
     Parent,
     Context
   >;
-  export type UpdatedAtResolver<R = DateTime, Parent = Test, Context = OliContext> = Resolver<
+  export type UpdatedAtResolver<R = DateTime, Parent = Exam, Context = OliContext> = Resolver<
     R,
     Parent,
     Context
@@ -1401,9 +1401,9 @@ export namespace MutationResolvers {
 
     updateCity?: UpdateCityResolver<City, TypeParent, Context>;
 
-    createTest?: CreateTestResolver<Test, TypeParent, Context>;
+    createExam?: CreateExamResolver<Exam, TypeParent, Context>;
 
-    deleteTest?: DeleteTestResolver<Test, TypeParent, Context>;
+    deleteExam?: DeleteExamResolver<Exam, TypeParent, Context>;
 
     createOlympiad?: CreateOlympiadResolver<Olympiad, TypeParent, Context>;
 
@@ -1478,25 +1478,25 @@ export namespace MutationResolvers {
     name: string;
   }
 
-  export type CreateTestResolver<R = Test, Parent = {}, Context = OliContext> = Resolver<
+  export type CreateExamResolver<R = Exam, Parent = {}, Context = OliContext> = Resolver<
     R,
     Parent,
     Context,
-    CreateTestArgs
+    CreateExamArgs
   >;
-  export interface CreateTestArgs {
+  export interface CreateExamArgs {
     title: string;
 
     description: string;
   }
 
-  export type DeleteTestResolver<R = Test, Parent = {}, Context = OliContext> = Resolver<
+  export type DeleteExamResolver<R = Exam, Parent = {}, Context = OliContext> = Resolver<
     R,
     Parent,
     Context,
-    DeleteTestArgs
+    DeleteExamArgs
   >;
-  export interface DeleteTestArgs {
+  export interface DeleteExamArgs {
     id: string;
   }
 
@@ -1680,7 +1680,7 @@ export interface IResolvers {
   City?: CityResolvers.Resolvers;
   Olympiad?: OlympiadResolvers.Resolvers;
   User?: UserResolvers.Resolvers;
-  Test?: TestResolvers.Resolvers;
+  Exam?: ExamResolvers.Resolvers;
   Question?: QuestionResolvers.Resolvers;
   QuestionChoice?: QuestionChoiceResolvers.Resolvers;
   OlympiadConnection?: OlympiadConnectionResolvers.Resolvers;

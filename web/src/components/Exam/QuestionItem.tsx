@@ -32,7 +32,7 @@ interface Props extends WithStyles<typeof styles> {
   questionNumber: number;
 }
 
-const TestQuestionItem: React.FunctionComponent<Props> = ({
+const ExamQuestionItem: React.FunctionComponent<Props> = ({
   classes,
   className,
   questionNumber,
@@ -52,4 +52,4 @@ const TestQuestionItem: React.FunctionComponent<Props> = ({
   </div>
 );
 
-export default withStyles(styles)(TestQuestionItem);
+export default withStyles(styles)(ExamQuestionItem);

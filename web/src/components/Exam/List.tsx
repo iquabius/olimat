@@ -9,6 +9,7 @@ import {
   withStyles,
   WithStyles,
 } from '@material-ui/core';
+import { ListItemProps } from '@material-ui/core/ListItem';
 import EditIcon from '@material-ui/icons/Edit';
 import React from 'react';
 
@@ -24,26 +25,26 @@ const styles = (theme: Theme) =>
     },
   });
 
-const TestItemLink = props => {
-  return <ListItem variant="button" button dense component={Link} {...props} />;
+const ExamItemLink: React.FunctionComponent<ListItemProps> = props => {
+  return <ListItem button dense component={Link} {...props} />;
 };
 
 interface Props extends WithStyles<typeof styles> {}
 
-const TestList: React.FunctionComponent<Props> = ({ classes }) => {
+const ExamList: React.FunctionComponent<Props> = ({ classes }) => {
   return (
     <ListConnector>
-      {({ tests }) => (
+      {({ exams }) => (
         <List className={classes.root}>
-          {tests.map(test => (
-            <TestItemLink key={test.id} href={`/admin/provas/detalhes?id=${test.id}`}>
-              <ListItemText primary={test.title} />
+          {exams.map(exam => (
+            <ExamItemLink key={exam.id} href={`/admin/provas/detalhes?id=${exam.id}`}>
+              <ListItemText primary={exam.title} />
               <ListItemSecondaryAction>
                 <IconButton aria-label="Editar prova">
                   <EditIcon />
                 </IconButton>
               </ListItemSecondaryAction>
-            </TestItemLink>
+            </ExamItemLink>
           ))}
         </List>
       )}
@@ -51,4 +52,4 @@ const TestList: React.FunctionComponent<Props> = ({ classes }) => {
   );
 };
 
-export default withStyles(styles)(TestList);
+export default withStyles(styles)(ExamList);

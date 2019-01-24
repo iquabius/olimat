@@ -20,8 +20,8 @@ type Query {
     last: Int): QuestionConnection!
   schools: [School!]!
   school(id: ID!): School
-  tests: [Test!]!
-  test(id: ID!): Test
+  exams: [Exam!]!
+  exam(id: ID!): Exam
   me: User
 }
 
@@ -31,8 +31,8 @@ type Mutation {
   createCity(name: String!): City!
   deleteCity(id: ID!): City!
   updateCity(id: ID!, name: String!): City!
-  createTest(title: String!, description: String!): Test!
-  deleteTest(id: ID!): Test!
+  createExam(title: String!, description: String!): Exam!
+  deleteExam(id: ID!): Exam!
   createOlympiad(name: String!, year: DateTime!): Olympiad!
   createQuestion(input: QuestionCreateInput!): QuestionPayload!
   deleteQuestion(id: ID!): QuestionPayload!
@@ -81,7 +81,7 @@ type User implements Node {
   id: ID!
   email: String!
   name: String!
-  tests: [Test!]!
+  exams: [Exam!]!
 }
 
 type Question implements Node {

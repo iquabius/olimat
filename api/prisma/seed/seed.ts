@@ -31,15 +31,15 @@ const setup = async () => {
 
   // Relaciona as 10 primeiras questões a cada uma das provas
   // Isto é feito aqui porque em data.ts não temos acesso ao id das questões
-  data.tests = data.tests.map((test, index) => ({
-    ...test,
+  data.exams = data.exams.map((exam, index) => ({
+    ...exam,
     questions: {
       // Filtra as 10 questões que pertencem a prove no 'index'
-      connect: questions.filter(data.isTestQuestion(index)).map(({ id }) => ({ id })),
+      connect: questions.filter(data.isExamQuestion(index)).map(({ id }) => ({ id })),
     },
   }));
   // Insere as provas
-  await Promise.all(data.tests.map(prisma.createTest));
+  await Promise.all(data.exams.map(prisma.createExam));
 
   // Insere as escolas
   await Promise.all(data.schools.map(prisma.createSchool));

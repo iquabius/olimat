@@ -2,14 +2,14 @@ import React from 'react';
 
 import AppContent from '../../../components/AppContent';
 import AppFrame from '../../../components/AppFrame';
-import TestDetails from '../../../components/Test/Details';
+import ExamDetails from '../../../components/Exam/Details';
 
-const PageAdminTestDetails: React.FunctionComponent = () => (
+const PageAdminExamDetails: React.FunctionComponent = () => (
   <AppFrame>
     <AppContent>
-      <TestDetails />
+      <ExamDetails />
     </AppContent>
   </AppFrame>
 );
 
-export default PageAdminTestDetails;
+export default PageAdminExamDetails;

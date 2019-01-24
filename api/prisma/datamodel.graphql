@@ -55,7 +55,7 @@ type School {
   address: String
 }
 
-type Test {
+type Exam {
   id: ID! @unique
   title: String!
   description: String
@@ -70,5 +70,5 @@ type User {
   email: String! @unique
   password: String!
   name: String!
-  tests: [Test!]!
+  exams: [Exam!]!
 }

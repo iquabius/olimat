@@ -31,7 +31,7 @@ const globalMocks = {
   // Makes all ID types random ids instead of a hello world string
   ID: () => faker.random.uuid(),
   // Uses 'faker' to generate more meaninful data
-  Test: () => ({
+  Exam: () => ({
     title: () => faker.lorem.sentence(),
     questions: () => new MockList(10),
   }),

@@ -5,7 +5,7 @@ import { OliContext } from '../../../utils';
 const createMockContext = jest.fn<OliContext>(() => ({
   prisma: {
     question: jest.fn(),
-    test: jest.fn(),
+    exam: jest.fn(),
   },
   req: {},
   config: {},

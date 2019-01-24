@@ -15,7 +15,7 @@ generates:
         Question: ./prisma-client#Question
         QuestionConnection: ./prisma-client#QuestionConnection
         School: ./prisma-client#School
-        Test: ./prisma-client#Test
+        Exam: ./prisma-client#Exam
         User: ./prisma-client#User
     plugins:
       - "typescript-common"
