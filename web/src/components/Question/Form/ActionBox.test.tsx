@@ -2,7 +2,7 @@ import Router from 'next/router';
 import React from 'react';
 import { fireEvent, render } from 'react-testing-library';
 
-import ActionBox from '../../../Question/Form/ActionBox';
+import ActionBox from './ActionBox';
 
 jest.mock('next/router');
 
