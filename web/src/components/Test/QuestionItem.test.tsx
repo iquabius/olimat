@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from 'react-testing-library';
 
-import QuestionItem from '../../Test/QuestionItem';
+import QuestionItem from './QuestionItem';
 
 describe('<TestQuestionItem />', () => {
   const questionSample = {
