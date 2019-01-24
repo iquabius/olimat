@@ -59,12 +59,12 @@ export const Query: QueryResolvers.Resolvers = {
     return ctx.prisma.school({ id });
   },
 
-  tests(_, args, ctx, info) {
-    return ctx.prisma.tests({});
+  exams(_, args, ctx, info) {
+    return ctx.prisma.exams({});
   },
 
-  test(_, { id }, ctx, info) {
-    return ctx.prisma.test({ id });
+  exam(_, { id }, ctx, info) {
+    return ctx.prisma.exam({ id });
   },
 
   me(_, args, ctx, info) {
