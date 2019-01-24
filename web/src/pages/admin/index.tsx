@@ -4,12 +4,12 @@ import React from 'react';
 
 import AppContent from '../../components/AppContent';
 import AppFrame from '../../components/AppFrame';
-import TestList from '../../components/Test/List';
+import ExamList from '../../components/Exam/List';
 
 const PageAdmin: React.FunctionComponent = () => (
   <AppFrame>
     <AppContent>
-      <TestList />
+      <ExamList />
     </AppContent>
   </AppFrame>
 );

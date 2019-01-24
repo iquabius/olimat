@@ -5,9 +5,9 @@ import { Query } from 'react-apollo';
 import ErrorMessage from '../ErrorMessage';
 import { Question } from '../Question/DetailsConnector';
 
-export const testQuery = gql`
-  query testQuery($id: ID!) {
-    test(id: $id) {
+export const examQuery = gql`
+  query examQuery($id: ID!) {
+    exam(id: $id) {
       id
       title
       questions {
@@ -25,30 +25,30 @@ export const testQuery = gql`
   }
 `;
 
-interface Test {
+interface Exam {
   id: string;
   questions: [Question];
   title: string;
 }
 
-interface TestDetailsConnectorProps {
-  id: Test['id'];
-  children: (connectorProps: { test: Test }) => JSX.Element;
+interface ExamDetailsConnectorProps {
+  id: Exam['id'];
+  children: (connectorProps: { exam: Exam }) => JSX.Element;
 }
 
-const TestDetailsConnector: React.FunctionComponent<TestDetailsConnectorProps> = ({
+const ExamDetailsConnector: React.FunctionComponent<ExamDetailsConnectorProps> = ({
   children,
   id,
 }) => (
-  <Query query={testQuery} variables={{ id }}>
+  <Query query={examQuery} variables={{ id }}>
     {({ data, error, loading }) => {
       if (error) return <ErrorMessage message={`Erro ao carregar questão (${error.message})`} />;
       if (loading) return <div>Loading...</div>;
-      const test = data.test;
+      const exam = data.exam;
 
-      return children({ test });
+      return children({ exam });
     }}
   </Query>
 );
 
-export default TestDetailsConnector;
+export default ExamDetailsConnector;

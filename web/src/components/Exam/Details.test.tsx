@@ -6,11 +6,11 @@ import MockErrorProvider from '../../utils/test/MockErrorProvider';
 import MockNextContext from '../../utils/test/MockNextContext';
 import { renderApollo } from '../../utils/test/test-utils';
 
-import TestDetails from './Details';
+import ExamDetails from './Details';
 
-const MockTestDetails = () => (
-  <MockNextContext router={{ query: { id: 'theTestId1' } } as any}>
-    <TestDetails />
+const MockExamDetails = () => (
+  <MockNextContext router={{ query: { id: 'theExamId1' } } as any}>
+    <ExamDetails />
   </MockNextContext>
 );
 
@@ -19,25 +19,26 @@ const MockTestDetails = () => (
 // Outra opção é exportar o componente sem embrulhá-lo com os HoC, e passar os mocks
 // https://stackoverflow.com/questions/44204828
 
-describe('<TestDetails />', () => {
+describe('<ExamDetails />', () => {
   test('renders loading state initially', () => {
-    const { getByText } = renderApollo(<MockTestDetails />);
+    const { getByText } = renderApollo(<MockExamDetails />);
     getByText(/loading/i);
   });
 
-  test('renders the details of a test', async () => {
+  test('renders the details of an exam', async () => {
     const customResolvers = {
-      Test: () => ({
+      // We need to update the GraphQL API as well
+      Exam: () => ({
         title: '2017 - Fase 3 - Ano 5',
       }),
     };
     const { getByText, getByTestId } = render(
       <FakeDataProvider customResolvers={customResolvers}>
-        <MockTestDetails />
+        <MockExamDetails />
       </FakeDataProvider>,
     );
 
-    await waitForElement(() => getByText(customResolvers.Test().title));
+    await waitForElement(() => getByText(customResolvers.Exam().title));
 
     const questionListNode = getByTestId('questionList');
     expect(questionListNode).toBeInTheDocument();
@@ -51,7 +52,7 @@ describe('<TestDetails />', () => {
 
     const { getByText } = render(
       <MockErrorProvider graphqlErrors={[{ message: errorMsg }]}>
-        <MockTestDetails />
+        <MockExamDetails />
       </MockErrorProvider>,
     );
 

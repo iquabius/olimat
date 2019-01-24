@@ -5,28 +5,28 @@ import { Query } from 'react-apollo';
 
 import ErrorMessage from '../ErrorMessage';
 
-export const allTests = gql`
-  query allTests {
-    tests {
+export const allExams = gql`
+  query allExams {
+    exams {
       id
       title
     }
   }
 `;
 
-const TestListConnector = ({ children }) => (
-  <Query query={allTests}>
+const ExamListConnector = ({ children }) => (
+  <Query query={allExams}>
     {({ data, error, loading }) => {
-      if (error) return <ErrorMessage message={`Error loading tests (${error.message})`} />;
+      if (error) return <ErrorMessage message={`Error loading exams (${error.message})`} />;
       if (loading) return <div>Loading</div>;
 
-      return children({ tests: data.tests });
+      return children({ exams: data.exams });
     }}
   </Query>
 );
 
-TestListConnector.propTypes = {
+ExamListConnector.propTypes = {
   children: PropTypes.func.isRequired,
 };
 
-export default TestListConnector;
+export default ExamListConnector;
