@@ -1,13 +1,13 @@
 import React from 'react';
 import { render } from 'react-testing-library';
 
-import QuestionItem from './QuestionItem';
+import ExamQuestionItem from './QuestionItem';
 
-describe('<TestQuestionItem />', () => {
+describe('<ExamQuestionItem />', () => {
   const questionSample = {
     id: 'qId1',
     wording: 'Amostra de questão',
-    imageFullUrl: 'test-sample-image.jpg',
+    imageFullUrl: 'exam-question-sample-image.jpg',
     choices: [
       { id: 'cId1', text: 'Alternativa A' },
       { id: 'cId2', text: 'Alternativa B' },
@@ -19,7 +19,7 @@ describe('<TestQuestionItem />', () => {
 
   test('renders a question', () => {
     const { container, getByAltText, getByText } = render(
-      <QuestionItem questionNumber={1} question={questionSample} />,
+      <ExamQuestionItem questionNumber={1} question={questionSample} />,
     );
 
     // Confere se a imagem foi renderizada com o atributo 'src' correto
