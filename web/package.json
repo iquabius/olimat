@@ -45,7 +45,7 @@
     "react-lines-ellipsis": "0.13.2",
     "recompose": "0.30.0",
     "webpack-bundle-analyzer": "3.0.3",
-    "yup": "0.26.6"
+    "yup": "0.26.10"
   },
   "devDependencies": {
     "@types/faker": "4.1.4",
