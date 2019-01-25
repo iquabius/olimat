@@ -6,9 +6,5 @@
     "allowJs": true,
     "noEmit": true,
     "preserveConstEnums": true,
-    // Maybe use this if we install all '@types/*' packages at the root
-    // "typeRoots": [
-    //     "./node_modules/@types"
-    // ]
   }
 }
