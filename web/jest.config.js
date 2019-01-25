@@ -1,11 +1,10 @@
 // Common options should be extracted to monorepo's root: jest.workspace.js
 // const rootConfig = require('../jest.workspace.js');
+
+// No need to specify 'transformer', Jest v24 uses babel-jest by default
+// https://jestjs.io/blog/2019/01/25/jest-24-refreshing-polished-typescript-friendly
 module.exports = {
-  setupTestFrameworkScriptFile: require.resolve('./jest.setup.ts'),
-  transform: {
-    '\\.(ts|tsx)$': 'babel-jest',
-  },
-  testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$',
+  displayName: 'Web',
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
   testPathIgnorePatterns: ['<rootDir>/.next/', '<rootDir>/node_modules/'],
-  moduleFileExtensions: ['js', 'ts', 'tsx'],
 };
