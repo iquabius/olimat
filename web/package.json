@@ -9,7 +9,6 @@
     "dev": "next ./src",
     "build": "next build ./src",
     "start": "next start ./src",
-    "test": "../node_modules/jest/bin/jest.js",
     "analyze": "cross-env ANALYZE=1 next build ./src"
   },
   "dependencies": {

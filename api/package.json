@@ -10,7 +10,6 @@
     "start": "node -r dotenv/config dist/index.js",
     "dev": "nodemon -e ts,graphql -x ts-node -r dotenv/config src/index.ts",
     "debug": "nodemon --config nodemon.debug.json",
-    "test": "../node_modules/jest/bin/jest.js",
     "clean:files": "rimraf files",
     "copy:files": "copyfiles -V -u 2 ./prisma/seed_files/**/* ./files",
     "graphql:generate-types": "gql-gen --config codegen.yml"
@@ -54,7 +53,6 @@
     "nodemon": "1.18.9",
     "prisma": "1.25.3",
     "rimraf": "2.6.3",
-    "ts-jest": "23.10.5",
     "ts-node": "8.0.1"
   },
   "repository": "github:iquabius/olimat"
