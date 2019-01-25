@@ -1,4 +1,5 @@
 module.exports = {
+  displayName: 'API',
   setupFiles: ['<rootDir>/jest.setup.js'],
   transform: {
     '\\.ts?$': 'ts-jest',

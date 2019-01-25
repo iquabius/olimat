@@ -1,6 +1,7 @@
 // Common options should be extracted to monorepo's root: jest.workspace.js
 // const rootConfig = require('../jest.workspace.js');
 module.exports = {
+  displayName: 'Web',
   setupTestFrameworkScriptFile: require.resolve('./jest.setup.ts'),
   transform: {
     '\\.(ts|tsx)$': 'babel-jest',
