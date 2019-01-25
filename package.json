@@ -42,8 +42,7 @@
     "lint": "tslint --project tsconfig.json && echo \"TSLint: no lint errors\"",
     "lint:fix": "tslint --project tsconfig.json --fix && echo \"TSLint: no lint errors\"",
     "lint:check": "tslint-config-prettier-check ./tslint.json ./api/tslint.json ./web/tslint.json",
-    "test": "lerna run test",
-    "test:this-breaks-api-integration-tests": "jest",
+    "test": "jest",
     "typecheck": "npm-run-all --parallel typecheck:*",
     "typecheck:api": "tsc --noEmit --project api/tsconfig.json",
     "typecheck:web": "tsc --noEmit --project web/tsconfig.json"
