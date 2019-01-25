@@ -5,6 +5,5 @@ module.exports = {
     '\\.ts?$': 'ts-jest',
   },
   testPathIgnorePatterns: ['dist', '/node_modules/', '/__utils'],
-  moduleFileExtensions: ['ts', 'js'],
   // collectCoverage: true,
 };
