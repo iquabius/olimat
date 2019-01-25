@@ -6,7 +6,6 @@
 module.exports = {
   displayName: 'Web',
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
-  testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$',
   testPathIgnorePatterns: ['<rootDir>/.next/', '<rootDir>/node_modules/'],
   moduleFileExtensions: ['js', 'ts', 'tsx'],
 };
