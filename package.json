@@ -8,7 +8,7 @@
     "@babel/core": "7.2.2",
     "@types/classnames": "2.2.7",
     "@types/cookie": "0.3.2",
-    "@types/jest": "23.3.12",
+    "@types/jest": "23.3.13",
     "@types/node": "10.12.18",
     "@types/nprogress": "0.0.29",
     "@types/react-jss": "8.6.0",
