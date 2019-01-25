@@ -5,7 +5,7 @@
 // https://jestjs.io/blog/2019/01/25/jest-24-refreshing-polished-typescript-friendly
 module.exports = {
   displayName: 'Web',
-  setupTestFrameworkScriptFile: require.resolve('./jest.setup.ts'),
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
   testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$',
   testPathIgnorePatterns: ['<rootDir>/.next/', '<rootDir>/node_modules/'],
   moduleFileExtensions: ['js', 'ts', 'tsx'],
