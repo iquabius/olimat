@@ -40,6 +40,7 @@
     "lint:fix": "tslint --project tsconfig.json --fix && echo \"TSLint: no lint errors\"",
     "lint:check": "tslint-config-prettier-check ./tslint.json ./api/tslint.json ./web/tslint.json",
     "test": "jest",
+    "test:coverage": "jest --coverage",
     "test:watch": "jest --watch",
     "typecheck": "npm-run-all --parallel typecheck:*",
     "typecheck:api": "tsc --noEmit --project api/tsconfig.json",

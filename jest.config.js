@@ -4,6 +4,6 @@
 module.exports = {
   projects: ['<rootDir>/api', '<rootDir>/web'],
   // coverageReporters: ['text', 'lcov'],
-  // collectCoverageFrom: ['src/**/*.ts'],
-  // coverageDirectory: 'coverage',
+  collectCoverageFrom: ['**/*.{ts,tsx}', '!**/node_modules/**', '!**/build/**'],
+  coverageDirectory: 'coverage',
 };
