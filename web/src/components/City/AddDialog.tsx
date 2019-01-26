@@ -31,8 +31,6 @@ const onSubmitCity = (newCity, onClose) => (values, { resetForm }) => {
       onClose();
     })
     .catch(error => {
-      // Something went wrong, such as incorrect password, or no network
-      // available, etc.
       console.error(error);
     });
 };

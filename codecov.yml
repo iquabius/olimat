@@ -1,0 +1,19 @@
+coverage:
+  status:
+    project:
+      default: off
+      api:
+        flags: api
+        target: 30%
+      web:
+        flags: api
+        target: 50%
+flags:
+  api:
+    paths:
+      - api/
+    assume: true
+  web:
+    paths:
+      - web/
+    assume: true
