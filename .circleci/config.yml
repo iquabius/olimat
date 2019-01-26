@@ -1,5 +1,6 @@
 version: 2.1
 orbs:
+  codecov: codecov/codecov@1.0.3
   cypress: cypress-io/cypress@1.5.0
 
 executors:
@@ -81,9 +82,8 @@ jobs:
           name: Testing
           command: npm run test:coverage
 
-      - run:
-          name: Upload test coverage reports to Codecov
-          command: npm run test:coverage:upload
+      # Upload test coverage reports to Codecov
+      - codecov/upload
 
 workflows:
   version: 2
