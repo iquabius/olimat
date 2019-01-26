@@ -79,7 +79,7 @@ jobs:
       # and e2e tests. It doesn't work locally nor in the CI.
       - run:
           name: Testing
-          command: npm test:ci
+          command: npm run test:ci
 
 workflows:
   version: 2
