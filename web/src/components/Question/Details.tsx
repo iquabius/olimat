@@ -11,7 +11,7 @@ import {
 import EditIcon from '@material-ui/icons/Edit';
 import Error from 'next/error';
 import NextLink from 'next/link';
-import { withRouter, WithRouterProps } from 'next/router';
+import { DefaultQuery, withRouter, WithRouterProps } from 'next/router';
 import React from 'react';
 import compose from 'recompose/compose';
 
@@ -44,10 +44,14 @@ const styles = (theme: Theme) =>
     },
   });
 
-interface Props extends WithRouterProps, WithStyles<typeof styles> {}
+interface Query extends DefaultQuery {
+  id?: string;
+}
+
+interface Props extends WithRouterProps<Query>, WithStyles<typeof styles> {}
 
 const QuestionDetails: React.FunctionComponent<Props> = ({ classes, router }) => {
-  const id = router.query.id as string;
+  const id = router.query.id;
   if (!id) return <Error statusCode={404} />;
 
   return (
