@@ -79,7 +79,11 @@ jobs:
       # and e2e tests. It doesn't work locally nor in the CI.
       - run:
           name: Testing
-          command: npm run test:ci
+          command: npm run test:coverage
+
+      - run:
+          name: Upload test coverage reports to Codecov
+          command: npm run test:coverage:upload
 
 workflows:
   version: 2
