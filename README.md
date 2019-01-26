@@ -5,6 +5,7 @@
 Uma aplicação web de código aberto para as Olimpíadas de Matemática da [UNEMAT](http://portal.unemat.br).
 
 [![CircleCI](https://circleci.com/gh/iquabius/olimat/tree/master.svg?style=svg)](https://circleci.com/gh/iquabius/olimat/tree/master)
+[![Codecov Coverage](https://img.shields.io/codecov/c/github/iquabius/olimat/master.svg?style=flat&logo=Codecov)](https://codecov.io/gh/iquabius/olimat/)
 [![Cypress.io tests](https://img.shields.io/badge/cypress.io-tests-green.svg?style=flat)](https://cypress.io)
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-brightgreen.svg)](https://www.gnu.org/licenses/agpl-3.0)
 ![Code style](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)
