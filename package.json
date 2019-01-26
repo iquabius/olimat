@@ -42,7 +42,6 @@
     "lint:check": "tslint-config-prettier-check ./tslint.json ./api/tslint.json ./web/tslint.json",
     "test": "jest",
     "test:coverage": "jest --coverage",
-    "test:coverage:upload": "codecov",
     "test:codecov:validate": "curl --data-binary @codecov.yml https://codecov.io/validate",
     "test:watch": "jest --watch",
     "typecheck": "npm-run-all --parallel typecheck:*",
