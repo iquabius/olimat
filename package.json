@@ -43,6 +43,7 @@
     "test": "jest",
     "test:ci": "jest --coverage && codecov",
     "test:coverage": "jest --coverage",
+    "test:codecov:validate": "curl --data-binary @codecov.yml https://codecov.io/validate",
     "test:watch": "jest --watch",
     "typecheck": "npm-run-all --parallel typecheck:*",
     "typecheck:api": "tsc --noEmit --project api/tsconfig.json",
