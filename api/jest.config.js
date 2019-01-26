@@ -5,5 +5,4 @@ module.exports = {
     '\\.ts?$': 'ts-jest',
   },
   testPathIgnorePatterns: ['dist', '/node_modules/', '/__utils'],
-  // collectCoverage: true,
 };
