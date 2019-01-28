@@ -10,7 +10,7 @@
     "@types/jest": "23.3.13",
     "@types/node": "10.12.18",
     "@types/nprogress": "0.0.29",
-    "@types/react-jss": "8.6.0",
+    "@types/react-jss": "8.6.1",
     "@types/recompose": "0.30.3",
     "@types/yup": "0.26.7",
     "@typescript-eslint/eslint-plugin": "1.1.0",
