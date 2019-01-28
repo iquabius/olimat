@@ -22,6 +22,21 @@ module.exports = {
     // eslint-plugin-import
     // We can't alphabetize imports within groups, yet
     // https://github.com/benmosher/eslint-plugin-import/pull/1105
+    'import/no-extraneous-dependencies': [
+      'error',
+      {
+        // Allow imports from devDependencies
+        devDependencies: [
+          // In test files
+          '**/*.test.{ts,tsx}',
+          '**/*/__tests__/**/*.{ts,tsx}',
+          // In test utilities files
+          '**/*/utils/test/*.{ts,tsx}',
+          // In configuration or setup files
+          '**/*.{config,setup}.{js,ts}',
+        ],
+      },
+    ],
     'import/order': ['error'],
   },
   settings: {
