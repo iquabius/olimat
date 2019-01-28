@@ -92,10 +92,8 @@ export const newOlympiadMutation = gql`
   }
 `;
 
-interface Olympiad {
+export interface Olympiad extends FormValues {
   id: string;
-  name: string;
-  isPublished: boolean;
 }
 
 interface Data {
