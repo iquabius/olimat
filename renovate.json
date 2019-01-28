@@ -9,8 +9,9 @@
   },
   "packageRules": [
     {
-      "packagePatterns": [ "prisma" ],
-      "groupName": "Prisma"
+      "automerge": false,
+      "groupName": "Prisma",
+      "packagePatterns": ["prisma"]
     }
   ]
 }
