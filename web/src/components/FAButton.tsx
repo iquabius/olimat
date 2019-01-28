@@ -15,7 +15,7 @@ const styles = (theme: Theme) =>
   });
 
 interface FAButtonProps extends WithStyles<typeof styles> {
-  onClick: MouseEventHandler;
+  onClick?: MouseEventHandler;
 }
 
 const FAButton: React.FunctionComponent<FAButtonProps> = ({
