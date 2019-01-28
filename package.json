@@ -19,6 +19,8 @@
     "cypress-testing-library": "2.3.5",
     "eslint": "5.12.1",
     "eslint-config-prettier": "4.0.0",
+    "eslint-import-resolver-typescript": "1.1.1",
+    "eslint-plugin-import": "2.15.0",
     "eslint-plugin-prettier": "3.0.1",
     "eslint-plugin-react": "7.12.4",
     "faker": "4.1.0",
