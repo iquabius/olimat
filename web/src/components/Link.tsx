@@ -115,10 +115,10 @@ const Link: React.FunctionComponent<InnerProps & OuterProps> = props => {
   return <ComponentRoot {...RootProps}>{children}</ComponentRoot>;
 };
 
-// Link.defaultProps = {
-//   variant: 'default',
-//   activeClassName: 'active',
-// };
+Link.defaultProps = {
+  variant: 'default',
+  activeClassName: 'active',
+};
 
 export default compose<InnerProps, OuterProps>(
   withRouter,
