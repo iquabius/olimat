@@ -2,7 +2,7 @@ import { QueryResolvers } from '../__generated__/resolvers-types';
 import { getUserId } from '../utils';
 
 // O primeiro argumento dos resolvers, 'parent', sempre será
-// 'blank' porque ele se refere à raíz do grafo.
+// vazio porque ele se refere à raíz do grafo.
 export const Query: QueryResolvers.Resolvers = {
   // https://github.com/prisma/prisma/issues/2225#issuecomment-413265367
   // O 'prisma generate' gera um tipo inconpatível, a interface Node está vazia,

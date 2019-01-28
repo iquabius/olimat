@@ -1,6 +1,6 @@
 // import warning from 'warning';
-import cookie from 'cookie';
 import http from 'http';
+import cookie from 'cookie';
 import camelCase from 'lodash/camelCase';
 import upperFirst from 'lodash/upperFirst';
 

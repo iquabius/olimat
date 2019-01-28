@@ -1,8 +1,8 @@
+import { AddressInfo } from 'net';
 import { execute, toPromise } from 'apollo-link';
 import { HttpLink } from 'apollo-link-http';
 import { ApolloServer } from 'apollo-server-express';
 import express from 'express';
-import { AddressInfo } from 'net';
 // @types/node-fetch possui tipo incompatível com o HttpLink,
 // por isso não foi instalado.
 import fetch from 'node-fetch';
