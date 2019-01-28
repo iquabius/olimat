@@ -2,7 +2,7 @@ import { createStyles, Theme, withStyles, WithStyles } from '@material-ui/core/s
 import classNames from 'classnames';
 import NextLink from 'next/link';
 import { withRouter } from 'next/router';
-import React, { MouseEventHandler } from 'react';
+import React, { ReactEventHandler, KeyboardEventHandler } from 'react';
 import compose from 'recompose/compose';
 
 const styles = (theme: Theme) =>
@@ -43,7 +43,7 @@ interface OuterProps {
   className?: string;
   component?: any;
   href?: string;
-  onClick?: MouseEventHandler;
+  onClick?: ReactEventHandler;
   prefetch?: boolean;
   variant?: Variant;
 }
@@ -87,12 +87,18 @@ const Link: React.FunctionComponent<InnerProps & OuterProps> = props => {
       prefetch,
       passHref: true,
     };
+    const handleKeyPress: KeyboardEventHandler = event => {
+      if (event.key == 'Enter') {
+        onClick(event);
+      }
+    };
     children = (
       <a
         className={classNames(className, {
           [activeClassName]: router.pathname === href && activeClassName,
         })}
         onClick={onClick}
+        onKeyPress={handleKeyPress}
         {...other}
       >
         {children}
