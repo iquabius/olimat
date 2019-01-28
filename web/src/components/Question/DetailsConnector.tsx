@@ -40,10 +40,15 @@ export const updateQuestionMutation = gql`
   }
 `;
 
+export interface QuestionChoice {
+  id: string;
+  text: string;
+}
+
 export interface Question {
   id: string;
   wording: string;
-  choices: Array<{ id: string; text: string }>;
+  choices: QuestionChoice[];
   imageUrl?: string;
   imageFullUrl?: string;
 }

@@ -113,7 +113,6 @@ const CityDeleteItemButton: React.FunctionComponent<InnerProps & OuterProps> = (
                 <Button
                   onClick={onSubmitDelete(deleteCity, city, enqueueSnackbar)}
                   color="secondary"
-                  autoFocus
                 >
                   Excluir
                 </Button>

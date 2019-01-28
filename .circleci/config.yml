@@ -67,6 +67,11 @@ jobs:
             - web/node_modules
           key: web-modules-{{ checksum "web/package.json" }}
 
+      # ESLint should not care about code formating, we use Prettier for that. 
+      - run:
+          name: Checking ESLint Rules for Conflicts with Prettier
+          command: npm run lint:check
+
       - run:
           name: Linting
           command: npm run lint

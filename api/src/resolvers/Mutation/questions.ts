@@ -1,6 +1,6 @@
 import * as fs from 'fs';
-import mv from 'mv';
 import * as path from 'path';
+import mv from 'mv';
 
 import { MutationResolvers } from '../../__generated__/resolvers-types';
 // Estes tipos são gerados pelo 'prisma generate'

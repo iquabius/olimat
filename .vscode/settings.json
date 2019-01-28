@@ -1,3 +1,39 @@
 {
-  "circleci.apiKey": "71b8fe885d9b5f6ff461fd86c8bfdd8acf2f4059"
+  "circleci.apiKey": "71b8fe885d9b5f6ff461fd86c8bfdd8acf2f4059",
+
+  // ESLint + Prettier code formating
+  //*
+  "javascript.format.enable": false,
+  "typescript.format.enable": false,
+  // Disable formatOnSave for every language
+  "editor.formatOnSave": false,
+  // Enable per-language
+  "[javascript]": {
+    // We still use JavaScript for some configuration/setup files
+    "editor.formatOnSave": true
+  },
+  "[typescript]": {
+    "editor.formatOnSave": true
+  },
+  "[typescriptreact]": {
+    "editor.formatOnSave": true
+  },
+  // Prettier is run by ESLint as an autofixable rule, so we don't
+  // need to run it separately:
+  "eslint.autoFixOnSave": true,
+  // Otherwise, we could use 'esbenp.prettier-vscode' extension.
+  // Formats our code using prettier followed by eslint --fix:
+  // "prettier.eslintIntegration": true,
+  "eslint.validate": [
+    "javascript",
+    {
+      "language": "typescript",
+      "autoFix": true
+    },
+    {
+      "language": "typescriptreact",
+      "autoFix": true
+    }
+  ],
+  /**/
 }

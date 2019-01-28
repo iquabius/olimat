@@ -2,6 +2,8 @@ import { createStyles, Theme, withStyles, WithStyles } from '@material-ui/core';
 import classNames from 'classnames';
 import React from 'react';
 
+import { QuestionChoice } from './DetailsConnector';
+
 const styles = (theme: Theme) =>
   createStyles({
     root: {
@@ -35,7 +37,7 @@ const optionLabels = ['a', 'b', 'c', 'd', 'e', 'f'];
 
 interface Props extends WithStyles<typeof styles> {
   className?: string;
-  choices: Array<{ id: string; text: string }>;
+  choices: QuestionChoice[];
   dense?: boolean;
 }
 

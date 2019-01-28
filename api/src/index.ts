@@ -1,9 +1,9 @@
+import path from 'path';
 import { ApolloServer, gql } from 'apollo-server-express';
 import cors from 'cors';
 import express from 'express';
 import fileUpload from 'express-fileupload';
 import { importSchema } from 'graphql-import';
-import path from 'path';
 
 import { prisma } from './__generated__/prisma-client';
 import config from './config';

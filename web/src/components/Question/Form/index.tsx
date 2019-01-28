@@ -87,7 +87,6 @@ const QuestionForm: React.FunctionComponent<Props> = ({
         <form onSubmit={formikProps.handleSubmit}>
           <TextField
             name="wording"
-            autoFocus
             multiline
             label="Enunciado"
             fullWidth

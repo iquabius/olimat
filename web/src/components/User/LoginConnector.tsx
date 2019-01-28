@@ -49,7 +49,7 @@ export default compose(
       // `client` is provided by the `withApollo` HOC
       ownProps: { client },
     }: NamedProps<{ signinWithEmail: MutationFn<Response, Variables> }, InputProps>) => ({
-      // `signin` is the name of the prop passed to the component
+      // `handleSignIn` is the name of the prop passed to the component
       handleSignIn: event => {
         /* global FormData */
         const data = new FormData(event.target);

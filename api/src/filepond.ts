@@ -1,7 +1,7 @@
-import { UploadedFile } from 'express-fileupload';
 import * as fs from 'fs';
-import { extension } from 'mime-types';
 import * as path from 'path';
+import { UploadedFile } from 'express-fileupload';
+import { extension } from 'mime-types';
 import { generate } from 'shortid';
 
 import config from './config';

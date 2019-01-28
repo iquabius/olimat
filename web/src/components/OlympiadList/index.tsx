@@ -4,6 +4,7 @@ import {
   ExpansionPanelDetails,
   ExpansionPanelSummary,
   Theme,
+  WithStyles,
 } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
@@ -12,12 +13,11 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import gql from 'graphql-tag';
-import PropTypes from 'prop-types';
 import React from 'react';
-import { compose, graphql } from 'react-apollo';
-import { withState } from 'recompose';
+import { DataProps, graphql } from 'react-apollo';
+import { compose, withState } from 'recompose';
 
-import OlympiadAddDialog from './OlympiadAddDialog';
+import OlympiadAddDialog, { Olympiad } from './OlympiadAddDialog';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -39,7 +39,16 @@ const styles = (theme: Theme) =>
     },
   });
 
-const OlympiadList = props => {
+interface Response {
+  olympiads: Olympiad[];
+}
+
+interface InnerProps extends DataProps<Response>, WithStyles<typeof styles> {
+  addDialogOpen: boolean;
+  setAddDialogOpen: (open: boolean) => void;
+}
+
+const OlympiadList: React.FunctionComponent<InnerProps> = props => {
   const {
     addDialogOpen,
     setAddDialogOpen,
@@ -56,12 +65,7 @@ const OlympiadList = props => {
   return (
     <Paper className={classes.root}>
       <Toolbar>
-        <Button
-          onClick={handleOpenAddOlympiad}
-          variant="contained"
-          color="primary"
-          className={classes.button}
-        >
+        <Button onClick={handleOpenAddOlympiad} variant="contained" color="primary">
           Adicionar
         </Button>
       </Toolbar>
@@ -89,22 +93,6 @@ const OlympiadList = props => {
   );
 };
 
-OlympiadList.propTypes = {
-  classes: PropTypes.object.isRequired,
-  data: PropTypes.shape({
-    loading: PropTypes.bool.isRequired,
-    olympiads: PropTypes.arrayOf(
-      PropTypes.shape({
-        createdBy: PropTypes.shape({ email: PropTypes.string.isRequired }),
-        id: PropTypes.string.isRequired,
-        isPublished: PropTypes.bool,
-        name: PropTypes.string.isRequired,
-        year: PropTypes.string.isRequired,
-      }),
-    ),
-  }).isRequired,
-};
-
 export const allOlympiadsQuery = gql`
   query allOlympiadsQuery {
     olympiads {
@@ -119,7 +107,7 @@ export const allOlympiadsQuery = gql`
   }
 `;
 
-export default compose(
+export default compose<InnerProps, {}>(
   withState('addDialogOpen', 'setAddDialogOpen', false),
   graphql(allOlympiadsQuery),
   withStyles(styles),
