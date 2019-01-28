@@ -1,6 +1,5 @@
-import { createStyles, Fab, Theme, withStyles } from '@material-ui/core';
-import PropTypes from 'prop-types';
-import React from 'react';
+import { createStyles, Fab, Theme, withStyles, WithStyles } from '@material-ui/core';
+import React, { MouseEventHandler } from 'react';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -15,14 +14,19 @@ const styles = (theme: Theme) =>
     },
   });
 
-const FAButton = ({ children, classes, onClick, ...rest }) => (
+interface FAButtonProps extends WithStyles<typeof styles> {
+  onClick: MouseEventHandler;
+}
+
+const FAButton: React.FunctionComponent<FAButtonProps> = ({
+  children,
+  classes,
+  onClick,
+  ...rest
+}) => (
   <Fab onClick={onClick} color="secondary" className={classes.FAButton} {...rest}>
     {children}
   </Fab>
 );
-
-FAButton.propTypes = {
-  children: PropTypes.node.isRequired,
-};
 
 export default withStyles(styles)(FAButton);
