@@ -13,6 +13,8 @@ module.exports = {
     'prettier/@typescript-eslint',
   ],
   rules: {
+    'no-param-reassign': ['error'],
+
     // The code base was migrated from JavaScript recently. Let's chill a bit.
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/explicit-member-accessibility': 'off',

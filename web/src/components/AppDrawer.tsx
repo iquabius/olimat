@@ -67,7 +67,7 @@ function reduceChildRoutes({ props, activePage, items, page, depth }) {
     );
   } else {
     const title = pageToTitle(page);
-    // tslint:disable-next-line no-parameter-reassignment
+    // eslint-disable-next-line no-param-reassign
     page = page.children && page.children.length === 1 ? page.children[0] : page;
 
     items.push(
