@@ -10,6 +10,11 @@
   "packageRules": [
     {
       "automerge": false,
+      "groupName": "GraphQL Code Generator",
+      "packagePatterns": ["graphql-code"]
+    },
+    {
+      "automerge": false,
       "groupName": "Prisma",
       "packagePatterns": ["prisma"]
     }
