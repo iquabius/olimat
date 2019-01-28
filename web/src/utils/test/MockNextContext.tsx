@@ -1,4 +1,3 @@
-// tslint:disable:no-empty
 import Router, { PopStateCallback, RouterProps, WithRouterProps } from 'next/router';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -47,7 +46,6 @@ export default class MockNextContext extends React.Component<WithRouterProps> {
   getChildContext() {
     const { router } = this.props;
     return {
-      // tslint:disable-next-line:prefer-object-spread
       router: Object.assign(mockRouter, router),
     };
   }

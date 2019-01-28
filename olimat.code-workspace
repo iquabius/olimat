@@ -33,8 +33,7 @@
   "extensions": {
     "recommendations": [
       "apollographql.vscode-apollo",
-      "editorconfig.editorconfig",
-      "eg2.tslint"
+      "editorconfig.editorconfig"
     ]
   }
 }
