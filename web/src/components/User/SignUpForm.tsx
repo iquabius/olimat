@@ -49,7 +49,7 @@ const styles = (theme: Theme) =>
   });
 
 interface Props extends WithStyles<typeof styles> {
-  createUser: FormEventHandler;
+  handleCreateUser: FormEventHandler;
 }
 
 class SignUpForm extends React.Component<Props> {
@@ -78,7 +78,7 @@ class SignUpForm extends React.Component<Props> {
           Crie uma conta!
         </Typography>
         <Divider />
-        <form onSubmit={this.props.createUser}>
+        <form onSubmit={this.props.handleCreateUser}>
           <TextField
             id="name"
             name="name"
@@ -169,9 +169,6 @@ export default compose(
   // withApollo exposes `this.props.client` used when logging out
   withApollo,
   graphql<InputProps, Response, Variables, {}>(
-    // The `createUser` & `signinUser` mutations are provided by graph.cool by
-    // default.
-    // Multiple mutations are executed by graphql sequentially
     gql`
       mutation Create($name: String!, $email: String!, $password: String!) {
         signup(name: $name, email: $email, password: $password) {
@@ -188,8 +185,8 @@ export default compose(
         // `client` is provided by the `withApollo` HOC
         ownProps: { client },
       }: NamedProps<{ createWithEmail: MutationFn<Response, Variables> }, InputProps>) => ({
-        // `createUser` is the name of the prop passed to the component
-        createUser: event => {
+        // `handleCreateUser` is the name of the prop passed to the component
+        handleCreateUser: event => {
           /* global FormData */
           const data = new FormData(event.target);
 

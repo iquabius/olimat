@@ -24,7 +24,7 @@ class UserMenuAppBar extends React.Component<WithApolloClient<{}>> {
     this.setState({ anchorEl: null });
   };
 
-  logout = () => {
+  handleLogout = () => {
     document.cookie = cookie.serialize('token', '', {
       maxAge: -1, // Expire the cookie immediately
     });
@@ -71,7 +71,7 @@ class UserMenuAppBar extends React.Component<WithApolloClient<{}>> {
                 >
                   <MenuItem onClick={this.handleClose}>Perfil</MenuItem>
                   <MenuItem onClick={this.handleClose}>Minha Conta</MenuItem>
-                  <MenuItem onClick={this.logout}>Sair</MenuItem>
+                  <MenuItem onClick={this.handleLogout}>Sair</MenuItem>
                 </Menu>
               </div>
             );
