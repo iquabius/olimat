@@ -22,9 +22,7 @@ const CancelDialog = ({ onCancel, onContinue, open = false }) => (
       </DialogContentText>
     </DialogContent>
     <DialogActions>
-      <Button onClick={onCancel} autoFocus>
-        Cancelar
-      </Button>
+      <Button onClick={onCancel}>Cancelar</Button>
       <Button onClick={onContinue} color="secondary" variant="contained">
         Descartar
       </Button>

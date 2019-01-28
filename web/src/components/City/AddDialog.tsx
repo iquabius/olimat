@@ -52,7 +52,6 @@ const AddDialog = ({ open, onClose }) => (
               <DialogContent>
                 <TextField
                   name="name"
-                  autoFocus
                   margin="dense"
                   label="Nome"
                   fullWidth

@@ -34,7 +34,6 @@ const DeleteWarningDialog = ({ content, isSubmitting, open, onCancel, onSuccess,
         disabled={isSubmitting}
         onClick={onSuccess}
         color="secondary"
-        autoFocus
       >
         Excluir
       </Button>

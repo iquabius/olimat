@@ -43,7 +43,6 @@ const OlympiadAddDialog: React.FunctionComponent<Props> = ({
       <DialogContent>
         <TextField
           name="name"
-          autoFocus
           margin="dense"
           label="Nome"
           fullWidth
