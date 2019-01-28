@@ -4,5 +4,11 @@
   ],
   "devDependencies": {
     "automerge": true
-  }
+  },
+  "packageRules": [
+    {
+      "packagePatterns": [ "prisma" ],
+      "groupName": "Prisma"
+    }
+  ]
 }
