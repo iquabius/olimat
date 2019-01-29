@@ -2,7 +2,26 @@
   "extends": [
     "config:base"
   ],
-  "devDependencies": {
-    "automerge": true
-  }
+  "automerge": true,
+  "automergeType": "branch",
+  "major": {
+    "automerge": false
+  },
+  "packageRules": [
+    {
+      "automerge": false,
+      "groupName": "FilePond",
+      "packagePatterns": ["filepond"]
+    },
+    {
+      "automerge": false,
+      "groupName": "GraphQL Code Generator",
+      "packagePatterns": ["graphql-code"]
+    },
+    {
+      "automerge": false,
+      "groupName": "Prisma",
+      "packagePatterns": ["prisma"]
+    }
+  ]
 }
