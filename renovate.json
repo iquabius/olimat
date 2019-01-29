@@ -10,6 +10,11 @@
   "packageRules": [
     {
       "automerge": false,
+      "groupName": "Apollo Server",
+      "packagePatterns": ["apollo-server"]
+    },
+    {
+      "automerge": false,
       "groupName": "FilePond",
       "packagePatterns": ["filepond"]
     },
