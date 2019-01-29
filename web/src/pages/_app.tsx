@@ -146,7 +146,7 @@ interface OliAppState {
 }
 
 // @types/next doesn't allow us to use state with the App component
-class OliApp extends App<Props> {
+class OliApp extends App<Props, OliAppState> {
   constructor(props) {
     super(props);
 
@@ -160,7 +160,7 @@ class OliApp extends App<Props> {
   }
 
   handleTogglePaletteType = () => {
-    this.setState((state: OliAppState) => {
+    this.setState(state => {
       const paletteType = state.uiTheme.paletteType === 'light' ? 'dark' : 'light';
       document.cookie = `paletteType=${paletteType};path=/;max-age=31536000`;
 
@@ -178,7 +178,7 @@ class OliApp extends App<Props> {
     const { Component, loggedInUser, pageProps, router } = this.props;
     // Currently there's no way to pass the state type to Next.js' App component.
     // Ideally we should be able to extend it like: App<Props, State>
-    const { pageContext, uiTheme } = this.state as OliAppState;
+    const { pageContext, uiTheme } = this.state;
 
     const activePage = findActivePage(pages, router);
 

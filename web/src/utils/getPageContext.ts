@@ -49,7 +49,8 @@ export function updatePageContext(paletteType) {
   const { paletteColors } = defaultTheme;
 
   const pageContext = {
-    ...global.__MUI_PAGE_CONTEXT__,
+    // TODO: Fix the type in global.d.ts
+    ...(global.__MUI_PAGE_CONTEXT__ as PageContextThemeProps),
     theme: getTheme({ paletteType, paletteColors }),
   };
   global.__MUI_PAGE_CONTEXT__ = pageContext;
