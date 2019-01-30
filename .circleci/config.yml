@@ -39,11 +39,11 @@ jobs:
           - monorepo-modules-
       - restore_cache:
           keys:
-          - api-modules-{{ checksum "api/package.json" }}
+          - api-modules-{{ checksum "packages/api/package.json" }}
           - api-modules-
       - restore_cache:
           keys:
-          - web-modules-{{ checksum "web/package.json" }}
+          - web-modules-{{ checksum "packages/web/package.json" }}
           - web-modules-
 
       # Install monorepo dependencies
@@ -52,7 +52,7 @@ jobs:
       - run: npx lerna bootstrap --ci
       - run:
           name: Start Prisma server
-          command: cd api && npx prisma deploy
+          command: cd packages/api && npx prisma deploy
 
       - save_cache:
           paths:
@@ -60,12 +60,12 @@ jobs:
           key: monorepo-modules-{{ checksum "package.json" }}
       - save_cache:
           paths:
-            - api/node_modules
-          key: api-modules-{{ checksum "api/package.json" }}
+            - packages/api/node_modules
+          key: api-modules-{{ checksum "packages/api/package.json" }}
       - save_cache:
           paths:
-            - web/node_modules
-          key: web-modules-{{ checksum "web/package.json" }}
+            - packages/web/node_modules
+          key: web-modules-{{ checksum "packages/web/package.json" }}
 
       # ESLint should not care about code formating, we use Prettier for that. 
       - run:
@@ -103,7 +103,9 @@ workflows:
           build: |
             npx lerna bootstrap --ci
             npx lerna run build
-            cd api
+            cd packages/api
+            # We're deploying prisma twice,
+            # can we reuse the one from integration tests?
             npx prisma deploy
           start: npm start
           wait-on: http://localhost:3000
