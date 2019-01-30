@@ -5,11 +5,11 @@
       "type": "node",
       "request": "launch",
       "name": "Next: Node",
-      "runtimeExecutable": "${workspaceFolder}/web/node_modules/next/dist/bin/next",
+      "runtimeExecutable": "${workspaceFolder}/packages/web/node_modules/next/dist/bin/next",
       "runtimeArgs": ["--inspect"],
       "port": 9229,
       "console": "integratedTerminal",
-      "cwd": "${workspaceFolder}/web/src"
+      "cwd": "${workspaceFolder}/packages/web/src"
     },
     {
       "name": "Jest Tests",

@@ -2,7 +2,7 @@
 // using Jest's Multi-Project-Runner.
 
 module.exports = {
-  projects: ['<rootDir>/api', '<rootDir>/web'],
+  projects: ['<rootDir>/packages/*'],
   // coverageReporters: ['text', 'lcov'],
   collectCoverageFrom: ['**/*.{ts,tsx}', '!**/node_modules/**', '!**/build/**'],
   coverageDirectory: 'coverage',

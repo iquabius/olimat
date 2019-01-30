@@ -38,17 +38,17 @@
     "cy:run": "cypress run",
     "cy:open": "cypress open",
     "start": "lerna run --parallel start",
-    "lint": "eslint '{api,web}/**/*.{js,ts,tsx}' && echo \"ESLint: no lint errors\"",
-    "lint:fix": "eslint '{api,web}/**/*.{js,ts,tsx}' --fix && echo \"ESLint: no lint errors\"",
+    "lint": "eslint 'packages/**/*.{js,ts,tsx}' && echo \"ESLint: no lint errors\"",
+    "lint:fix": "eslint 'packages/**/*.{js,ts,tsx}' --fix && echo \"ESLint: no lint errors\"",
     "lint:check": "npm-run-all lint:check:*",
-    "lint:check:api": "eslint --print-config 'api/**/*' | eslint-config-prettier-check",
-    "lint:check:web": "eslint --print-config 'web/**/*' | eslint-config-prettier-check",
+    "lint:check:api": "eslint --print-config 'packages/api/**/*' | eslint-config-prettier-check",
+    "lint:check:web": "eslint --print-config 'packages/web/**/*' | eslint-config-prettier-check",
     "test": "jest",
     "test:coverage": "jest --coverage",
     "test:codecov:validate": "curl --data-binary @codecov.yml https://codecov.io/validate",
     "test:watch": "jest --watch",
     "typecheck": "npm-run-all --parallel typecheck:*",
-    "typecheck:api": "tsc --noEmit --project api/tsconfig.json",
-    "typecheck:web": "tsc --noEmit --project web/tsconfig.json"
+    "typecheck:api": "tsc --noEmit --project packages/api/tsconfig.json",
+    "typecheck:web": "tsc --noEmit --project packages/web/tsconfig.json"
   }
 }

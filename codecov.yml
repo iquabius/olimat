@@ -11,9 +11,9 @@ coverage:
 flags:
   api:
     paths:
-      - api/
+      - packages/api/
     assume: true
   web:
     paths:
-      - web/
+      - packages/web/
     assume: true
