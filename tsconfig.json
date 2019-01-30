@@ -3,6 +3,7 @@
     "target": "es2018",
     "module": "commonjs",
     "moduleResolution": "node",
+    // Maybe this option is needed only for the frontend app
     "esModuleInterop": true,
     "sourceMap": true,
     // Cypress mocha vs jest types issue
