@@ -102,7 +102,7 @@ workflows:
           record: true         # record results to Cypress Dashboard
           build: |
             npx lerna bootstrap --ci
-            npx lerna run build
+            npm run build
             cd packages/api
             # We're deploying prisma twice,
             # can we reuse the one from integration tests?
