@@ -76,6 +76,11 @@ jobs:
           name: Linting
           command: npm run lint
 
+      # We now have to build TS projects to be able to type-check
+      - run:
+          name: Building TypeScript Project References
+          command: npx tsc --build --verbose packages
+
       - run:
           name: Typechecking
           command: npm run typecheck
