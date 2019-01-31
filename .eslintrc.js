@@ -1,7 +1,6 @@
 module.exports = {
   root: true,
   parser: '@typescript-eslint/parser',
-  plugins: ['import'],
   extends: [
     'plugin:@typescript-eslint/recommended',
     // Disable all rules related to code formatting. Prettier handles formatting.
@@ -19,6 +18,8 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/explicit-member-accessibility': 'off',
     '@typescript-eslint/no-empty-interface': 'warn',
+    // This is not working well with JSX
+    '@typescript-eslint/no-unused-vars': 'off',
     '@typescript-eslint/no-use-before-define': 'off',
 
     // eslint-plugin-import
