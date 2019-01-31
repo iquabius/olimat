@@ -1,24 +1,17 @@
 // Este arquivo só é usado no servidor, pra testes.
 // Podemos importar dependências de desenvolvimento.
 // Talvez não funcione num ambiente de Integração Contínua (CI).
-import path from 'path';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import ApolloClient from 'apollo-client';
 import { SchemaLink } from 'apollo-link-schema';
 import faker from 'faker/locale/pt_BR';
-import { importSchema } from 'graphql-import';
-import gql from 'graphql-tag';
 import { addMockFunctionsToSchema, makeExecutableSchema, MockList } from 'graphql-tools';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { ApolloProvider } from 'react-apollo';
+import { typeDefs } from '@olimat/api';
 
 import mergeResolvers from './mergeResolvers';
-
-// We have to use importSchema() because schema.graphql imports from
-// 'api/src/__generated__/prisma.graphql'
-const schemaPath = path.join(__dirname, '../../../../api/src/schema.graphql');
-const typeDefs = gql(importSchema(schemaPath));
 
 // Make a GraphQL schema with no resolvers
 // https://www.apollographql.com/docs/apollo-server/v2/api/graphql-tools.html#makeExecutableSchema

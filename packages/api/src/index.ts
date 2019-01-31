@@ -10,6 +10,8 @@ import config from './config';
 import { handleGET, handlePost } from './filepond';
 import resolvers from './resolvers';
 
+// We have to use importSchema() because schema.graphql imports from
+// 'api/src/__generated__/prisma.graphql'
 const schemaPath = path.join(__dirname, 'schema.graphql');
 export const typeDefs = gql(importSchema(schemaPath));
 

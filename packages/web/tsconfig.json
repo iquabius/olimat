@@ -8,5 +8,8 @@
     // This configuration's only purpuse is for type checking.
     "noEmit": true,
     "preserveConstEnums": true,
-  }
+  },
+  "references": [
+    { "path": "../api" }
+  ]
 }
