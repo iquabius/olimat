@@ -1,4 +1,4 @@
-import { OliContext } from '../../../utils';
+import { OliContext } from '@olimat/api/utils';
 
 // Mock dependency in jest with typescript:
 // https://stackoverflow.com/questions/48759035
