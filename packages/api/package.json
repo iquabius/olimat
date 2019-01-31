@@ -4,9 +4,10 @@
   "version": "0.0.1",
   "license": "AGPL-3.0",
   "author": "Josias Iquabius <iquabius@gmail.com>",
-  "main": "src/index.ts",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
   "scripts": {
-    "build": "rimraf dist && tsc && copyfiles -V -u 1 ./src/schema.graphql ./src/**/*.graphql ./dist",
+    "prebuild": "copyfiles -V -u 1 ./src/schema.graphql ./src/**/*.graphql ./dist",
     "start": "node -r dotenv/config dist/index.js",
     "dev": "nodemon -e ts,graphql -x ts-node -r dotenv/config src/index.ts",
     "debug": "nodemon --config nodemon.debug.json",

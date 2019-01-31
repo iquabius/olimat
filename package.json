@@ -34,7 +34,8 @@
   },
   "repository": "github:iquabius/olimat",
   "scripts": {
-    "build": "lerna run build",
+    "build": "lerna run prebuild && lerna run build && tsc --build --verbose packages",
+    "build:watch": "lerna run prebuild && tsc --build --verbose --watch packages",
     "cy:run": "cypress run",
     "cy:open": "cypress open",
     "start": "lerna run --parallel start",
