@@ -1,3 +1,8 @@
+// We need this for TypeScript paths to work after compilation,
+// see configuration under '_moduleAliases' key in package.json.
+// eslint-disable-next-line import/no-extraneous-dependencies
+require('module-alias/register');
+
 import path from 'path';
 import { ApolloServer, gql } from 'apollo-server-express';
 import cors from 'cors';
