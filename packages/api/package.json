@@ -20,7 +20,7 @@
     "graphql:generate-types": "gql-gen --config codegen.yml"
   },
   "dependencies": {
-    "apollo-server-express": "2.3.2",
+    "apollo-server-express": "2.3.3",
     "bcryptjs": "2.4.3",
     "cors": "2.8.5",
     "express": "4.16.4",
@@ -46,7 +46,7 @@
     "apollo": "2.4.1",
     "apollo-link": "1.2.8",
     "apollo-link-http": "1.5.11",
-    "apollo-server-testing": "2.3.2",
+    "apollo-server-testing": "2.3.3",
     "copyfiles": "2.1.0",
     "dotenv": "6.2.0",
     "graphql-code-generator": "0.16.0",
