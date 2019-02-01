@@ -7,7 +7,7 @@
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "scripts": {
-    "prebuild": "copyfiles -V -u 1 ./src/schema.graphql ./src/**/*.graphql ./dist",
+    "prebuild": "rimraf dist && copyfiles -V -u 1 ./src/schema.graphql ./src/**/*.graphql ./dist",
     "start": "node -r dotenv/config dist/index.js",
     "dev": "nodemon -e ts,graphql -x ts-node -r dotenv/config src/index.ts",
     "debug": "nodemon --config nodemon.debug.json",
