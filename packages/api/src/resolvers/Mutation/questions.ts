@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import mv from 'mv';
 
-import { MutationResolvers } from '../../__generated__/resolvers-types';
+import { MutationResolvers } from '@olimat/api/__generated__/resolvers-types';
 // Estes tipos são gerados pelo 'prisma generate'
 // Talvez não precisamos usá-los diretamente, mas através do 'graphqlgen'
 // import { Question, QuestionCreateInput, QuestionUpdateInput } from '../../__generated__/prisma-client';

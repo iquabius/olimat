@@ -1,5 +1,5 @@
-import { Exam } from '../../__generated__/prisma-client';
-import resolvers from '../../resolvers';
+import { Exam } from '@olimat/api/__generated__/prisma-client';
+import resolvers from '@olimat/api/resolvers';
 
 import mockContext from './__utils/mockContext';
 

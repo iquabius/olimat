@@ -1,5 +1,5 @@
-import { MutationResolvers } from '../../__generated__/resolvers-types';
-import { getUserId } from '../../utils';
+import { MutationResolvers } from '@olimat/api/__generated__/resolvers-types';
+import { getUserId } from '@olimat/api/utils';
 
 export const olympiads: MutationResolvers.Resolvers = {
   async createOlympiad(_, { name, year }, ctx, info) {

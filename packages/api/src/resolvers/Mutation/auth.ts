@@ -1,7 +1,7 @@
 import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
 
-import { MutationResolvers } from '../../__generated__/resolvers-types';
+import { MutationResolvers } from '@olimat/api/__generated__/resolvers-types';
 
 // O primeiro argumento dos resolvers, 'parent', sempre será
 // vazio porque ele se refere à raíz do grafo.

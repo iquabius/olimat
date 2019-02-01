@@ -1,5 +1,5 @@
 import { getUserId } from '@olimat/api/utils';
-import { MutationResolvers } from '../../__generated__/resolvers-types';
+import { MutationResolvers } from '@olimat/api/__generated__/resolvers-types';
 
 export const schools: MutationResolvers.Resolvers = {
   async createSchool(_, { name, email, phone, pedagogyCoord, director, city, address }, ctx, info) {

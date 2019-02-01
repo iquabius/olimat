@@ -1,4 +1,4 @@
-import { MutationResolvers } from '../../__generated__/resolvers-types';
+import { MutationResolvers } from '@olimat/api/__generated__/resolvers-types';
 
 import { auth } from './auth';
 import { cities } from './cities';
