@@ -1,8 +1,8 @@
 import React from 'react';
 import { render, waitForElement } from 'react-testing-library';
 
-import FakeDataProvider from '../../utils/test/FakeDataProvider';
-import { renderApollo } from '../../utils/test/test-utils';
+import FakeDataProvider from '@olimat/web/utils/test/FakeDataProvider';
+import { renderApollo } from '@olimat/web/utils/test/test-utils';
 
 import ExamList from './List';
 

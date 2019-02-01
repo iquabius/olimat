@@ -3,11 +3,11 @@ import { SnackbarProvider } from 'notistack';
 import React from 'react';
 import { fireEvent, render, waitForElement } from 'react-testing-library';
 
-import FakeDataProvider from '../../utils/test/FakeDataProvider';
-import MockErrorProvider from '../../utils/test/MockErrorProvider';
-import mockGraphql from '../../utils/test/mockGraphql';
-import MockNextContext from '../../utils/test/MockNextContext';
-import { renderApollo } from '../../utils/test/test-utils';
+import FakeDataProvider from '@olimat/web/utils/test/FakeDataProvider';
+import MockErrorProvider from '@olimat/web/utils/test/MockErrorProvider';
+import mockGraphql from '@olimat/web/utils/test/mockGraphql';
+import MockNextContext from '@olimat/web/utils/test/MockNextContext';
+import { renderApollo } from '@olimat/web/utils/test/test-utils';
 
 import { deleteQuestionMutation } from './DeleteConnector';
 import QuestionDetails from './Details';

@@ -7,6 +7,10 @@ const baseConfig = require('../../jest.workspace');
 module.exports = {
   ...baseConfig,
   displayName: 'Web',
+  moduleNameMapper: {
+    '\\@olimat/api/(.*)': '<rootDir>/../api/dist/$1',
+    '\\@olimat/web/(.*)': '<rootDir>/src/$1',
+  },
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
   testPathIgnorePatterns: ['<rootDir>/.next/', '<rootDir>/node_modules/'],
 };
