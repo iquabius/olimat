@@ -21,6 +21,8 @@ module.exports = withTypescript(
         );
       }
 
+      config.resolve.alias['@olimat/web'] = __dirname;
+
       return config;
     },
     onDemandEntries: {

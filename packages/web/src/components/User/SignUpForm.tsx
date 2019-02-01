@@ -22,7 +22,7 @@ import gql from 'graphql-tag';
 import React, { FormEventHandler } from 'react';
 import { compose, FetchResult, graphql, MutationFn, NamedProps, withApollo } from 'react-apollo';
 
-import redirect from '../../utils/redirect';
+import redirect from '@olimat/web/utils/redirect';
 import Link from '../Link';
 
 const styles = (theme: Theme) =>

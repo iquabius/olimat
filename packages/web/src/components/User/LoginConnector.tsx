@@ -3,8 +3,7 @@ import cookie from 'cookie';
 import gql from 'graphql-tag';
 import { FormEventHandler } from 'react';
 import { compose, FetchResult, graphql, MutationFn, NamedProps, withApollo } from 'react-apollo';
-
-import redirect from '../../utils/redirect';
+import redirect from '@olimat/web/utils/redirect';
 
 export const loginMutation = gql`
   mutation loginMutation($email: String!, $password: String!) {

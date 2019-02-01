@@ -8,6 +8,8 @@
     // This configuration's only purpuse is for type checking.
     "noEmit": true,
     "preserveConstEnums": true,
+    "baseUrl": "src",
+    "paths": {"@olimat/web/*": ["*"]},
   },
   "references": [
     { "path": "../api" }
