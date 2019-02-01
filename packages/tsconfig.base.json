@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    // Always include these settings for referenced projects
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+
+    // These are our custom settings
+    "target": "es2018",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    // Maybe this option is needed only for the frontend app
+    "esModuleInterop": true,
+    // Cypress mocha vs jest types issue
+    // https://github.com/cypress-io/cypress/issues/1087
+    "skipLibCheck": true,
+    "noUnusedLocals": true,
+  }
+}

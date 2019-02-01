@@ -1,0 +1,14 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "dist",
+    // Prisma client needs ESNext.AsyncIterable
+    "lib": ["es2018", "esnext.asynciterable"],
+    "baseUrl": ".",
+    "paths": {"@olimat/api/*": ["./src/*"]}
+  },
+  "include": [
+    "src/**/*"
+  ],
+}

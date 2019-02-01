@@ -1,0 +1,17 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "jsx": "preserve",
+    "lib": ["dom", "es2018"],
+    "allowJs": true,
+    // Next.js is using Babel to compile the React app.
+    // This configuration's only purpuse is for type checking.
+    "noEmit": true,
+    "preserveConstEnums": true,
+    "baseUrl": "src",
+    "paths": {"@olimat/web/*": ["*"]},
+  },
+  "references": [
+    { "path": "../api" }
+  ]
+}
