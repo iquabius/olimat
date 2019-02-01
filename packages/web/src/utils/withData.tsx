@@ -10,12 +10,12 @@ import initApollo from './initApollo';
 // Gets the display name of a JSX component for dev tools
 const getDisplayName = ({ displayName, name }) => displayName || name || 'Unknown';
 
-interface Props {
+export interface WithDataProps {
   apolloState: NormalizedCacheObject;
 }
 
 export default App => {
-  return class WithData extends React.Component<Props> {
+  return class WithData extends React.Component<WithDataProps> {
     static displayName = `WithData(${getDisplayName(App)})`;
 
     static async getInitialProps(ctx) {
