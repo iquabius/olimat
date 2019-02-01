@@ -1,8 +1,8 @@
 import React from 'react';
 
-import AppContent from '../../components/AppContent';
-import AppFrame from '../../components/AppFrame';
-import QuestionUpdateForm from '../../components/Question/UpdateForm';
+import AppContent from '@olimat/web/components/AppContent';
+import AppFrame from '@olimat/web/components/AppFrame';
+import QuestionUpdateForm from '@olimat/web/components/Question/UpdateForm';
 
 const PageQuestionUpdate: React.FunctionComponent = () => (
   <AppFrame>

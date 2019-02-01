@@ -1,8 +1,8 @@
 import React from 'react';
 
-import AppContent from '../../../components/AppContent';
-import AppFrame from '../../../components/AppFrame';
-import ExamDetails from '../../../components/Exam/Details';
+import AppContent from '@olimat/web/components/AppContent';
+import AppFrame from '@olimat/web/components/AppFrame';
+import ExamDetails from '@olimat/web/components/Exam/Details';
 
 const PageAdminExamDetails: React.FunctionComponent = () => (
   <AppFrame>

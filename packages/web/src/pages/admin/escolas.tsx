@@ -1,8 +1,8 @@
 import React from 'react';
 
-import AppContent from '../../components/AppContent';
-import AppFrame from '../../components/AppFrame';
-import SchoolTable from '../../components/SchoolTable';
+import AppContent from '@olimat/web/components/AppContent';
+import AppFrame from '@olimat/web/components/AppFrame';
+import SchoolTable from '@olimat/web/components/SchoolTable';
 
 const PageSchools: React.FunctionComponent = () => (
   <AppFrame>
