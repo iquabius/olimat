@@ -34,8 +34,8 @@
   },
   "repository": "github:iquabius/olimat",
   "scripts": {
-    "bootstrap": "npm i && npx lerna bootstrap && npm run build:skip-web",
-    "clean": "npx lerna clean -y && rm -rf node_modules",
+    "bootstrap": "npm i && lerna bootstrap && npm run build:skip-web",
+    "clean": "lerna clean -y && rm -rf node_modules",
     "build": "lerna run prebuild && lerna run build && tsc --build --verbose packages",
     "build:clean": "lerna run build:clean",
     "build:skip-web": "lerna run prebuild && tsc --build --verbose packages",
