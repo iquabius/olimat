@@ -85,12 +85,13 @@ MyDocument.getInitialProps = ctx => {
   return {
     ...page,
     pageContext,
-    styles: (
+    styles: [
+      // eslint-disable-next-line react/jsx-key
       <style
         id="jss-server-side"
         dangerouslySetInnerHTML={{ __html: pageContext.sheetsRegistry.toString() }}
-      />
-    ),
+      />,
+    ],
   };
 };
 
