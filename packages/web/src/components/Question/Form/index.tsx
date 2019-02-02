@@ -26,16 +26,14 @@ interface Props {
   initialValues?: QuestionFormValues;
   onSubmit: (values: QuestionFormValues, addHandlers: AddHandlersFn) => void;
   setImageFile: (image: any) => void;
-  children?: (
-    formProps: {
-      form: React.ReactNode;
-      isDirty: boolean;
-      isSubmitting: boolean;
-      // This should include addHandlers as second argument
-      handleSubmit: FormEventHandler;
-      handleCancel: (nextValues?: QuestionFormValues) => void;
-    },
-  ) => JSX.Element;
+  children?: (formProps: {
+    form: React.ReactNode;
+    isDirty: boolean;
+    isSubmitting: boolean;
+    // This should include addHandlers as second argument
+    handleSubmit: FormEventHandler;
+    handleCancel: (nextValues?: QuestionFormValues) => void;
+  }) => JSX.Element;
 }
 
 // This is used to keep a reference to FilePond, created in FilePondField
