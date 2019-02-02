@@ -49,7 +49,7 @@
     "lint:check:api": "eslint --print-config 'packages/api/**/*' | eslint-config-prettier-check",
     "lint:check:web": "eslint --print-config 'packages/web/**/*' | eslint-config-prettier-check",
     "test": "jest",
-    "test:coverage": "jest --coverage",
+    "test:coverage": "jest --ci --coverage --runInBand",
     "test:codecov:validate": "curl --data-binary @codecov.yml https://codecov.io/validate",
     "test:watch": "jest --watch",
     "typecheck": "npm-run-all --parallel typecheck:*",
