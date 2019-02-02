@@ -5,6 +5,7 @@
   "author": "Josias Iquabius <iquabius@gmail.com>",
   "private": true,
   "devDependencies": {
+    "@types/faker": "4.1.5",
     "@types/jest": "23.3.13",
     "@types/node": "10.12.21",
     "@typescript-eslint/eslint-plugin": "1.2.0",
