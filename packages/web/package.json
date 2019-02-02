@@ -49,10 +49,16 @@
     "yup": "0.26.10"
   },
   "devDependencies": {
+    "@types/classnames": "2.2.7",
+    "@types/cookie": "0.3.2",
     "@types/faker": "4.1.5",
     "@types/next": "7.0.8",
+    "@types/nprogress": "0.0.29",
     "@types/react": "16.8.1",
     "@types/react-dom": "16.0.11",
+    "@types/react-jss": "8.6.1",
+    "@types/recompose": "0.30.3",
+    "@types/yup": "0.26.7",
     "@zeit/next-css": "1.0.1",
     "@zeit/next-typescript": "1.1.1",
     "apollo-link-schema": "1.1.6",
