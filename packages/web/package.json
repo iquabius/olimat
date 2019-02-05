@@ -26,7 +26,7 @@
     "classnames": "2.2.6",
     "cookie": "0.3.1",
     "filepond": "3.9.0",
-    "filepond-plugin-image-exif-orientation": "1.0.3",
+    "filepond-plugin-image-exif-orientation": "1.0.4",
     "filepond-plugin-image-preview": "3.1.6",
     "formik": "1.4.3",
     "graphql": "14.1.1",
