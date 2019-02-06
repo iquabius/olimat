@@ -65,7 +65,7 @@
     "faker": "4.1.0",
     "graphql-import": "0.7.1",
     "graphql-tools": "4.0.4",
-    "jest-dom": "3.0.1",
+    "jest-dom": "3.0.2",
     "react-testing-library": "5.5.0",
     "rimraf": "2.6.3"
   },
