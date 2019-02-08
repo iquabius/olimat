@@ -1675,25 +1675,25 @@ export interface UploadScalarConfig extends GraphQLScalarTypeConfig<Upload, any>
   name: 'Upload';
 }
 
-export interface IResolvers {
-  Query?: QueryResolvers.Resolvers;
-  City?: CityResolvers.Resolvers;
-  Olympiad?: OlympiadResolvers.Resolvers;
-  User?: UserResolvers.Resolvers;
-  Exam?: ExamResolvers.Resolvers;
-  Question?: QuestionResolvers.Resolvers;
-  QuestionChoice?: QuestionChoiceResolvers.Resolvers;
-  OlympiadConnection?: OlympiadConnectionResolvers.Resolvers;
-  PageInfo?: PageInfoResolvers.Resolvers;
-  OlympiadEdge?: OlympiadEdgeResolvers.Resolvers;
-  AggregateOlympiad?: AggregateOlympiadResolvers.Resolvers;
-  QuestionConnection?: QuestionConnectionResolvers.Resolvers;
-  QuestionEdge?: QuestionEdgeResolvers.Resolvers;
-  AggregateQuestion?: AggregateQuestionResolvers.Resolvers;
-  School?: SchoolResolvers.Resolvers;
-  Mutation?: MutationResolvers.Resolvers;
-  AuthPayload?: AuthPayloadResolvers.Resolvers;
-  QuestionPayload?: QuestionPayloadResolvers.Resolvers;
+export interface IResolvers<Context = OliContext> {
+  Query?: QueryResolvers.Resolvers<Context>;
+  City?: CityResolvers.Resolvers<Context>;
+  Olympiad?: OlympiadResolvers.Resolvers<Context>;
+  User?: UserResolvers.Resolvers<Context>;
+  Exam?: ExamResolvers.Resolvers<Context>;
+  Question?: QuestionResolvers.Resolvers<Context>;
+  QuestionChoice?: QuestionChoiceResolvers.Resolvers<Context>;
+  OlympiadConnection?: OlympiadConnectionResolvers.Resolvers<Context>;
+  PageInfo?: PageInfoResolvers.Resolvers<Context>;
+  OlympiadEdge?: OlympiadEdgeResolvers.Resolvers<Context>;
+  AggregateOlympiad?: AggregateOlympiadResolvers.Resolvers<Context>;
+  QuestionConnection?: QuestionConnectionResolvers.Resolvers<Context>;
+  QuestionEdge?: QuestionEdgeResolvers.Resolvers<Context>;
+  AggregateQuestion?: AggregateQuestionResolvers.Resolvers<Context>;
+  School?: SchoolResolvers.Resolvers<Context>;
+  Mutation?: MutationResolvers.Resolvers<Context>;
+  AuthPayload?: AuthPayloadResolvers.Resolvers<Context>;
+  QuestionPayload?: QuestionPayloadResolvers.Resolvers<Context>;
   Node?: NodeResolvers.Resolvers;
   DateTime?: GraphQLScalarType;
   Upload?: GraphQLScalarType;
