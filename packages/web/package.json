@@ -37,7 +37,7 @@
     "next": "7.0.3",
     "notistack": "0.4.2",
     "nprogress": "0.2.0",
-    "prop-types": "15.7.1",
+    "prop-types": "15.7.2",
     "react": "16.8.1",
     "react-apollo": "2.4.1",
     "react-dom": "16.8.1",
