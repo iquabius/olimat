@@ -66,7 +66,7 @@
     "graphql-import": "0.7.1",
     "graphql-tools": "4.0.4",
     "jest-dom": "3.1.2",
-    "react-testing-library": "5.8.0",
+    "react-testing-library": "5.9.0",
     "rimraf": "2.6.3"
   },
   "repository": "github:iquabius/olimat"
