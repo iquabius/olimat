@@ -27,7 +27,7 @@
     "express-fileupload": "1.0.0",
     "graphql": "14.1.1",
     "graphql-import": "0.7.1",
-    "jsonwebtoken": "8.4.0",
+    "jsonwebtoken": "8.5.0",
     "mime-types": "2.1.22",
     "mv": "2.1.1",
     "prisma-client-lib": "1.26.6",
