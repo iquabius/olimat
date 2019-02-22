@@ -55,7 +55,7 @@
     "@types/nprogress": "0.0.29",
     "@types/react": "16.8.4",
     "@types/react-dom": "16.8.2",
-    "@types/react-jss": "8.6.2",
+    "@types/react-jss": "8.6.3",
     "@types/recompose": "0.30.4",
     "@types/yup": "0.26.9",
     "@zeit/next-css": "1.0.1",
