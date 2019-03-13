@@ -57,7 +57,7 @@
     "@types/react-dom": "16.8.2",
     "@types/react-jss": "8.6.3",
     "@types/recompose": "0.30.5",
-    "@types/yup": "0.26.11",
+    "@types/yup": "0.26.12",
     "@zeit/next-css": "1.0.1",
     "@zeit/next-typescript": "1.1.1",
     "apollo-link-schema": "1.2.0",
