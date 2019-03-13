@@ -48,7 +48,7 @@
     "apollo-link-http": "1.5.12",
     "apollo-server-testing": "2.4.2",
     "copyfiles": "2.1.0",
-    "dotenv": "6.2.0",
+    "dotenv": "7.0.0",
     "graphql-code-generator": "0.16.1",
     "graphql-codegen-typescript-common": "0.16.1",
     "graphql-codegen-typescript-resolvers": "0.16.1",
