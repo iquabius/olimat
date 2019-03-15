@@ -30,7 +30,7 @@
     "jsonwebtoken": "8.5.0",
     "mime-types": "2.1.22",
     "mv": "2.1.1",
-    "prisma-client-lib": "1.27.0",
+    "prisma-client-lib": "1.28.5",
     "shortid": "2.2.14"
   },
   "devDependencies": {
@@ -57,7 +57,7 @@
     "nock": "10.0.6",
     "node-fetch": "2.3.0",
     "nodemon": "1.18.10",
-    "prisma": "1.27.0",
+    "prisma": "1.28.5",
     "rimraf": "2.6.3",
     "ts-node": "8.0.3"
   },
