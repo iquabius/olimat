@@ -47,6 +47,21 @@ services:
       POSTGRES_PASSWORD: prisma
     volumes:
       - postgres:/var/lib/postgresql/data
+  web:
+    image: olimat-web:latest
+    build:
+      context: .
+      dockerfile: packages/web/Dockerfile
+    command: npm --prefix packages/web start
+    depends_on:
+      - api
+    environment:
+      # It needs to be production so that react-jss can ajust the class names
+      # https://github.com/cssinjs/jss/issues/659
+      - NODE_ENV=production
+      - GRAPHQL_API_URI=http://ec2-54-157-12-33.compute-1.amazonaws.com:4000/graphql
+    ports:
+      - 3000:3000
 
 volumes:
   postgres:

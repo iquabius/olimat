@@ -1,1 +1,15 @@
 packages/**/node_modules
+node_modules
+
+./**/.next
+./**/dist
+
+./**/__tests__
+./**/__snapshots__
+./**/*.test.tsx
+
+./**/*Dockerfile*
+.git
+cypress
+.vscode
+.circleci

@@ -23,9 +23,15 @@ function create(initialState, { getToken }) {
     if (networkError) console.log(`[Network error]: ${networkError.message}`);
   });
 
+
+  const apiUri =
+    process.env.NODE_ENV === 'production'
+      ? 'http://ec2-54-157-12-33.compute-1.amazonaws.com:4000/graphql'
+      : 'http://localhost:4000/graphql';
+
   const httpLink = createHttpLink({
     // TODO: Fix this to work on intranet
-    uri: 'http://localhost:4000/graphql',
+    uri: apiUri,
     credentials: 'same-origin',
   });
 
