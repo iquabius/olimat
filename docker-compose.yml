@@ -1,0 +1,52 @@
+# https://versatile.nl/blog/deploying-lerna-web-apps-with-docker
+
+version: '3'
+services:
+  api:
+    image: olimat-api:latest
+    build:
+      context: .
+      dockerfile: packages/api/Dockerfile
+    command: npm --prefix packages/api start
+    depends_on:
+      - prisma
+    environment:
+      - NODE_ENV=staging
+      - PRISMA_ENDPOINT=http://prisma:4466/olimat-api/dev
+      - PRISMA_CLUSTER=local
+      - PRISMA_SECRET=mysecret123
+      - APP_SECRET=jwtsecret123
+      - ENGINE_API_KEY=service:olimat:5ge3pH3j7fbRUplppJpyug
+      - ENGINE_SCHEMA_TAG="alpha"
+    ports:
+      - 4000:4000
+  prisma:
+    image: prismagraphql/prisma:1.28
+    restart: always
+    ports:
+    - "4466:4466"
+    depends_on:
+      - postgres
+    environment:
+      PRISMA_CONFIG: |
+        managementApiSecret: my-prisma-management-secret
+        port: 4466
+        databases:
+          default:
+            connector: postgres
+            host: postgres
+            port: 5432
+            user: prisma
+            password: prisma
+            migrations: true
+  postgres:
+    image: postgres:10.7
+    restart: always
+    environment:
+      POSTGRES_USER: prisma
+      POSTGRES_PASSWORD: prisma
+    volumes:
+      - postgres:/var/lib/postgresql/data
+
+volumes:
+  postgres:
