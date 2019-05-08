@@ -43,7 +43,7 @@
     "@types/mv": "2.1.0",
     "@types/nock": "9.3.1",
     "@types/shortid": "0.0.29",
-    "apollo": "2.10.2",
+    "apollo": "2.10.3",
     "apollo-link": "1.2.11",
     "apollo-link-http": "1.5.14",
     "apollo-server-testing": "2.4.8",
