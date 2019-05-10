@@ -7,7 +7,7 @@ executors:
   prisma:
     docker:
       - image: cypress/base:10
-      - image: postgres:10.7
+      - image: postgres:10.8
         environment:
           POSTGRES_USER: prisma
           POSTGRES_PASSWORD: prisma
