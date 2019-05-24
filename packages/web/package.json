@@ -50,7 +50,7 @@
   },
   "devDependencies": {
     "@types/classnames": "2.2.7",
-    "@types/cookie": "0.3.2",
+    "@types/cookie": "0.3.3",
     "@types/next": "7.0.9",
     "@types/nprogress": "0.0.29",
     "@types/react": "16.8.18",
