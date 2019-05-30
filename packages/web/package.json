@@ -49,7 +49,7 @@
     "yup": "0.27.0"
   },
   "devDependencies": {
-    "@types/classnames": "2.2.7",
+    "@types/classnames": "2.2.8",
     "@types/cookie": "0.3.3",
     "@types/next": "7.0.9",
     "@types/nprogress": "0.0.29",
