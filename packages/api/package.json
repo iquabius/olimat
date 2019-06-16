@@ -59,7 +59,7 @@
     "nodemon": "1.19.1",
     "prisma": "1.28.5",
     "rimraf": "2.6.3",
-    "ts-node": "8.2.0"
+    "ts-node": "8.3.0"
   },
   "repository": "github:iquabius/olimat"
 }
