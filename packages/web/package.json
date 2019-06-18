@@ -18,7 +18,7 @@
     "@material-ui/icons": "3.0.2",
     "@olimat/api": "0.0.1",
     "apollo-cache-inmemory": "1.6.2",
-    "apollo-client": "2.6.2",
+    "apollo-client": "2.6.3",
     "apollo-link": "1.2.12",
     "apollo-link-context": "1.0.18",
     "apollo-link-error": "1.1.11",
