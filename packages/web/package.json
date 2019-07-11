@@ -28,7 +28,7 @@
     "filepond": "3.9.0",
     "filepond-plugin-image-exif-orientation": "1.0.4",
     "filepond-plugin-image-preview": "3.1.6",
-    "formik": "1.5.7",
+    "formik": "1.5.8",
     "graphql": "14.4.2",
     "graphql-tag": "2.10.1",
     "isomorphic-unfetch": "3.0.0",
