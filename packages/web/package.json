@@ -51,7 +51,7 @@
   "devDependencies": {
     "@types/classnames": "2.2.9",
     "@types/cookie": "0.3.3",
-    "@types/next": "7.0.9",
+    "@types/next": "8.0.7",
     "@types/nprogress": "0.2.0",
     "@types/react": "16.8.25",
     "@types/react-dom": "16.8.5",
