@@ -26,17 +26,12 @@
   // Otherwise, we could use 'esbenp.prettier-vscode' extension.
   // Formats our code using prettier followed by eslint --fix:
   // "prettier.eslintIntegration": true,
-  "eslint.validate": [
-    "javascript",
-    {
-      "language": "typescript",
-      "autoFix": true
-    },
-    {
-      "language": "typescriptreact",
-      "autoFix": true
-    }
-  ],
+  // Parece que agora já vem ativado...
+  // "eslint.validate": [
+  //   "javascript",
+  //   "typescript",
+  //   "typescriptreact",
+  // ],
   "typescript.tsdk": "node_modules/typescript/lib",
   /**/
 }
