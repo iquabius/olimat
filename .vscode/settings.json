@@ -20,7 +20,9 @@
   },
   // Prettier is run by ESLint as an autofixable rule, so we don't
   // need to run it separately:
-  "eslint.autoFixOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
   // Otherwise, we could use 'esbenp.prettier-vscode' extension.
   // Formats our code using prettier followed by eslint --fix:
   // "prettier.eslintIntegration": true,
