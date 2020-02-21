@@ -27,3 +27,21 @@ Object {
   },
 }
 `;
+
+exports[`Queries fetches single city 1`] = `
+Object {
+  "data": Object {
+    "city": Object {
+      "id": "cId1",
+      "name": "Barra do Bugres",
+    },
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;

@@ -14,14 +14,14 @@ const getCitiesQuery = gql`
   }
 `;
 
-// const getCityQuery = gql`
-//   query getCity($id: ID!) {
-//     city(id: $id) {
-//       id
-//       name
-//     }
-//   }
-// `;
+const getCityQuery = gql`
+  query getCity($id: ID!) {
+    city(id: $id) {
+      id
+      name
+    }
+  }
+`;
 
 describe('Queries', () => {
   beforeAll(() => nock.disableNetConnect());
@@ -60,25 +60,25 @@ describe('Queries', () => {
   });
 
   // 'query', de createTestServer(), está com o tipo errado, parece um bug.
-  // xtest('fetches single city', async () => {
-  //   const mockCity = { id: 'cId1', name: 'Barra do Bugres' };
+  test('fetches single city', async () => {
+    const mockCity = { id: 'cId1', name: 'Barra do Bugres' };
 
-  //   // nock.recorder.rec();
-  //   nock('http://localhost:4466')
-  //     .post('/olimat-api/dev')
-  //     .reply(200, [
-  //       {
-  //         data: {
-  //           city: mockCity,
-  //         },
-  //       },
-  //     ]);
+    // nock.recorder.rec();
+    nock('http://localhost:4466')
+      .post('/olimat-api/dev')
+      .reply(200, [
+        {
+          data: {
+            city: mockCity,
+          },
+        },
+      ]);
 
-  //   const server = createTestServer();
+    const server = createTestServer();
 
-  //   const { query } = createTestClient(server);
-  //   const res = await query({ query: getCityQuery, variables: { id: mockCity.id } });
-  //   expect(res).toMatchSnapshot();
-  //   expect(res).toBe(mockCity);
-  // });
+    const { query } = createTestClient(server);
+    const res = await query({ query: getCityQuery, variables: { id: mockCity.id } });
+    expect(res).toMatchSnapshot();
+    expect(res.data.city).toEqual(mockCity);
+  });
 });
