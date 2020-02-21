@@ -104,7 +104,7 @@ workflows:
       - cypress/run:
           name: 'end-to-end tests'
           executor: prisma
-          record: true         # record results to Cypress Dashboard
+          # record: true         # record results to Cypress Dashboard
           build: |
             npx lerna bootstrap --ci
             npm run build
