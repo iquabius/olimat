@@ -196,7 +196,7 @@ class OliApp extends App<Props, OliAppState> {
   }
 }
 
-OliApp.getInitialProps = async ({ Component, router, ctx }) => {
+OliApp.getInitialProps = async ({ Component, ctx }) => {
   const { loggedInUser } = await checkLoggedIn(ctx.apolloClient);
   const paletteType = parseCookies(ctx.req).paletteType;
   let pageProps = {};
@@ -205,7 +205,7 @@ OliApp.getInitialProps = async ({ Component, router, ctx }) => {
     pageProps = await Component.getInitialProps(ctx);
   }
 
-  return { loggedInUser, pageProps, paletteType, router };
+  return { loggedInUser, pageProps, paletteType };
 };
 
 export default withData(OliApp);

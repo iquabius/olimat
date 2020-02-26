@@ -34,7 +34,7 @@
     "isomorphic-unfetch": "3.0.0",
     "jss": "9.8.7",
     "lodash": "4.17.15",
-    "next": "7.0.3",
+    "next": "^8.0.3",
     "notistack": "0.4.3",
     "nprogress": "0.2.0",
     "prop-types": "15.7.2",
