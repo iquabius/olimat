@@ -32,3 +32,8 @@ export function pageToTitle(page) {
 
 export const parseCookies = (req?: http.IncomingMessage, options = {}) =>
   cookie.parse(req ? req.headers.cookie || '' : document.cookie, options);
+
+export function getCookie(name: string) {
+  const regex = new RegExp(`(?:(?:^|.*;*)${name}*=*([^;]*).*$)|^.*$`);
+  return document.cookie.replace(regex, '$1');
+}

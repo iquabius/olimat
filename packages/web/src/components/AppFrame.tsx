@@ -1,7 +1,7 @@
 import { createStyles, Theme, Tooltip, WithStyles } from '@material-ui/core';
 import AppBar from '@material-ui/core/AppBar';
 import IconButton from '@material-ui/core/IconButton';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, useTheme } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import NProgressBar from '@material-ui/docs/NProgressBar';
@@ -10,12 +10,10 @@ import LightbulbOutlineIcon from '@material-ui/docs/svgIcons/LightbulbOutline';
 import MenuIcon from '@material-ui/icons/Menu';
 import Router from 'next/router';
 import NProgress from 'nprogress';
-import React from 'react';
-import { compose } from 'react-apollo';
-import fromRenderProps from 'recompose/fromRenderProps';
+import React, { ReactNode } from 'react';
 
 import AppDrawer from './AppDrawer';
-import PageContext, { UiTheme } from './PageContext';
+import { useChangeTheme } from './ThemeContext';
 import PageTitle from './PageTitle';
 import UserMenuAppBar from './UserMenuAppBar';
 
@@ -73,110 +71,97 @@ const styles = (theme: Theme) =>
   });
 
 interface Props extends WithStyles<typeof styles> {
-  uiTheme: UiTheme;
+  children: ReactNode;
 }
 
-class AppFrame extends React.Component<Props> {
-  state = {
-    mobileOpen: false,
+function AppFrame(props: Props) {
+  const { children, classes } = props;
+
+  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const handleDrawerOpen = () => {
+    setMobileOpen(true);
+  };
+  const handleDrawerClose = () => {
+    setMobileOpen(false);
   };
 
-  handleDrawerOpen = () => {
-    this.setState({ mobileOpen: true });
+  const theme = useTheme();
+  const changeTheme = useChangeTheme();
+  const handleTogglePaletteType = () => {
+    const paletteType = theme.palette.type === 'light' ? 'dark' : 'light';
+
+    changeTheme({ paletteType });
   };
 
-  handleDrawerClose = () => {
-    this.setState({ mobileOpen: false });
-  };
+  return (
+    <PageTitle>
+      {title => {
+        let disablePermanent = false;
+        let navIconClassName = '';
+        let appBarClassName = classes.appBar;
 
-  render() {
-    const { children, classes, uiTheme } = this.props;
+        if (title === null) {
+          // home route, don't shift app bar or dock drawer
+          disablePermanent = true;
+          appBarClassName += ` ${classes.appBarHome}`;
+        } else {
+          navIconClassName = classes.navIconHide;
+          appBarClassName += ` ${classes.appBarShift}`;
+        }
+        // Disable box-shadow for pages wrapped by AppContent.
+        // Those pages have a breadcrumb box.
+        // if (RegExp('admin').test(activePage.pathname)) {
+        //   appBarClassName += ` ${classes.appBarHome}`;
+        // }
 
-    return (
-      <PageTitle>
-        {title => {
-          let disablePermanent = false;
-          let navIconClassName = '';
-          let appBarClassName = classes.appBar;
-
-          if (title === null) {
-            // home route, don't shift app bar or dock drawer
-            disablePermanent = true;
-            appBarClassName += ` ${classes.appBarHome}`;
-          } else {
-            navIconClassName = classes.navIconHide;
-            appBarClassName += ` ${classes.appBarShift}`;
-          }
-          // Disable box-shadow for pages wrapped by AppContent.
-          // Those pages have a breadcrumb box.
-          // if (RegExp('admin').test(activePage.pathname)) {
-          //   appBarClassName += ` ${classes.appBarHome}`;
-          // }
-
-          return (
-            <div className={classes.root}>
-              <NProgressBar />
-              <AppBar className={appBarClassName}>
-                <Toolbar>
+        return (
+          <div className={classes.root}>
+            <NProgressBar />
+            <AppBar className={appBarClassName}>
+              <Toolbar>
+                <IconButton
+                  color="inherit"
+                  aria-label="open drawer"
+                  onClick={handleDrawerOpen}
+                  className={navIconClassName}
+                >
+                  <MenuIcon />
+                </IconButton>
+                {title !== null && (
+                  <Typography className={classes.title} variant="h6" color="inherit" noWrap>
+                    {title}
+                  </Typography>
+                )}
+                <div className={classes.grow} />
+                <Tooltip title="Alternar tema claro/escuro" enterDelay={300}>
                   <IconButton
                     color="inherit"
-                    aria-label="open drawer"
-                    onClick={this.handleDrawerOpen}
-                    className={navIconClassName}
+                    onClick={handleTogglePaletteType}
+                    aria-label="Alternar tema claro/escuro"
                   >
-                    <MenuIcon />
+                    {theme.palette.type === 'light' ? (
+                      <LightbulbOutlineIcon />
+                    ) : (
+                      <LightbulbFullIcon />
+                    )}
                   </IconButton>
-                  {title !== null && (
-                    <Typography className={classes.title} variant="h6" color="inherit" noWrap>
-                      {title}
-                    </Typography>
-                  )}
-                  <div className={classes.grow} />
-                  <Tooltip title="Alternar tema claro/escuro" enterDelay={300}>
-                    <IconButton
-                      color="inherit"
-                      onClick={uiTheme.handleTogglePaletteType}
-                      aria-label="Alternar tema claro/escuro"
-                    >
-                      {uiTheme.paletteType === 'light' ? (
-                        <LightbulbOutlineIcon />
-                      ) : (
-                        <LightbulbFullIcon />
-                      )}
-                    </IconButton>
-                  </Tooltip>
-                  <UserMenuAppBar />
-                </Toolbar>
-              </AppBar>
-              <AppDrawer
-                className={classes.drawer}
-                disablePermanent={disablePermanent}
-                onClose={this.handleDrawerClose}
-                onOpen={this.handleDrawerOpen}
-                mobileOpen={this.state.mobileOpen}
-              />
-              {children}
-            </div>
-          );
-        }}
-      </PageTitle>
-    );
-  }
+                </Tooltip>
+                <UserMenuAppBar />
+              </Toolbar>
+            </AppBar>
+            <AppDrawer
+              className={classes.drawer}
+              disablePermanent={disablePermanent}
+              onClose={handleDrawerClose}
+              onOpen={handleDrawerOpen}
+              mobileOpen={mobileOpen}
+            />
+            {children}
+          </div>
+        );
+      }}
+    </PageTitle>
+  );
 }
 
-interface RenderProps {
-  uiTheme: UiTheme;
-}
-
-// Higher Order Components and TypeScript is terrible
-const pageContext = fromRenderProps<RenderProps, Props, RenderProps>(
-  PageContext.Consumer,
-  ({ uiTheme }) => ({
-    uiTheme,
-  }),
-);
-
-export default compose(
-  pageContext,
-  withStyles(styles, { name: 'AppFrame' }),
-)(AppFrame);
+export default withStyles(styles, { name: 'AppFrame' })(AppFrame);
