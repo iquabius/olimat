@@ -3,8 +3,16 @@ import Checkbox from '@material-ui/core/Checkbox';
 import { SortDirection } from '@material-ui/core/TableCell';
 import Tooltip from '@material-ui/core/Tooltip';
 import React from 'react';
+import { SchoolFormValues } from './SchoolAddDialog';
 
-const columnData = [
+interface HeadCell {
+  disablePadding: boolean;
+  id: keyof SchoolFormValues;
+  label: string;
+  numeric: boolean;
+}
+
+const columnData: HeadCell[] = [
   { id: 'name', numeric: false, disablePadding: true, label: 'Escola' },
   { id: 'city', numeric: false, disablePadding: false, label: 'Cidade' },
   { id: 'phone', numeric: false, disablePadding: false, label: 'Telefone' },
@@ -41,7 +49,7 @@ class EnhancedTableHead extends React.Component<Props> {
             return (
               <TableCell
                 key={column.id}
-                numeric={column.numeric}
+                align={column.numeric ? 'right' : 'left'}
                 padding={column.disablePadding ? 'none' : 'default'}
                 sortDirection={orderBy === column.id ? order : false}
               >
