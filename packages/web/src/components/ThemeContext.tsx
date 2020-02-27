@@ -8,64 +8,9 @@ import { getCookie } from '../utils/helpers';
 export const themeColor = blue[700];
 
 const themeInitialOptions = {
-  dense: false,
   direction: 'ltr',
   paletteColors: {},
   spacing: 8, // spacing unit
-};
-
-const highDensity = {
-  props: {
-    MuiButton: {
-      size: 'small',
-    },
-    MuiFilledInput: {
-      margin: 'dense',
-    },
-    MuiFormControl: {
-      margin: 'dense',
-    },
-    MuiFormHelperText: {
-      margin: 'dense',
-    },
-    MuiIconButton: {
-      size: 'small',
-    },
-    MuiInputBase: {
-      margin: 'dense',
-    },
-    MuiInputLabel: {
-      margin: 'dense',
-    },
-    MuiListItem: {
-      dense: true,
-    },
-    MuiOutlinedInput: {
-      margin: 'dense',
-    },
-    MuiFab: {
-      size: 'small',
-    },
-    MuiTable: {
-      size: 'small',
-    },
-    MuiTextField: {
-      margin: 'dense',
-    },
-    MuiToolbar: {
-      variant: 'dense',
-    },
-  },
-  overrides: {
-    MuiIconButton: {
-      sizeSmall: {
-        // minimal touch target hit spacing
-        marginLeft: 4,
-        marginRight: 4,
-        padding: 12,
-      },
-    },
-  },
 };
 
 export const DispatchContext = React.createContext(() => {
@@ -100,17 +45,6 @@ export function ThemeProvider(props) {
           spacing: state.spacing - 1,
         };
       }
-      case 'SET_DENSE':
-        return {
-          ...state,
-          dense: action.payload,
-        };
-      case 'RESET_DENSITY':
-        return {
-          ...state,
-          dense: themeInitialOptions.dense,
-          spacing: themeInitialOptions.spacing,
-        };
       case 'RESET_COLORS':
         return {
           ...state,
@@ -130,7 +64,7 @@ export function ThemeProvider(props) {
 
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
   const preferredType = prefersDarkMode ? 'dark' : 'light';
-  const { dense, direction, paletteColors, paletteType = preferredType, spacing } = themeOptions;
+  const { direction, paletteColors, paletteType = preferredType, spacing } = themeOptions;
 
   React.useEffect(() => {
     if (process.browser) {
@@ -154,29 +88,26 @@ export function ThemeProvider(props) {
   }, [direction]);
 
   const theme = React.useMemo(() => {
-    const nextTheme = createMuiTheme(
-      {
-        direction,
-        nprogress: {
-          color: paletteType === 'light' ? '#006000' : '#33a133',
-        },
-        palette: {
-          primary: {
-            main: paletteType === 'light' ? blue[700] : blue[200],
-          },
-          secondary: {
-            main: paletteType === 'light' ? darken(pink.A400, 0.1) : pink[200],
-          },
-          type: paletteType,
-          background: {
-            default: paletteType === 'light' ? '#fff' : '#121212',
-          },
-          ...paletteColors,
-        },
-        spacing,
+    const nextTheme = createMuiTheme({
+      direction,
+      nprogress: {
+        color: paletteType === 'light' ? '#006000' : '#33a133',
       },
-      dense ? highDensity : null,
-    );
+      palette: {
+        primary: {
+          main: paletteType === 'light' ? blue[700] : blue[200],
+        },
+        secondary: {
+          main: paletteType === 'light' ? darken(pink.A400, 0.1) : pink[200],
+        },
+        type: paletteType,
+        background: {
+          default: paletteType === 'light' ? '#fff' : '#121212',
+        },
+        ...paletteColors,
+      },
+      spacing,
+    });
 
     nextTheme.palette.background.level2 =
       paletteType === 'light' ? nextTheme.palette.grey[100] : '#333';
@@ -185,7 +116,7 @@ export function ThemeProvider(props) {
       paletteType === 'light' ? '#fff' : nextTheme.palette.grey[900];
 
     return nextTheme;
-  }, [dense, direction, paletteColors, paletteType, spacing]);
+  }, [direction, paletteColors, paletteType, spacing]);
 
   React.useEffect(() => {
     // Expose the theme as a global variable so people can play with it.
