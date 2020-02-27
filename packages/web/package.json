@@ -16,6 +16,7 @@
     "@material-ui/core": "^4.1.2",
     "@material-ui/docs": "3.0.0-alpha.9",
     "@material-ui/icons": "3.0.2",
+    "@material-ui/styles": "^4.1.2",
     "@olimat/api": "0.0.1",
     "apollo-cache-inmemory": "1.6.5",
     "apollo-client": "2.6.8",
