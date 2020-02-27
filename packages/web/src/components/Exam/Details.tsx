@@ -11,7 +11,7 @@ const styles = (theme: Theme) =>
   createStyles({
     root: {},
     title: {
-      padding: theme.spacing.unit,
+      padding: theme.spacing(),
       textAlign: 'center',
     },
     questionList: {
@@ -26,7 +26,7 @@ const styles = (theme: Theme) =>
       // adicionar "boxSizing: 'border-box'", para que a matemática fique o
       // mais simples possível.
       // boxSizing: 'border-box',
-      // padding: theme.spacing.unit,
+      // padding: theme.spacing(),
       width: '49.5%',
     },
   });

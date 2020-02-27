@@ -9,7 +9,7 @@ const styles = (theme: Theme) =>
   createStyles({
     root: {
       textAlign: 'justify',
-      padding: theme.spacing.unit * 2,
+      padding: theme.spacing(2),
     },
     questionNumber: {
       fontWeight: 'bold',
@@ -17,12 +17,12 @@ const styles = (theme: Theme) =>
     questionImg: {
       display: 'block',
       margin: 'auto',
-      marginBottom: theme.spacing.unit * 3,
-      marginTop: theme.spacing.unit,
+      marginBottom: theme.spacing(3),
+      marginTop: theme.spacing(),
       maxWidth: '100%',
     },
     choices: {
-      marginBottom: theme.spacing.unit * 4,
+      marginBottom: theme.spacing(4),
     },
   });
 

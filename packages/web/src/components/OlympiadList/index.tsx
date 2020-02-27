@@ -23,8 +23,8 @@ const styles = (theme: Theme) =>
   createStyles({
     root: {
       flexGrow: 1,
-      marginTop: theme.spacing.unit * 3,
-      marginBottom: theme.spacing.unit * 6,
+      marginTop: theme.spacing(3),
+      marginBottom: theme.spacing(6),
     },
     heading: {
       fontSize: theme.typography.pxToRem(15),

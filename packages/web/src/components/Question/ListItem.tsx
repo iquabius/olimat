@@ -23,7 +23,7 @@ const styles = (theme: Theme) =>
     card: {
       maxWidth: '100%',
       maxHeight: 300,
-      marginBottom: theme.spacing.unit * 2,
+      marginBottom: theme.spacing(2),
     },
     [theme.breakpoints.up('sm')]: {
       card: {
@@ -54,8 +54,8 @@ const styles = (theme: Theme) =>
     },
     choices: {
       height: 140,
-      paddingLeft: theme.spacing.unit * 3,
-      paddingRight: theme.spacing.unit * 3,
+      paddingLeft: theme.spacing(3),
+      paddingRight: theme.spacing(3),
     },
   });
 

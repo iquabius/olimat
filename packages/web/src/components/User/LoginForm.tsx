@@ -33,20 +33,20 @@ const styles = (theme: Theme) =>
       position: 'relative',
       width: 350,
       maxHeight: 390,
-      padding: theme.spacing.unit * 4,
+      padding: theme.spacing(4),
     },
     loginHead: {
-      marginBottom: theme.spacing.unit * 2,
+      marginBottom: theme.spacing(2),
       textAlign: 'center',
     },
     passwordInput: {
       height: 'inherit',
     },
     loginButton: {
-      marginTop: theme.spacing.unit * 2,
+      marginTop: theme.spacing(2),
     },
     helpMessage: {
-      marginTop: theme.spacing.unit * 2,
+      marginTop: theme.spacing(2),
     },
   });
 

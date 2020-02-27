@@ -11,7 +11,7 @@ const styleSheet = theme => ({
     overflow: 'auto',
   },
   layout: {
-    padding: theme.spacing.unit * 6,
+    padding: theme.spacing(6),
   },
   list: {
     margin: 0,
@@ -19,8 +19,8 @@ const styleSheet = theme => ({
     listStyle: 'none',
   },
   listItem: {
-    paddingTop: theme.spacing.unit / 2,
-    paddingBottom: theme.spacing.unit / 2,
+    paddingTop: theme.spacing(0.5),
+    paddingBottom: theme.spacing(0.5),
   },
 });
 

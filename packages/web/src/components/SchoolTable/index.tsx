@@ -24,8 +24,8 @@ const styles = (theme: Theme) =>
   createStyles({
     root: {
       width: '100%',
-      marginTop: theme.spacing.unit * 3,
-      marginBottom: theme.spacing.unit * 6,
+      marginTop: theme.spacing(3),
+      marginBottom: theme.spacing(6),
     },
     table: {
       minWidth: 800,
