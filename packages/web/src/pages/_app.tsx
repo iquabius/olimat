@@ -1,14 +1,12 @@
-// <App> customizado: https://nextjs.org/docs#custom-app
 import find from 'lodash/find';
 import App, { Container } from 'next/app';
 import { StylesProvider, jssPreset } from '@material-ui/styles';
 import { create } from 'jss';
 // @ts-ignore
-import { Router as Router2, useRouter } from 'next/router';
+// import { Router as Router2, useRouter } from 'next/router';
 import { SnackbarProvider } from 'notistack';
 import React from 'react';
 
-// import AppWrapper from '../components/AppWrapper';
 import PageContext, { LoggedInUser } from '../components/PageContext';
 import checkLoggedIn from '../utils/checkLoggedIn';
 import withData from '../utils/withData';
@@ -40,8 +38,9 @@ function findActivePage(currentPages, pathname) {
 // Configure JSS
 const jss = create({
   plugins: [...jssPreset().plugins],
-  // @ts-ignore
-  insertionPoint: process.browser ? document.querySelector('#insertion-point-jss') : null,
+  insertionPoint: process.browser
+    ? (document.querySelector('#insertion-point-jss') as HTMLElement)
+    : null,
 });
 
 function AppWrapper(props) {
