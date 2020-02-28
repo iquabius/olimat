@@ -109,12 +109,6 @@ export function ThemeProvider(props) {
       spacing,
     });
 
-    nextTheme.palette.background.level2 =
-      paletteType === 'light' ? nextTheme.palette.grey[100] : '#333';
-
-    nextTheme.palette.background.level1 =
-      paletteType === 'light' ? '#fff' : nextTheme.palette.grey[900];
-
     return nextTheme;
   }, [direction, paletteColors, paletteType, spacing]);
 
