@@ -7,7 +7,7 @@ import { getCookie } from '../utils/helpers';
 
 export const themeColor = blue[700];
 
-const themeInitialOptions = {
+const initialThemeOptions = {
   direction: 'ltr',
   paletteType: 'light',
   spacing: 8, // spacing unit
@@ -29,7 +29,7 @@ const useEnhancedEffect = typeof window === 'undefined' ? React.useEffect : Reac
 interface ActionType {
   // Use um union | se precisar de mais tipos
   type: 'CHANGE';
-  payload: Partial<typeof themeInitialOptions>;
+  payload: Partial<typeof initialThemeOptions>;
 }
 
 export function ThemeProvider(props) {
@@ -48,7 +48,7 @@ export function ThemeProvider(props) {
     }
   };
 
-  const [themeOptions, dispatch] = React.useReducer(reducer, themeInitialOptions);
+  const [themeOptions, dispatch] = React.useReducer(reducer, initialThemeOptions);
 
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
   const preferredType = prefersDarkMode ? 'dark' : 'light';
@@ -109,10 +109,7 @@ ThemeProvider.propTypes = {
   children: PropTypes.node,
 };
 
-/**
- * @returns {(nextOptions: Partial<typeof themeInitialOptions>) => void}
- */
-export function useChangeTheme() {
+export function useChangeTheme(): (nextOptions: Partial<typeof initialThemeOptions>) => void {
   const dispatch = React.useContext(DispatchContext);
   return React.useCallback(options => dispatch({ type: 'CHANGE', payload: options }), [dispatch]);
 }
