@@ -120,8 +120,7 @@ export const newSchoolMutation = gql`
   }
 `;
 
-export interface SchoolFormValues {
-  id: string;
+interface SchoolFormValues {
   name: string;
   email: string;
   phone?: string;

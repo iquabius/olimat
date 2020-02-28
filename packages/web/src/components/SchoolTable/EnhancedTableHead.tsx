@@ -3,11 +3,10 @@ import Checkbox from '@material-ui/core/Checkbox';
 import { SortDirection } from '@material-ui/core/TableCell';
 import Tooltip from '@material-ui/core/Tooltip';
 import React from 'react';
-import { SchoolFormValues } from './SchoolAddDialog';
 
 interface HeadCell {
   disablePadding: boolean;
-  id: keyof SchoolFormValues;
+  id: string;
   label: string;
   numeric: boolean;
 }
