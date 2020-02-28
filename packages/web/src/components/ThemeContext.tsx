@@ -13,7 +13,9 @@ const themeInitialOptions = {
   spacing: 8, // spacing unit
 };
 
-export const DispatchContext = React.createContext(() => {
+type DispatchContextType = (value: ActionType) => void;
+
+export const DispatchContext = React.createContext<DispatchContextType>(() => {
   throw new Error('Forgot to wrap component in `ThemeProvider`');
 });
 
@@ -23,10 +25,11 @@ if (process.env.NODE_ENV !== 'production') {
 
 const useEnhancedEffect = typeof window === 'undefined' ? React.useEffect : React.useLayoutEffect;
 
+// https://fettblog.eu/typescript-react/hooks/#usereducer
 interface ActionType {
   // Use um union | se precisar de mais tipos
   type: 'CHANGE';
-  payload: typeof themeInitialOptions;
+  payload: Partial<typeof themeInitialOptions>;
 }
 
 export function ThemeProvider(props) {
