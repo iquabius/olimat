@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { MuiThemeProvider, createMuiTheme, darken, Direction } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { blue, pink } from '@material-ui/core/colors';
@@ -43,7 +42,7 @@ interface ActionType {
   payload: Partial<ThemeOptionsInterface>;
 }
 
-export function ThemeProvider(props) {
+export function ThemeProvider(props: ThemeProviderProps) {
   const { children } = props;
 
   const reducer = (state: ThemeOptionsInterface, action: ActionType) => {
@@ -116,9 +115,9 @@ export function ThemeProvider(props) {
   );
 }
 
-ThemeProvider.propTypes = {
-  children: PropTypes.node,
-};
+interface ThemeProviderProps {
+  children: React.ReactNode;
+}
 
 export function useChangeTheme(): (nextOptions: Partial<typeof initialThemeOptions>) => void {
   const dispatch = React.useContext(DispatchContext);
