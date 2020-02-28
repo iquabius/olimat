@@ -15,7 +15,7 @@
   "dependencies": {
     "@material-ui/core": "^4.1.2",
     "@material-ui/docs": "4.0.0-beta.0",
-    "@material-ui/icons": "3.0.2",
+    "@material-ui/icons": "4.2.1",
     "@material-ui/styles": "^4.1.2",
     "@olimat/api": "0.0.1",
     "apollo-cache-inmemory": "1.6.5",
