@@ -5,8 +5,8 @@ import { withStyles, useTheme } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import NProgressBar from '@material-ui/docs/NProgressBar';
-import LightbulbFullIcon from '@material-ui/docs/svgIcons/LightbulbFull';
-import LightbulbOutlineIcon from '@material-ui/docs/svgIcons/LightbulbOutline';
+import Brightness4Icon from '@material-ui/icons/Brightness4';
+import Brightness7Icon from '@material-ui/icons/Brightness7';
 import MenuIcon from '@material-ui/icons/Menu';
 import Router from 'next/router';
 import NProgress from 'nprogress';
@@ -141,11 +141,7 @@ function AppFrame(props: Props) {
                     onClick={handleTogglePaletteType}
                     aria-label="Alternar tema claro/escuro"
                   >
-                    {theme.palette.type === 'light' ? (
-                      <LightbulbOutlineIcon />
-                    ) : (
-                      <LightbulbFullIcon />
-                    )}
+                    {theme.palette.type === 'light' ? <Brightness4Icon /> : <Brightness7Icon />}
                   </IconButton>
                 </Tooltip>
                 <UserMenuAppBar />
