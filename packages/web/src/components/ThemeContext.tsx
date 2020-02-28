@@ -1,13 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { MuiThemeProvider, createMuiTheme, darken } from '@material-ui/core/styles';
+import { MuiThemeProvider, createMuiTheme, darken, Direction } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { blue, pink } from '@material-ui/core/colors';
+import { SpacingOptions } from '@material-ui/core/styles/createSpacing';
 import { getCookie } from '../utils/helpers';
 
 export const themeColor = blue[700];
 
-const initialThemeOptions = {
+type PaletteType = 'light' | 'dark';
+
+interface ThemeOptionsInterface {
+  direction: Direction;
+  paletteType: PaletteType;
+  spacing: SpacingOptions;
+}
+
+const initialThemeOptions: ThemeOptionsInterface = {
   direction: 'ltr',
   paletteType: 'light',
   spacing: 8, // spacing unit
@@ -29,13 +38,13 @@ const useEnhancedEffect = typeof window === 'undefined' ? React.useEffect : Reac
 interface ActionType {
   // Use um union | se precisar de mais tipos
   type: 'CHANGE';
-  payload: Partial<typeof initialThemeOptions>;
+  payload: Partial<ThemeOptionsInterface>;
 }
 
 export function ThemeProvider(props) {
   const { children } = props;
 
-  const reducer = (state, action: ActionType) => {
+  const reducer = (state: ThemeOptionsInterface, action: ActionType) => {
     switch (action.type) {
       case 'CHANGE':
         return {
@@ -56,7 +65,7 @@ export function ThemeProvider(props) {
 
   React.useEffect(() => {
     if (process.browser) {
-      const nextPaletteType = getCookie('paletteType');
+      const nextPaletteType = getCookie('paletteType') as PaletteType;
 
       dispatch({
         type: 'CHANGE',
