@@ -147,7 +147,7 @@ const jss = create({
 });
 
 function AppWrapper(props) {
-  const { children, pageProps, loggedInUser, router } = props;
+  const { children, pageProps, router } = props;
 
   // const router = useRouter();
 
@@ -172,7 +172,7 @@ function AppWrapper(props) {
 
   return (
     <React.Fragment>
-      <PageContext.Provider value={{ activePage, pages, loggedInUser }}>
+      <PageContext.Provider value={{ activePage, pages, loggedInUser: pageProps.loggedInUser }}>
         <StylesProvider jss={jss}>
           <ThemeProvider>{children}</ThemeProvider>
         </StylesProvider>
@@ -189,11 +189,11 @@ interface Props {
 // @types/next doesn't allow us to use state with the App component
 class OliApp extends App<Props> {
   render() {
-    const { Component, loggedInUser, pageProps, router } = this.props;
+    const { Component, pageProps, router } = this.props;
 
     return (
       <Container>
-        <AppWrapper pageProps={pageProps} loggedInUser={loggedInUser} router={router}>
+        <AppWrapper pageProps={pageProps} router={router}>
           <SnackbarProvider maxSnack={3}>
             <Component {...pageProps} />
           </SnackbarProvider>
@@ -211,7 +211,12 @@ OliApp.getInitialProps = async ({ Component, ctx }) => {
     pageProps = await Component.getInitialProps(ctx);
   }
 
-  return { loggedInUser, pageProps };
+  pageProps = {
+    ...pageProps,
+    loggedInUser,
+  };
+
+  return { pageProps };
 };
 
 export default withData(OliApp);
