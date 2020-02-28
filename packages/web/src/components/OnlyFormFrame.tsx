@@ -29,7 +29,7 @@ const styles = (theme: Theme) =>
       fontFamily: theme.typography.fontFamily,
       color: theme.palette.primary.contrastText,
       '& h1': {
-        fontSize: theme.typography.display1.fontSize,
+        fontSize: theme.typography.h4.fontSize,
         fontWeight: 400,
       },
     },
