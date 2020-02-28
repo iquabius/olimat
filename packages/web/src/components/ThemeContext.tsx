@@ -28,28 +28,6 @@ export function ThemeProvider(props) {
 
   const [themeOptions, dispatch] = React.useReducer((state, action) => {
     switch (action.type) {
-      case 'SET_SPACING':
-        return {
-          ...state,
-          spacing: action.payload,
-        };
-      case 'INCREASE_SPACING': {
-        return {
-          ...state,
-          spacing: state.spacing + 1,
-        };
-      }
-      case 'DECREASE_SPACING': {
-        return {
-          ...state,
-          spacing: state.spacing - 1,
-        };
-      }
-      case 'RESET_COLORS':
-        return {
-          ...state,
-          paletteColors: themeInitialOptions.paletteColors,
-        };
       case 'CHANGE':
         return {
           ...state,
