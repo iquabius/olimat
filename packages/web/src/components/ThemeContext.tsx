@@ -10,6 +10,7 @@ export const themeColor = blue[700];
 const themeInitialOptions = {
   direction: 'ltr',
   paletteColors: {},
+  paletteType: 'light',
   spacing: 8, // spacing unit
 };
 
@@ -23,10 +24,16 @@ if (process.env.NODE_ENV !== 'production') {
 
 const useEnhancedEffect = typeof window === 'undefined' ? React.useEffect : React.useLayoutEffect;
 
+interface ActionType {
+  // Use um union | se precisar de mais tipos
+  type: 'CHANGE';
+  payload: typeof themeInitialOptions;
+}
+
 export function ThemeProvider(props) {
   const { children } = props;
 
-  const [themeOptions, dispatch] = React.useReducer((state, action) => {
+  const reducer = (state, action: ActionType) => {
     switch (action.type) {
       case 'CHANGE':
         return {
@@ -38,7 +45,9 @@ export function ThemeProvider(props) {
       default:
         throw new Error(`Unrecognized type ${action.type}`);
     }
-  }, themeInitialOptions);
+  };
+
+  const [themeOptions, dispatch] = React.useReducer(reducer, themeInitialOptions);
 
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
   const preferredType = prefersDarkMode ? 'dark' : 'light';
