@@ -13,5 +13,6 @@ declare module '@material-ui/core/styles/createMuiTheme' {
 declare module '@material-ui/core/styles/createPalette' {
   interface TypeBackground extends MuiTypeBackground {
     level1: string;
+    level2: string;
   }
 }
