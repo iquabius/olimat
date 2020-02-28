@@ -9,7 +9,6 @@ export const themeColor = blue[700];
 
 const themeInitialOptions = {
   direction: 'ltr',
-  paletteColors: {},
   paletteType: 'light',
   spacing: 8, // spacing unit
 };
@@ -40,7 +39,6 @@ export function ThemeProvider(props) {
           ...state,
           paletteType: action.payload.paletteType || state.paletteType,
           direction: action.payload.direction || state.direction,
-          paletteColors: action.payload.paletteColors || state.paletteColors,
         };
       default:
         throw new Error(`Unrecognized type ${action.type}`);
@@ -51,16 +49,15 @@ export function ThemeProvider(props) {
 
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
   const preferredType = prefersDarkMode ? 'dark' : 'light';
-  const { direction, paletteColors, paletteType = preferredType, spacing } = themeOptions;
+  const { direction, paletteType = preferredType, spacing } = themeOptions;
 
   React.useEffect(() => {
     if (process.browser) {
-      const nextPaletteColors = JSON.parse(getCookie('paletteColors') || 'null');
       const nextPaletteType = getCookie('paletteType');
 
       dispatch({
         type: 'CHANGE',
-        payload: { paletteColors: nextPaletteColors, paletteType: nextPaletteType },
+        payload: { paletteType: nextPaletteType },
       });
     }
   }, []);
@@ -91,13 +88,12 @@ export function ThemeProvider(props) {
         background: {
           default: paletteType === 'light' ? '#fff' : '#121212',
         },
-        ...paletteColors,
       },
       spacing,
     });
 
     return nextTheme;
-  }, [direction, paletteColors, paletteType, spacing]);
+  }, [direction, paletteType, spacing]);
 
   return (
     <MuiThemeProvider theme={theme}>
