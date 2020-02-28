@@ -35,6 +35,8 @@ if (process.env.NODE_ENV !== 'production') {
 const useEnhancedEffect = typeof window === 'undefined' ? React.useEffect : React.useLayoutEffect;
 
 // https://fettblog.eu/typescript-react/hooks/#usereducer
+// Alternativa p/ tipar actions e o dispatch usando Type Guards:
+// https://dev.to/stephencweiss/usereducer-with-typescript-2kf
 interface ActionType {
   // Use um union | se precisar de mais tipos
   type: 'CHANGE';
