@@ -105,6 +105,9 @@ export function ThemeProvider(props: ThemeProviderProps) {
       spacing,
     });
 
+    nextTheme.palette.background.level1 =
+      paletteType === 'light' ? '#fff' : nextTheme.palette.grey[900];
+
     return nextTheme;
   }, [direction, paletteType, spacing]);
 

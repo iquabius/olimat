@@ -36,6 +36,7 @@ const styles = (theme: Theme) =>
       alignItems: 'stretch',
       minHeight: '100vh',
       width: '100%',
+      backgroundColor: theme.palette.background.level1,
     },
     grow: {
       flex: '1 1 auto',
