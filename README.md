@@ -98,6 +98,21 @@ Clique em 'Open Workspace' para abrir o projeto como espaço de trabalho.
 
 Para abrir a espaço de trabalho diretamente, abra o VS Code, clique em `File -> Open Workspace`, navegue até o diretório do projeto e selecione o arquivo `olimat.code-workspace`.
 
+
+## Gerenciamento do Monorepo com Lerna
+
+Para adicionar ou remover dependências:
+
+1. adicione ou remova manualmente em package.json
+2. remova o diretório `node_modules`
+3. e execute:
+
+```bash
+$ lerna bootstrap --scope @org-name/package-name --no-ci --force-local
+```
+
+Fonte: https://github.com/lerna/lerna/issues/1886#issuecomment-531545220
+
 ## Licença
 
 [AGPL-3.0](./LICENSE)

@@ -18,15 +18,15 @@ const styles = (theme: Theme) =>
     },
     option: {
       ...theme.typography.body2,
-      paddingTop: theme.spacing.unit,
-      paddingBottom: theme.spacing.unit,
+      paddingTop: theme.spacing(),
+      paddingBottom: theme.spacing(),
     },
     dense: {
       width: 250,
       whiteSpace: 'nowrap',
       overflow: 'hidden',
       textOverflow: 'ellipsis',
-      padding: theme.spacing.unit / 3,
+      padding: theme.spacing(1 / 3),
     },
     optionLabel: {
       fontWeight: 'bold',

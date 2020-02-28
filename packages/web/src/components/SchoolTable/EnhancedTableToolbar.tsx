@@ -12,7 +12,7 @@ import React, { MouseEventHandler } from 'react';
 
 const toolbarStyles = theme => ({
   root: {
-    paddingRight: theme.spacing.unit,
+    paddingRight: theme.spacing(),
   },
   highlight:
     theme.palette.type === 'light'

@@ -4,7 +4,14 @@ import { SortDirection } from '@material-ui/core/TableCell';
 import Tooltip from '@material-ui/core/Tooltip';
 import React from 'react';
 
-const columnData = [
+interface HeadCell {
+  disablePadding: boolean;
+  id: string;
+  label: string;
+  numeric: boolean;
+}
+
+const columnData: HeadCell[] = [
   { id: 'name', numeric: false, disablePadding: true, label: 'Escola' },
   { id: 'city', numeric: false, disablePadding: false, label: 'Cidade' },
   { id: 'phone', numeric: false, disablePadding: false, label: 'Telefone' },
@@ -41,7 +48,7 @@ class EnhancedTableHead extends React.Component<Props> {
             return (
               <TableCell
                 key={column.id}
-                numeric={column.numeric}
+                align={column.numeric ? 'right' : 'left'}
                 padding={column.disablePadding ? 'none' : 'default'}
                 sortDirection={orderBy === column.id ? order : false}
               >

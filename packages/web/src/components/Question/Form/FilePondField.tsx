@@ -15,7 +15,7 @@ registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 const styles = (theme: Theme) =>
   createStyles({
     filePond: {
-      marginTop: theme.spacing.unit * 2,
+      marginTop: theme.spacing(2),
     },
   });
 

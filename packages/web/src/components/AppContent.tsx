@@ -8,14 +8,14 @@ const styles = (theme: Theme) =>
       width: '100%',
     },
     root: theme.mixins.gutters({
-      paddingTop: 64 + theme.spacing.unit * 2,
+      paddingTop: 64 + theme.spacing(2),
       position: 'relative',
       flex: '1 1 100%',
       maxWidth: '100%',
       margin: '0 auto',
-      marginBottom: theme.spacing.unit * 8,
+      marginBottom: theme.spacing(8),
     }),
-    [theme.breakpoints.up(900 + theme.spacing.unit * 6)]: {
+    [theme.breakpoints.up(900 + theme.spacing(6))]: {
       root: {
         maxWidth: 900,
       },

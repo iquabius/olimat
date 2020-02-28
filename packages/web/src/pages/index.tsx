@@ -25,16 +25,16 @@ const styles = (theme: Theme) =>
       color: theme.palette.primary.contrastText,
     },
     content: {
-      paddingTop: theme.spacing.unit * 8,
-      paddingBottom: theme.spacing.unit * 8,
+      paddingTop: theme.spacing(8),
+      paddingBottom: theme.spacing(8),
       [theme.breakpoints.up('sm')]: {
-        paddingTop: theme.spacing.unit * 12,
-        paddingBottom: theme.spacing.unit * 10,
+        paddingTop: theme.spacing(12),
+        paddingBottom: theme.spacing(10),
       },
     },
     text: {
-      paddingLeft: theme.spacing.unit * 4,
-      paddingRight: theme.spacing.unit * 4,
+      paddingLeft: theme.spacing(4),
+      paddingRight: theme.spacing(4),
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
@@ -45,7 +45,7 @@ const styles = (theme: Theme) =>
       textAlign: 'center',
     },
     button: {
-      marginTop: theme.spacing.unit * 3,
+      marginTop: theme.spacing(3),
     },
     logo: {
       margin: '20px 0',
@@ -55,13 +55,13 @@ const styles = (theme: Theme) =>
     },
     backers: {
       backgroundColor: theme.palette.background.paper,
-      padding: theme.spacing.unit * 2,
+      padding: theme.spacing(2),
       display: 'flex',
       justifyContent: 'center',
       minHeight: 600,
     },
     backersBody: {
-      maxWidth: theme.spacing.unit * 90,
+      maxWidth: theme.spacing(90),
     },
   });
 

@@ -1,19 +1,11 @@
-import { Theme } from '@material-ui/core';
+// import { Theme } from '@material-ui/core';
+import { ServerStyleSheets } from '@material-ui/styles';
 import Document, { Head, Main, NextScript } from 'next/document';
-import PropTypes from 'prop-types';
 import React from 'react';
+import { themeColor } from '../components/ThemeContext';
 
-import { PageContextThemeProps } from '../utils/getPageContext';
-
-interface Props {
-  pageContext: PageContextThemeProps;
-}
-
-class MyDocument extends Document<Props> {
+class MyDocument extends Document {
   render() {
-    const { pageContext } = this.props;
-    const theme = pageContext.theme as Theme;
-
     return (
       <html lang="en" dir="ltr">
         <Head>
@@ -24,7 +16,7 @@ class MyDocument extends Document<Props> {
             content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
           />
           {/* PWA primary color */}
-          <meta name="theme-color" content={theme.palette.primary[500]} />
+          <meta name="theme-color" content={themeColor} />
           <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
@@ -44,7 +36,7 @@ class MyDocument extends Document<Props> {
   }
 }
 
-MyDocument.getInitialProps = ctx => {
+MyDocument.getInitialProps = async ctx => {
   // Resolution order
   //
   // On the server:
@@ -68,29 +60,25 @@ MyDocument.getInitialProps = ctx => {
   // 4. page.render
 
   // Render app and page and get the context of the page with collected side effects.
-  let pageContext: PageContextThemeProps;
-  const page = ctx.renderPage(Component => {
-    const WrappedComponent = props => {
-      pageContext = props.pageContext;
-      return <Component {...props} />;
-    };
+  const sheets = new ServerStyleSheets();
+  const originalRenderPage = ctx.renderPage;
 
-    WrappedComponent.propTypes = {
-      pageContext: PropTypes.object.isRequired,
-    };
+  ctx.renderPage = () =>
+    originalRenderPage({
+      enhanceApp: App => props => sheets.collect(<App {...props} />),
+    });
 
-    return WrappedComponent;
-  });
+  const initialProps = await Document.getInitialProps(ctx);
+
+  let css = sheets.toString();
+  // TODO: Configurar prefixer e minifier (ver material-ui/docs)
 
   return {
-    ...page,
-    pageContext,
+    ...initialProps,
     styles: [
+      ...React.Children.toArray(initialProps.styles),
       // eslint-disable-next-line react/jsx-key
-      <style
-        id="jss-server-side"
-        dangerouslySetInnerHTML={{ __html: pageContext.sheetsRegistry.toString() }}
-      />,
+      <style id="jss-server-side" dangerouslySetInnerHTML={{ __html: css }} />,
     ],
   };
 };

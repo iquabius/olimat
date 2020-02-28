@@ -15,8 +15,8 @@ import { allCitiesQuery } from './List';
 const styles = (theme: Theme) =>
   createStyles({
     textField: {
-      marginLeft: -theme.spacing.unit,
-      // marginRight: theme.spacing.unit,
+      marginLeft: -theme.spacing(),
+      // marginRight: theme.spacing(),
       marginBottom: -7,
       marginTop: -7,
     },

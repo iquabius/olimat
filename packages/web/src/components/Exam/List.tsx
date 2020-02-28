@@ -25,8 +25,11 @@ const styles = (theme: Theme) =>
     },
   });
 
-const ExamItemLink: React.FunctionComponent<ListItemProps> = props => {
-  return <ListItem button dense component={Link} {...props} />;
+// https://material-ui.com/components/lists/#SimpleList.tsx
+interface ExamItemProps extends ListItemProps<typeof Link, { button?: true }> {}
+
+const ExamItemLink: React.FunctionComponent<ExamItemProps> = props => {
+  return <ListItem button={true} dense component={Link} {...props} />;
 };
 
 interface Props extends WithStyles<typeof styles> {}

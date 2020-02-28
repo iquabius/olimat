@@ -14,14 +14,14 @@ const styles = (theme: Theme) =>
       flex: '0 0 auto',
       flexWrap: 'wrap',
       justifyContent: 'flex-end',
-      marginTop: theme.spacing.unit,
+      marginTop: theme.spacing(),
     },
     saveButton: {
       width: '33%',
     },
     cancelButton: {
       width: '25%',
-      marginRight: theme.spacing.unit,
+      marginRight: theme.spacing(),
     },
     [theme.breakpoints.down('xs')]: {
       saveButton: {
@@ -29,7 +29,7 @@ const styles = (theme: Theme) =>
       },
       cancelButton: {
         marginRight: 0,
-        marginTop: theme.spacing.unit,
+        marginTop: theme.spacing(),
         width: '100%',
         order: 1,
       },

@@ -34,13 +34,13 @@ const styles = (theme: Theme) =>
       flex: '1 1 100%',
     },
     detailsBox: {
-      padding: theme.spacing.unit * 3,
+      padding: theme.spacing(3),
     },
     questionImg: {
       display: 'block',
       marginLeft: 'auto',
       marginRight: 'auto',
-      marginBottom: theme.spacing.unit * 2,
+      marginBottom: theme.spacing(2),
     },
   });
 
