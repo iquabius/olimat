@@ -118,13 +118,6 @@ export function ThemeProvider(props) {
     return nextTheme;
   }, [direction, paletteColors, paletteType, spacing]);
 
-  React.useEffect(() => {
-    // Expose the theme as a global variable so people can play with it.
-    if (process.browser) {
-      window.theme = theme;
-    }
-  }, [theme]);
-
   return (
     <MuiThemeProvider theme={theme}>
       <DispatchContext.Provider value={dispatch}>{children}</DispatchContext.Provider>
