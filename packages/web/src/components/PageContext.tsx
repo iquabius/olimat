@@ -1,4 +1,4 @@
-import React, { MouseEventHandler } from 'react';
+import React from 'react';
 
 interface User {
   id: string;
@@ -8,11 +8,6 @@ interface User {
 // We should change the query in checkLoggedIn() to get more user fields
 export interface LoggedInUser {
   me: User;
-}
-
-export interface UiTheme {
-  handleTogglePaletteType: MouseEventHandler;
-  paletteType: 'dark' | 'light';
 }
 
 export interface Page {
@@ -26,7 +21,6 @@ interface PageContext {
   activePage: Page;
   loggedInUser: LoggedInUser;
   pages: Page[];
-  uiTheme: UiTheme;
 }
 
 // The default value is never and should never be used.
@@ -44,10 +38,6 @@ const PageContext = React.createContext<PageContext>({
     },
   },
   pages: [],
-  uiTheme: {
-    paletteType: 'light',
-    handleTogglePaletteType: () => {},
-  },
 });
 
 export default PageContext;
