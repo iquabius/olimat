@@ -4,17 +4,17 @@ import { fireEvent, render } from 'react-testing-library';
 import CancelDialog from './CancelDialog';
 
 test("doesn't render the dialog if it's closed", () => {
-  const { container } = render(
-    <CancelDialog onCancel={() => {}} onContinue={() => {}} open={false} />,
-  );
+	const { container } = render(
+		<CancelDialog onCancel={() => {}} onContinue={() => {}} open={false} />,
+	);
 
-  expect(container).toMatchSnapshot();
+	expect(container).toMatchSnapshot();
 });
 
 test("renders the dialog if it's open", () => {
-  const { getByTestId } = render(<CancelDialog onCancel={() => {}} onContinue={() => {}} open />);
+	const { getByTestId } = render(<CancelDialog onCancel={() => {}} onContinue={() => {}} open />);
 
-  expect(getByTestId('cancel-dialog')).toHaveTextContent('Descartar rascunho da questão?');
+	expect(getByTestId('cancel-dialog')).toHaveTextContent('Descartar rascunho da questão?');
 });
 
 // TODO: Move test case to <QuestionUpdateForm/> suit (unit -> integration)
@@ -33,21 +33,21 @@ could tested in a real browser, and even check if the question data was
 actually deleted from the database.
 */
 test('calls onContinue handler when clicking "Descartar"', () => {
-  const handleContinue = jest.fn();
-  const { getByText } = render(
-    <CancelDialog onCancel={() => {}} onContinue={handleContinue} open />,
-  );
+	const handleContinue = jest.fn();
+	const { getByText } = render(
+		<CancelDialog onCancel={() => {}} onContinue={handleContinue} open />,
+	);
 
-  fireEvent.click(getByText('Descartar'));
+	fireEvent.click(getByText('Descartar'));
 
-  expect(handleContinue).toHaveBeenCalledTimes(1);
+	expect(handleContinue).toHaveBeenCalledTimes(1);
 });
 
 test('calls onCancel handler when clicking "Cancelar"', () => {
-  const handleCancel = jest.fn();
-  const { getByText } = render(<CancelDialog onCancel={handleCancel} onContinue={() => {}} open />);
+	const handleCancel = jest.fn();
+	const { getByText } = render(<CancelDialog onCancel={handleCancel} onContinue={() => {}} open />);
 
-  fireEvent.click(getByText('Cancelar'));
+	fireEvent.click(getByText('Cancelar'));
 
-  expect(handleCancel).toHaveBeenCalledTimes(1);
+	expect(handleCancel).toHaveBeenCalledTimes(1);
 });

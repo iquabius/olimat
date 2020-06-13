@@ -6,5 +6,5 @@ const testEnvFile = path.join(__dirname, './.env.test');
 const result = dotenv.config({ path: testEnvFile });
 
 if (result.error) {
-  throw result.error;
+	throw result.error;
 }

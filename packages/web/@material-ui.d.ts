@@ -3,16 +3,16 @@ import { TypeBackground as MuiTypeBackground } from '@material-ui/core/styles/cr
 
 // Extends default ThemeOptions to include our NProgress Bar's color
 declare module '@material-ui/core/styles/createMuiTheme' {
-  interface ThemeOptions extends MuiThemeOptions {
-    nprogress: {
-      color: string;
-    };
-  }
+	interface ThemeOptions extends MuiThemeOptions {
+		nprogress: {
+			color: string;
+		};
+	}
 }
 
 declare module '@material-ui/core/styles/createPalette' {
-  interface TypeBackground extends MuiTypeBackground {
-    level1: string;
-    level2: string;
-  }
+	interface TypeBackground extends MuiTypeBackground {
+		level1: string;
+		level2: string;
+	}
 }

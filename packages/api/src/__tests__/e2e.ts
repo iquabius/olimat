@@ -19,72 +19,72 @@ import { startTestServer, toPromise } from './__utils';
 // O id muda toda vez que semeamos o serviço do prisma,
 // então os testes com 'snapshot' falham.
 const getCitiesQuery = gql`
-  query getCities {
-    cities {
-      name
-    }
-  }
+	query getCities {
+		cities {
+			name
+		}
+	}
 `;
 
 const getCitiesWithIdsQuery = gql`
-  query getCitiesWithIds {
-    cities {
-      id
-      name
-    }
-  }
+	query getCitiesWithIds {
+		cities {
+			id
+			name
+		}
+	}
 `;
 
 const getCityQuery = gql`
-  query getCity($id: ID!) {
-    city(id: $id) {
-      name
-    }
-  }
+	query getCity($id: ID!) {
+		city(id: $id) {
+			name
+		}
+	}
 `;
 
 interface GetCitiesQueryResponse {
-  data: { cities: City[] };
+	data: { cities: City[] };
 }
 
 describe('API - e2e', () => {
-  let stop;
-  let graphql;
+	let stop;
+	let graphql;
 
-  beforeEach(async () => {
-    const testServer = await startTestServer(server);
-    stop = testServer.stop;
-    graphql = testServer.graphql;
-  });
+	beforeEach(async () => {
+		const testServer = await startTestServer(server);
+		stop = testServer.stop;
+		graphql = testServer.graphql;
+	});
 
-  afterEach(() => stop());
+	afterEach(() => stop());
 
-  test('gets list of cities', async () => {
-    const res: GetCitiesQueryResponse = await toPromise(
-      graphql({
-        query: getCitiesQuery,
-      }),
-    );
+	test('gets list of cities', async () => {
+		const res: GetCitiesQueryResponse = await toPromise(
+			graphql({
+				query: getCitiesQuery,
+			}),
+		);
 
-    expect(res).toMatchSnapshot();
-  });
+		expect(res).toMatchSnapshot();
+	});
 
-  test('gets a single city', async () => {
-    // O id sempre muda, então primeiro buscamos uma lista de todas as cidades.
-    // graphqlgen talvez gere um tipo que podemos usar aqui.
-    const allCitiesRes: GetCitiesQueryResponse = await toPromise(
-      graphql({
-        query: getCitiesWithIdsQuery,
-      }),
-    );
-    // Pegamos a primeira cidade.
-    const firstCity: City = allCitiesRes.data.cities[0];
+	test('gets a single city', async () => {
+		// O id sempre muda, então primeiro buscamos uma lista de todas as cidades.
+		// graphqlgen talvez gere um tipo que podemos usar aqui.
+		const allCitiesRes: GetCitiesQueryResponse = await toPromise(
+			graphql({
+				query: getCitiesWithIdsQuery,
+			}),
+		);
+		// Pegamos a primeira cidade.
+		const firstCity: City = allCitiesRes.data.cities[0];
 
-    // Buscamos a cidade usando o id da primeira cidade retornada.
-    // Isso parece redundante, parece que estamos testando o Prisma,
-    // que não deveria ser nossa problema.
-    const res = await toPromise(graphql({ query: getCityQuery, variables: { id: firstCity.id } }));
+		// Buscamos a cidade usando o id da primeira cidade retornada.
+		// Isso parece redundante, parece que estamos testando o Prisma,
+		// que não deveria ser nossa problema.
+		const res = await toPromise(graphql({ query: getCityQuery, variables: { id: firstCity.id } }));
 
-    expect(res).toMatchSnapshot();
-  });
+		expect(res).toMatchSnapshot();
+	});
 });

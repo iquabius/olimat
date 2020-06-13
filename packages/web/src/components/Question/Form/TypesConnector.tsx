@@ -6,15 +6,15 @@ import { Query } from 'react-apollo';
 
 // https://www.prisma.io/forum/t/23
 export const questionTypeOptions = gql`
-  query questionTypeOptions {
-    __type(name: "QUESTION_TYPE") {
-      name
-      enumValues {
-        description
-        name
-      }
-    }
-  }
+	query questionTypeOptions {
+		__type(name: "QUESTION_TYPE") {
+			name
+			enumValues {
+				description
+				name
+			}
+		}
+	}
 `;
 
 // {
@@ -36,18 +36,18 @@ export const questionTypeOptions = gql`
 // }
 
 const QuestionTypeConnector = ({ children }) => (
-  <Query query={questionTypeOptions}>
-    {({ data, error, loading }) => {
-      if (loading) {
-        return <CircularProgress size={50} color="secondary" />;
-      }
-      return children({ questionTypes: data.__type.enumValues });
-    }}
-  </Query>
+	<Query query={questionTypeOptions}>
+		{({ data, error, loading }) => {
+			if (loading) {
+				return <CircularProgress size={50} color="secondary" />;
+			}
+			return children({ questionTypes: data.__type.enumValues });
+		}}
+	</Query>
 );
 
 QuestionTypeConnector.propTypes = {
-  children: PropTypes.func.isRequired,
+	children: PropTypes.func.isRequired,
 };
 
 export default QuestionTypeConnector;

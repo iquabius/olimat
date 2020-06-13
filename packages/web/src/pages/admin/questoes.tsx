@@ -5,11 +5,11 @@ import AppFrame from '@olimat/web/components/AppFrame';
 import QuestionList from '@olimat/web/components/Question/List';
 
 const PageQuestions: React.FunctionComponent = () => (
-  <AppFrame>
-    <AppContent>
-      <QuestionList />
-    </AppContent>
-  </AppFrame>
+	<AppFrame>
+		<AppContent>
+			<QuestionList />
+		</AppContent>
+	</AppFrame>
 );
 
 export default PageQuestions;

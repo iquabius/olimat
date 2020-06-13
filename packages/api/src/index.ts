@@ -23,10 +23,10 @@ export const typeDefs = gql(importSchema(schemaPath));
 export const context = ({ req, res }) => ({ config, prisma, req });
 
 export const server = new ApolloServer({
-  context,
-  // Why does graphql-code-generator's interface is incompatible with Apollo's?
-  resolvers: resolvers as any,
-  typeDefs,
+	context,
+	// Why does graphql-code-generator's interface is incompatible with Apollo's?
+	resolvers: resolvers as any,
+	typeDefs,
 });
 
 // Vincula o Express ao Apollo Server
@@ -49,7 +49,7 @@ app.use('/files', express.static(config.uploads.publicDir));
 // Se estivermos no ambiente de teste, o servidor é iniciado
 // manualmente nos testes (e2e no caso).
 if (process.env.NODE_ENV !== 'test') {
-  app.listen({ port: 4000 }, () =>
-    console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`),
-  );
+	app.listen({ port: 4000 }, () =>
+		console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`),
+	);
 }

@@ -5,8 +5,8 @@
 // https://github.com/apollographql/apollo-tooling/issues/685
 // Another alternative is to use VS Code Multi-root workspaces.
 module.exports = {
-  client: {
-    name: 'OliMAT [web]',
-    service: 'olimat@alpha',
-  },
+	client: {
+		name: 'OliMAT [web]',
+		service: 'olimat@alpha',
+	},
 };
