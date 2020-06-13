@@ -7,7 +7,7 @@
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "_moduleAliases": {
-    "@olimat/api"  : "dist"
+    "@olimat/api": "dist"
   },
   "scripts": {
     "prebuild": "rimraf dist && copyfiles -V -u 1 ./src/schema.graphql ./src/**/*.graphql ./dist",

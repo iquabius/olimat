@@ -375,6 +375,16 @@ export interface ClientConstructor<T> {
  * Types
  */
 
+export type CityOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "name_ASC"
+  | "name_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
+
 export type QUESTION_TYPE = "MULTIPLE_CHOICE" | "OPEN_ENDED";
 
 export type ExamOrderByInput =
@@ -429,16 +439,6 @@ export type OlympiadOrderByInput =
   | "updatedAt_ASC"
   | "updatedAt_DESC";
 
-export type CityOrderByInput =
-  | "id_ASC"
-  | "id_DESC"
-  | "name_ASC"
-  | "name_DESC"
-  | "createdAt_ASC"
-  | "createdAt_DESC"
-  | "updatedAt_ASC"
-  | "updatedAt_DESC";
-
 export type SchoolOrderByInput =
   | "id_ASC"
   | "id_DESC"
@@ -475,77 +475,115 @@ export type UserOrderByInput =
 
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
-export interface UserUpdateOneRequiredWithoutExamsInput {
-  create?: UserCreateWithoutExamsInput;
-  update?: UserUpdateWithoutExamsDataInput;
-  upsert?: UserUpsertWithoutExamsInput;
-  connect?: UserWhereUniqueInput;
-}
-
 export type CityWhereUniqueInput = AtLeastOne<{
   id: ID_Input;
   name?: String;
 }>;
 
-export type UserWhereUniqueInput = AtLeastOne<{
+export interface CityWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  name?: String;
+  name_not?: String;
+  name_in?: String[] | String;
+  name_not_in?: String[] | String;
+  name_lt?: String;
+  name_lte?: String;
+  name_gt?: String;
+  name_gte?: String;
+  name_contains?: String;
+  name_not_contains?: String;
+  name_starts_with?: String;
+  name_not_starts_with?: String;
+  name_ends_with?: String;
+  name_not_ends_with?: String;
+  AND?: CityWhereInput[] | CityWhereInput;
+  OR?: CityWhereInput[] | CityWhereInput;
+  NOT?: CityWhereInput[] | CityWhereInput;
+}
+
+export type ExamWhereUniqueInput = AtLeastOne<{
   id: ID_Input;
-  email?: String;
 }>;
 
-export interface UserCreateInput {
-  email: String;
-  password: String;
-  name: String;
-  exams?: ExamCreateManyWithoutAuthorInput;
-}
-
-export interface ExamUpdateWithWhereUniqueWithoutAuthorInput {
-  where: ExamWhereUniqueInput;
-  data: ExamUpdateWithoutAuthorDataInput;
-}
-
-export interface QuestionUpdateDataInput {
-  type?: QUESTION_TYPE;
-  wording?: String;
-  imageUrl?: String;
-  secondaryWording?: String;
-  choices?: QuestionChoiceUpdateManyInput;
-}
-
-export interface ExamUpdateManyWithoutAuthorInput {
-  create?: ExamCreateWithoutAuthorInput[] | ExamCreateWithoutAuthorInput;
-  delete?: ExamWhereUniqueInput[] | ExamWhereUniqueInput;
-  connect?: ExamWhereUniqueInput[] | ExamWhereUniqueInput;
-  set?: ExamWhereUniqueInput[] | ExamWhereUniqueInput;
-  disconnect?: ExamWhereUniqueInput[] | ExamWhereUniqueInput;
-  update?:
-    | ExamUpdateWithWhereUniqueWithoutAuthorInput[]
-    | ExamUpdateWithWhereUniqueWithoutAuthorInput;
-  upsert?:
-    | ExamUpsertWithWhereUniqueWithoutAuthorInput[]
-    | ExamUpsertWithWhereUniqueWithoutAuthorInput;
-  deleteMany?: ExamScalarWhereInput[] | ExamScalarWhereInput;
-  updateMany?:
-    | ExamUpdateManyWithWhereNestedInput[]
-    | ExamUpdateManyWithWhereNestedInput;
-}
-
-export interface SchoolSubscriptionWhereInput {
-  mutation_in?: MutationType[] | MutationType;
-  updatedFields_contains?: String;
-  updatedFields_contains_every?: String[] | String;
-  updatedFields_contains_some?: String[] | String;
-  node?: SchoolWhereInput;
-  AND?: SchoolSubscriptionWhereInput[] | SchoolSubscriptionWhereInput;
-  OR?: SchoolSubscriptionWhereInput[] | SchoolSubscriptionWhereInput;
-  NOT?: SchoolSubscriptionWhereInput[] | SchoolSubscriptionWhereInput;
-}
-
-export interface UserUpdateDataInput {
-  email?: String;
-  password?: String;
-  name?: String;
-  exams?: ExamUpdateManyWithoutAuthorInput;
+export interface ExamWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  title?: String;
+  title_not?: String;
+  title_in?: String[] | String;
+  title_not_in?: String[] | String;
+  title_lt?: String;
+  title_lte?: String;
+  title_gt?: String;
+  title_gte?: String;
+  title_contains?: String;
+  title_not_contains?: String;
+  title_starts_with?: String;
+  title_not_starts_with?: String;
+  title_ends_with?: String;
+  title_not_ends_with?: String;
+  description?: String;
+  description_not?: String;
+  description_in?: String[] | String;
+  description_not_in?: String[] | String;
+  description_lt?: String;
+  description_lte?: String;
+  description_gt?: String;
+  description_gte?: String;
+  description_contains?: String;
+  description_not_contains?: String;
+  description_starts_with?: String;
+  description_not_starts_with?: String;
+  description_ends_with?: String;
+  description_not_ends_with?: String;
+  author?: UserWhereInput;
+  questions_every?: QuestionWhereInput;
+  questions_some?: QuestionWhereInput;
+  questions_none?: QuestionWhereInput;
+  createdAt?: DateTimeInput;
+  createdAt_not?: DateTimeInput;
+  createdAt_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_not_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_lt?: DateTimeInput;
+  createdAt_lte?: DateTimeInput;
+  createdAt_gt?: DateTimeInput;
+  createdAt_gte?: DateTimeInput;
+  updatedAt?: DateTimeInput;
+  updatedAt_not?: DateTimeInput;
+  updatedAt_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_not_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_lt?: DateTimeInput;
+  updatedAt_lte?: DateTimeInput;
+  updatedAt_gt?: DateTimeInput;
+  updatedAt_gte?: DateTimeInput;
+  AND?: ExamWhereInput[] | ExamWhereInput;
+  OR?: ExamWhereInput[] | ExamWhereInput;
+  NOT?: ExamWhereInput[] | ExamWhereInput;
 }
 
 export interface UserWhereInput {
@@ -613,189 +651,186 @@ export interface UserWhereInput {
   NOT?: UserWhereInput[] | UserWhereInput;
 }
 
-export interface UserUpdateOneRequiredInput {
-  create?: UserCreateInput;
-  update?: UserUpdateDataInput;
-  upsert?: UserUpsertNestedInput;
-  connect?: UserWhereUniqueInput;
+export interface QuestionWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  type?: QUESTION_TYPE;
+  type_not?: QUESTION_TYPE;
+  type_in?: QUESTION_TYPE[] | QUESTION_TYPE;
+  type_not_in?: QUESTION_TYPE[] | QUESTION_TYPE;
+  wording?: String;
+  wording_not?: String;
+  wording_in?: String[] | String;
+  wording_not_in?: String[] | String;
+  wording_lt?: String;
+  wording_lte?: String;
+  wording_gt?: String;
+  wording_gte?: String;
+  wording_contains?: String;
+  wording_not_contains?: String;
+  wording_starts_with?: String;
+  wording_not_starts_with?: String;
+  wording_ends_with?: String;
+  wording_not_ends_with?: String;
+  imageUrl?: String;
+  imageUrl_not?: String;
+  imageUrl_in?: String[] | String;
+  imageUrl_not_in?: String[] | String;
+  imageUrl_lt?: String;
+  imageUrl_lte?: String;
+  imageUrl_gt?: String;
+  imageUrl_gte?: String;
+  imageUrl_contains?: String;
+  imageUrl_not_contains?: String;
+  imageUrl_starts_with?: String;
+  imageUrl_not_starts_with?: String;
+  imageUrl_ends_with?: String;
+  imageUrl_not_ends_with?: String;
+  secondaryWording?: String;
+  secondaryWording_not?: String;
+  secondaryWording_in?: String[] | String;
+  secondaryWording_not_in?: String[] | String;
+  secondaryWording_lt?: String;
+  secondaryWording_lte?: String;
+  secondaryWording_gt?: String;
+  secondaryWording_gte?: String;
+  secondaryWording_contains?: String;
+  secondaryWording_not_contains?: String;
+  secondaryWording_starts_with?: String;
+  secondaryWording_not_starts_with?: String;
+  secondaryWording_ends_with?: String;
+  secondaryWording_not_ends_with?: String;
+  choices_every?: QuestionChoiceWhereInput;
+  choices_some?: QuestionChoiceWhereInput;
+  choices_none?: QuestionChoiceWhereInput;
+  AND?: QuestionWhereInput[] | QuestionWhereInput;
+  OR?: QuestionWhereInput[] | QuestionWhereInput;
+  NOT?: QuestionWhereInput[] | QuestionWhereInput;
 }
 
-export interface QuestionChoiceSubscriptionWhereInput {
-  mutation_in?: MutationType[] | MutationType;
-  updatedFields_contains?: String;
-  updatedFields_contains_every?: String[] | String;
-  updatedFields_contains_some?: String[] | String;
-  node?: QuestionChoiceWhereInput;
-  AND?:
-    | QuestionChoiceSubscriptionWhereInput[]
-    | QuestionChoiceSubscriptionWhereInput;
-  OR?:
-    | QuestionChoiceSubscriptionWhereInput[]
-    | QuestionChoiceSubscriptionWhereInput;
-  NOT?:
-    | QuestionChoiceSubscriptionWhereInput[]
-    | QuestionChoiceSubscriptionWhereInput;
+export interface QuestionChoiceWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  text?: String;
+  text_not?: String;
+  text_in?: String[] | String;
+  text_not_in?: String[] | String;
+  text_lt?: String;
+  text_lte?: String;
+  text_gt?: String;
+  text_gte?: String;
+  text_contains?: String;
+  text_not_contains?: String;
+  text_starts_with?: String;
+  text_not_starts_with?: String;
+  text_ends_with?: String;
+  text_not_ends_with?: String;
+  AND?: QuestionChoiceWhereInput[] | QuestionChoiceWhereInput;
+  OR?: QuestionChoiceWhereInput[] | QuestionChoiceWhereInput;
+  NOT?: QuestionChoiceWhereInput[] | QuestionChoiceWhereInput;
 }
 
-export interface QuestionSubscriptionWhereInput {
-  mutation_in?: MutationType[] | MutationType;
-  updatedFields_contains?: String;
-  updatedFields_contains_every?: String[] | String;
-  updatedFields_contains_some?: String[] | String;
-  node?: QuestionWhereInput;
-  AND?: QuestionSubscriptionWhereInput[] | QuestionSubscriptionWhereInput;
-  OR?: QuestionSubscriptionWhereInput[] | QuestionSubscriptionWhereInput;
-  NOT?: QuestionSubscriptionWhereInput[] | QuestionSubscriptionWhereInput;
-}
+export type OlympiadWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+}>;
 
-export interface ExamSubscriptionWhereInput {
-  mutation_in?: MutationType[] | MutationType;
-  updatedFields_contains?: String;
-  updatedFields_contains_every?: String[] | String;
-  updatedFields_contains_some?: String[] | String;
-  node?: ExamWhereInput;
-  AND?: ExamSubscriptionWhereInput[] | ExamSubscriptionWhereInput;
-  OR?: ExamSubscriptionWhereInput[] | ExamSubscriptionWhereInput;
-  NOT?: ExamSubscriptionWhereInput[] | ExamSubscriptionWhereInput;
-}
-
-export interface CityCreateInput {
-  name: String;
-}
-
-export interface UserUpdateManyMutationInput {
-  email?: String;
-  password?: String;
+export interface OlympiadWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
   name?: String;
-}
-
-export interface CityUpdateInput {
-  name?: String;
-}
-
-export interface SchoolUpdateManyMutationInput {
-  name?: String;
-  email?: String;
-  phone?: String;
-  pedagogyCoord?: String;
-  director?: String;
-  address?: String;
-}
-
-export interface CityUpdateManyMutationInput {
-  name?: String;
-}
-
-export interface CityUpdateDataInput {
-  name?: String;
-}
-
-export interface OlympiadUpdateInput {
-  name?: String;
+  name_not?: String;
+  name_in?: String[] | String;
+  name_not_in?: String[] | String;
+  name_lt?: String;
+  name_lte?: String;
+  name_gt?: String;
+  name_gte?: String;
+  name_contains?: String;
+  name_not_contains?: String;
+  name_starts_with?: String;
+  name_not_starts_with?: String;
+  name_ends_with?: String;
+  name_not_ends_with?: String;
   isPublished?: Boolean;
+  isPublished_not?: Boolean;
   year?: DateTimeInput;
-  createdBy?: UserUpdateOneRequiredInput;
-}
-
-export interface CityUpdateOneRequiredInput {
-  create?: CityCreateInput;
-  update?: CityUpdateDataInput;
-  upsert?: CityUpsertNestedInput;
-  connect?: CityWhereUniqueInput;
-}
-
-export interface ExamCreateWithoutAuthorInput {
-  title: String;
-  description?: String;
-  questions?: QuestionCreateManyInput;
-}
-
-export interface SchoolUpdateInput {
-  name?: String;
-  email?: String;
-  phone?: String;
-  olympiadCood?: UserUpdateOneRequiredInput;
-  pedagogyCoord?: String;
-  director?: String;
-  city?: CityUpdateOneRequiredInput;
-  address?: String;
-}
-
-export interface ExamCreateInput {
-  title: String;
-  description?: String;
-  author: UserCreateOneWithoutExamsInput;
-  questions?: QuestionCreateManyInput;
-}
-
-export interface SchoolCreateInput {
-  name: String;
-  email: String;
-  phone?: String;
-  olympiadCood: UserCreateOneInput;
-  pedagogyCoord?: String;
-  director?: String;
-  city: CityCreateOneInput;
-  address?: String;
-}
-
-export interface UserCreateOneWithoutExamsInput {
-  create?: UserCreateWithoutExamsInput;
-  connect?: UserWhereUniqueInput;
+  year_not?: DateTimeInput;
+  year_in?: DateTimeInput[] | DateTimeInput;
+  year_not_in?: DateTimeInput[] | DateTimeInput;
+  year_lt?: DateTimeInput;
+  year_lte?: DateTimeInput;
+  year_gt?: DateTimeInput;
+  year_gte?: DateTimeInput;
+  createdBy?: UserWhereInput;
+  createdAt?: DateTimeInput;
+  createdAt_not?: DateTimeInput;
+  createdAt_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_not_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_lt?: DateTimeInput;
+  createdAt_lte?: DateTimeInput;
+  createdAt_gt?: DateTimeInput;
+  createdAt_gte?: DateTimeInput;
+  updatedAt?: DateTimeInput;
+  updatedAt_not?: DateTimeInput;
+  updatedAt_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_not_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_lt?: DateTimeInput;
+  updatedAt_lte?: DateTimeInput;
+  updatedAt_gt?: DateTimeInput;
+  updatedAt_gte?: DateTimeInput;
+  AND?: OlympiadWhereInput[] | OlympiadWhereInput;
+  OR?: OlympiadWhereInput[] | OlympiadWhereInput;
+  NOT?: OlympiadWhereInput[] | OlympiadWhereInput;
 }
 
 export type QuestionWhereUniqueInput = AtLeastOne<{
   id: ID_Input;
 }>;
 
-export interface UserCreateWithoutExamsInput {
-  email: String;
-  password: String;
-  name: String;
-}
-
-export interface QuestionUpdateManyMutationInput {
-  type?: QUESTION_TYPE;
-  wording?: String;
-  imageUrl?: String;
-  secondaryWording?: String;
-}
-
-export interface QuestionCreateManyInput {
-  create?: QuestionCreateInput[] | QuestionCreateInput;
-  connect?: QuestionWhereUniqueInput[] | QuestionWhereUniqueInput;
-}
-
 export type QuestionChoiceWhereUniqueInput = AtLeastOne<{
   id: ID_Input;
 }>;
-
-export interface QuestionCreateInput {
-  type: QUESTION_TYPE;
-  wording: String;
-  imageUrl?: String;
-  secondaryWording?: String;
-  choices?: QuestionChoiceCreateManyInput;
-}
-
-export interface UserUpsertNestedInput {
-  update: UserUpdateDataInput;
-  create: UserCreateInput;
-}
-
-export interface QuestionChoiceCreateManyInput {
-  create?: QuestionChoiceCreateInput[] | QuestionChoiceCreateInput;
-  connect?: QuestionChoiceWhereUniqueInput[] | QuestionChoiceWhereUniqueInput;
-}
 
 export type SchoolWhereUniqueInput = AtLeastOne<{
   id: ID_Input;
   email?: String;
 }>;
-
-export interface QuestionChoiceCreateInput {
-  text: String;
-}
 
 export interface SchoolWhereInput {
   id?: ID_Input;
@@ -903,6 +938,63 @@ export interface SchoolWhereInput {
   NOT?: SchoolWhereInput[] | SchoolWhereInput;
 }
 
+export type UserWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+  email?: String;
+}>;
+
+export interface CityCreateInput {
+  name: String;
+}
+
+export interface CityUpdateInput {
+  name?: String;
+}
+
+export interface CityUpdateManyMutationInput {
+  name?: String;
+}
+
+export interface ExamCreateInput {
+  title: String;
+  description?: String;
+  author: UserCreateOneWithoutExamsInput;
+  questions?: QuestionCreateManyInput;
+}
+
+export interface UserCreateOneWithoutExamsInput {
+  create?: UserCreateWithoutExamsInput;
+  connect?: UserWhereUniqueInput;
+}
+
+export interface UserCreateWithoutExamsInput {
+  email: String;
+  password: String;
+  name: String;
+}
+
+export interface QuestionCreateManyInput {
+  create?: QuestionCreateInput[] | QuestionCreateInput;
+  connect?: QuestionWhereUniqueInput[] | QuestionWhereUniqueInput;
+}
+
+export interface QuestionCreateInput {
+  type: QUESTION_TYPE;
+  wording: String;
+  imageUrl?: String;
+  secondaryWording?: String;
+  choices?: QuestionChoiceCreateManyInput;
+}
+
+export interface QuestionChoiceCreateManyInput {
+  create?: QuestionChoiceCreateInput[] | QuestionChoiceCreateInput;
+  connect?: QuestionChoiceWhereUniqueInput[] | QuestionChoiceWhereUniqueInput;
+}
+
+export interface QuestionChoiceCreateInput {
+  text: String;
+}
+
 export interface ExamUpdateInput {
   title?: String;
   description?: String;
@@ -910,79 +1002,11 @@ export interface ExamUpdateInput {
   questions?: QuestionUpdateManyInput;
 }
 
-export interface ExamScalarWhereInput {
-  id?: ID_Input;
-  id_not?: ID_Input;
-  id_in?: ID_Input[] | ID_Input;
-  id_not_in?: ID_Input[] | ID_Input;
-  id_lt?: ID_Input;
-  id_lte?: ID_Input;
-  id_gt?: ID_Input;
-  id_gte?: ID_Input;
-  id_contains?: ID_Input;
-  id_not_contains?: ID_Input;
-  id_starts_with?: ID_Input;
-  id_not_starts_with?: ID_Input;
-  id_ends_with?: ID_Input;
-  id_not_ends_with?: ID_Input;
-  title?: String;
-  title_not?: String;
-  title_in?: String[] | String;
-  title_not_in?: String[] | String;
-  title_lt?: String;
-  title_lte?: String;
-  title_gt?: String;
-  title_gte?: String;
-  title_contains?: String;
-  title_not_contains?: String;
-  title_starts_with?: String;
-  title_not_starts_with?: String;
-  title_ends_with?: String;
-  title_not_ends_with?: String;
-  description?: String;
-  description_not?: String;
-  description_in?: String[] | String;
-  description_not_in?: String[] | String;
-  description_lt?: String;
-  description_lte?: String;
-  description_gt?: String;
-  description_gte?: String;
-  description_contains?: String;
-  description_not_contains?: String;
-  description_starts_with?: String;
-  description_not_starts_with?: String;
-  description_ends_with?: String;
-  description_not_ends_with?: String;
-  createdAt?: DateTimeInput;
-  createdAt_not?: DateTimeInput;
-  createdAt_in?: DateTimeInput[] | DateTimeInput;
-  createdAt_not_in?: DateTimeInput[] | DateTimeInput;
-  createdAt_lt?: DateTimeInput;
-  createdAt_lte?: DateTimeInput;
-  createdAt_gt?: DateTimeInput;
-  createdAt_gte?: DateTimeInput;
-  updatedAt?: DateTimeInput;
-  updatedAt_not?: DateTimeInput;
-  updatedAt_in?: DateTimeInput[] | DateTimeInput;
-  updatedAt_not_in?: DateTimeInput[] | DateTimeInput;
-  updatedAt_lt?: DateTimeInput;
-  updatedAt_lte?: DateTimeInput;
-  updatedAt_gt?: DateTimeInput;
-  updatedAt_gte?: DateTimeInput;
-  AND?: ExamScalarWhereInput[] | ExamScalarWhereInput;
-  OR?: ExamScalarWhereInput[] | ExamScalarWhereInput;
-  NOT?: ExamScalarWhereInput[] | ExamScalarWhereInput;
-}
-
-export interface ExamCreateManyWithoutAuthorInput {
-  create?: ExamCreateWithoutAuthorInput[] | ExamCreateWithoutAuthorInput;
-  connect?: ExamWhereUniqueInput[] | ExamWhereUniqueInput;
-}
-
-export interface ExamUpdateWithoutAuthorDataInput {
-  title?: String;
-  description?: String;
-  questions?: QuestionUpdateManyInput;
+export interface UserUpdateOneRequiredWithoutExamsInput {
+  create?: UserCreateWithoutExamsInput;
+  update?: UserUpdateWithoutExamsDataInput;
+  upsert?: UserUpsertWithoutExamsInput;
+  connect?: UserWhereUniqueInput;
 }
 
 export interface UserUpdateWithoutExamsDataInput {
@@ -991,111 +1015,9 @@ export interface UserUpdateWithoutExamsDataInput {
   name?: String;
 }
 
-export interface ExamWhereInput {
-  id?: ID_Input;
-  id_not?: ID_Input;
-  id_in?: ID_Input[] | ID_Input;
-  id_not_in?: ID_Input[] | ID_Input;
-  id_lt?: ID_Input;
-  id_lte?: ID_Input;
-  id_gt?: ID_Input;
-  id_gte?: ID_Input;
-  id_contains?: ID_Input;
-  id_not_contains?: ID_Input;
-  id_starts_with?: ID_Input;
-  id_not_starts_with?: ID_Input;
-  id_ends_with?: ID_Input;
-  id_not_ends_with?: ID_Input;
-  title?: String;
-  title_not?: String;
-  title_in?: String[] | String;
-  title_not_in?: String[] | String;
-  title_lt?: String;
-  title_lte?: String;
-  title_gt?: String;
-  title_gte?: String;
-  title_contains?: String;
-  title_not_contains?: String;
-  title_starts_with?: String;
-  title_not_starts_with?: String;
-  title_ends_with?: String;
-  title_not_ends_with?: String;
-  description?: String;
-  description_not?: String;
-  description_in?: String[] | String;
-  description_not_in?: String[] | String;
-  description_lt?: String;
-  description_lte?: String;
-  description_gt?: String;
-  description_gte?: String;
-  description_contains?: String;
-  description_not_contains?: String;
-  description_starts_with?: String;
-  description_not_starts_with?: String;
-  description_ends_with?: String;
-  description_not_ends_with?: String;
-  author?: UserWhereInput;
-  questions_every?: QuestionWhereInput;
-  questions_some?: QuestionWhereInput;
-  questions_none?: QuestionWhereInput;
-  createdAt?: DateTimeInput;
-  createdAt_not?: DateTimeInput;
-  createdAt_in?: DateTimeInput[] | DateTimeInput;
-  createdAt_not_in?: DateTimeInput[] | DateTimeInput;
-  createdAt_lt?: DateTimeInput;
-  createdAt_lte?: DateTimeInput;
-  createdAt_gt?: DateTimeInput;
-  createdAt_gte?: DateTimeInput;
-  updatedAt?: DateTimeInput;
-  updatedAt_not?: DateTimeInput;
-  updatedAt_in?: DateTimeInput[] | DateTimeInput;
-  updatedAt_not_in?: DateTimeInput[] | DateTimeInput;
-  updatedAt_lt?: DateTimeInput;
-  updatedAt_lte?: DateTimeInput;
-  updatedAt_gt?: DateTimeInput;
-  updatedAt_gte?: DateTimeInput;
-  AND?: ExamWhereInput[] | ExamWhereInput;
-  OR?: ExamWhereInput[] | ExamWhereInput;
-  NOT?: ExamWhereInput[] | ExamWhereInput;
-}
-
 export interface UserUpsertWithoutExamsInput {
   update: UserUpdateWithoutExamsDataInput;
   create: UserCreateWithoutExamsInput;
-}
-
-export interface QuestionChoiceWhereInput {
-  id?: ID_Input;
-  id_not?: ID_Input;
-  id_in?: ID_Input[] | ID_Input;
-  id_not_in?: ID_Input[] | ID_Input;
-  id_lt?: ID_Input;
-  id_lte?: ID_Input;
-  id_gt?: ID_Input;
-  id_gte?: ID_Input;
-  id_contains?: ID_Input;
-  id_not_contains?: ID_Input;
-  id_starts_with?: ID_Input;
-  id_not_starts_with?: ID_Input;
-  id_ends_with?: ID_Input;
-  id_not_ends_with?: ID_Input;
-  text?: String;
-  text_not?: String;
-  text_in?: String[] | String;
-  text_not_in?: String[] | String;
-  text_lt?: String;
-  text_lte?: String;
-  text_gt?: String;
-  text_gte?: String;
-  text_contains?: String;
-  text_not_contains?: String;
-  text_starts_with?: String;
-  text_not_starts_with?: String;
-  text_ends_with?: String;
-  text_not_ends_with?: String;
-  AND?: QuestionChoiceWhereInput[] | QuestionChoiceWhereInput;
-  OR?: QuestionChoiceWhereInput[] | QuestionChoiceWhereInput;
-  NOT?: QuestionChoiceWhereInput[] | QuestionChoiceWhereInput;
 }
 
 export interface QuestionUpdateManyInput {
@@ -1116,90 +1038,17 @@ export interface QuestionUpdateManyInput {
     | QuestionUpdateManyWithWhereNestedInput;
 }
 
-export interface CitySubscriptionWhereInput {
-  mutation_in?: MutationType[] | MutationType;
-  updatedFields_contains?: String;
-  updatedFields_contains_every?: String[] | String;
-  updatedFields_contains_some?: String[] | String;
-  node?: CityWhereInput;
-  AND?: CitySubscriptionWhereInput[] | CitySubscriptionWhereInput;
-  OR?: CitySubscriptionWhereInput[] | CitySubscriptionWhereInput;
-  NOT?: CitySubscriptionWhereInput[] | CitySubscriptionWhereInput;
-}
-
 export interface QuestionUpdateWithWhereUniqueNestedInput {
   where: QuestionWhereUniqueInput;
   data: QuestionUpdateDataInput;
 }
 
-export interface CityUpsertNestedInput {
-  update: CityUpdateDataInput;
-  create: CityCreateInput;
-}
-
-export type ExamWhereUniqueInput = AtLeastOne<{
-  id: ID_Input;
-}>;
-
-export interface OlympiadWhereInput {
-  id?: ID_Input;
-  id_not?: ID_Input;
-  id_in?: ID_Input[] | ID_Input;
-  id_not_in?: ID_Input[] | ID_Input;
-  id_lt?: ID_Input;
-  id_lte?: ID_Input;
-  id_gt?: ID_Input;
-  id_gte?: ID_Input;
-  id_contains?: ID_Input;
-  id_not_contains?: ID_Input;
-  id_starts_with?: ID_Input;
-  id_not_starts_with?: ID_Input;
-  id_ends_with?: ID_Input;
-  id_not_ends_with?: ID_Input;
-  name?: String;
-  name_not?: String;
-  name_in?: String[] | String;
-  name_not_in?: String[] | String;
-  name_lt?: String;
-  name_lte?: String;
-  name_gt?: String;
-  name_gte?: String;
-  name_contains?: String;
-  name_not_contains?: String;
-  name_starts_with?: String;
-  name_not_starts_with?: String;
-  name_ends_with?: String;
-  name_not_ends_with?: String;
-  isPublished?: Boolean;
-  isPublished_not?: Boolean;
-  year?: DateTimeInput;
-  year_not?: DateTimeInput;
-  year_in?: DateTimeInput[] | DateTimeInput;
-  year_not_in?: DateTimeInput[] | DateTimeInput;
-  year_lt?: DateTimeInput;
-  year_lte?: DateTimeInput;
-  year_gt?: DateTimeInput;
-  year_gte?: DateTimeInput;
-  createdBy?: UserWhereInput;
-  createdAt?: DateTimeInput;
-  createdAt_not?: DateTimeInput;
-  createdAt_in?: DateTimeInput[] | DateTimeInput;
-  createdAt_not_in?: DateTimeInput[] | DateTimeInput;
-  createdAt_lt?: DateTimeInput;
-  createdAt_lte?: DateTimeInput;
-  createdAt_gt?: DateTimeInput;
-  createdAt_gte?: DateTimeInput;
-  updatedAt?: DateTimeInput;
-  updatedAt_not?: DateTimeInput;
-  updatedAt_in?: DateTimeInput[] | DateTimeInput;
-  updatedAt_not_in?: DateTimeInput[] | DateTimeInput;
-  updatedAt_lt?: DateTimeInput;
-  updatedAt_lte?: DateTimeInput;
-  updatedAt_gt?: DateTimeInput;
-  updatedAt_gte?: DateTimeInput;
-  AND?: OlympiadWhereInput[] | OlympiadWhereInput;
-  OR?: OlympiadWhereInput[] | OlympiadWhereInput;
-  NOT?: OlympiadWhereInput[] | OlympiadWhereInput;
+export interface QuestionUpdateDataInput {
+  type?: QUESTION_TYPE;
+  wording?: String;
+  imageUrl?: String;
+  secondaryWording?: String;
+  choices?: QuestionChoiceUpdateManyInput;
 }
 
 export interface QuestionChoiceUpdateManyInput {
@@ -1224,70 +1073,19 @@ export interface QuestionChoiceUpdateManyInput {
     | QuestionChoiceUpdateManyWithWhereNestedInput;
 }
 
-export interface QuestionChoiceUpdateManyMutationInput {
-  text?: String;
-}
-
 export interface QuestionChoiceUpdateWithWhereUniqueNestedInput {
   where: QuestionChoiceWhereUniqueInput;
   data: QuestionChoiceUpdateDataInput;
-}
-
-export interface QuestionUpdateInput {
-  type?: QUESTION_TYPE;
-  wording?: String;
-  imageUrl?: String;
-  secondaryWording?: String;
-  choices?: QuestionChoiceUpdateManyInput;
 }
 
 export interface QuestionChoiceUpdateDataInput {
   text?: String;
 }
 
-export interface ExamUpdateManyDataInput {
-  title?: String;
-  description?: String;
-}
-
 export interface QuestionChoiceUpsertWithWhereUniqueNestedInput {
   where: QuestionChoiceWhereUniqueInput;
   update: QuestionChoiceUpdateDataInput;
   create: QuestionChoiceCreateInput;
-}
-
-export interface CityWhereInput {
-  id?: ID_Input;
-  id_not?: ID_Input;
-  id_in?: ID_Input[] | ID_Input;
-  id_not_in?: ID_Input[] | ID_Input;
-  id_lt?: ID_Input;
-  id_lte?: ID_Input;
-  id_gt?: ID_Input;
-  id_gte?: ID_Input;
-  id_contains?: ID_Input;
-  id_not_contains?: ID_Input;
-  id_starts_with?: ID_Input;
-  id_not_starts_with?: ID_Input;
-  id_ends_with?: ID_Input;
-  id_not_ends_with?: ID_Input;
-  name?: String;
-  name_not?: String;
-  name_in?: String[] | String;
-  name_not_in?: String[] | String;
-  name_lt?: String;
-  name_lte?: String;
-  name_gt?: String;
-  name_gte?: String;
-  name_contains?: String;
-  name_not_contains?: String;
-  name_starts_with?: String;
-  name_not_starts_with?: String;
-  name_ends_with?: String;
-  name_not_ends_with?: String;
-  AND?: CityWhereInput[] | CityWhereInput;
-  OR?: CityWhereInput[] | CityWhereInput;
-  NOT?: CityWhereInput[] | CityWhereInput;
 }
 
 export interface QuestionChoiceScalarWhereInput {
@@ -1324,49 +1122,19 @@ export interface QuestionChoiceScalarWhereInput {
   NOT?: QuestionChoiceScalarWhereInput[] | QuestionChoiceScalarWhereInput;
 }
 
-export interface UserSubscriptionWhereInput {
-  mutation_in?: MutationType[] | MutationType;
-  updatedFields_contains?: String;
-  updatedFields_contains_every?: String[] | String;
-  updatedFields_contains_some?: String[] | String;
-  node?: UserWhereInput;
-  AND?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
-  OR?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
-  NOT?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
-}
-
 export interface QuestionChoiceUpdateManyWithWhereNestedInput {
   where: QuestionChoiceScalarWhereInput;
   data: QuestionChoiceUpdateManyDataInput;
-}
-
-export interface OlympiadSubscriptionWhereInput {
-  mutation_in?: MutationType[] | MutationType;
-  updatedFields_contains?: String;
-  updatedFields_contains_every?: String[] | String;
-  updatedFields_contains_some?: String[] | String;
-  node?: OlympiadWhereInput;
-  AND?: OlympiadSubscriptionWhereInput[] | OlympiadSubscriptionWhereInput;
-  OR?: OlympiadSubscriptionWhereInput[] | OlympiadSubscriptionWhereInput;
-  NOT?: OlympiadSubscriptionWhereInput[] | OlympiadSubscriptionWhereInput;
 }
 
 export interface QuestionChoiceUpdateManyDataInput {
   text?: String;
 }
 
-export type OlympiadWhereUniqueInput = AtLeastOne<{
-  id: ID_Input;
-}>;
-
 export interface QuestionUpsertWithWhereUniqueNestedInput {
   where: QuestionWhereUniqueInput;
   update: QuestionUpdateDataInput;
   create: QuestionCreateInput;
-}
-
-export interface QuestionChoiceUpdateInput {
-  text?: String;
 }
 
 export interface QuestionScalarWhereInput {
@@ -1435,17 +1203,110 @@ export interface QuestionScalarWhereInput {
   NOT?: QuestionScalarWhereInput[] | QuestionScalarWhereInput;
 }
 
-export interface ExamUpdateManyWithWhereNestedInput {
-  where: ExamScalarWhereInput;
-  data: ExamUpdateManyDataInput;
-}
-
 export interface QuestionUpdateManyWithWhereNestedInput {
   where: QuestionScalarWhereInput;
   data: QuestionUpdateManyDataInput;
 }
 
-export interface QuestionWhereInput {
+export interface QuestionUpdateManyDataInput {
+  type?: QUESTION_TYPE;
+  wording?: String;
+  imageUrl?: String;
+  secondaryWording?: String;
+}
+
+export interface ExamUpdateManyMutationInput {
+  title?: String;
+  description?: String;
+}
+
+export interface OlympiadCreateInput {
+  name: String;
+  isPublished?: Boolean;
+  year: DateTimeInput;
+  createdBy: UserCreateOneInput;
+}
+
+export interface UserCreateOneInput {
+  create?: UserCreateInput;
+  connect?: UserWhereUniqueInput;
+}
+
+export interface UserCreateInput {
+  email: String;
+  password: String;
+  name: String;
+  exams?: ExamCreateManyWithoutAuthorInput;
+}
+
+export interface ExamCreateManyWithoutAuthorInput {
+  create?: ExamCreateWithoutAuthorInput[] | ExamCreateWithoutAuthorInput;
+  connect?: ExamWhereUniqueInput[] | ExamWhereUniqueInput;
+}
+
+export interface ExamCreateWithoutAuthorInput {
+  title: String;
+  description?: String;
+  questions?: QuestionCreateManyInput;
+}
+
+export interface OlympiadUpdateInput {
+  name?: String;
+  isPublished?: Boolean;
+  year?: DateTimeInput;
+  createdBy?: UserUpdateOneRequiredInput;
+}
+
+export interface UserUpdateOneRequiredInput {
+  create?: UserCreateInput;
+  update?: UserUpdateDataInput;
+  upsert?: UserUpsertNestedInput;
+  connect?: UserWhereUniqueInput;
+}
+
+export interface UserUpdateDataInput {
+  email?: String;
+  password?: String;
+  name?: String;
+  exams?: ExamUpdateManyWithoutAuthorInput;
+}
+
+export interface ExamUpdateManyWithoutAuthorInput {
+  create?: ExamCreateWithoutAuthorInput[] | ExamCreateWithoutAuthorInput;
+  delete?: ExamWhereUniqueInput[] | ExamWhereUniqueInput;
+  connect?: ExamWhereUniqueInput[] | ExamWhereUniqueInput;
+  set?: ExamWhereUniqueInput[] | ExamWhereUniqueInput;
+  disconnect?: ExamWhereUniqueInput[] | ExamWhereUniqueInput;
+  update?:
+    | ExamUpdateWithWhereUniqueWithoutAuthorInput[]
+    | ExamUpdateWithWhereUniqueWithoutAuthorInput;
+  upsert?:
+    | ExamUpsertWithWhereUniqueWithoutAuthorInput[]
+    | ExamUpsertWithWhereUniqueWithoutAuthorInput;
+  deleteMany?: ExamScalarWhereInput[] | ExamScalarWhereInput;
+  updateMany?:
+    | ExamUpdateManyWithWhereNestedInput[]
+    | ExamUpdateManyWithWhereNestedInput;
+}
+
+export interface ExamUpdateWithWhereUniqueWithoutAuthorInput {
+  where: ExamWhereUniqueInput;
+  data: ExamUpdateWithoutAuthorDataInput;
+}
+
+export interface ExamUpdateWithoutAuthorDataInput {
+  title?: String;
+  description?: String;
+  questions?: QuestionUpdateManyInput;
+}
+
+export interface ExamUpsertWithWhereUniqueWithoutAuthorInput {
+  where: ExamWhereUniqueInput;
+  update: ExamUpdateWithoutAuthorDataInput;
+  create: ExamCreateWithoutAuthorInput;
+}
+
+export interface ExamScalarWhereInput {
   id?: ID_Input;
   id_not?: ID_Input;
   id_in?: ID_Input[] | ID_Input;
@@ -1460,82 +1321,149 @@ export interface QuestionWhereInput {
   id_not_starts_with?: ID_Input;
   id_ends_with?: ID_Input;
   id_not_ends_with?: ID_Input;
-  type?: QUESTION_TYPE;
-  type_not?: QUESTION_TYPE;
-  type_in?: QUESTION_TYPE[] | QUESTION_TYPE;
-  type_not_in?: QUESTION_TYPE[] | QUESTION_TYPE;
-  wording?: String;
-  wording_not?: String;
-  wording_in?: String[] | String;
-  wording_not_in?: String[] | String;
-  wording_lt?: String;
-  wording_lte?: String;
-  wording_gt?: String;
-  wording_gte?: String;
-  wording_contains?: String;
-  wording_not_contains?: String;
-  wording_starts_with?: String;
-  wording_not_starts_with?: String;
-  wording_ends_with?: String;
-  wording_not_ends_with?: String;
-  imageUrl?: String;
-  imageUrl_not?: String;
-  imageUrl_in?: String[] | String;
-  imageUrl_not_in?: String[] | String;
-  imageUrl_lt?: String;
-  imageUrl_lte?: String;
-  imageUrl_gt?: String;
-  imageUrl_gte?: String;
-  imageUrl_contains?: String;
-  imageUrl_not_contains?: String;
-  imageUrl_starts_with?: String;
-  imageUrl_not_starts_with?: String;
-  imageUrl_ends_with?: String;
-  imageUrl_not_ends_with?: String;
-  secondaryWording?: String;
-  secondaryWording_not?: String;
-  secondaryWording_in?: String[] | String;
-  secondaryWording_not_in?: String[] | String;
-  secondaryWording_lt?: String;
-  secondaryWording_lte?: String;
-  secondaryWording_gt?: String;
-  secondaryWording_gte?: String;
-  secondaryWording_contains?: String;
-  secondaryWording_not_contains?: String;
-  secondaryWording_starts_with?: String;
-  secondaryWording_not_starts_with?: String;
-  secondaryWording_ends_with?: String;
-  secondaryWording_not_ends_with?: String;
-  choices_every?: QuestionChoiceWhereInput;
-  choices_some?: QuestionChoiceWhereInput;
-  choices_none?: QuestionChoiceWhereInput;
-  AND?: QuestionWhereInput[] | QuestionWhereInput;
-  OR?: QuestionWhereInput[] | QuestionWhereInput;
-  NOT?: QuestionWhereInput[] | QuestionWhereInput;
+  title?: String;
+  title_not?: String;
+  title_in?: String[] | String;
+  title_not_in?: String[] | String;
+  title_lt?: String;
+  title_lte?: String;
+  title_gt?: String;
+  title_gte?: String;
+  title_contains?: String;
+  title_not_contains?: String;
+  title_starts_with?: String;
+  title_not_starts_with?: String;
+  title_ends_with?: String;
+  title_not_ends_with?: String;
+  description?: String;
+  description_not?: String;
+  description_in?: String[] | String;
+  description_not_in?: String[] | String;
+  description_lt?: String;
+  description_lte?: String;
+  description_gt?: String;
+  description_gte?: String;
+  description_contains?: String;
+  description_not_contains?: String;
+  description_starts_with?: String;
+  description_not_starts_with?: String;
+  description_ends_with?: String;
+  description_not_ends_with?: String;
+  createdAt?: DateTimeInput;
+  createdAt_not?: DateTimeInput;
+  createdAt_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_not_in?: DateTimeInput[] | DateTimeInput;
+  createdAt_lt?: DateTimeInput;
+  createdAt_lte?: DateTimeInput;
+  createdAt_gt?: DateTimeInput;
+  createdAt_gte?: DateTimeInput;
+  updatedAt?: DateTimeInput;
+  updatedAt_not?: DateTimeInput;
+  updatedAt_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_not_in?: DateTimeInput[] | DateTimeInput;
+  updatedAt_lt?: DateTimeInput;
+  updatedAt_lte?: DateTimeInput;
+  updatedAt_gt?: DateTimeInput;
+  updatedAt_gte?: DateTimeInput;
+  AND?: ExamScalarWhereInput[] | ExamScalarWhereInput;
+  OR?: ExamScalarWhereInput[] | ExamScalarWhereInput;
+  NOT?: ExamScalarWhereInput[] | ExamScalarWhereInput;
 }
 
-export interface UserCreateOneInput {
-  create?: UserCreateInput;
-  connect?: UserWhereUniqueInput;
+export interface ExamUpdateManyWithWhereNestedInput {
+  where: ExamScalarWhereInput;
+  data: ExamUpdateManyDataInput;
 }
 
-export interface OlympiadCreateInput {
-  name: String;
-  isPublished?: Boolean;
-  year: DateTimeInput;
-  createdBy: UserCreateOneInput;
-}
-
-export interface ExamUpdateManyMutationInput {
+export interface ExamUpdateManyDataInput {
   title?: String;
   description?: String;
 }
 
-export interface QuestionUpdateManyDataInput {
+export interface UserUpsertNestedInput {
+  update: UserUpdateDataInput;
+  create: UserCreateInput;
+}
+
+export interface OlympiadUpdateManyMutationInput {
+  name?: String;
+  isPublished?: Boolean;
+  year?: DateTimeInput;
+}
+
+export interface QuestionUpdateInput {
   type?: QUESTION_TYPE;
   wording?: String;
   imageUrl?: String;
   secondaryWording?: String;
+  choices?: QuestionChoiceUpdateManyInput;
+}
+
+export interface QuestionUpdateManyMutationInput {
+  type?: QUESTION_TYPE;
+  wording?: String;
+  imageUrl?: String;
+  secondaryWording?: String;
+}
+
+export interface QuestionChoiceUpdateInput {
+  text?: String;
+}
+
+export interface QuestionChoiceUpdateManyMutationInput {
+  text?: String;
+}
+
+export interface SchoolCreateInput {
+  name: String;
+  email: String;
+  phone?: String;
+  olympiadCood: UserCreateOneInput;
+  pedagogyCoord?: String;
+  director?: String;
+  city: CityCreateOneInput;
+  address?: String;
+}
+
+export interface CityCreateOneInput {
+  create?: CityCreateInput;
+  connect?: CityWhereUniqueInput;
+}
+
+export interface SchoolUpdateInput {
+  name?: String;
+  email?: String;
+  phone?: String;
+  olympiadCood?: UserUpdateOneRequiredInput;
+  pedagogyCoord?: String;
+  director?: String;
+  city?: CityUpdateOneRequiredInput;
+  address?: String;
+}
+
+export interface CityUpdateOneRequiredInput {
+  create?: CityCreateInput;
+  update?: CityUpdateDataInput;
+  upsert?: CityUpsertNestedInput;
+  connect?: CityWhereUniqueInput;
+}
+
+export interface CityUpdateDataInput {
+  name?: String;
+}
+
+export interface CityUpsertNestedInput {
+  update: CityUpdateDataInput;
+  create: CityCreateInput;
+}
+
+export interface SchoolUpdateManyMutationInput {
+  name?: String;
+  email?: String;
+  phone?: String;
+  pedagogyCoord?: String;
+  director?: String;
+  address?: String;
 }
 
 export interface UserUpdateInput {
@@ -1545,122 +1473,114 @@ export interface UserUpdateInput {
   exams?: ExamUpdateManyWithoutAuthorInput;
 }
 
-export interface ExamUpsertWithWhereUniqueWithoutAuthorInput {
-  where: ExamWhereUniqueInput;
-  update: ExamUpdateWithoutAuthorDataInput;
-  create: ExamCreateWithoutAuthorInput;
-}
-
-export interface OlympiadUpdateManyMutationInput {
+export interface UserUpdateManyMutationInput {
+  email?: String;
+  password?: String;
   name?: String;
-  isPublished?: Boolean;
-  year?: DateTimeInput;
 }
 
-export interface CityCreateOneInput {
-  create?: CityCreateInput;
-  connect?: CityWhereUniqueInput;
+export interface CitySubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: CityWhereInput;
+  AND?: CitySubscriptionWhereInput[] | CitySubscriptionWhereInput;
+  OR?: CitySubscriptionWhereInput[] | CitySubscriptionWhereInput;
+  NOT?: CitySubscriptionWhereInput[] | CitySubscriptionWhereInput;
+}
+
+export interface ExamSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: ExamWhereInput;
+  AND?: ExamSubscriptionWhereInput[] | ExamSubscriptionWhereInput;
+  OR?: ExamSubscriptionWhereInput[] | ExamSubscriptionWhereInput;
+  NOT?: ExamSubscriptionWhereInput[] | ExamSubscriptionWhereInput;
+}
+
+export interface OlympiadSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: OlympiadWhereInput;
+  AND?: OlympiadSubscriptionWhereInput[] | OlympiadSubscriptionWhereInput;
+  OR?: OlympiadSubscriptionWhereInput[] | OlympiadSubscriptionWhereInput;
+  NOT?: OlympiadSubscriptionWhereInput[] | OlympiadSubscriptionWhereInput;
+}
+
+export interface QuestionSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: QuestionWhereInput;
+  AND?: QuestionSubscriptionWhereInput[] | QuestionSubscriptionWhereInput;
+  OR?: QuestionSubscriptionWhereInput[] | QuestionSubscriptionWhereInput;
+  NOT?: QuestionSubscriptionWhereInput[] | QuestionSubscriptionWhereInput;
+}
+
+export interface QuestionChoiceSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: QuestionChoiceWhereInput;
+  AND?:
+    | QuestionChoiceSubscriptionWhereInput[]
+    | QuestionChoiceSubscriptionWhereInput;
+  OR?:
+    | QuestionChoiceSubscriptionWhereInput[]
+    | QuestionChoiceSubscriptionWhereInput;
+  NOT?:
+    | QuestionChoiceSubscriptionWhereInput[]
+    | QuestionChoiceSubscriptionWhereInput;
+}
+
+export interface SchoolSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: SchoolWhereInput;
+  AND?: SchoolSubscriptionWhereInput[] | SchoolSubscriptionWhereInput;
+  OR?: SchoolSubscriptionWhereInput[] | SchoolSubscriptionWhereInput;
+  NOT?: SchoolSubscriptionWhereInput[] | SchoolSubscriptionWhereInput;
+}
+
+export interface UserSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: UserWhereInput;
+  AND?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
+  OR?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
+  NOT?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput;
 }
 
 export interface NodeNode {
   id: ID_Output;
 }
 
-export interface UserPreviousValues {
+export interface City {
   id: ID_Output;
-  email: String;
-  password: String;
   name: String;
 }
 
-export interface UserPreviousValuesPromise
-  extends Promise<UserPreviousValues>,
-    Fragmentable {
+export interface CityPromise extends Promise<City>, Fragmentable {
   id: () => Promise<ID_Output>;
-  email: () => Promise<String>;
-  password: () => Promise<String>;
   name: () => Promise<String>;
 }
 
-export interface UserPreviousValuesSubscription
-  extends Promise<AsyncIterator<UserPreviousValues>>,
+export interface CitySubscription
+  extends Promise<AsyncIterator<City>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  email: () => Promise<AsyncIterator<String>>;
-  password: () => Promise<AsyncIterator<String>>;
   name: () => Promise<AsyncIterator<String>>;
-}
-
-export interface ExamConnection {
-  pageInfo: PageInfo;
-  edges: ExamEdge[];
-}
-
-export interface ExamConnectionPromise
-  extends Promise<ExamConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<ExamEdge>>() => T;
-  aggregate: <T = AggregateExamPromise>() => T;
-}
-
-export interface ExamConnectionSubscription
-  extends Promise<AsyncIterator<ExamConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<ExamEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateExamSubscription>() => T;
-}
-
-export interface AggregateCity {
-  count: Int;
-}
-
-export interface AggregateCityPromise
-  extends Promise<AggregateCity>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateCitySubscription
-  extends Promise<AsyncIterator<AggregateCity>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface QuestionChoice {
-  id: ID_Output;
-  text: String;
-}
-
-export interface QuestionChoicePromise
-  extends Promise<QuestionChoice>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  text: () => Promise<String>;
-}
-
-export interface QuestionChoiceSubscription
-  extends Promise<AsyncIterator<QuestionChoice>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  text: () => Promise<AsyncIterator<String>>;
-}
-
-export interface BatchPayload {
-  count: Long;
-}
-
-export interface BatchPayloadPromise
-  extends Promise<BatchPayload>,
-    Fragmentable {
-  count: () => Promise<Long>;
-}
-
-export interface BatchPayloadSubscription
-  extends Promise<AsyncIterator<BatchPayload>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Long>>;
 }
 
 export interface CityConnection {
@@ -1682,308 +1602,6 @@ export interface CityConnectionSubscription
   pageInfo: <T = PageInfoSubscription>() => T;
   edges: <T = Promise<AsyncIterator<CityEdgeSubscription>>>() => T;
   aggregate: <T = AggregateCitySubscription>() => T;
-}
-
-export interface UserEdge {
-  node: User;
-  cursor: String;
-}
-
-export interface UserEdgePromise extends Promise<UserEdge>, Fragmentable {
-  node: <T = UserPromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface UserEdgeSubscription
-  extends Promise<AsyncIterator<UserEdge>>,
-    Fragmentable {
-  node: <T = UserSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface Question {
-  id: ID_Output;
-  type: QUESTION_TYPE;
-  wording: String;
-  imageUrl?: String;
-  secondaryWording?: String;
-}
-
-export interface QuestionPromise extends Promise<Question>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  type: () => Promise<QUESTION_TYPE>;
-  wording: () => Promise<String>;
-  imageUrl: () => Promise<String>;
-  secondaryWording: () => Promise<String>;
-  choices: <T = FragmentableArray<QuestionChoice>>(
-    args?: {
-      where?: QuestionChoiceWhereInput;
-      orderBy?: QuestionChoiceOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => T;
-}
-
-export interface QuestionSubscription
-  extends Promise<AsyncIterator<Question>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  type: () => Promise<AsyncIterator<QUESTION_TYPE>>;
-  wording: () => Promise<AsyncIterator<String>>;
-  imageUrl: () => Promise<AsyncIterator<String>>;
-  secondaryWording: () => Promise<AsyncIterator<String>>;
-  choices: <T = Promise<AsyncIterator<QuestionChoiceSubscription>>>(
-    args?: {
-      where?: QuestionChoiceWhereInput;
-      orderBy?: QuestionChoiceOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => T;
-}
-
-export interface City {
-  id: ID_Output;
-  name: String;
-}
-
-export interface CityPromise extends Promise<City>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  name: () => Promise<String>;
-}
-
-export interface CitySubscription
-  extends Promise<AsyncIterator<City>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  name: () => Promise<AsyncIterator<String>>;
-}
-
-export interface UserConnection {
-  pageInfo: PageInfo;
-  edges: UserEdge[];
-}
-
-export interface UserConnectionPromise
-  extends Promise<UserConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<UserEdge>>() => T;
-  aggregate: <T = AggregateUserPromise>() => T;
-}
-
-export interface UserConnectionSubscription
-  extends Promise<AsyncIterator<UserConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<UserEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateUserSubscription>() => T;
-}
-
-export interface User {
-  id: ID_Output;
-  email: String;
-  password: String;
-  name: String;
-}
-
-export interface UserPromise extends Promise<User>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  email: () => Promise<String>;
-  password: () => Promise<String>;
-  name: () => Promise<String>;
-  exams: <T = FragmentableArray<Exam>>(
-    args?: {
-      where?: ExamWhereInput;
-      orderBy?: ExamOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => T;
-}
-
-export interface UserSubscription
-  extends Promise<AsyncIterator<User>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  email: () => Promise<AsyncIterator<String>>;
-  password: () => Promise<AsyncIterator<String>>;
-  name: () => Promise<AsyncIterator<String>>;
-  exams: <T = Promise<AsyncIterator<ExamSubscription>>>(
-    args?: {
-      where?: ExamWhereInput;
-      orderBy?: ExamOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => T;
-}
-
-export interface AggregateSchool {
-  count: Int;
-}
-
-export interface AggregateSchoolPromise
-  extends Promise<AggregateSchool>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateSchoolSubscription
-  extends Promise<AsyncIterator<AggregateSchool>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface SchoolEdge {
-  node: School;
-  cursor: String;
-}
-
-export interface SchoolEdgePromise extends Promise<SchoolEdge>, Fragmentable {
-  node: <T = SchoolPromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface SchoolEdgeSubscription
-  extends Promise<AsyncIterator<SchoolEdge>>,
-    Fragmentable {
-  node: <T = SchoolSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface SchoolConnection {
-  pageInfo: PageInfo;
-  edges: SchoolEdge[];
-}
-
-export interface SchoolConnectionPromise
-  extends Promise<SchoolConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<SchoolEdge>>() => T;
-  aggregate: <T = AggregateSchoolPromise>() => T;
-}
-
-export interface SchoolConnectionSubscription
-  extends Promise<AsyncIterator<SchoolConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<SchoolEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateSchoolSubscription>() => T;
-}
-
-export interface AggregateQuestionChoice {
-  count: Int;
-}
-
-export interface AggregateQuestionChoicePromise
-  extends Promise<AggregateQuestionChoice>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateQuestionChoiceSubscription
-  extends Promise<AsyncIterator<AggregateQuestionChoice>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface CitySubscriptionPayload {
-  mutation: MutationType;
-  node: City;
-  updatedFields: String[];
-  previousValues: CityPreviousValues;
-}
-
-export interface CitySubscriptionPayloadPromise
-  extends Promise<CitySubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = CityPromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = CityPreviousValuesPromise>() => T;
-}
-
-export interface CitySubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<CitySubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = CitySubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = CityPreviousValuesSubscription>() => T;
-}
-
-export interface QuestionChoiceConnection {
-  pageInfo: PageInfo;
-  edges: QuestionChoiceEdge[];
-}
-
-export interface QuestionChoiceConnectionPromise
-  extends Promise<QuestionChoiceConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<QuestionChoiceEdge>>() => T;
-  aggregate: <T = AggregateQuestionChoicePromise>() => T;
-}
-
-export interface QuestionChoiceConnectionSubscription
-  extends Promise<AsyncIterator<QuestionChoiceConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<QuestionChoiceEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateQuestionChoiceSubscription>() => T;
-}
-
-export interface CityPreviousValues {
-  id: ID_Output;
-  name: String;
-}
-
-export interface CityPreviousValuesPromise
-  extends Promise<CityPreviousValues>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  name: () => Promise<String>;
-}
-
-export interface CityPreviousValuesSubscription
-  extends Promise<AsyncIterator<CityPreviousValues>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  name: () => Promise<AsyncIterator<String>>;
-}
-
-export interface QuestionEdge {
-  node: Question;
-  cursor: String;
-}
-
-export interface QuestionEdgePromise
-  extends Promise<QuestionEdge>,
-    Fragmentable {
-  node: <T = QuestionPromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface QuestionEdgeSubscription
-  extends Promise<AsyncIterator<QuestionEdge>>,
-    Fragmentable {
-  node: <T = QuestionSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
 }
 
 export interface PageInfo {
@@ -2009,363 +1627,37 @@ export interface PageInfoSubscription
   endCursor: () => Promise<AsyncIterator<String>>;
 }
 
-export interface AggregateOlympiad {
+export interface CityEdge {
+  node: City;
+  cursor: String;
+}
+
+export interface CityEdgePromise extends Promise<CityEdge>, Fragmentable {
+  node: <T = CityPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface CityEdgeSubscription
+  extends Promise<AsyncIterator<CityEdge>>,
+    Fragmentable {
+  node: <T = CitySubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateCity {
   count: Int;
 }
 
-export interface AggregateOlympiadPromise
-  extends Promise<AggregateOlympiad>,
+export interface AggregateCityPromise
+  extends Promise<AggregateCity>,
     Fragmentable {
   count: () => Promise<Int>;
 }
 
-export interface AggregateOlympiadSubscription
-  extends Promise<AsyncIterator<AggregateOlympiad>>,
+export interface AggregateCitySubscription
+  extends Promise<AsyncIterator<AggregateCity>>,
     Fragmentable {
   count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface ExamSubscriptionPayload {
-  mutation: MutationType;
-  node: Exam;
-  updatedFields: String[];
-  previousValues: ExamPreviousValues;
-}
-
-export interface ExamSubscriptionPayloadPromise
-  extends Promise<ExamSubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = ExamPromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = ExamPreviousValuesPromise>() => T;
-}
-
-export interface ExamSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<ExamSubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = ExamSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = ExamPreviousValuesSubscription>() => T;
-}
-
-export interface OlympiadConnection {
-  pageInfo: PageInfo;
-  edges: OlympiadEdge[];
-}
-
-export interface OlympiadConnectionPromise
-  extends Promise<OlympiadConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<OlympiadEdge>>() => T;
-  aggregate: <T = AggregateOlympiadPromise>() => T;
-}
-
-export interface OlympiadConnectionSubscription
-  extends Promise<AsyncIterator<OlympiadConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<OlympiadEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateOlympiadSubscription>() => T;
-}
-
-export interface ExamPreviousValues {
-  id: ID_Output;
-  title: String;
-  description?: String;
-  createdAt: DateTimeOutput;
-  updatedAt: DateTimeOutput;
-}
-
-export interface ExamPreviousValuesPromise
-  extends Promise<ExamPreviousValues>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  title: () => Promise<String>;
-  description: () => Promise<String>;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
-}
-
-export interface ExamPreviousValuesSubscription
-  extends Promise<AsyncIterator<ExamPreviousValues>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  title: () => Promise<AsyncIterator<String>>;
-  description: () => Promise<AsyncIterator<String>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-}
-
-export interface Olympiad {
-  id: ID_Output;
-  name: String;
-  isPublished?: Boolean;
-  year: DateTimeOutput;
-  createdAt: DateTimeOutput;
-  updatedAt: DateTimeOutput;
-}
-
-export interface OlympiadPromise extends Promise<Olympiad>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  name: () => Promise<String>;
-  isPublished: () => Promise<Boolean>;
-  year: () => Promise<DateTimeOutput>;
-  createdBy: <T = UserPromise>() => T;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
-}
-
-export interface OlympiadSubscription
-  extends Promise<AsyncIterator<Olympiad>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  name: () => Promise<AsyncIterator<String>>;
-  isPublished: () => Promise<AsyncIterator<Boolean>>;
-  year: () => Promise<AsyncIterator<DateTimeOutput>>;
-  createdBy: <T = UserSubscription>() => T;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-}
-
-export interface SchoolPreviousValues {
-  id: ID_Output;
-  name: String;
-  email: String;
-  phone?: String;
-  pedagogyCoord?: String;
-  director?: String;
-  address?: String;
-}
-
-export interface SchoolPreviousValuesPromise
-  extends Promise<SchoolPreviousValues>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  name: () => Promise<String>;
-  email: () => Promise<String>;
-  phone: () => Promise<String>;
-  pedagogyCoord: () => Promise<String>;
-  director: () => Promise<String>;
-  address: () => Promise<String>;
-}
-
-export interface SchoolPreviousValuesSubscription
-  extends Promise<AsyncIterator<SchoolPreviousValues>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  name: () => Promise<AsyncIterator<String>>;
-  email: () => Promise<AsyncIterator<String>>;
-  phone: () => Promise<AsyncIterator<String>>;
-  pedagogyCoord: () => Promise<AsyncIterator<String>>;
-  director: () => Promise<AsyncIterator<String>>;
-  address: () => Promise<AsyncIterator<String>>;
-}
-
-export interface ExamEdge {
-  node: Exam;
-  cursor: String;
-}
-
-export interface ExamEdgePromise extends Promise<ExamEdge>, Fragmentable {
-  node: <T = ExamPromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface ExamEdgeSubscription
-  extends Promise<AsyncIterator<ExamEdge>>,
-    Fragmentable {
-  node: <T = ExamSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface OlympiadSubscriptionPayload {
-  mutation: MutationType;
-  node: Olympiad;
-  updatedFields: String[];
-  previousValues: OlympiadPreviousValues;
-}
-
-export interface OlympiadSubscriptionPayloadPromise
-  extends Promise<OlympiadSubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = OlympiadPromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = OlympiadPreviousValuesPromise>() => T;
-}
-
-export interface OlympiadSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<OlympiadSubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = OlympiadSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = OlympiadPreviousValuesSubscription>() => T;
-}
-
-export interface AggregateUser {
-  count: Int;
-}
-
-export interface AggregateUserPromise
-  extends Promise<AggregateUser>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateUserSubscription
-  extends Promise<AsyncIterator<AggregateUser>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface OlympiadPreviousValues {
-  id: ID_Output;
-  name: String;
-  isPublished?: Boolean;
-  year: DateTimeOutput;
-  createdAt: DateTimeOutput;
-  updatedAt: DateTimeOutput;
-}
-
-export interface OlympiadPreviousValuesPromise
-  extends Promise<OlympiadPreviousValues>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  name: () => Promise<String>;
-  isPublished: () => Promise<Boolean>;
-  year: () => Promise<DateTimeOutput>;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
-}
-
-export interface OlympiadPreviousValuesSubscription
-  extends Promise<AsyncIterator<OlympiadPreviousValues>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  name: () => Promise<AsyncIterator<String>>;
-  isPublished: () => Promise<AsyncIterator<Boolean>>;
-  year: () => Promise<AsyncIterator<DateTimeOutput>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-}
-
-export interface QuestionChoiceEdge {
-  node: QuestionChoice;
-  cursor: String;
-}
-
-export interface QuestionChoiceEdgePromise
-  extends Promise<QuestionChoiceEdge>,
-    Fragmentable {
-  node: <T = QuestionChoicePromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface QuestionChoiceEdgeSubscription
-  extends Promise<AsyncIterator<QuestionChoiceEdge>>,
-    Fragmentable {
-  node: <T = QuestionChoiceSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface SchoolSubscriptionPayload {
-  mutation: MutationType;
-  node: School;
-  updatedFields: String[];
-  previousValues: SchoolPreviousValues;
-}
-
-export interface SchoolSubscriptionPayloadPromise
-  extends Promise<SchoolSubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = SchoolPromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = SchoolPreviousValuesPromise>() => T;
-}
-
-export interface SchoolSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<SchoolSubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = SchoolSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = SchoolPreviousValuesSubscription>() => T;
-}
-
-export interface QuestionConnection {
-  pageInfo: PageInfo;
-  edges: QuestionEdge[];
-}
-
-export interface QuestionConnectionPromise
-  extends Promise<QuestionConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<QuestionEdge>>() => T;
-  aggregate: <T = AggregateQuestionPromise>() => T;
-}
-
-export interface QuestionConnectionSubscription
-  extends Promise<AsyncIterator<QuestionConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<QuestionEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateQuestionSubscription>() => T;
-}
-
-export interface QuestionSubscriptionPayload {
-  mutation: MutationType;
-  node: Question;
-  updatedFields: String[];
-  previousValues: QuestionPreviousValues;
-}
-
-export interface QuestionSubscriptionPayloadPromise
-  extends Promise<QuestionSubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = QuestionPromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = QuestionPreviousValuesPromise>() => T;
-}
-
-export interface QuestionSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<QuestionSubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = QuestionSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = QuestionPreviousValuesSubscription>() => T;
-}
-
-export interface UserSubscriptionPayload {
-  mutation: MutationType;
-  node: User;
-  updatedFields: String[];
-  previousValues: UserPreviousValues;
-}
-
-export interface UserSubscriptionPayloadPromise
-  extends Promise<UserSubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = UserPromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = UserPreviousValuesPromise>() => T;
-}
-
-export interface UserSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<UserSubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = UserSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = UserPreviousValuesSubscription>() => T;
 }
 
 export interface Exam {
@@ -2418,68 +1710,52 @@ export interface ExamSubscription
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
-export interface QuestionChoicePreviousValues {
+export interface User {
   id: ID_Output;
-  text: String;
+  email: String;
+  password: String;
+  name: String;
 }
 
-export interface QuestionChoicePreviousValuesPromise
-  extends Promise<QuestionChoicePreviousValues>,
-    Fragmentable {
+export interface UserPromise extends Promise<User>, Fragmentable {
   id: () => Promise<ID_Output>;
-  text: () => Promise<String>;
+  email: () => Promise<String>;
+  password: () => Promise<String>;
+  name: () => Promise<String>;
+  exams: <T = FragmentableArray<Exam>>(
+    args?: {
+      where?: ExamWhereInput;
+      orderBy?: ExamOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
 }
 
-export interface QuestionChoicePreviousValuesSubscription
-  extends Promise<AsyncIterator<QuestionChoicePreviousValues>>,
+export interface UserSubscription
+  extends Promise<AsyncIterator<User>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  text: () => Promise<AsyncIterator<String>>;
+  email: () => Promise<AsyncIterator<String>>;
+  password: () => Promise<AsyncIterator<String>>;
+  name: () => Promise<AsyncIterator<String>>;
+  exams: <T = Promise<AsyncIterator<ExamSubscription>>>(
+    args?: {
+      where?: ExamWhereInput;
+      orderBy?: ExamOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
 }
 
-export interface QuestionChoiceSubscriptionPayload {
-  mutation: MutationType;
-  node: QuestionChoice;
-  updatedFields: String[];
-  previousValues: QuestionChoicePreviousValues;
-}
-
-export interface QuestionChoiceSubscriptionPayloadPromise
-  extends Promise<QuestionChoiceSubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = QuestionChoicePromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = QuestionChoicePreviousValuesPromise>() => T;
-}
-
-export interface QuestionChoiceSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<QuestionChoiceSubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = QuestionChoiceSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = QuestionChoicePreviousValuesSubscription>() => T;
-}
-
-export interface CityEdge {
-  node: City;
-  cursor: String;
-}
-
-export interface CityEdgePromise extends Promise<CityEdge>, Fragmentable {
-  node: <T = CityPromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface CityEdgeSubscription
-  extends Promise<AsyncIterator<CityEdge>>,
-    Fragmentable {
-  node: <T = CitySubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface QuestionPreviousValues {
+export interface Question {
   id: ID_Output;
   type: QUESTION_TYPE;
   wording: String;
@@ -2487,24 +1763,316 @@ export interface QuestionPreviousValues {
   secondaryWording?: String;
 }
 
-export interface QuestionPreviousValuesPromise
-  extends Promise<QuestionPreviousValues>,
-    Fragmentable {
+export interface QuestionPromise extends Promise<Question>, Fragmentable {
   id: () => Promise<ID_Output>;
   type: () => Promise<QUESTION_TYPE>;
   wording: () => Promise<String>;
   imageUrl: () => Promise<String>;
   secondaryWording: () => Promise<String>;
+  choices: <T = FragmentableArray<QuestionChoice>>(
+    args?: {
+      where?: QuestionChoiceWhereInput;
+      orderBy?: QuestionChoiceOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
 }
 
-export interface QuestionPreviousValuesSubscription
-  extends Promise<AsyncIterator<QuestionPreviousValues>>,
+export interface QuestionSubscription
+  extends Promise<AsyncIterator<Question>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   type: () => Promise<AsyncIterator<QUESTION_TYPE>>;
   wording: () => Promise<AsyncIterator<String>>;
   imageUrl: () => Promise<AsyncIterator<String>>;
   secondaryWording: () => Promise<AsyncIterator<String>>;
+  choices: <T = Promise<AsyncIterator<QuestionChoiceSubscription>>>(
+    args?: {
+      where?: QuestionChoiceWhereInput;
+      orderBy?: QuestionChoiceOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+}
+
+export interface QuestionChoice {
+  id: ID_Output;
+  text: String;
+}
+
+export interface QuestionChoicePromise
+  extends Promise<QuestionChoice>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  text: () => Promise<String>;
+}
+
+export interface QuestionChoiceSubscription
+  extends Promise<AsyncIterator<QuestionChoice>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  text: () => Promise<AsyncIterator<String>>;
+}
+
+export interface ExamConnection {
+  pageInfo: PageInfo;
+  edges: ExamEdge[];
+}
+
+export interface ExamConnectionPromise
+  extends Promise<ExamConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<ExamEdge>>() => T;
+  aggregate: <T = AggregateExamPromise>() => T;
+}
+
+export interface ExamConnectionSubscription
+  extends Promise<AsyncIterator<ExamConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<ExamEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateExamSubscription>() => T;
+}
+
+export interface ExamEdge {
+  node: Exam;
+  cursor: String;
+}
+
+export interface ExamEdgePromise extends Promise<ExamEdge>, Fragmentable {
+  node: <T = ExamPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface ExamEdgeSubscription
+  extends Promise<AsyncIterator<ExamEdge>>,
+    Fragmentable {
+  node: <T = ExamSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateExam {
+  count: Int;
+}
+
+export interface AggregateExamPromise
+  extends Promise<AggregateExam>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateExamSubscription
+  extends Promise<AsyncIterator<AggregateExam>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface Olympiad {
+  id: ID_Output;
+  name: String;
+  isPublished?: Boolean;
+  year: DateTimeOutput;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
+}
+
+export interface OlympiadPromise extends Promise<Olympiad>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  isPublished: () => Promise<Boolean>;
+  year: () => Promise<DateTimeOutput>;
+  createdBy: <T = UserPromise>() => T;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface OlympiadSubscription
+  extends Promise<AsyncIterator<Olympiad>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  isPublished: () => Promise<AsyncIterator<Boolean>>;
+  year: () => Promise<AsyncIterator<DateTimeOutput>>;
+  createdBy: <T = UserSubscription>() => T;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface OlympiadConnection {
+  pageInfo: PageInfo;
+  edges: OlympiadEdge[];
+}
+
+export interface OlympiadConnectionPromise
+  extends Promise<OlympiadConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<OlympiadEdge>>() => T;
+  aggregate: <T = AggregateOlympiadPromise>() => T;
+}
+
+export interface OlympiadConnectionSubscription
+  extends Promise<AsyncIterator<OlympiadConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<OlympiadEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateOlympiadSubscription>() => T;
+}
+
+export interface OlympiadEdge {
+  node: Olympiad;
+  cursor: String;
+}
+
+export interface OlympiadEdgePromise
+  extends Promise<OlympiadEdge>,
+    Fragmentable {
+  node: <T = OlympiadPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface OlympiadEdgeSubscription
+  extends Promise<AsyncIterator<OlympiadEdge>>,
+    Fragmentable {
+  node: <T = OlympiadSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateOlympiad {
+  count: Int;
+}
+
+export interface AggregateOlympiadPromise
+  extends Promise<AggregateOlympiad>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateOlympiadSubscription
+  extends Promise<AsyncIterator<AggregateOlympiad>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface QuestionConnection {
+  pageInfo: PageInfo;
+  edges: QuestionEdge[];
+}
+
+export interface QuestionConnectionPromise
+  extends Promise<QuestionConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<QuestionEdge>>() => T;
+  aggregate: <T = AggregateQuestionPromise>() => T;
+}
+
+export interface QuestionConnectionSubscription
+  extends Promise<AsyncIterator<QuestionConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<QuestionEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateQuestionSubscription>() => T;
+}
+
+export interface QuestionEdge {
+  node: Question;
+  cursor: String;
+}
+
+export interface QuestionEdgePromise
+  extends Promise<QuestionEdge>,
+    Fragmentable {
+  node: <T = QuestionPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface QuestionEdgeSubscription
+  extends Promise<AsyncIterator<QuestionEdge>>,
+    Fragmentable {
+  node: <T = QuestionSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateQuestion {
+  count: Int;
+}
+
+export interface AggregateQuestionPromise
+  extends Promise<AggregateQuestion>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateQuestionSubscription
+  extends Promise<AsyncIterator<AggregateQuestion>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface QuestionChoiceConnection {
+  pageInfo: PageInfo;
+  edges: QuestionChoiceEdge[];
+}
+
+export interface QuestionChoiceConnectionPromise
+  extends Promise<QuestionChoiceConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<QuestionChoiceEdge>>() => T;
+  aggregate: <T = AggregateQuestionChoicePromise>() => T;
+}
+
+export interface QuestionChoiceConnectionSubscription
+  extends Promise<AsyncIterator<QuestionChoiceConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<QuestionChoiceEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateQuestionChoiceSubscription>() => T;
+}
+
+export interface QuestionChoiceEdge {
+  node: QuestionChoice;
+  cursor: String;
+}
+
+export interface QuestionChoiceEdgePromise
+  extends Promise<QuestionChoiceEdge>,
+    Fragmentable {
+  node: <T = QuestionChoicePromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface QuestionChoiceEdgeSubscription
+  extends Promise<AsyncIterator<QuestionChoiceEdge>>,
+    Fragmentable {
+  node: <T = QuestionChoiceSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateQuestionChoice {
+  count: Int;
+}
+
+export interface AggregateQuestionChoicePromise
+  extends Promise<AggregateQuestionChoice>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateQuestionChoiceSubscription
+  extends Promise<AsyncIterator<AggregateQuestionChoice>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface School {
@@ -2543,61 +2111,488 @@ export interface SchoolSubscription
   address: () => Promise<AsyncIterator<String>>;
 }
 
-export interface AggregateExam {
-  count: Int;
+export interface SchoolConnection {
+  pageInfo: PageInfo;
+  edges: SchoolEdge[];
 }
 
-export interface AggregateExamPromise
-  extends Promise<AggregateExam>,
+export interface SchoolConnectionPromise
+  extends Promise<SchoolConnection>,
     Fragmentable {
-  count: () => Promise<Int>;
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<SchoolEdge>>() => T;
+  aggregate: <T = AggregateSchoolPromise>() => T;
 }
 
-export interface AggregateExamSubscription
-  extends Promise<AsyncIterator<AggregateExam>>,
+export interface SchoolConnectionSubscription
+  extends Promise<AsyncIterator<SchoolConnection>>,
     Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<SchoolEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateSchoolSubscription>() => T;
 }
 
-export interface OlympiadEdge {
-  node: Olympiad;
+export interface SchoolEdge {
+  node: School;
   cursor: String;
 }
 
-export interface OlympiadEdgePromise
-  extends Promise<OlympiadEdge>,
-    Fragmentable {
-  node: <T = OlympiadPromise>() => T;
+export interface SchoolEdgePromise extends Promise<SchoolEdge>, Fragmentable {
+  node: <T = SchoolPromise>() => T;
   cursor: () => Promise<String>;
 }
 
-export interface OlympiadEdgeSubscription
-  extends Promise<AsyncIterator<OlympiadEdge>>,
+export interface SchoolEdgeSubscription
+  extends Promise<AsyncIterator<SchoolEdge>>,
     Fragmentable {
-  node: <T = OlympiadSubscription>() => T;
+  node: <T = SchoolSubscription>() => T;
   cursor: () => Promise<AsyncIterator<String>>;
 }
 
-export interface AggregateQuestion {
+export interface AggregateSchool {
   count: Int;
 }
 
-export interface AggregateQuestionPromise
-  extends Promise<AggregateQuestion>,
+export interface AggregateSchoolPromise
+  extends Promise<AggregateSchool>,
     Fragmentable {
   count: () => Promise<Int>;
 }
 
-export interface AggregateQuestionSubscription
-  extends Promise<AsyncIterator<AggregateQuestion>>,
+export interface AggregateSchoolSubscription
+  extends Promise<AsyncIterator<AggregateSchool>>,
     Fragmentable {
   count: () => Promise<AsyncIterator<Int>>;
 }
 
-/*
-The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
-*/
-export type String = string;
+export interface UserConnection {
+  pageInfo: PageInfo;
+  edges: UserEdge[];
+}
+
+export interface UserConnectionPromise
+  extends Promise<UserConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<UserEdge>>() => T;
+  aggregate: <T = AggregateUserPromise>() => T;
+}
+
+export interface UserConnectionSubscription
+  extends Promise<AsyncIterator<UserConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<UserEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateUserSubscription>() => T;
+}
+
+export interface UserEdge {
+  node: User;
+  cursor: String;
+}
+
+export interface UserEdgePromise extends Promise<UserEdge>, Fragmentable {
+  node: <T = UserPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface UserEdgeSubscription
+  extends Promise<AsyncIterator<UserEdge>>,
+    Fragmentable {
+  node: <T = UserSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateUser {
+  count: Int;
+}
+
+export interface AggregateUserPromise
+  extends Promise<AggregateUser>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateUserSubscription
+  extends Promise<AsyncIterator<AggregateUser>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface BatchPayload {
+  count: Long;
+}
+
+export interface BatchPayloadPromise
+  extends Promise<BatchPayload>,
+    Fragmentable {
+  count: () => Promise<Long>;
+}
+
+export interface BatchPayloadSubscription
+  extends Promise<AsyncIterator<BatchPayload>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Long>>;
+}
+
+export interface CitySubscriptionPayload {
+  mutation: MutationType;
+  node: City;
+  updatedFields: String[];
+  previousValues: CityPreviousValues;
+}
+
+export interface CitySubscriptionPayloadPromise
+  extends Promise<CitySubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = CityPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = CityPreviousValuesPromise>() => T;
+}
+
+export interface CitySubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<CitySubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = CitySubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = CityPreviousValuesSubscription>() => T;
+}
+
+export interface CityPreviousValues {
+  id: ID_Output;
+  name: String;
+}
+
+export interface CityPreviousValuesPromise
+  extends Promise<CityPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+}
+
+export interface CityPreviousValuesSubscription
+  extends Promise<AsyncIterator<CityPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+}
+
+export interface ExamSubscriptionPayload {
+  mutation: MutationType;
+  node: Exam;
+  updatedFields: String[];
+  previousValues: ExamPreviousValues;
+}
+
+export interface ExamSubscriptionPayloadPromise
+  extends Promise<ExamSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = ExamPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = ExamPreviousValuesPromise>() => T;
+}
+
+export interface ExamSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<ExamSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = ExamSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = ExamPreviousValuesSubscription>() => T;
+}
+
+export interface ExamPreviousValues {
+  id: ID_Output;
+  title: String;
+  description?: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
+}
+
+export interface ExamPreviousValuesPromise
+  extends Promise<ExamPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  title: () => Promise<String>;
+  description: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface ExamPreviousValuesSubscription
+  extends Promise<AsyncIterator<ExamPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  title: () => Promise<AsyncIterator<String>>;
+  description: () => Promise<AsyncIterator<String>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface OlympiadSubscriptionPayload {
+  mutation: MutationType;
+  node: Olympiad;
+  updatedFields: String[];
+  previousValues: OlympiadPreviousValues;
+}
+
+export interface OlympiadSubscriptionPayloadPromise
+  extends Promise<OlympiadSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = OlympiadPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = OlympiadPreviousValuesPromise>() => T;
+}
+
+export interface OlympiadSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<OlympiadSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = OlympiadSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = OlympiadPreviousValuesSubscription>() => T;
+}
+
+export interface OlympiadPreviousValues {
+  id: ID_Output;
+  name: String;
+  isPublished?: Boolean;
+  year: DateTimeOutput;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
+}
+
+export interface OlympiadPreviousValuesPromise
+  extends Promise<OlympiadPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  isPublished: () => Promise<Boolean>;
+  year: () => Promise<DateTimeOutput>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface OlympiadPreviousValuesSubscription
+  extends Promise<AsyncIterator<OlympiadPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  isPublished: () => Promise<AsyncIterator<Boolean>>;
+  year: () => Promise<AsyncIterator<DateTimeOutput>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface QuestionSubscriptionPayload {
+  mutation: MutationType;
+  node: Question;
+  updatedFields: String[];
+  previousValues: QuestionPreviousValues;
+}
+
+export interface QuestionSubscriptionPayloadPromise
+  extends Promise<QuestionSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = QuestionPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = QuestionPreviousValuesPromise>() => T;
+}
+
+export interface QuestionSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<QuestionSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = QuestionSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = QuestionPreviousValuesSubscription>() => T;
+}
+
+export interface QuestionPreviousValues {
+  id: ID_Output;
+  type: QUESTION_TYPE;
+  wording: String;
+  imageUrl?: String;
+  secondaryWording?: String;
+}
+
+export interface QuestionPreviousValuesPromise
+  extends Promise<QuestionPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  type: () => Promise<QUESTION_TYPE>;
+  wording: () => Promise<String>;
+  imageUrl: () => Promise<String>;
+  secondaryWording: () => Promise<String>;
+}
+
+export interface QuestionPreviousValuesSubscription
+  extends Promise<AsyncIterator<QuestionPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  type: () => Promise<AsyncIterator<QUESTION_TYPE>>;
+  wording: () => Promise<AsyncIterator<String>>;
+  imageUrl: () => Promise<AsyncIterator<String>>;
+  secondaryWording: () => Promise<AsyncIterator<String>>;
+}
+
+export interface QuestionChoiceSubscriptionPayload {
+  mutation: MutationType;
+  node: QuestionChoice;
+  updatedFields: String[];
+  previousValues: QuestionChoicePreviousValues;
+}
+
+export interface QuestionChoiceSubscriptionPayloadPromise
+  extends Promise<QuestionChoiceSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = QuestionChoicePromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = QuestionChoicePreviousValuesPromise>() => T;
+}
+
+export interface QuestionChoiceSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<QuestionChoiceSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = QuestionChoiceSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = QuestionChoicePreviousValuesSubscription>() => T;
+}
+
+export interface QuestionChoicePreviousValues {
+  id: ID_Output;
+  text: String;
+}
+
+export interface QuestionChoicePreviousValuesPromise
+  extends Promise<QuestionChoicePreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  text: () => Promise<String>;
+}
+
+export interface QuestionChoicePreviousValuesSubscription
+  extends Promise<AsyncIterator<QuestionChoicePreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  text: () => Promise<AsyncIterator<String>>;
+}
+
+export interface SchoolSubscriptionPayload {
+  mutation: MutationType;
+  node: School;
+  updatedFields: String[];
+  previousValues: SchoolPreviousValues;
+}
+
+export interface SchoolSubscriptionPayloadPromise
+  extends Promise<SchoolSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = SchoolPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = SchoolPreviousValuesPromise>() => T;
+}
+
+export interface SchoolSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<SchoolSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = SchoolSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = SchoolPreviousValuesSubscription>() => T;
+}
+
+export interface SchoolPreviousValues {
+  id: ID_Output;
+  name: String;
+  email: String;
+  phone?: String;
+  pedagogyCoord?: String;
+  director?: String;
+  address?: String;
+}
+
+export interface SchoolPreviousValuesPromise
+  extends Promise<SchoolPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  email: () => Promise<String>;
+  phone: () => Promise<String>;
+  pedagogyCoord: () => Promise<String>;
+  director: () => Promise<String>;
+  address: () => Promise<String>;
+}
+
+export interface SchoolPreviousValuesSubscription
+  extends Promise<AsyncIterator<SchoolPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  email: () => Promise<AsyncIterator<String>>;
+  phone: () => Promise<AsyncIterator<String>>;
+  pedagogyCoord: () => Promise<AsyncIterator<String>>;
+  director: () => Promise<AsyncIterator<String>>;
+  address: () => Promise<AsyncIterator<String>>;
+}
+
+export interface UserSubscriptionPayload {
+  mutation: MutationType;
+  node: User;
+  updatedFields: String[];
+  previousValues: UserPreviousValues;
+}
+
+export interface UserSubscriptionPayloadPromise
+  extends Promise<UserSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = UserPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = UserPreviousValuesPromise>() => T;
+}
+
+export interface UserSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<UserSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = UserSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = UserPreviousValuesSubscription>() => T;
+}
+
+export interface UserPreviousValues {
+  id: ID_Output;
+  email: String;
+  password: String;
+  name: String;
+}
+
+export interface UserPreviousValuesPromise
+  extends Promise<UserPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  email: () => Promise<String>;
+  password: () => Promise<String>;
+  name: () => Promise<String>;
+}
+
+export interface UserPreviousValuesSubscription
+  extends Promise<AsyncIterator<UserPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  email: () => Promise<AsyncIterator<String>>;
+  password: () => Promise<AsyncIterator<String>>;
+  name: () => Promise<AsyncIterator<String>>;
+}
 
 /*
 The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
@@ -2606,11 +2601,14 @@ export type ID_Input = string | number;
 export type ID_Output = string;
 
 /*
+The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
+*/
+export type String = string;
+
+/*
 The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1.
 */
 export type Int = number;
-
-export type Long = string;
 
 /*
 The `Boolean` scalar type represents `true` or `false`.
@@ -2626,6 +2624,8 @@ export type DateTimeInput = Date | string;
 DateTime scalar output type, which is always a string
 */
 export type DateTimeOutput = string;
+
+export type Long = string;
 
 /**
  * Model Metadata
