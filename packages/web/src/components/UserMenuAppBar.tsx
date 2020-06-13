@@ -12,85 +12,85 @@ import Link from './Link';
 import PageContext from './PageContext';
 
 class UserMenuAppBar extends React.Component<WithApolloClient<{}>> {
-  state = {
-    anchorEl: null,
-  };
+	state = {
+		anchorEl: null,
+	};
 
-  handleMenu = event => {
-    this.setState({ anchorEl: event.currentTarget });
-  };
+	handleMenu = event => {
+		this.setState({ anchorEl: event.currentTarget });
+	};
 
-  handleClose = () => {
-    this.setState({ anchorEl: null });
-  };
+	handleClose = () => {
+		this.setState({ anchorEl: null });
+	};
 
-  handleLogout = () => {
-    document.cookie = cookie.serialize('token', '', {
-      maxAge: -1, // Expire the cookie immediately
-    });
+	handleLogout = () => {
+		document.cookie = cookie.serialize('token', '', {
+			maxAge: -1, // Expire the cookie immediately
+		});
 
-    // Force a reload of all the current queries now that the user is
-    // logged out, so we don't accidentally leave any state around.
-    this.props.client.cache.reset().then(() => {
-      // Redirect to a more useful page when signed out
-      redirect({}, '/login');
-    });
-  };
+		// Force a reload of all the current queries now that the user is
+		// logged out, so we don't accidentally leave any state around.
+		this.props.client.cache.reset().then(() => {
+			// Redirect to a more useful page when signed out
+			redirect({}, '/login');
+		});
+	};
 
-  render() {
-    const { anchorEl } = this.state;
-    const open = Boolean(anchorEl);
+	render() {
+		const { anchorEl } = this.state;
+		const open = Boolean(anchorEl);
 
-    return (
-      <PageContext.Consumer>
-        {({ loggedInUser }) => {
-          if (loggedInUser.me) {
-            return (
-              <div>
-                <IconButton
-                  aria-owns={open ? 'menu-appbar' : null}
-                  aria-haspopup="true"
-                  onClick={this.handleMenu}
-                  color="inherit"
-                >
-                  <AccountCircle />
-                </IconButton>
-                <Menu
-                  id="menu-appbar"
-                  anchorEl={anchorEl}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  open={open}
-                  onClose={this.handleClose}
-                >
-                  <MenuItem onClick={this.handleClose}>Perfil</MenuItem>
-                  <MenuItem onClick={this.handleClose}>Minha Conta</MenuItem>
-                  <MenuItem onClick={this.handleLogout}>Sair</MenuItem>
-                </Menu>
-              </div>
-            );
-          }
-          return (
-            <Button
-              color="inherit"
-              component={buttonProps => (
-                // @ts-ignore
-                <Link variant="button" prefetch href="/login" {...buttonProps} />
-              )}
-            >
-              Login
-            </Button>
-          );
-        }}
-      </PageContext.Consumer>
-    );
-  }
+		return (
+			<PageContext.Consumer>
+				{({ loggedInUser }) => {
+					if (loggedInUser.me) {
+						return (
+							<div>
+								<IconButton
+									aria-owns={open ? 'menu-appbar' : null}
+									aria-haspopup="true"
+									onClick={this.handleMenu}
+									color="inherit"
+								>
+									<AccountCircle />
+								</IconButton>
+								<Menu
+									id="menu-appbar"
+									anchorEl={anchorEl}
+									anchorOrigin={{
+										vertical: 'top',
+										horizontal: 'right',
+									}}
+									transformOrigin={{
+										vertical: 'top',
+										horizontal: 'right',
+									}}
+									open={open}
+									onClose={this.handleClose}
+								>
+									<MenuItem onClick={this.handleClose}>Perfil</MenuItem>
+									<MenuItem onClick={this.handleClose}>Minha Conta</MenuItem>
+									<MenuItem onClick={this.handleLogout}>Sair</MenuItem>
+								</Menu>
+							</div>
+						);
+					}
+					return (
+						<Button
+							color="inherit"
+							component={buttonProps => (
+								// @ts-ignore
+								<Link variant="button" prefetch href="/login" {...buttonProps} />
+							)}
+						>
+							Login
+						</Button>
+					);
+				}}
+			</PageContext.Consumer>
+		);
+	}
 }
 
 // https://github.com/apollographql/react-apollo/issues/1759

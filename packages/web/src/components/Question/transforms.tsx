@@ -10,13 +10,13 @@
 const emptyChoices = [{ text: '' }, { text: '' }, { text: '' }, { text: '' }, { text: '' }];
 
 export const responseToFormValues = response => ({
-  id: response.id,
-  type: response.type,
-  wording: response.wording,
-  imageUrl: response.imageUrl,
-  imageFullUrl: response.imageFullUrl,
-  secondaryWording: response.secondaryWording || '',
-  choices: response.choices.length > 0 ? response.choices : emptyChoices,
+	id: response.id,
+	type: response.type,
+	wording: response.wording,
+	imageUrl: response.imageUrl,
+	imageFullUrl: response.imageFullUrl,
+	secondaryWording: response.secondaryWording || '',
+	choices: response.choices.length > 0 ? response.choices : emptyChoices,
 });
 
 /**
@@ -32,39 +32,39 @@ export const responseToFormValues = response => ({
  * @param {String} type - Question type: MULTIPLE_CHOICE or OPEN_ENDED
  */
 const choicesValuesToRequest = (choices, type) => {
-  // Se as alternativas têm o atributo 'id', a questão já existe, e é de
-  // Múltipla Escolha. Então precisamos atualizar as alternativas.
-  if (type === 'MULTIPLE_CHOICE') {
-    if (choices[0].id) {
-      // [QuestionChoiceUpdateWithWhereUniqueNestedInput]
-      return { update: choices.map(({ id, text }) => ({ where: { id }, data: { text } })) };
-    }
-    // A questão era Discursiva e foi mudada para Múltipla Escolha. Ou a questão está
-    // sendo adicionada agora. De qualquer forma, precisamos criar as alternativas.
-    // QuestionChoiceCreateInput
-    return { create: choices };
-  }
+	// Se as alternativas têm o atributo 'id', a questão já existe, e é de
+	// Múltipla Escolha. Então precisamos atualizar as alternativas.
+	if (type === 'MULTIPLE_CHOICE') {
+		if (choices[0].id) {
+			// [QuestionChoiceUpdateWithWhereUniqueNestedInput]
+			return { update: choices.map(({ id, text }) => ({ where: { id }, data: { text } })) };
+		}
+		// A questão era Discursiva e foi mudada para Múltipla Escolha. Ou a questão está
+		// sendo adicionada agora. De qualquer forma, precisamos criar as alternativas.
+		// QuestionChoiceCreateInput
+		return { create: choices };
+	}
 
-  if (type === 'OPEN_ENDED') {
-    // A questão era de Múltipla Escolha, mas o usuário trocou pra Discursiva.
-    // Então precisamos excluir as alternativas.
-    if (choices[0].id) {
-      return { delete: choices.map(({ id }) => ({ id })) };
-    }
-    // Uma questão Discursiva está sendo adicionada agora e não tem nenhuma alternativa
-    // pra ser criada, atualizada, ou excluída.
-    return {};
-  }
+	if (type === 'OPEN_ENDED') {
+		// A questão era de Múltipla Escolha, mas o usuário trocou pra Discursiva.
+		// Então precisamos excluir as alternativas.
+		if (choices[0].id) {
+			return { delete: choices.map(({ id }) => ({ id })) };
+		}
+		// Uma questão Discursiva está sendo adicionada agora e não tem nenhuma alternativa
+		// pra ser criada, atualizada, ou excluída.
+		return {};
+	}
 
-  throw new Error(
-    `Question 'type' should be 'MULTIPLE_CHOICE' or 'OPEN_ENDED'. The value '${type}' is invalid.`,
-  );
+	throw new Error(
+		`Question 'type' should be 'MULTIPLE_CHOICE' or 'OPEN_ENDED'. The value '${type}' is invalid.`,
+	);
 };
 
 export const formValuesToRequest = values => ({
-  type: values.type,
-  wording: values.wording,
-  imageUrl: values.imageUrl,
-  secondaryWording: values.secondaryWording || null,
-  choices: choicesValuesToRequest(values.choices, values.type),
+	type: values.type,
+	wording: values.wording,
+	imageUrl: values.imageUrl,
+	secondaryWording: values.secondaryWording || null,
+	choices: choicesValuesToRequest(values.choices, values.type),
 });

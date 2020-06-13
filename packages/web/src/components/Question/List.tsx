@@ -10,48 +10,48 @@ import ListConnector from './ListConnector';
 import ListItem from './ListItem';
 
 const styles = (theme: Theme) =>
-  createStyles({
-    grid: {
-      display: 'flex',
-      flexWrap: 'wrap',
-      justifyContent: 'space-between',
-    },
-  });
+	createStyles({
+		grid: {
+			display: 'flex',
+			flexWrap: 'wrap',
+			justifyContent: 'space-between',
+		},
+	});
 
 interface Props extends WithStyles<typeof styles> {}
 
 class QuestionList extends React.Component<Props> {
-  render() {
-    const { classes } = this.props;
+	render() {
+		const { classes } = this.props;
 
-    return (
-      <React.Fragment>
-        <Link href="/admin/questao-criar">
-          <FAButton aria-label="Adicionar questão">
-            <AddIcon />
-          </FAButton>
-        </Link>
-        <ListConnector>
-          {({ questions, loadMoreHandler, loadingMore, hasMore }) => (
-            <div>
-              <div className={classes.grid}>
-                {questions.map(question => (
-                  <ListItem key={question.id} question={question} />
-                ))}
-              </div>
-              <LoadMoreButton
-                onLoadMore={loadMoreHandler}
-                loadingMore={loadingMore}
-                hasMore={hasMore}
-              >
-                Carregar mais questões
-              </LoadMoreButton>
-            </div>
-          )}
-        </ListConnector>
-      </React.Fragment>
-    );
-  }
+		return (
+			<React.Fragment>
+				<Link href="/admin/questao-criar">
+					<FAButton aria-label="Adicionar questão">
+						<AddIcon />
+					</FAButton>
+				</Link>
+				<ListConnector>
+					{({ questions, loadMoreHandler, loadingMore, hasMore }) => (
+						<div>
+							<div className={classes.grid}>
+								{questions.map(question => (
+									<ListItem key={question.id} question={question} />
+								))}
+							</div>
+							<LoadMoreButton
+								onLoadMore={loadMoreHandler}
+								loadingMore={loadingMore}
+								hasMore={hasMore}
+							>
+								Carregar mais questões
+							</LoadMoreButton>
+						</div>
+					)}
+				</ListConnector>
+			</React.Fragment>
+		);
+	}
 }
 
 export default withStyles(styles)(QuestionList);

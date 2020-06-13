@@ -8,10 +8,10 @@ import { questions } from './questions';
 import { schools } from './schools';
 
 export const Mutation: MutationResolvers.Resolvers = {
-  ...cities,
-  ...auth,
-  ...exams,
-  ...schools,
-  ...olympiads,
-  ...questions,
+	...cities,
+	...auth,
+	...exams,
+	...schools,
+	...olympiads,
+	...questions,
 };

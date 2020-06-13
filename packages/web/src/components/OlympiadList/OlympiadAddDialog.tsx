@@ -9,138 +9,138 @@ import { compose, graphql, MutationFn } from 'react-apollo';
 import { allOlympiadsQuery } from '.';
 
 interface FormValues {
-  createdBy: {
-    email: string;
-  };
-  id: string;
-  isPublished: boolean;
-  name: string;
-  year: string;
+	createdBy: {
+		email: string;
+	};
+	id: string;
+	isPublished: boolean;
+	name: string;
+	year: string;
 }
 
 interface Props {
-  handleBlur: FocusEventHandler;
-  handleChange: FormEventHandler;
-  handleSubmit: FormEventHandler;
-  isSubmitting: boolean;
-  onClose: () => void;
-  open: boolean;
-  values: FormValues;
+	handleBlur: FocusEventHandler;
+	handleChange: FormEventHandler;
+	handleSubmit: FormEventHandler;
+	isSubmitting: boolean;
+	onClose: () => void;
+	open: boolean;
+	values: FormValues;
 }
 
 const OlympiadAddDialog: React.FunctionComponent<Props> = ({
-  open,
-  onClose,
-  handleSubmit,
-  handleChange,
-  handleBlur,
-  isSubmitting,
-  values,
+	open,
+	onClose,
+	handleSubmit,
+	handleChange,
+	handleBlur,
+	isSubmitting,
+	values,
 }) => (
-  <Dialog open={open} onClose={onClose} aria-labelledby="school-add-dialog">
-    <DialogTitle id="school-add-dialog">Adicione uma escola</DialogTitle>
-    <form onSubmit={handleSubmit}>
-      <DialogContent>
-        <TextField
-          name="name"
-          margin="dense"
-          label="Nome"
-          fullWidth
-          value={values.name}
-          onChange={handleChange}
-          onBlur={handleBlur}
-        />
-        <TextField
-          name="year"
-          margin="dense"
-          label="Ano"
-          type="number"
-          inputProps={{
-            min: '1999',
-            max: '2018',
-          }}
-          fullWidth
-          value={values.year}
-          onChange={handleChange}
-          onBlur={handleBlur}
-        />
-      </DialogContent>
-      <DialogActions>
-        <Button disabled={isSubmitting} onClick={onClose} color="primary">
-          Cancelar
-        </Button>
-        <Button disabled={isSubmitting} type="submit" color="primary">
-          Adicionar
-        </Button>
-      </DialogActions>
-    </form>
-  </Dialog>
+	<Dialog open={open} onClose={onClose} aria-labelledby="school-add-dialog">
+		<DialogTitle id="school-add-dialog">Adicione uma escola</DialogTitle>
+		<form onSubmit={handleSubmit}>
+			<DialogContent>
+				<TextField
+					name="name"
+					margin="dense"
+					label="Nome"
+					fullWidth
+					value={values.name}
+					onChange={handleChange}
+					onBlur={handleBlur}
+				/>
+				<TextField
+					name="year"
+					margin="dense"
+					label="Ano"
+					type="number"
+					inputProps={{
+						min: '1999',
+						max: '2018',
+					}}
+					fullWidth
+					value={values.year}
+					onChange={handleChange}
+					onBlur={handleBlur}
+				/>
+			</DialogContent>
+			<DialogActions>
+				<Button disabled={isSubmitting} onClick={onClose} color="primary">
+					Cancelar
+				</Button>
+				<Button disabled={isSubmitting} type="submit" color="primary">
+					Adicionar
+				</Button>
+			</DialogActions>
+		</form>
+	</Dialog>
 );
 
 export const newOlympiadMutation = gql`
-  mutation newOlympiadMutation($name: String!, $year: DateTime!) {
-    createOlympiad(name: $name, year: $year) {
-      id
-      name
-      isPublished
-      year
-      createdBy {
-        email
-      }
-    }
-  }
+	mutation newOlympiadMutation($name: String!, $year: DateTime!) {
+		createOlympiad(name: $name, year: $year) {
+			id
+			name
+			isPublished
+			year
+			createdBy {
+				email
+			}
+		}
+	}
 `;
 
 export interface Olympiad extends FormValues {
-  id: string;
+	id: string;
 }
 
 interface Data {
-  createOlympiad: Olympiad;
+	createOlympiad: Olympiad;
 }
 
 interface OlympiadFormProps {
-  newOlympiad: MutationFn<Data>;
-  onClose: Props['onClose'];
+	newOlympiad: MutationFn<Data>;
+	onClose: Props['onClose'];
 }
 
 export default compose(
-  graphql(newOlympiadMutation, {
-    // Use an unambiguous name for use in the `props` section below
-    name: 'newOlympiad',
-  }),
-  withFormik<OlympiadFormProps, FormValues>({
-    mapPropsToValues: () => ({
-      id: '',
-      createdBy: { email: '' },
-      isPublished: false,
-      name: '',
-      year: '',
-    }),
-    handleSubmit: (values, { props: { newOlympiad, onClose }, setSubmitting }) => {
-      newOlympiad({
-        variables: {
-          name: values.name,
-          year: new Date(values.year),
-        },
-        update: (proxy, { data: { createOlympiad } }) => {
-          const data = proxy.readQuery<{ olympiads: Olympiad[] }>({ query: allOlympiadsQuery });
-          data.olympiads.push(createOlympiad);
+	graphql(newOlympiadMutation, {
+		// Use an unambiguous name for use in the `props` section below
+		name: 'newOlympiad',
+	}),
+	withFormik<OlympiadFormProps, FormValues>({
+		mapPropsToValues: () => ({
+			id: '',
+			createdBy: { email: '' },
+			isPublished: false,
+			name: '',
+			year: '',
+		}),
+		handleSubmit: (values, { props: { newOlympiad, onClose }, setSubmitting }) => {
+			newOlympiad({
+				variables: {
+					name: values.name,
+					year: new Date(values.year),
+				},
+				update: (proxy, { data: { createOlympiad } }) => {
+					const data = proxy.readQuery<{ olympiads: Olympiad[] }>({ query: allOlympiadsQuery });
+					data.olympiads.push(createOlympiad);
 
-          proxy.writeQuery({ query: allOlympiadsQuery, data });
-        },
-      })
-        .then(response => {
-          console.log(`Mutation response: `);
-          console.log(response);
-          setSubmitting(false);
-          onClose();
-        })
-        .catch(error => {
-          // Something went wrong, such as incorrect password, or no network
-          // available, etc.
-          console.error(error);
-        });
-    },
-  }),
+					proxy.writeQuery({ query: allOlympiadsQuery, data });
+				},
+			})
+				.then(response => {
+					console.log(`Mutation response: `);
+					console.log(response);
+					setSubmitting(false);
+					onClose();
+				})
+				.catch(error => {
+					// Something went wrong, such as incorrect password, or no network
+					// available, etc.
+					console.error(error);
+				});
+		},
+	}),
 )(OlympiadAddDialog);

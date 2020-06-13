@@ -6,33 +6,33 @@ import { Mutation, MutationFn } from 'react-apollo';
 import { questionsConnectionQuery } from './ListConnector';
 
 export const deleteQuestionMutation = gql`
-  mutation deleteQuestionMutation($id: ID!) {
-    deleteQuestion(id: $id) {
-      question {
-        id
-        wording
-      }
-    }
-  }
+	mutation deleteQuestionMutation($id: ID!) {
+		deleteQuestion(id: $id) {
+			question {
+				id
+				wording
+			}
+		}
+	}
 `;
 
 interface DeleteConnectorProps {
-  children(deleteQuestion: MutationFn): JSX.Element;
+	children(deleteQuestion: MutationFn): JSX.Element;
 }
 
 const DeleteConnector: React.FunctionComponent<DeleteConnectorProps> = ({ children }) => {
-  return (
-    <Mutation
-      mutation={deleteQuestionMutation}
-      refetchQueries={[{ query: questionsConnectionQuery }]}
-    >
-      {deleteQuestion => children(deleteQuestion)}
-    </Mutation>
-  );
+	return (
+		<Mutation
+			mutation={deleteQuestionMutation}
+			refetchQueries={[{ query: questionsConnectionQuery }]}
+		>
+			{deleteQuestion => children(deleteQuestion)}
+		</Mutation>
+	);
 };
 
 DeleteConnector.propTypes = {
-  children: PropTypes.func.isRequired,
+	children: PropTypes.func.isRequired,
 };
 
 export default DeleteConnector;

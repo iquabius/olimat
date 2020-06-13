@@ -9,13 +9,13 @@ import { School } from './School';
 import { User } from './User';
 
 export default {
-  Query,
-  Exam,
-  Question,
-  Node,
-  Mutation,
-  AuthPayload,
-  Olympiad,
-  School,
-  User,
+	Query,
+	Exam,
+	Question,
+	Node,
+	Mutation,
+	AuthPayload,
+	Olympiad,
+	School,
+	User,
 };

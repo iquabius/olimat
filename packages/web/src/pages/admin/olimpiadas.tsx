@@ -5,11 +5,11 @@ import AppFrame from '@olimat/web/components/AppFrame';
 import OlympiadList from '@olimat/web/components/OlympiadList';
 
 const PageOlympiads: React.FunctionComponent = () => (
-  <AppFrame>
-    <AppContent>
-      <OlympiadList />
-    </AppContent>
-  </AppFrame>
+	<AppFrame>
+		<AppContent>
+			<OlympiadList />
+		</AppContent>
+	</AppFrame>
 );
 
 export default PageOlympiads;

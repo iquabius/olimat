@@ -10,12 +10,12 @@ import { schema } from './FakeDataProvider';
 
 // Takes a query and args and returns mocked data
 const mockGraphql = async (query, args = {}) => {
-  try {
-    const res = await graphql(schema, query.loc.source.body, null, null, args);
-    return res.data;
-  } catch (e) {
-    return console.log(e.message);
-  }
+	try {
+		const res = await graphql(schema, query.loc.source.body, null, null, args);
+		return res.data;
+	} catch (e) {
+		return console.log(e.message);
+	}
 };
 
 export default mockGraphql;

@@ -17,32 +17,32 @@ import { prisma } from '../../src/__generated__/prisma-client';
 import data from './data';
 
 const setup = async () => {
-  // Insere as cidades
-  await Promise.all(data.cities.map(prisma.createCity));
+	// Insere as cidades
+	await Promise.all(data.cities.map(prisma.createCity));
 
-  // Insere os usuários
-  await Promise.all(data.users.map(prisma.createUser));
+	// Insere os usuários
+	await Promise.all(data.users.map(prisma.createUser));
 
-  // Insere as olimpíadas
-  await Promise.all(data.olympiads.map(prisma.createOlympiad));
+	// Insere as olimpíadas
+	await Promise.all(data.olympiads.map(prisma.createOlympiad));
 
-  // Insere as questões
-  const questions = await Promise.all(data.questions.map(prisma.createQuestion));
+	// Insere as questões
+	const questions = await Promise.all(data.questions.map(prisma.createQuestion));
 
-  // Relaciona as 10 primeiras questões a cada uma das provas
-  // Isto é feito aqui porque em data.ts não temos acesso ao id das questões
-  data.exams = data.exams.map((exam, index) => ({
-    ...exam,
-    questions: {
-      // Filtra as 10 questões que pertencem a prove no 'index'
-      connect: questions.filter(data.isExamQuestion(index)).map(({ id }) => ({ id })),
-    },
-  }));
-  // Insere as provas
-  await Promise.all(data.exams.map(prisma.createExam));
+	// Relaciona as 10 primeiras questões a cada uma das provas
+	// Isto é feito aqui porque em data.ts não temos acesso ao id das questões
+	data.exams = data.exams.map((exam, index) => ({
+		...exam,
+		questions: {
+			// Filtra as 10 questões que pertencem a prove no 'index'
+			connect: questions.filter(data.isExamQuestion(index)).map(({ id }) => ({ id })),
+		},
+	}));
+	// Insere as provas
+	await Promise.all(data.exams.map(prisma.createExam));
 
-  // Insere as escolas
-  await Promise.all(data.schools.map(prisma.createSchool));
+	// Insere as escolas
+	await Promise.all(data.schools.map(prisma.createSchool));
 };
 
 setup();
