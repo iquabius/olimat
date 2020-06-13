@@ -80,7 +80,6 @@ class UserMenuAppBar extends React.Component<WithApolloClient<{}>> {
 						<Button
 							color="inherit"
 							component={buttonProps => (
-								// @ts-ignore
 								<Link
 									variant="button"
 									prefetch
