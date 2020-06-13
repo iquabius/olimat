@@ -10,7 +10,10 @@ import CreateConnector from './CreateConnector';
 import QuestionForm from './Form';
 import { formValuesToRequest } from './transforms';
 
-const createHandleSubmit = (createQuestion, enqueueSnackbar) => (values, addHandlers) => {
+const createHandleSubmit = (createQuestion, enqueueSnackbar) => (
+	values,
+	addHandlers,
+) => {
 	console.log('VALUES: ');
 	console.log(values);
 	// This is where `addHandlers` comes in handy as the form controls its state
@@ -41,7 +44,13 @@ const questionInitialValues = {
 	imageUrl: '',
 	secondaryWording: '',
 	// These empty choices are here so that Formik can render the input fields
-	choices: [{ text: '' }, { text: '' }, { text: '' }, { text: '' }, { text: '' }],
+	choices: [
+		{ text: '' },
+		{ text: '' },
+		{ text: '' },
+		{ text: '' },
+		{ text: '' },
+	],
 };
 
 class QuestionCreateForm extends React.Component<InjectedNotistackProps> {

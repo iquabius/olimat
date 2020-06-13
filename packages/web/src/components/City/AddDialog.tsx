@@ -1,4 +1,9 @@
-import { Dialog, DialogActions, DialogContent, DialogTitle } from '@material-ui/core';
+import {
+	Dialog,
+	DialogActions,
+	DialogContent,
+	DialogTitle,
+} from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { Formik } from 'formik';
@@ -44,9 +49,16 @@ const updateCache = (proxy, { data: { createCity } }) => {
 const AddDialog = ({ open, onClose }) => (
 	<Mutation mutation={newCityMutation} update={updateCache}>
 		{(newCity, { data }) => (
-			<Formik initialValues={{ name: '' }} onSubmit={onSubmitCity(newCity, onClose)}>
+			<Formik
+				initialValues={{ name: '' }}
+				onSubmit={onSubmitCity(newCity, onClose)}
+			>
 				{({ handleSubmit, handleChange, handleBlur, isSubmitting, values }) => (
-					<Dialog open={open} onClose={onClose} aria-labelledby="city-add-dialog">
+					<Dialog
+						open={open}
+						onClose={onClose}
+						aria-labelledby="city-add-dialog"
+					>
 						<DialogTitle id="city-add-dialog">Adicione uma cidade</DialogTitle>
 						<form onSubmit={handleSubmit}>
 							<DialogContent>
@@ -61,7 +73,11 @@ const AddDialog = ({ open, onClose }) => (
 								/>
 							</DialogContent>
 							<DialogActions>
-								<Button disabled={isSubmitting} onClick={onClose} color="primary">
+								<Button
+									disabled={isSubmitting}
+									onClick={onClose}
+									color="primary"
+								>
 									Cancelar
 								</Button>
 								<Button disabled={isSubmitting} type="submit" color="primary">

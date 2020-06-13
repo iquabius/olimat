@@ -5,7 +5,12 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import Paper from '@material-ui/core/Paper';
-import { createStyles, Theme, withStyles, WithStyles } from '@material-ui/core/styles';
+import {
+	createStyles,
+	Theme,
+	withStyles,
+	WithStyles,
+} from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import EditIcon from '@material-ui/icons/Edit';
 import gql from 'graphql-tag';
@@ -56,7 +61,11 @@ class CityList extends React.Component<Props> {
 		return (
 			<Paper className={classes.root}>
 				<Toolbar>
-					<Button onClick={handleOpenAddCity} variant="contained" color="primary">
+					<Button
+						onClick={handleOpenAddCity}
+						variant="contained"
+						color="primary"
+					>
 						Adicionar
 					</Button>
 				</Toolbar>
@@ -70,13 +79,19 @@ class CityList extends React.Component<Props> {
 								{data.cities.map(({ id, name }) => (
 									<ListItem key={id} role={undefined}>
 										{editing === id ? (
-											<EditListItem handleCloseEdit={handleCloseEditCity} city={{ id, name }} />
+											<EditListItem
+												handleCloseEdit={handleCloseEditCity}
+												city={{ id, name }}
+											/>
 										) : (
 											<React.Fragment>
 												<ListItemText primary={name} />
 												<ListItemSecondaryAction>
 													<DeleteItemButton city={{ id, name }} />
-													<IconButton onClick={handleEditCity(id)} aria-label="Editar cidade">
+													<IconButton
+														onClick={handleEditCity(id)}
+														aria-label="Editar cidade"
+													>
 														<EditIcon />
 													</IconButton>
 												</ListItemSecondaryAction>

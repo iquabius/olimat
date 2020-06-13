@@ -2,7 +2,12 @@ import { getUserId } from '@olimat/api/utils';
 import { MutationResolvers } from '@olimat/api/__generated__/resolvers-types';
 
 export const schools: MutationResolvers.Resolvers = {
-	async createSchool(_, { name, email, phone, pedagogyCoord, director, city, address }, ctx, info) {
+	async createSchool(
+		_,
+		{ name, email, phone, pedagogyCoord, director, city, address },
+		ctx,
+		info,
+	) {
 		const userId = getUserId(ctx);
 		const newSchool = await ctx.prisma.createSchool({
 			name,

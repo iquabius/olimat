@@ -137,7 +137,10 @@ class LoginForm extends React.Component<InnerProps & OuterProps, State> {
 						/>
 					</FormControl>
 					<FormGroup row>
-						<FormControlLabel control={keepLoggedInSwitch} label="Manter acesso" />
+						<FormControlLabel
+							control={keepLoggedInSwitch}
+							label="Manter acesso"
+						/>
 					</FormGroup>
 					{/* <Typography variant="caption">
             <Link href="#">Esqueceu a senha?</Link>
@@ -154,7 +157,11 @@ class LoginForm extends React.Component<InnerProps & OuterProps, State> {
 						Entrar
 					</Button>
 				</form>
-				<Typography className={classes.helpMessage} variant="caption" align="center">
+				<Typography
+					className={classes.helpMessage}
+					variant="caption"
+					align="center"
+				>
 					Ainda não tem uma conta?{' '}
 					<Link variant="primary" href="/criar_conta">
 						Crie a sua aqui.

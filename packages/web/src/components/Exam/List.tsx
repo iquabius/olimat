@@ -40,7 +40,10 @@ const ExamList: React.FunctionComponent<Props> = ({ classes }) => {
 			{({ exams }) => (
 				<List className={classes.root}>
 					{exams.map(exam => (
-						<ExamItemLink key={exam.id} href={`/admin/provas/detalhes?id=${exam.id}`}>
+						<ExamItemLink
+							key={exam.id}
+							href={`/admin/provas/detalhes?id=${exam.id}`}
+						>
 							<ListItemText primary={exam.title} />
 							<ListItemSecondaryAction>
 								<IconButton aria-label="Editar prova">

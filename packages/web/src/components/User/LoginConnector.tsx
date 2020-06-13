@@ -2,7 +2,14 @@ import ApolloClient from 'apollo-client';
 import cookie from 'cookie';
 import gql from 'graphql-tag';
 import { FormEventHandler } from 'react';
-import { compose, FetchResult, graphql, MutationFn, NamedProps, withApollo } from 'react-apollo';
+import {
+	compose,
+	FetchResult,
+	graphql,
+	MutationFn,
+	NamedProps,
+	withApollo,
+} from 'react-apollo';
 import redirect from '@olimat/web/utils/redirect';
 
 export const loginMutation = gql`
@@ -18,8 +25,10 @@ export interface LoginConnectorProps {
 	handleSignIn: FormEventHandler;
 }
 
-const LoginConnector: React.FunctionComponent<LoginConnectorProps> = ({ children, handleSignIn }) =>
-	children({ handleSignIn });
+const LoginConnector: React.FunctionComponent<LoginConnectorProps> = ({
+	children,
+	handleSignIn,
+}) => children({ handleSignIn });
 
 interface Response {
 	login: {
@@ -47,7 +56,10 @@ export default compose(
 			signinWithEmail,
 			// `client` is provided by the `withApollo` HOC
 			ownProps: { client },
-		}: NamedProps<{ signinWithEmail: MutationFn<Response, Variables> }, InputProps>) => ({
+		}: NamedProps<
+			{ signinWithEmail: MutationFn<Response, Variables> },
+			InputProps
+		>) => ({
 			// `handleSignIn` is the name of the prop passed to the component
 			handleSignIn: event => {
 				/* global FormData */

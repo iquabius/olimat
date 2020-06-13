@@ -77,7 +77,10 @@ describe('Queries', () => {
 		const server = createTestServer();
 
 		const { query } = createTestClient(server);
-		const res = await query({ query: getCityQuery, variables: { id: mockCity.id } });
+		const res = await query({
+			query: getCityQuery,
+			variables: { id: mockCity.id },
+		});
 		expect(res).toMatchSnapshot();
 		expect(res.data.city).toEqual(mockCity);
 	});

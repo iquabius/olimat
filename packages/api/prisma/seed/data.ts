@@ -115,7 +115,13 @@ const questions: QuestionCreateInput[] = [
 		wording:
 			'Em 13 caixas foram embalados 74 lápis. Se a capacidade máxima de cada caixa é de 6 lápis, qual é o número mínimo de lápis que pode haver em uma caixa?',
 		choices: {
-			create: [{ text: '1' }, { text: '* 2' }, { text: '3' }, { text: '4' }, { text: '6' }],
+			create: [
+				{ text: '1' },
+				{ text: '* 2' },
+				{ text: '3' },
+				{ text: '4' },
+				{ text: '6' },
+			],
 		},
 	},
 	{
@@ -301,7 +307,13 @@ const questions: QuestionCreateInput[] = [
 			'O jardim de Ana tem o formato da figura abaixo. Sabendo que cada quadrado tem 1 unidade de área, podemos concluir que a área da região sombreada é:',
 		imageUrl: '2018_fase2_6_7_ano_ex3.png',
 		choices: {
-			create: [{ text: '13' }, { text: '14' }, { text: '* 15' }, { text: '16' }, { text: '16,5' }],
+			create: [
+				{ text: '13' },
+				{ text: '14' },
+				{ text: '* 15' },
+				{ text: '16' },
+				{ text: '16,5' },
+			],
 		},
 	},
 ];

@@ -32,7 +32,8 @@ const onCancelDelete = (setDeleteWarningOpen, setSubmitting) => () => {
 	setDeleteWarningOpen(false);
 };
 
-const openDeleteWarningDialog = setDeleteWarningOpen => () => setDeleteWarningOpen(true);
+const openDeleteWarningDialog = setDeleteWarningOpen => () =>
+	setDeleteWarningOpen(true);
 
 const onSubmitDelete = (deleteCity, city, enqueueSnackbar) => () => {
 	deleteCity({
@@ -73,21 +74,25 @@ interface OuterProps {
 }
 
 // TODO: While deleting the edit button should also be disabled
-const CityDeleteItemButton: React.FunctionComponent<InnerProps & OuterProps> = ({
-	city,
-	deleteWarningOpen,
-	enqueueSnackbar,
-	setDeleteWarningOpen,
-}) => (
+const CityDeleteItemButton: React.FunctionComponent<
+	InnerProps & OuterProps
+> = ({ city, deleteWarningOpen, enqueueSnackbar, setDeleteWarningOpen }) => (
 	<Mutation mutation={deleteCityMutation} update={updateCache}>
 		{deleteCity => (
-			<Formik initialValues={{ id: '' }} onSubmit={openDeleteWarningDialog(setDeleteWarningOpen)}>
+			<Formik
+				initialValues={{ id: '' }}
+				onSubmit={openDeleteWarningDialog(setDeleteWarningOpen)}
+			>
 				{({ handleSubmit, isSubmitting, setSubmitting }) => (
 					// Maybe the wrapping element should de a <form/>
 					// We set IconButton type to 'submit'
 					<React.Fragment>
 						<form onSubmit={handleSubmit} style={{ display: 'inline' }}>
-							<IconButton disabled={isSubmitting} type="submit" aria-label="Excluir cidade">
+							<IconButton
+								disabled={isSubmitting}
+								type="submit"
+								aria-label="Excluir cidade"
+							>
 								<DeleteIcon />
 							</IconButton>
 						</form>

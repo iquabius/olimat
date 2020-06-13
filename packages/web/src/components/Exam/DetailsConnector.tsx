@@ -36,13 +36,17 @@ interface ExamDetailsConnectorProps {
 	children: (connectorProps: { exam: Exam }) => JSX.Element;
 }
 
-const ExamDetailsConnector: React.FunctionComponent<ExamDetailsConnectorProps> = ({
-	children,
-	id,
-}) => (
+const ExamDetailsConnector: React.FunctionComponent<
+	ExamDetailsConnectorProps
+> = ({ children, id }) => (
 	<Query query={examQuery} variables={{ id }}>
 		{({ data, error, loading }) => {
-			if (error) return <ErrorMessage message={`Erro ao carregar questão (${error.message})`} />;
+			if (error)
+				return (
+					<ErrorMessage
+						message={`Erro ao carregar questão (${error.message})`}
+					/>
+				);
 			if (loading) return <div>Loading...</div>;
 			const exam = data.exam;
 

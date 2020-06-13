@@ -50,7 +50,10 @@ interface Query extends DefaultQuery {
 
 interface Props extends WithRouterProps<Query>, WithStyles<typeof styles> {}
 
-const QuestionDetails: React.FunctionComponent<Props> = ({ classes, router }) => {
+const QuestionDetails: React.FunctionComponent<Props> = ({
+	classes,
+	router,
+}) => {
 	const id = router.query.id;
 	if (!id) return <Error statusCode={404} />;
 
@@ -70,7 +73,10 @@ const QuestionDetails: React.FunctionComponent<Props> = ({ classes, router }) =>
 							<div className={classes.spacer} />
 							<div className={classes.actions}>
 								<Tooltip title="Excluir">
-									<SafeDeleteIconButton question={question} aria-label="Excluir questão" />
+									<SafeDeleteIconButton
+										question={question}
+										aria-label="Excluir questão"
+									/>
 								</Tooltip>
 							</div>
 						</Toolbar>

@@ -1,4 +1,10 @@
-import { createStyles, Theme, Typography, withStyles, WithStyles } from '@material-ui/core';
+import {
+	createStyles,
+	Theme,
+	Typography,
+	withStyles,
+	WithStyles,
+} from '@material-ui/core';
 import classNames from 'classnames';
 import React from 'react';
 
@@ -40,11 +46,17 @@ const ExamQuestionItem: React.FunctionComponent<Props> = ({
 }) => (
 	<div className={classNames(classes.root, className)}>
 		<Typography gutterBottom paragraph>
-			<span className={classes.questionNumber}>{`Questão ${questionNumber}) `}</span>
+			<span
+				className={classes.questionNumber}
+			>{`Questão ${questionNumber}) `}</span>
 			{question.wording}
 		</Typography>
 		{question.imageFullUrl && (
-			<img className={classes.questionImg} src={question.imageFullUrl} alt="Imagem da questão" />
+			<img
+				className={classes.questionImg}
+				src={question.imageFullUrl}
+				alt="Imagem da questão"
+			/>
 		)}
 		{question.choices && question.choices.length > 0 && (
 			<ChoicesBox choices={question.choices} className={classes.choices} />

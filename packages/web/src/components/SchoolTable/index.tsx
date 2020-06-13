@@ -147,7 +147,8 @@ class SchoolTable extends React.Component<Props, State> {
 		const schools = this.props.data.schools
 			.slice()
 			.sort((a, b) => (a.name.toUpperCase() < b.name.toUpperCase() ? -1 : 1));
-		const emptyRows = rowsPerPage - Math.min(rowsPerPage, schools.length - page * rowsPerPage);
+		const emptyRows =
+			rowsPerPage - Math.min(rowsPerPage, schools.length - page * rowsPerPage);
 
 		return (
 			<Paper className={classes.root}>
@@ -155,7 +156,10 @@ class SchoolTable extends React.Component<Props, State> {
 					onOpenAddSchool={this.handleOpenAddSchool}
 					numSelected={selected.length}
 				/>
-				<SchoolAddDialog open={this.state.addDialogOpen} onClose={this.handleCloseAddSchool} />
+				<SchoolAddDialog
+					open={this.state.addDialogOpen}
+					onClose={this.handleCloseAddSchool}
+				/>
 				<div className={classes.tableWrapper}>
 					<Table className={classes.table}>
 						<EnhancedTableHead
@@ -167,27 +171,29 @@ class SchoolTable extends React.Component<Props, State> {
 							rowCount={schools.length}
 						/>
 						<TableBody>
-							{schools.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(school => {
-								const isSelected = this.isSelected(school.id);
-								return (
-									<TableRow
-										hover
-										onClick={event => this.handleClick(event, school.id)}
-										role="checkbox"
-										aria-checked={isSelected}
-										tabIndex={-1}
-										key={school.id}
-										selected={isSelected}
-									>
-										<TableCell padding="checkbox">
-											<Checkbox checked={isSelected} />
-										</TableCell>
-										<TableCell padding="none">{school.name}</TableCell>
-										<TableCell>{school.city.name}</TableCell>
-										<TableCell>{school.phone}</TableCell>
-									</TableRow>
-								);
-							})}
+							{schools
+								.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+								.map(school => {
+									const isSelected = this.isSelected(school.id);
+									return (
+										<TableRow
+											hover
+											onClick={event => this.handleClick(event, school.id)}
+											role="checkbox"
+											aria-checked={isSelected}
+											tabIndex={-1}
+											key={school.id}
+											selected={isSelected}
+										>
+											<TableCell padding="checkbox">
+												<Checkbox checked={isSelected} />
+											</TableCell>
+											<TableCell padding="none">{school.name}</TableCell>
+											<TableCell>{school.city.name}</TableCell>
+											<TableCell>{school.phone}</TableCell>
+										</TableRow>
+									);
+								})}
 							{emptyRows > 0 && (
 								<TableRow style={{ height: 49 * emptyRows }}>
 									<TableCell colSpan={6} />

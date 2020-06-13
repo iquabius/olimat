@@ -1,4 +1,9 @@
-import { TableCell, TableHead, TableRow, TableSortLabel } from '@material-ui/core';
+import {
+	TableCell,
+	TableHead,
+	TableRow,
+	TableSortLabel,
+} from '@material-ui/core';
 import Checkbox from '@material-ui/core/Checkbox';
 import { SortDirection } from '@material-ui/core/TableCell';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -20,7 +25,10 @@ const columnData: HeadCell[] = [
 interface Props {
 	numSelected: number;
 	onRequestSort: (event: React.MouseEvent, property: string) => void;
-	onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => void;
+	onSelectAllClick: (
+		event: React.ChangeEvent<HTMLInputElement>,
+		checked: boolean,
+	) => void;
 	order: SortDirection;
 	orderBy: string;
 	rowCount: number;
@@ -32,7 +40,13 @@ class EnhancedTableHead extends React.Component<Props> {
 	};
 
 	render() {
-		const { onSelectAllClick, order, orderBy, numSelected, rowCount } = this.props;
+		const {
+			onSelectAllClick,
+			order,
+			orderBy,
+			numSelected,
+			rowCount,
+		} = this.props;
 
 		return (
 			<TableHead>

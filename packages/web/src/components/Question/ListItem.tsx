@@ -65,8 +65,11 @@ interface Props extends WithStyles<typeof styles> {
 
 const ListItem: React.FunctionComponent<Props> = props => {
 	const { classes, question } = props;
-	const noImageNoChoices = !question.imageUrl && question.choices && question.choices.length === 0;
-	const wordingClass = noImageNoChoices ? classes.longWording : classes.shortWording;
+	const noImageNoChoices =
+		!question.imageUrl && question.choices && question.choices.length === 0;
+	const wordingClass = noImageNoChoices
+		? classes.longWording
+		: classes.shortWording;
 
 	return (
 		<Card className={classes.card}>
@@ -76,7 +79,9 @@ const ListItem: React.FunctionComponent<Props> = props => {
 						<Typography component="div" className={wordingClass}>
 							<LinesEllipsis
 								text={question.wording}
-								maxLine={noImageNoChoices ? longWordingLines : shortWordingLines}
+								maxLine={
+									noImageNoChoices ? longWordingLines : shortWordingLines
+								}
 								ellipsis="..."
 								trimRight
 								basedOn="words"
@@ -84,18 +89,33 @@ const ListItem: React.FunctionComponent<Props> = props => {
 						</Typography>
 					</CardContent>
 					{question.imageFullUrl && (
-						<CardMedia className={classes.media} image={question.imageFullUrl} />
+						<CardMedia
+							className={classes.media}
+							image={question.imageFullUrl}
+						/>
 					)}
-					{!question.imageFullUrl && question.choices && question.choices.length > 0 && (
-						<ChoicesBox choices={question.choices} className={classes.choices} dense />
-					)}
+					{!question.imageFullUrl &&
+						question.choices &&
+						question.choices.length > 0 && (
+							<ChoicesBox
+								choices={question.choices}
+								className={classes.choices}
+								dense
+							/>
+						)}
 				</CardActionArea>
 			</NextLink>
 			<CardActions>
-				<IconButton className={classes.iconButton} aria-label="Add to favorites">
+				<IconButton
+					className={classes.iconButton}
+					aria-label="Add to favorites"
+				>
 					<FavoriteIcon fontSize="small" />
 				</IconButton>
-				<IconButton className={classes.iconButton} aria-label="Add to favorites">
+				<IconButton
+					className={classes.iconButton}
+					aria-label="Add to favorites"
+				>
 					<CheckCircleIcon fontSize="small" />
 				</IconButton>
 			</CardActions>

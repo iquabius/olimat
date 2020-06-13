@@ -1,4 +1,10 @@
-import { createStyles, Theme, Tooltip, WithStyles, CssBaseline } from '@material-ui/core';
+import {
+	createStyles,
+	Theme,
+	Tooltip,
+	WithStyles,
+	CssBaseline,
+} from '@material-ui/core';
 import AppBar from '@material-ui/core/AppBar';
 import IconButton from '@material-ui/core/IconButton';
 import { withStyles, useTheme } from '@material-ui/core/styles';
@@ -130,7 +136,12 @@ function AppFrame(props: Props) {
 									<MenuIcon />
 								</IconButton>
 								{title !== null && (
-									<Typography className={classes.title} variant="h6" color="inherit" noWrap>
+									<Typography
+										className={classes.title}
+										variant="h6"
+										color="inherit"
+										noWrap
+									>
 										{title}
 									</Typography>
 								)}
@@ -141,7 +152,11 @@ function AppFrame(props: Props) {
 										onClick={handleTogglePaletteType}
 										aria-label="Alternar tema claro/escuro"
 									>
-										{theme.palette.type === 'light' ? <Brightness4Icon /> : <Brightness7Icon />}
+										{theme.palette.type === 'light' ? (
+											<Brightness4Icon />
+										) : (
+											<Brightness7Icon />
+										)}
 									</IconButton>
 								</Tooltip>
 								<UserMenuAppBar />

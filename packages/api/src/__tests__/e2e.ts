@@ -83,7 +83,9 @@ describe('API - e2e', () => {
 		// Buscamos a cidade usando o id da primeira cidade retornada.
 		// Isso parece redundante, parece que estamos testando o Prisma,
 		// que não deveria ser nossa problema.
-		const res = await toPromise(graphql({ query: getCityQuery, variables: { id: firstCity.id } }));
+		const res = await toPromise(
+			graphql({ query: getCityQuery, variables: { id: firstCity.id } }),
+		);
 
 		expect(res).toMatchSnapshot();
 	});

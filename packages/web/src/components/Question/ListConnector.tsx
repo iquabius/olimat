@@ -50,7 +50,13 @@ const updateQuery = (previousResult, { fetchMoreResult }) => {
 
 const questionEdgeToNode = questionEdge => questionEdge.node;
 
-const ListConnector = ({ children, hasMore, loadingMore, setHasMore, setLoadingMore }) => (
+const ListConnector = ({
+	children,
+	hasMore,
+	loadingMore,
+	setHasMore,
+	setLoadingMore,
+}) => (
 	<Query query={questionsConnectionQuery}>
 		{({ data, error, fetchMore, loading }) => {
 			if (loading) return <p>Carregando questões...</p>;

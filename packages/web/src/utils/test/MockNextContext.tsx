@@ -1,4 +1,8 @@
-import Router, { PopStateCallback, RouterProps, WithRouterProps } from 'next/router';
+import Router, {
+	PopStateCallback,
+	RouterProps,
+	WithRouterProps,
+} from 'next/router';
 import PropTypes from 'prop-types';
 import React from 'react';
 

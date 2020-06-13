@@ -12,9 +12,13 @@ test("doesn't render the dialog if it's closed", () => {
 });
 
 test("renders the dialog if it's open", () => {
-	const { getByTestId } = render(<CancelDialog onCancel={() => {}} onContinue={() => {}} open />);
+	const { getByTestId } = render(
+		<CancelDialog onCancel={() => {}} onContinue={() => {}} open />,
+	);
 
-	expect(getByTestId('cancel-dialog')).toHaveTextContent('Descartar rascunho da questão?');
+	expect(getByTestId('cancel-dialog')).toHaveTextContent(
+		'Descartar rascunho da questão?',
+	);
 });
 
 // TODO: Move test case to <QuestionUpdateForm/> suit (unit -> integration)
@@ -45,7 +49,9 @@ test('calls onContinue handler when clicking "Descartar"', () => {
 
 test('calls onCancel handler when clicking "Cancelar"', () => {
 	const handleCancel = jest.fn();
-	const { getByText } = render(<CancelDialog onCancel={handleCancel} onContinue={() => {}} open />);
+	const { getByText } = render(
+		<CancelDialog onCancel={handleCancel} onContinue={() => {}} open />,
+	);
 
 	fireEvent.click(getByText('Cancelar'));
 

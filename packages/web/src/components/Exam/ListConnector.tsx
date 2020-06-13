@@ -17,7 +17,10 @@ export const allExams = gql`
 const ExamListConnector = ({ children }) => (
 	<Query query={allExams}>
 		{({ data, error, loading }) => {
-			if (error) return <ErrorMessage message={`Error loading exams (${error.message})`} />;
+			if (error)
+				return (
+					<ErrorMessage message={`Error loading exams (${error.message})`} />
+				);
 			if (loading) return <div>Loading</div>;
 
 			return children({ exams: data.exams });

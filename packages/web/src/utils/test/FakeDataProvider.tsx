@@ -5,7 +5,11 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import ApolloClient from 'apollo-client';
 import { SchemaLink } from 'apollo-link-schema';
 import faker from 'faker/locale/pt_BR';
-import { addMockFunctionsToSchema, makeExecutableSchema, MockList } from 'graphql-tools';
+import {
+	addMockFunctionsToSchema,
+	makeExecutableSchema,
+	MockList,
+} from 'graphql-tools';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { ApolloProvider } from 'react-apollo';

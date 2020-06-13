@@ -41,13 +41,22 @@ interface Props extends WithStyles<typeof styles> {
 	dense?: boolean;
 }
 
-const ChoicesBox: React.FunctionComponent<Props> = ({ choices, dense, classes, className }) => {
-	const optionClassName = dense ? classNames(classes.option, classes.dense) : classes.option;
+const ChoicesBox: React.FunctionComponent<Props> = ({
+	choices,
+	dense,
+	classes,
+	className,
+}) => {
+	const optionClassName = dense
+		? classNames(classes.option, classes.dense)
+		: classes.option;
 	return (
 		<ul className={classNames(classes.root, className)}>
 			{choices.map((choice, index) => (
 				<li key={choice.id} className={optionClassName}>
-					<span className={classes.optionLabel}>{`${optionLabels[index]}) `}</span>
+					<span
+						className={classes.optionLabel}
+					>{`${optionLabels[index]}) `}</span>
 					{`${choice.text}`}
 				</li>
 			))}

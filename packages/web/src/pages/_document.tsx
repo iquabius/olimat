@@ -24,7 +24,10 @@ class MyDocument extends Document {
 					<link rel="shortcut icon" href="/static/favicon.ico" />
 					{/* Importa globalmente porque o @zeit/next-css está bugado */}
 					<link href="/static/css/filepond.css" rel="stylesheet" />
-					<link href="/static/css/filepond-plugin-image-preview.css" rel="stylesheet" />
+					<link
+						href="/static/css/filepond-plugin-image-preview.css"
+						rel="stylesheet"
+					/>
 					<style id="end-of-head-insertion-point" />
 				</Head>
 				<body>

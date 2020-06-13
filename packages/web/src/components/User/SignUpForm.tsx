@@ -20,7 +20,14 @@ import ApolloClient from 'apollo-client';
 import cookie from 'cookie';
 import gql from 'graphql-tag';
 import React, { FormEventHandler } from 'react';
-import { compose, FetchResult, graphql, MutationFn, NamedProps, withApollo } from 'react-apollo';
+import {
+	compose,
+	FetchResult,
+	graphql,
+	MutationFn,
+	NamedProps,
+	withApollo,
+} from 'react-apollo';
 
 import redirect from '@olimat/web/utils/redirect';
 import Link from '../Link';
@@ -119,7 +126,11 @@ class SignUpForm extends React.Component<Props> {
 										onClick={this.handleClickShowPasssword}
 										onMouseDown={this.handleMouseDownPassword}
 									>
-										{this.state.showPassword ? <VisibilityOff /> : <Visibility />}
+										{this.state.showPassword ? (
+											<VisibilityOff />
+										) : (
+											<Visibility />
+										)}
 									</IconButton>
 								</InputAdornment>
 							}
@@ -137,7 +148,11 @@ class SignUpForm extends React.Component<Props> {
 						Criar conta
 					</Button>
 				</form>
-				<Typography className={classes.helpMessage} variant="caption" align="center">
+				<Typography
+					className={classes.helpMessage}
+					variant="caption"
+					align="center"
+				>
 					Já possui uma conta?{' '}
 					<Link variant="primary" href="/login">
 						Faça login aqui.
@@ -184,7 +199,10 @@ export default compose(
 				createWithEmail,
 				// `client` is provided by the `withApollo` HOC
 				ownProps: { client },
-			}: NamedProps<{ createWithEmail: MutationFn<Response, Variables> }, InputProps>) => ({
+			}: NamedProps<
+				{ createWithEmail: MutationFn<Response, Variables> },
+				InputProps
+			>) => ({
 				// `handleCreateUser` is the name of the prop passed to the component
 				handleCreateUser: event => {
 					/* global FormData */

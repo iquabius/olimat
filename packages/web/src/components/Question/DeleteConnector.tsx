@@ -20,7 +20,9 @@ interface DeleteConnectorProps {
 	children(deleteQuestion: MutationFn): JSX.Element;
 }
 
-const DeleteConnector: React.FunctionComponent<DeleteConnectorProps> = ({ children }) => {
+const DeleteConnector: React.FunctionComponent<DeleteConnectorProps> = ({
+	children,
+}) => {
 	return (
 		<Mutation
 			mutation={deleteQuestionMutation}
