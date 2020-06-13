@@ -3,7 +3,12 @@ import resolvers from '@olimat/api/resolvers';
 
 import mockContext from './__utils/mockContext';
 
-const mockExam: Exam = { id: 'eId1', title: 'Prova 1', createdAt: '', updatedAt: '' };
+const mockExam: Exam = {
+	id: 'eId1',
+	title: 'Prova 1',
+	createdAt: '',
+	updatedAt: '',
+};
 
 describe('[Exam.author]', () => {
 	test('uses exam id from parent to lookup author', async () => {
@@ -29,7 +34,12 @@ describe('[Exam.questions]', () => {
 			questions: () => mockQuestions,
 		});
 
-		const res = await resolvers.Exam.questions(mockExam, null, mockContext, null);
+		const res = await resolvers.Exam.questions(
+			mockExam,
+			null,
+			mockContext,
+			null,
+		);
 		expect(res).toEqual(mockQuestions);
 
 		expect(mockContext.prisma.exam).toBeCalledWith({ id: mockExam.id });
@@ -40,7 +50,12 @@ describe('[Exam.questions]', () => {
 			questions: () => [],
 		});
 
-		const res = await resolvers.Exam.questions(mockExam, null, mockContext, null);
+		const res = await resolvers.Exam.questions(
+			mockExam,
+			null,
+			mockContext,
+			null,
+		);
 		expect(res).toEqual([]);
 	});
 });

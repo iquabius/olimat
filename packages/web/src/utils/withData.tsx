@@ -8,7 +8,8 @@ import { parseCookies } from './helpers';
 import initApollo from './initApollo';
 
 // Gets the display name of a JSX component for dev tools
-const getDisplayName = ({ displayName, name }) => displayName || name || 'Unknown';
+const getDisplayName = ({ displayName, name }) =>
+	displayName || name || 'Unknown';
 
 export interface WithDataProps {
 	apolloState: NormalizedCacheObject;
@@ -26,7 +27,10 @@ export default App => {
 			} = ctx;
 
 			// One-time-use apollo client for initial props and rendering (on server)
-			const apollo = initApollo({}, { getToken: () => parseCookies(req).token });
+			const apollo = initApollo(
+				{},
+				{ getToken: () => parseCookies(req).token },
+			);
 			ctx.ctx.apolloClient = apollo;
 
 			let appProps = {};
@@ -45,7 +49,12 @@ export default App => {
 					// Run all GraphQL queries
 					const app = (
 						<ApolloProvider client={apollo}>
-							<App {...appProps} Component={Component} router={router} apolloClient={apollo} />
+							<App
+								{...appProps}
+								Component={Component}
+								router={router}
+								apolloClient={apollo}
+							/>
 						</ApolloProvider>
 					);
 					await getDataFromTree(app);

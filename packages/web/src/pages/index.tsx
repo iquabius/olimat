@@ -21,7 +21,9 @@ const styles = (theme: Theme) =>
 			justifyContent: 'center',
 			alignItems: 'center',
 			backgroundColor:
-				theme.palette.type === 'light' ? theme.palette.primary.main : theme.palette.primary.dark,
+				theme.palette.type === 'light'
+					? theme.palette.primary.main
+					: theme.palette.primary.dark,
 			color: theme.palette.primary.contrastText,
 		},
 		content: {
@@ -82,10 +84,20 @@ const PageHome = props => {
 							className={classes.logo}
 						/>
 						<div className={classes.text}>
-							<Typography variant="h3" component="h1" color="inherit" gutterBottom>
+							<Typography
+								variant="h3"
+								component="h1"
+								color="inherit"
+								gutterBottom
+							>
 								{'Olimpíadas de Matemática da UNEMAT'}
 							</Typography>
-							<Typography variant="h5" component="h2" color="inherit" className={classes.headline}>
+							<Typography
+								variant="h5"
+								component="h2"
+								color="inherit"
+								className={classes.headline}
+							>
 								{'Inscrições abertas de 21 de fevereiro a 2 de abril.'}
 							</Typography>
 							<Button
@@ -106,7 +118,9 @@ const PageHome = props => {
 						</div>
 					</div>
 				</div>
-				<div className={classes.backers}>Here were the NoSSR and MarkdownElement components...</div>
+				<div className={classes.backers}>
+					Here were the NoSSR and MarkdownElement components...
+				</div>
 				<AppFooter />
 			</div>
 		</AppFrame>

@@ -1,4 +1,9 @@
-import { Dialog, DialogActions, DialogContent, DialogTitle } from '@material-ui/core';
+import {
+	Dialog,
+	DialogActions,
+	DialogContent,
+	DialogTitle,
+} from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { withFormik } from 'formik';
@@ -150,7 +155,10 @@ export default compose(
 			city: { name: '' },
 			address: '',
 		}),
-		handleSubmit: (values, { props: { newSchool, onClose }, setSubmitting }) => {
+		handleSubmit: (
+			values,
+			{ props: { newSchool, onClose }, setSubmitting },
+		) => {
 			newSchool({
 				variables: {
 					name: values.name,
@@ -162,7 +170,9 @@ export default compose(
 					address: values.address,
 				},
 				update: (proxy, { data: { createSchool } }) => {
-					const data = proxy.readQuery<{ schools: SchoolFormValues[] }>({ query: allSchoolsQuery });
+					const data = proxy.readQuery<{ schools: SchoolFormValues[] }>({
+						query: allSchoolsQuery,
+					});
 					data.schools.push(createSchool);
 
 					proxy.writeQuery({ query: allSchoolsQuery, data });

@@ -23,7 +23,10 @@ export const newQuestionMutation = gql`
 `;
 
 const CreateConnector = ({ children }) => (
-	<Mutation mutation={newQuestionMutation} refetchQueries={[{ query: questionsConnectionQuery }]}>
+	<Mutation
+		mutation={newQuestionMutation}
+		refetchQueries={[{ query: questionsConnectionQuery }]}
+	>
 		{createQuestion => children({ createQuestion })}
 	</Mutation>
 );

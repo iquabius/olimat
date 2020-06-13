@@ -50,6 +50,8 @@ app.use('/files', express.static(config.uploads.publicDir));
 // manualmente nos testes (e2e no caso).
 if (process.env.NODE_ENV !== 'test') {
 	app.listen({ port: 4000 }, () =>
-		console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`),
+		console.log(
+			`🚀 Server ready at http://localhost:4000${server.graphqlPath}`,
+		),
 	);
 }

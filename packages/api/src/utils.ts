@@ -16,7 +16,9 @@ export function getUserId(ctx: OliContext) {
 	// Apollo Client sets header to the string 'null' when not logged in
 	if (Authorization && Authorization !== 'null') {
 		const token = Authorization.replace('Bearer ', '');
-		const { userId } = jwt.verify(token, process.env.APP_SECRET) as { userId: string };
+		const { userId } = jwt.verify(token, process.env.APP_SECRET) as {
+			userId: string;
+		};
 		return userId;
 	}
 

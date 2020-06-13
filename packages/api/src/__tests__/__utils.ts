@@ -48,7 +48,8 @@ export const startTestServer = async (server: ApolloServer) => {
 		fetch,
 	});
 
-	const executeOperation = ({ query, variables = {} }) => execute(link, { query, variables });
+	const executeOperation = ({ query, variables = {} }) =>
+		execute(link, { query, variables });
 
 	return {
 		link,

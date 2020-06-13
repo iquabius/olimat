@@ -91,8 +91,13 @@ const QuestionForm: React.FunctionComponent<Props> = ({
 						rows={4}
 						rowsMax={8}
 						variant="outlined"
-						error={formikProps.touched.wording && formikProps.errors.wording !== undefined}
-						helperText={(formikProps.touched.wording && formikProps.errors.wording) || ''}
+						error={
+							formikProps.touched.wording &&
+							formikProps.errors.wording !== undefined
+						}
+						helperText={
+							(formikProps.touched.wording && formikProps.errors.wording) || ''
+						}
 						value={formikProps.values.wording}
 						onChange={formikProps.handleChange}
 						onBlur={formikProps.handleBlur}

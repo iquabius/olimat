@@ -69,7 +69,9 @@ function AppWrapper(props) {
 
 	return (
 		<React.Fragment>
-			<PageContext.Provider value={{ activePage, pages, loggedInUser: pageProps.loggedInUser }}>
+			<PageContext.Provider
+				value={{ activePage, pages, loggedInUser: pageProps.loggedInUser }}
+			>
 				<StylesProvider jss={jss}>
 					<ThemeProvider>{children}</ThemeProvider>
 				</StylesProvider>

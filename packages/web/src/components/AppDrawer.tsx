@@ -2,7 +2,12 @@ import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
 import List from '@material-ui/core/List';
-import { createStyles, Theme, withStyles, WithStyles } from '@material-ui/core/styles';
+import {
+	createStyles,
+	Theme,
+	withStyles,
+	WithStyles,
+} from '@material-ui/core/styles';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -24,7 +29,10 @@ const styles = ({ palette }: Theme) =>
 		title: {
 			color: palette.text.secondary,
 			'&:hover': {
-				color: palette.type === 'light' ? palette.primary.main : palette.primary.light,
+				color:
+					palette.type === 'light'
+						? palette.primary.main
+						: palette.primary.light,
 				textDecoration: 'none',
 			},
 		},
@@ -47,7 +55,12 @@ function renderNavItems({ pages, ...params }) {
 	return (
 		// I don't know how to type this rest operator...
 		// @ts-ignore
-		<List>{pages.reduce((items, page) => reduceChildRoutes({ items, page, ...params }), [])}</List>
+		<List>
+			{pages.reduce(
+				(items, page) => reduceChildRoutes({ items, page, ...params }),
+				[],
+			)}
+		</List>
 	);
 }
 
@@ -58,17 +71,29 @@ function reduceChildRoutes({ props, activePage, items, page, depth }) {
 
 	if (page.children && page.children.length > 1) {
 		const title = pageToTitle(page);
-		const openImmediately = activePage.pathname.indexOf(`${page.pathname}/`) === 0;
+		const openImmediately =
+			activePage.pathname.indexOf(`${page.pathname}/`) === 0;
 
 		items.push(
-			<AppDrawerNavItem depth={depth} key={title} openImmediately={openImmediately} title={title}>
-				{renderNavItems({ props, pages: page.children, activePage, depth: depth + 1 })}
+			<AppDrawerNavItem
+				depth={depth}
+				key={title}
+				openImmediately={openImmediately}
+				title={title}
+			>
+				{renderNavItems({
+					props,
+					pages: page.children,
+					activePage,
+					depth: depth + 1,
+				})}
 			</AppDrawerNavItem>,
 		);
 	} else {
 		const title = pageToTitle(page);
 		// eslint-disable-next-line no-param-reassign
-		page = page.children && page.children.length === 1 ? page.children[0] : page;
+		page =
+			page.children && page.children.length === 1 ? page.children[0] : page;
 
 		items.push(
 			<AppDrawerNavItem
@@ -99,7 +124,14 @@ interface Props extends WithStyles<typeof styles> {
 }
 
 const AppDrawer: React.FunctionComponent<Props> = props => {
-	const { classes, className, disablePermanent, mobileOpen, onClose, onOpen } = props;
+	const {
+		classes,
+		className,
+		disablePermanent,
+		mobileOpen,
+		onClose,
+		onOpen,
+	} = props;
 
 	const drawer = (
 		<PageContext.Consumer>

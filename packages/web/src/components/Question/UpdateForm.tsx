@@ -7,16 +7,19 @@ import QuestionDetailsConnector from './DetailsConnector';
 import QuestionForm from './Form';
 import { formValuesToRequest, responseToFormValues } from './transforms';
 
-export const createSubmitHandler = (question, updateQuestion, enqueueSnackbar) => (
-	values,
-	addHandlers,
-) => {
+export const createSubmitHandler = (
+	question,
+	updateQuestion,
+	enqueueSnackbar,
+) => (values, addHandlers) => {
 	console.log('UPDATE VALUES: ');
 	console.log(values);
 	// This is where `addHandlers` comes in handy as the form controls its state
 	addHandlers(
 		updateQuestion({
-			variables: { input: { id: question.id, patch: formValuesToRequest(values) } },
+			variables: {
+				input: { id: question.id, patch: formValuesToRequest(values) },
+			},
 		})
 			.then(resp => {
 				console.log('UpdateForm addHandlers OK:');
@@ -37,12 +40,19 @@ export const createSubmitHandler = (question, updateQuestion, enqueueSnackbar) =
 
 interface Props extends InjectedNotistackProps, WithRouterProps {}
 
-const QuestionUpdateForm: React.FunctionComponent<Props> = ({ enqueueSnackbar, router }) => (
+const QuestionUpdateForm: React.FunctionComponent<Props> = ({
+	enqueueSnackbar,
+	router,
+}) => (
 	<QuestionDetailsConnector id={router.query.id as string}>
 		{({ isLoading, question, updateQuestion }) => (
 			<QuestionForm
 				initialValues={responseToFormValues(question)}
-				onSubmit={createSubmitHandler(question, updateQuestion, enqueueSnackbar)}
+				onSubmit={createSubmitHandler(
+					question,
+					updateQuestion,
+					enqueueSnackbar,
+				)}
 			/>
 		)}
 	</QuestionDetailsConnector>

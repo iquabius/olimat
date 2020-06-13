@@ -1,5 +1,10 @@
 import React from 'react';
-import { MuiThemeProvider, createMuiTheme, darken, Direction } from '@material-ui/core/styles';
+import {
+	MuiThemeProvider,
+	createMuiTheme,
+	darken,
+	Direction,
+} from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { blue, pink } from '@material-ui/core/colors';
 import { SpacingOptions } from '@material-ui/core/styles/createSpacing';
@@ -31,7 +36,8 @@ if (process.env.NODE_ENV !== 'production') {
 	DispatchContext.displayName = 'ThemeDispatchContext';
 }
 
-const useEnhancedEffect = typeof window === 'undefined' ? React.useEffect : React.useLayoutEffect;
+const useEnhancedEffect =
+	typeof window === 'undefined' ? React.useEffect : React.useLayoutEffect;
 
 // https://fettblog.eu/typescript-react/hooks/#usereducer
 // Alternativa p/ tipar actions e o dispatch usando Type Guards:
@@ -58,7 +64,10 @@ export function ThemeProvider(props: ThemeProviderProps) {
 		}
 	};
 
-	const [themeOptions, dispatch] = React.useReducer(reducer, initialThemeOptions);
+	const [themeOptions, dispatch] = React.useReducer(
+		reducer,
+		initialThemeOptions,
+	);
 
 	const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
 	const preferredType = prefersDarkMode ? 'dark' : 'light';
@@ -116,7 +125,9 @@ export function ThemeProvider(props: ThemeProviderProps) {
 
 	return (
 		<MuiThemeProvider theme={theme}>
-			<DispatchContext.Provider value={dispatch}>{children}</DispatchContext.Provider>
+			<DispatchContext.Provider value={dispatch}>
+				{children}
+			</DispatchContext.Provider>
 		</MuiThemeProvider>
 	);
 }
@@ -125,7 +136,12 @@ interface ThemeProviderProps {
 	children: React.ReactNode;
 }
 
-export function useChangeTheme(): (nextOptions: Partial<typeof initialThemeOptions>) => void {
+export function useChangeTheme(): (
+	nextOptions: Partial<typeof initialThemeOptions>,
+) => void {
 	const dispatch = React.useContext(DispatchContext);
-	return React.useCallback(options => dispatch({ type: 'CHANGE', payload: options }), [dispatch]);
+	return React.useCallback(
+		options => dispatch({ type: 'CHANGE', payload: options }),
+		[dispatch],
+	);
 }

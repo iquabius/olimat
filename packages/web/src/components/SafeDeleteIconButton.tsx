@@ -1,4 +1,10 @@
-import { createStyles, IconButton, Theme, withStyles, WithStyles } from '@material-ui/core';
+import {
+	createStyles,
+	IconButton,
+	Theme,
+	withStyles,
+	WithStyles,
+} from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Router from 'next/router';
 import { InjectedNotistackProps, withSnackbar } from 'notistack';
@@ -18,7 +24,12 @@ const styles = (theme: Theme) =>
 		},
 	});
 
-const deleteHandler = (deleteQuestion, question, enqueueSnackbar, setSubmitting) => () => {
+const deleteHandler = (
+	deleteQuestion,
+	question,
+	enqueueSnackbar,
+	setSubmitting,
+) => () => {
 	setSubmitting(true);
 	deleteQuestion({
 		variables: {
@@ -72,7 +83,9 @@ interface OuterProps {
 	};
 }
 
-const SafeDeleteIconButton: React.FunctionComponent<InnerProps & OuterProps> = ({
+const SafeDeleteIconButton: React.FunctionComponent<
+	InnerProps & OuterProps
+> = ({
 	classes,
 	deleteWarningOpen,
 	enqueueSnackbar,
@@ -97,11 +110,19 @@ const SafeDeleteIconButton: React.FunctionComponent<InnerProps & OuterProps> = (
 					</IconButton>
 					<DeleteWarningDialog
 						title={`Excluir “${truncate(question.wording, 7)}“?`}
-						content={`A questão “${truncate(question.wording, 7)}” será apagada permanentemente.`}
+						content={`A questão “${truncate(
+							question.wording,
+							7,
+						)}” será apagada permanentemente.`}
 						isSubmitting={submitting}
 						open={deleteWarningOpen}
 						onCancel={onCancelDelete(setDeleteWarningOpen, setSubmitting)}
-						onSuccess={deleteHandler(deleteQuestion, question, enqueueSnackbar, setSubmitting)}
+						onSuccess={deleteHandler(
+							deleteQuestion,
+							question,
+							enqueueSnackbar,
+							setSubmitting,
+						)}
 					/>
 				</React.Fragment>
 			)}

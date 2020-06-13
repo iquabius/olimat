@@ -9,7 +9,14 @@ import {
 import PropTypes from 'prop-types';
 import React from 'react';
 
-const DeleteWarningDialog = ({ content, isSubmitting, open, onCancel, onSuccess, title }) => (
+const DeleteWarningDialog = ({
+	content,
+	isSubmitting,
+	open,
+	onCancel,
+	onSuccess,
+	title,
+}) => (
 	<Dialog
 		open={open}
 		onClose={onCancel}
@@ -18,7 +25,9 @@ const DeleteWarningDialog = ({ content, isSubmitting, open, onCancel, onSuccess,
 	>
 		<DialogTitle id="alert-dialog-title">{title}</DialogTitle>
 		<DialogContent>
-			<DialogContentText id="alert-dialog-description">{content}</DialogContentText>
+			<DialogContentText id="alert-dialog-description">
+				{content}
+			</DialogContentText>
 		</DialogContent>
 		<DialogActions>
 			<Button

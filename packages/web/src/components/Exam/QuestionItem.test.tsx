@@ -23,7 +23,10 @@ describe('<ExamQuestionItem />', () => {
 		);
 
 		// Confere se a imagem foi renderizada com o atributo 'src' correto
-		expect(getByAltText('Imagem da questão')).toHaveAttribute('src', questionSample.imageFullUrl);
+		expect(getByAltText('Imagem da questão')).toHaveAttribute(
+			'src',
+			questionSample.imageFullUrl,
+		);
 
 		// Confere se o enunciado foi renderizado
 		getByText(questionSample.wording);

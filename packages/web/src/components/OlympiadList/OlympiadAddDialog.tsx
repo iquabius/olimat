@@ -1,4 +1,9 @@
-import { Dialog, DialogActions, DialogContent, DialogTitle } from '@material-ui/core';
+import {
+	Dialog,
+	DialogActions,
+	DialogContent,
+	DialogTitle,
+} from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { withFormik } from 'formik';
@@ -117,14 +122,19 @@ export default compose(
 			name: '',
 			year: '',
 		}),
-		handleSubmit: (values, { props: { newOlympiad, onClose }, setSubmitting }) => {
+		handleSubmit: (
+			values,
+			{ props: { newOlympiad, onClose }, setSubmitting },
+		) => {
 			newOlympiad({
 				variables: {
 					name: values.name,
 					year: new Date(values.year),
 				},
 				update: (proxy, { data: { createOlympiad } }) => {
-					const data = proxy.readQuery<{ olympiads: Olympiad[] }>({ query: allOlympiadsQuery });
+					const data = proxy.readQuery<{ olympiads: Olympiad[] }>({
+						query: allOlympiadsQuery,
+					});
 					data.olympiads.push(createOlympiad);
 
 					proxy.writeQuery({ query: allOlympiadsQuery, data });

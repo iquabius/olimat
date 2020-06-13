@@ -65,16 +65,25 @@ const OlympiadList: React.FunctionComponent<InnerProps> = props => {
 	return (
 		<Paper className={classes.root}>
 			<Toolbar>
-				<Button onClick={handleOpenAddOlympiad} variant="contained" color="primary">
+				<Button
+					onClick={handleOpenAddOlympiad}
+					variant="contained"
+					color="primary"
+				>
 					Adicionar
 				</Button>
 			</Toolbar>
-			<OlympiadAddDialog open={addDialogOpen} onClose={handleCloseAddOlympiad} />
+			<OlympiadAddDialog
+				open={addDialogOpen}
+				onClose={handleCloseAddOlympiad}
+			/>
 			{olympiads.map(olympiad => (
 				<ExpansionPanel key={olympiad.id}>
 					<ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
 						<div className={classes.column}>
-							<Typography className={classes.heading}>{olympiad.name}</Typography>
+							<Typography className={classes.heading}>
+								{olympiad.name}
+							</Typography>
 						</div>
 						<div className={classes.column}>
 							<Typography className={classes.secondaryHeading}>

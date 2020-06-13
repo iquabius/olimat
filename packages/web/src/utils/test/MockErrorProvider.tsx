@@ -16,7 +16,10 @@ const MockErrorProvider = ({ children, graphqlErrors }) => {
 	const link = new ApolloLink(operation => {
 		return new Observable(observer => {
 			observer.next({
-				errors: graphqlErrors && graphqlErrors.length > 0 ? graphqlErrors : defaultErrors,
+				errors:
+					graphqlErrors && graphqlErrors.length > 0
+						? graphqlErrors
+						: defaultErrors,
 			});
 			observer.complete();
 		});

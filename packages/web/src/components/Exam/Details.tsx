@@ -1,4 +1,11 @@
-import { createStyles, Paper, Theme, Typography, withStyles, WithStyles } from '@material-ui/core';
+import {
+	createStyles,
+	Paper,
+	Theme,
+	Typography,
+	withStyles,
+	WithStyles,
+} from '@material-ui/core';
 import Error from 'next/error';
 import { DefaultQuery, withRouter, WithRouterProps } from 'next/router';
 import React from 'react';

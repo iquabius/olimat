@@ -43,7 +43,9 @@ export const questions: MutationResolvers.Resolvers = {
 	async updateQuestion(_, { input: { id, patch } }, ctx, info) {
 		console.log('--- updateQuestion Mutation START');
 		const oldQuestion = await ctx.prisma.question({ id });
-		console.log(`DB Image: '${oldQuestion.imageUrl}' | Patch Image: '${patch.imageUrl}'`);
+		console.log(
+			`DB Image: '${oldQuestion.imageUrl}' | Patch Image: '${patch.imageUrl}'`,
+		);
 		const updatedQuestion = await ctx.prisma.updateQuestion({
 			data: {
 				...patch,
@@ -57,7 +59,10 @@ export const questions: MutationResolvers.Resolvers = {
 			// A questão não tinha imagem, mas o usuário fez o upload de uma.
 			// Move new image to public directory
 			const newFile = path.join(ctx.config.uploads.tempDir, patch.imageUrl);
-			const destNewFile = path.join(ctx.config.uploads.publicDir, patch.imageUrl);
+			const destNewFile = path.join(
+				ctx.config.uploads.publicDir,
+				patch.imageUrl,
+			);
 			// Maybe we don't need 'mv' package.
 			// https://nodejs.org/api/fs.html#fs_fs_rename_oldpath_newpath_callback
 			mv(newFile, destNewFile, err => {
@@ -71,7 +76,10 @@ export const questions: MutationResolvers.Resolvers = {
 			});
 		} else if (!patch.imageUrl && oldQuestion.imageUrl) {
 			// A questão tinha uma imagem, que está sendo removida
-			const oldFile = path.join(ctx.config.uploads.publicDir, oldQuestion.imageUrl);
+			const oldFile = path.join(
+				ctx.config.uploads.publicDir,
+				oldQuestion.imageUrl,
+			);
 			fs.unlink(oldFile, err => {
 				if (err) {
 					throw err;

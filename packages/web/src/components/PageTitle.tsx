@@ -17,7 +17,8 @@ const PageTitle: React.FunctionComponent<PageTitleProps> = props => {
 					throw new Error('Missing activePage.');
 				}
 
-				const title = activePage.title !== false ? pageToTitle(activePage) : null;
+				const title =
+					activePage.title !== false ? pageToTitle(activePage) : null;
 				return props.children(title);
 			}}
 		</PageContext.Consumer>

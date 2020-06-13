@@ -17,7 +17,9 @@ function create(initialState, { getToken }) {
 	const errorLink = onError(({ graphQLErrors, networkError }) => {
 		if (graphQLErrors) {
 			graphQLErrors.map(({ message, locations, path }) =>
-				console.log(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`),
+				console.log(
+					`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,
+				),
 			);
 		}
 		if (networkError) console.log(`[Network error]: ${networkError.message}`);
@@ -54,7 +56,10 @@ function create(initialState, { getToken }) {
 	});
 }
 
-export default function initApollo(initialState, options): ApolloClient<NormalizedCacheObject> {
+export default function initApollo(
+	initialState,
+	options,
+): ApolloClient<NormalizedCacheObject> {
 	// Make sure to create a new client for every server-side request so that data
 	// isn't shared between connections (which would be bad)
 	if (!process.browser) {

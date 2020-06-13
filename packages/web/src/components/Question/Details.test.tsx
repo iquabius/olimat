@@ -55,13 +55,20 @@ describe('<QuestionDetails />', () => {
 
 		// TODO: Add imageAltText to Question type
 		const questionImage = getByAltText('Imagem da questão');
-		expect(questionImage).toHaveAttribute('src', customResolvers.Question().imageFullUrl);
+		expect(questionImage).toHaveAttribute(
+			'src',
+			customResolvers.Question().imageFullUrl,
+		);
 
 		// Confere se a lista de alternativas foi renderizada,
 		// com a quantidade certa de itens
 		const choicesList = container.querySelector('ul');
-		expect(choicesList).toHaveTextContent(customResolvers.Question().choices[0].text);
-		expect(choicesList.children.length).toBe(customResolvers.Question().choices.length);
+		expect(choicesList).toHaveTextContent(
+			customResolvers.Question().choices[0].text,
+		);
+		expect(choicesList.children.length).toBe(
+			customResolvers.Question().choices.length,
+		);
 	});
 
 	test('clicking on delete button shows the warning dialog', async () => {
@@ -133,7 +140,10 @@ describe('<QuestionDetails />', () => {
 			//   error: new Error(errorMsg),
 			// },
 			{
-				request: { query: deleteQuestionMutation, variables: { id: data.question.id } },
+				request: {
+					query: deleteQuestionMutation,
+					variables: { id: data.question.id },
+				},
 				result: { errors: [{ message: errorMsg }] },
 			},
 		];

@@ -15,7 +15,13 @@ interface RenderOptions {
 }
 
 export const renderApollo = (node, options: RenderApolloOptions = {}) => {
-	const { mocks, addTypename = false, defaultOptions, cache, ...otherOptions } = options;
+	const {
+		mocks,
+		addTypename = false,
+		defaultOptions,
+		cache,
+		...otherOptions
+	} = options;
 	return render(
 		<MockedProvider
 			mocks={mocks}

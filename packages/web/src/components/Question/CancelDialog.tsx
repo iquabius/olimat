@@ -15,7 +15,9 @@ const CancelDialog = ({ onCancel, onContinue, open = false }) => (
 		aria-describedby="cancel-dialog-description"
 		data-testid="cancel-dialog"
 	>
-		<DialogTitle id="cancel-dialog-title">Descartar rascunho da questão?</DialogTitle>
+		<DialogTitle id="cancel-dialog-title">
+			Descartar rascunho da questão?
+		</DialogTitle>
 		<DialogContent>
 			<DialogContentText id="cancel-dialog-description">
 				A questão não foi salva. Se você sair ela não poderá ser recuperada.

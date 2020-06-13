@@ -1,4 +1,10 @@
-import { createStyles, Fab, Theme, withStyles, WithStyles } from '@material-ui/core';
+import {
+	createStyles,
+	Fab,
+	Theme,
+	withStyles,
+	WithStyles,
+} from '@material-ui/core';
 import React, { MouseEventHandler } from 'react';
 
 const styles = (theme: Theme) =>
@@ -24,7 +30,12 @@ const FAButton: React.FunctionComponent<FAButtonProps> = ({
 	onClick,
 	...rest
 }) => (
-	<Fab onClick={onClick} color="secondary" className={classes.FAButton} {...rest}>
+	<Fab
+		onClick={onClick}
+		color="secondary"
+		className={classes.FAButton}
+		{...rest}
+	>
 		{children}
 	</Fab>
 );

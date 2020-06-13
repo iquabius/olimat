@@ -27,7 +27,9 @@ const setup = async () => {
 	await Promise.all(data.olympiads.map(prisma.createOlympiad));
 
 	// Insere as questões
-	const questions = await Promise.all(data.questions.map(prisma.createQuestion));
+	const questions = await Promise.all(
+		data.questions.map(prisma.createQuestion),
+	);
 
 	// Relaciona as 10 primeiras questões a cada uma das provas
 	// Isto é feito aqui porque em data.ts não temos acesso ao id das questões
@@ -35,7 +37,9 @@ const setup = async () => {
 		...exam,
 		questions: {
 			// Filtra as 10 questões que pertencem a prove no 'index'
-			connect: questions.filter(data.isExamQuestion(index)).map(({ id }) => ({ id })),
+			connect: questions
+				.filter(data.isExamQuestion(index))
+				.map(({ id }) => ({ id })),
 		},
 	}));
 	// Insere as provas

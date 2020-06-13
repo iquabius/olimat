@@ -7,7 +7,13 @@
 //    to be used here
 
 // These empty choices are here so that Formik can render 5 input fields
-const emptyChoices = [{ text: '' }, { text: '' }, { text: '' }, { text: '' }, { text: '' }];
+const emptyChoices = [
+	{ text: '' },
+	{ text: '' },
+	{ text: '' },
+	{ text: '' },
+	{ text: '' },
+];
 
 export const responseToFormValues = response => ({
 	id: response.id,
@@ -37,7 +43,12 @@ const choicesValuesToRequest = (choices, type) => {
 	if (type === 'MULTIPLE_CHOICE') {
 		if (choices[0].id) {
 			// [QuestionChoiceUpdateWithWhereUniqueNestedInput]
-			return { update: choices.map(({ id, text }) => ({ where: { id }, data: { text } })) };
+			return {
+				update: choices.map(({ id, text }) => ({
+					where: { id },
+					data: { text },
+				})),
+			};
 		}
 		// A questão era Discursiva e foi mudada para Múltipla Escolha. Ou a questão está
 		// sendo adicionada agora. De qualquer forma, precisamos criar as alternativas.

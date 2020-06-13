@@ -1,7 +1,12 @@
 import Button from '@material-ui/core/Button';
 import Collapse from '@material-ui/core/Collapse';
 import ListItem from '@material-ui/core/ListItem';
-import { createStyles, Theme, withStyles, WithStyles } from '@material-ui/core/styles';
+import {
+	createStyles,
+	Theme,
+	withStyles,
+	WithStyles,
+} from '@material-ui/core/styles';
 import classNames from 'classnames';
 import React, { MouseEventHandler } from 'react';
 
@@ -36,7 +41,8 @@ const styles = ({ palette, typography }: Theme) =>
 			},
 		},
 		active: {
-			color: palette.type === 'light' ? palette.primary.main : palette.primary.light,
+			color:
+				palette.type === 'light' ? palette.primary.main : palette.primary.light,
 			fontWeight: typography.fontWeightMedium,
 		},
 	});
@@ -69,7 +75,9 @@ class AppDrawerNavItem extends React.Component<Props, State> {
 		}
 
 		// Center the selected item in the list container.
-		const activeElement = document.querySelector(`.${this.props.classes.active}`);
+		const activeElement = document.querySelector(
+			`.${this.props.classes.active}`,
+		);
 		if (activeElement && activeElement.scrollIntoView) {
 			activeElement.scrollIntoView({});
 		}
@@ -103,7 +111,12 @@ class AppDrawerNavItem extends React.Component<Props, State> {
 							// I'm not sure what to do here. Maybe we should find
 							// a better way to use 'next/link'.
 							// @ts-ignore
-							<Link variant="button" activeClassName={classes.active} href={href} {...props} />
+							<Link
+								variant="button"
+								activeClassName={classes.active}
+								href={href}
+								{...props}
+							/>
 						)}
 						className={classNames(classes.buttonLeaf, `depth-${depth}`)}
 						disableRipple

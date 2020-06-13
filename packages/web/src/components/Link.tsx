@@ -1,4 +1,9 @@
-import { createStyles, Theme, withStyles, WithStyles } from '@material-ui/core/styles';
+import {
+	createStyles,
+	Theme,
+	withStyles,
+	WithStyles,
+} from '@material-ui/core/styles';
 import classNames from 'classnames';
 import NextLink from 'next/link';
 import { withRouter } from 'next/router';

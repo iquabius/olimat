@@ -1,7 +1,12 @@
 import IconButton from '@material-ui/core/IconButton';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
-import { createStyles, Theme, withStyles, WithStyles } from '@material-ui/core/styles';
+import {
+	createStyles,
+	Theme,
+	withStyles,
+	WithStyles,
+} from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import CloseIcon from '@material-ui/icons/Close';
 import SaveIcon from '@material-ui/icons/Save';
@@ -34,7 +39,10 @@ export const updateCityMutation = gql`
 	}
 `;
 
-const onSubmitEdit = (updateCity, handleCloseEdit) => (values, { setSubmitting }) => {
+const onSubmitEdit = (updateCity, handleCloseEdit) => (
+	values,
+	{ setSubmitting },
+) => {
 	// TODO: Don't call the graphql server if value is unchanged
 	updateCity({
 		variables: {
@@ -75,8 +83,17 @@ const EditListItem: React.FunctionComponent<EditListItemProps> = ({
 	return (
 		<Mutation mutation={updateCityMutation} update={updateCache}>
 			{updateCity => (
-				<Formik initialValues={city} onSubmit={onSubmitEdit(updateCity, handleCloseEdit)}>
-					{({ handleSubmit, handleChange, handleBlur, isSubmitting, values }) => (
+				<Formik
+					initialValues={city}
+					onSubmit={onSubmitEdit(updateCity, handleCloseEdit)}
+				>
+					{({
+						handleSubmit,
+						handleChange,
+						handleBlur,
+						isSubmitting,
+						values,
+					}) => (
 						<form onSubmit={handleSubmit}>
 							<ListItemText>
 								<TextField
@@ -95,7 +112,11 @@ const EditListItem: React.FunctionComponent<EditListItemProps> = ({
 								/>
 							</ListItemText>
 							<ListItemSecondaryAction>
-								<IconButton type="submit" disabled={isSubmitting} aria-label="Salvar cidade">
+								<IconButton
+									type="submit"
+									disabled={isSubmitting}
+									aria-label="Salvar cidade"
+								>
 									<SaveIcon color="primary" />
 								</IconButton>
 								<IconButton

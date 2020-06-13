@@ -17,7 +17,12 @@ describe('[Question.choices]', () => {
 			choices: () => mockChoices,
 		});
 
-		const res = await resolvers.Question.choices(mockQuestion, null, mockContext, null);
+		const res = await resolvers.Question.choices(
+			mockQuestion,
+			null,
+			mockContext,
+			null,
+		);
 		expect(res).toEqual(mockChoices);
 
 		expect(mockContext.prisma.question).toBeCalledWith({ id: mockQuestion.id });
