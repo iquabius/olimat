@@ -16,18 +16,11 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import ApolloClient from 'apollo-client';
 import cookie from 'cookie';
-import gql from 'graphql-tag';
+import { ApolloClient, gql, FetchResult } from '@apollo/client';
 import React, { FormEventHandler } from 'react';
-import {
-	compose,
-	FetchResult,
-	graphql,
-	MutationFn,
-	NamedProps,
-	withApollo,
-} from 'react-apollo';
+import { graphql, withApollo } from '@apollo/react-hoc';
+import { compose } from 'recompose';
 
 import redirect from '@olimat/web/utils/redirect';
 import Link from '../Link';
@@ -192,17 +185,12 @@ export default compose(
 			}
 		`,
 		{
-			// Use an unambiguous name for use in the `props` section below
-			name: 'createWithEmail',
 			// Apollo's way of injecting new props which are passed to the component
 			props: ({
-				createWithEmail,
+				mutate,
 				// `client` is provided by the `withApollo` HOC
 				ownProps: { client },
-			}: NamedProps<
-				{ createWithEmail: MutationFn<Response, Variables> },
-				InputProps
-			>) => ({
+			}) => ({
 				// `handleCreateUser` is the name of the prop passed to the component
 				handleCreateUser: event => {
 					/* global FormData */
@@ -211,7 +199,7 @@ export default compose(
 					event.preventDefault();
 					event.stopPropagation();
 
-					createWithEmail({
+					mutate({
 						variables: {
 							email: data.get('email').toString(),
 							password: data.get('password').toString(),

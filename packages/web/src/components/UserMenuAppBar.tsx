@@ -4,7 +4,7 @@ import IconButton from '@material-ui/core/IconButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import cookie from 'cookie';
 import React from 'react';
-import { withApollo, WithApolloClient } from 'react-apollo';
+import { withApollo, WithApolloClient } from '@apollo/react-hoc';
 
 import redirect from '../utils/redirect';
 

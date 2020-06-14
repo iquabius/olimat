@@ -7,23 +7,27 @@ import {
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { withFormik } from 'formik';
-import gql from 'graphql-tag';
+import { gql, MutationFunction } from '@apollo/client';
 import React, { FormEventHandler } from 'react';
-import { compose, graphql, MutationFn } from 'react-apollo';
+import { graphql } from '@apollo/react-hoc';
+import { compose } from 'recompose';
 
 import { allSchoolsQuery, City } from '.';
 
-interface Props {
+interface InnerProps {
 	handleBlur: FormEventHandler;
 	handleChange: FormEventHandler;
 	handleSubmit: FormEventHandler;
 	isSubmitting: boolean;
-	onClose: () => void;
-	open: boolean;
 	values: SchoolFormValues;
 }
 
-const SchoolAddDialog: React.FunctionComponent<Props> = ({
+interface OuterProps {
+	onClose: () => void;
+	open: boolean;
+}
+
+const SchoolAddDialog: React.FunctionComponent<InnerProps & OuterProps> = ({
 	open,
 	onClose,
 	handleSubmit,
@@ -136,11 +140,11 @@ interface SchoolFormValues {
 }
 
 interface SchoolFormProps {
-	newSchool: MutationFn;
-	onClose: Props['onClose'];
+	newSchool: MutationFunction;
+	onClose: OuterProps['onClose'];
 }
 
-export default compose(
+export default compose<InnerProps, OuterProps>(
 	graphql(newSchoolMutation, {
 		// Use an unambiguous name for use in the `props` section below
 		name: 'newSchool',

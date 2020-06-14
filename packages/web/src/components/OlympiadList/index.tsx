@@ -12,9 +12,9 @@ import { withStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import gql from 'graphql-tag';
+import { gql } from '@apollo/client';
 import React from 'react';
-import { DataProps, graphql } from 'react-apollo';
+import { DataProps, graphql } from '@apollo/react-hoc';
 import { compose, withState } from 'recompose';
 
 import OlympiadAddDialog, { Olympiad } from './OlympiadAddDialog';

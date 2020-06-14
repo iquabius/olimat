@@ -7,10 +7,10 @@ import {
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { Formik } from 'formik';
-import gql from 'graphql-tag';
+import { gql } from '@apollo/client';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Mutation } from 'react-apollo';
+import { Mutation } from '@apollo/react-components';
 
 import { allCitiesQuery } from './List';
 
@@ -42,8 +42,8 @@ const onSubmitCity = (newCity, onClose) => (values, { resetForm }) => {
 
 const updateCache = (proxy, { data: { createCity } }) => {
 	const data = proxy.readQuery({ query: allCitiesQuery });
-	data.cities.push(createCity);
-	proxy.writeQuery({ query: allCitiesQuery, data });
+	const cities = [...data.cities, createCity];
+	proxy.writeQuery({ query: allCitiesQuery, data: { cities } });
 };
 
 const AddDialog = ({ open, onClose }) => (

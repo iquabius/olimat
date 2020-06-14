@@ -14,7 +14,8 @@ const FormSchema = Yup.object().shape({
 		.required('Wording is required'),
 });
 
-interface QuestionFormValues {
+export interface QuestionFormValues {
+	id?: string;
 	wording: string;
 	secondaryWording?: string;
 }

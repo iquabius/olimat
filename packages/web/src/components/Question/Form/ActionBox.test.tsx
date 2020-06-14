@@ -6,8 +6,10 @@ import ActionBox from './ActionBox';
 
 jest.mock('next/router');
 
+// All of these are testing implementation details, maybe we should remove them.
 describe('<QuestionFormActionBox />', () => {
 	test('renders a cancel button', () => {
+		// @ts-ignore
 		const { getByTestId } = render(<ActionBox formikProps={{}} />);
 
 		const cancelButton = getByTestId('cancel-button');
@@ -15,6 +17,7 @@ describe('<QuestionFormActionBox />', () => {
 	});
 
 	test('renders a save button', () => {
+		// @ts-ignore
 		const { getByTestId } = render(<ActionBox formikProps={{}} />);
 
 		const saveButton = getByTestId('save-button');
@@ -24,6 +27,7 @@ describe('<QuestionFormActionBox />', () => {
 
 	test('shows warning dialog if canceling with unsaved data', () => {
 		const formikProps = { dirty: true };
+		// @ts-ignore
 		const { getByText } = render(<ActionBox formikProps={formikProps} />);
 
 		const cancelButton = getByText('Cancelar');
@@ -38,6 +42,7 @@ describe('<QuestionFormActionBox />', () => {
 			dirty: false,
 			values: { id: 'question-id-123' },
 		};
+		// @ts-ignore
 		const { getByText } = render(<ActionBox formikProps={formikProps} />);
 
 		const cancelButton = getByText('Cancelar');

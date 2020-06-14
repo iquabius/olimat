@@ -7,9 +7,10 @@ import {
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { withFormik } from 'formik';
-import gql from 'graphql-tag';
+import { gql, MutationFunction } from '@apollo/client';
 import React, { FocusEventHandler, FormEventHandler } from 'react';
-import { compose, graphql, MutationFn } from 'react-apollo';
+import { graphql } from '@apollo/react-hoc';
+import { compose } from 'recompose';
 
 import { allOlympiadsQuery } from '.';
 
@@ -23,17 +24,20 @@ interface FormValues {
 	year: string;
 }
 
-interface Props {
+interface InnerProps {
 	handleBlur: FocusEventHandler;
 	handleChange: FormEventHandler;
 	handleSubmit: FormEventHandler;
 	isSubmitting: boolean;
-	onClose: () => void;
-	open: boolean;
 	values: FormValues;
 }
 
-const OlympiadAddDialog: React.FunctionComponent<Props> = ({
+interface OuterProps {
+	onClose: () => void;
+	open: boolean;
+}
+
+const OlympiadAddDialog: React.FunctionComponent<InnerProps & OuterProps> = ({
 	open,
 	onClose,
 	handleSubmit,
@@ -105,11 +109,11 @@ interface Data {
 }
 
 interface OlympiadFormProps {
-	newOlympiad: MutationFn<Data>;
-	onClose: Props['onClose'];
+	newOlympiad: MutationFunction<Data>;
+	onClose: OuterProps['onClose'];
 }
 
-export default compose(
+export default compose<InnerProps, OuterProps>(
 	graphql(newOlympiadMutation, {
 		// Use an unambiguous name for use in the `props` section below
 		name: 'newOlympiad',

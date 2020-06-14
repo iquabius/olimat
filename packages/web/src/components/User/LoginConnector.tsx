@@ -1,15 +1,8 @@
-import ApolloClient from 'apollo-client';
 import cookie from 'cookie';
-import gql from 'graphql-tag';
+import { ApolloClient, gql, FetchResult } from '@apollo/client';
 import { FormEventHandler } from 'react';
-import {
-	compose,
-	FetchResult,
-	graphql,
-	MutationFn,
-	NamedProps,
-	withApollo,
-} from 'react-apollo';
+import { graphql, withApollo } from '@apollo/react-hoc';
+import { compose } from 'recompose';
 import redirect from '@olimat/web/utils/redirect';
 
 export const loginMutation = gql`
@@ -49,17 +42,12 @@ export default compose(
 	// withApollo exposes `this.props.client` used when logging out
 	withApollo,
 	graphql<InputProps, Response, Variables, {}>(loginMutation, {
-		// Use an unambiguous name for use in the `props` section below
-		name: 'signinWithEmail',
 		// Apollo's way of injecting new props which are passed to the component
 		props: ({
-			signinWithEmail,
+			mutate,
 			// `client` is provided by the `withApollo` HOC
 			ownProps: { client },
-		}: NamedProps<
-			{ signinWithEmail: MutationFn<Response, Variables> },
-			InputProps
-		>) => ({
+		}) => ({
 			// `handleSignIn` is the name of the prop passed to the component
 			handleSignIn: event => {
 				/* global FormData */
@@ -69,7 +57,7 @@ export default compose(
 				event.preventDefault();
 				event.stopPropagation();
 
-				signinWithEmail({
+				mutate({
 					variables: {
 						email: data.get('email').toString(),
 						password: data.get('password').toString(),

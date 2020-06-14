@@ -1,8 +1,12 @@
-import { NormalizedCacheObject } from 'apollo-cache-inmemory';
-import ApolloClient from 'apollo-client';
+import {
+	ApolloClient,
+	ApolloProvider,
+	NormalizedCacheObject,
+} from '@apollo/client';
 import Head from 'next/head';
 import React from 'react';
-import { ApolloProvider, getDataFromTree } from 'react-apollo';
+import { getDataFromTree } from '@apollo/react-ssr';
+import { ApolloProvider as ApolloProviderHoc } from '@apollo/react-hoc';
 
 import { parseCookies } from './helpers';
 import initApollo from './initApollo';
@@ -48,14 +52,17 @@ export default App => {
 				try {
 					// Run all GraphQL queries
 					const app = (
-						<ApolloProvider client={apollo}>
-							<App
-								{...appProps}
-								Component={Component}
-								router={router}
-								apolloClient={apollo}
-							/>
-						</ApolloProvider>
+						// @ts-ignore
+						<ApolloProviderHoc client={apollo}>
+							<ApolloProvider client={apollo}>
+								<App
+									{...appProps}
+									Component={Component}
+									router={router}
+									apolloClient={apollo}
+								/>
+							</ApolloProvider>
+						</ApolloProviderHoc>
 					);
 					await getDataFromTree(app);
 				} catch (error) {
@@ -94,9 +101,12 @@ export default App => {
 
 		render() {
 			return (
-				<ApolloProvider client={this.apolloClient}>
-					<App {...this.props} />
-				</ApolloProvider>
+				// @ts-ignore
+				<ApolloProviderHoc client={this.apolloClient}>
+					<ApolloProvider client={this.apolloClient}>
+						<App {...this.props} />
+					</ApolloProvider>
+				</ApolloProviderHoc>
 			);
 		}
 	};
