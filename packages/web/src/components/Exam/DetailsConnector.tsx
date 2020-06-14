@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 import React from 'react';
-import { Query } from 'react-apollo';
+import { Query } from '@apollo/react-components';
 
 import ErrorMessage from '../ErrorMessage';
 import { Question } from '../Question/DetailsConnector';

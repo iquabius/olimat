@@ -15,8 +15,8 @@ import Toolbar from '@material-ui/core/Toolbar';
 import EditIcon from '@material-ui/icons/Edit';
 import gql from 'graphql-tag';
 import React from 'react';
-import { compose, Query } from 'react-apollo';
-import { withState } from 'recompose';
+import { Query } from '@apollo/react-components';
+import { withState, compose } from 'recompose';
 
 import AddDialog from './AddDialog';
 import DeleteItemButton from './DeleteItemButton';

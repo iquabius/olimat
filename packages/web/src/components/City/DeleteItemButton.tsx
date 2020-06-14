@@ -12,7 +12,7 @@ import { Formik } from 'formik';
 import gql from 'graphql-tag';
 import { InjectedNotistackProps, withSnackbar } from 'notistack';
 import React from 'react';
-import { Mutation } from 'react-apollo';
+import { Mutation } from '@apollo/react-components';
 import { withState } from 'recompose';
 import compose from 'recompose/compose';
 

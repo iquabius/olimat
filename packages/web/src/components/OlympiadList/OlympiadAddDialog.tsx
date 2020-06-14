@@ -9,7 +9,9 @@ import TextField from '@material-ui/core/TextField';
 import { withFormik } from 'formik';
 import gql from 'graphql-tag';
 import React, { FocusEventHandler, FormEventHandler } from 'react';
-import { compose, graphql, MutationFn } from 'react-apollo';
+import { graphql } from '@apollo/react-hoc';
+import { compose } from 'recompose';
+import { MutationFunction } from '@apollo/client';
 
 import { allOlympiadsQuery } from '.';
 
@@ -105,7 +107,7 @@ interface Data {
 }
 
 interface OlympiadFormProps {
-	newOlympiad: MutationFn<Data>;
+	newOlympiad: MutationFunction<Data>;
 	onClose: Props['onClose'];
 }
 

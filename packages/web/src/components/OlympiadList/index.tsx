@@ -14,7 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import gql from 'graphql-tag';
 import React from 'react';
-import { DataProps, graphql } from 'react-apollo';
+import { DataProps, graphql } from '@apollo/react-hoc';
 import { compose, withState } from 'recompose';
 
 import OlympiadAddDialog, { Olympiad } from './OlympiadAddDialog';

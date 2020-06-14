@@ -9,7 +9,9 @@ import TextField from '@material-ui/core/TextField';
 import { withFormik } from 'formik';
 import gql from 'graphql-tag';
 import React, { FormEventHandler } from 'react';
-import { compose, graphql, MutationFn } from 'react-apollo';
+import { graphql } from '@apollo/react-hoc';
+import { compose } from 'recompose';
+import { MutationFunction } from '@apollo/client';
 
 import { allSchoolsQuery, City } from '.';
 
@@ -136,7 +138,7 @@ interface SchoolFormValues {
 }
 
 interface SchoolFormProps {
-	newSchool: MutationFn;
+	newSchool: MutationFunction;
 	onClose: Props['onClose'];
 }
 

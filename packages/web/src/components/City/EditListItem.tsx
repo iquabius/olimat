@@ -13,7 +13,7 @@ import SaveIcon from '@material-ui/icons/Save';
 import { Formik } from 'formik';
 import gql from 'graphql-tag';
 import React, { MouseEventHandler } from 'react';
-import { Mutation } from 'react-apollo';
+import { Mutation } from '@apollo/react-components';
 
 import { allCitiesQuery } from './List';
 

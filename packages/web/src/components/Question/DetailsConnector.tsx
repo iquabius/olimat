@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Mutation, Query } from 'react-apollo';
+import { Mutation, Query } from '@apollo/react-components';
 
 import ErrorMessage from '../ErrorMessage';
 

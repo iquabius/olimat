@@ -2,8 +2,7 @@ import { Button, createStyles, Theme, withStyles } from '@material-ui/core';
 import Router from 'next/router';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { compose } from 'react-apollo';
-import { withState } from 'recompose';
+import { compose, withState } from 'recompose';
 
 import CancelDialog from '../CancelDialog';
 

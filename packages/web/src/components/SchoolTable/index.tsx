@@ -14,7 +14,8 @@ import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
 import gql from 'graphql-tag';
 import React from 'react';
-import { compose, graphql } from 'react-apollo';
+import { graphql } from '@apollo/react-hoc';
+import { compose } from 'recompose';
 
 import EnhancedTableHead from './EnhancedTableHead';
 import EnhancedTableToolbar from './EnhancedTableToolbar';
@@ -47,6 +48,7 @@ interface School {
 }
 interface Props extends WithStyles<typeof styles> {
 	data: {
+		loading: boolean;
 		schools: School[];
 	};
 }
@@ -144,6 +146,8 @@ class SchoolTable extends React.Component<Props, State> {
 	render() {
 		const { classes } = this.props;
 		const { order, orderBy, selected, rowsPerPage, page } = this.state;
+		if (this.props.data.loading) return <p>Carregando escolas...</p>;
+
 		const schools = this.props.data.schools
 			.slice()
 			.sort((a, b) => (a.name.toUpperCase() < b.name.toUpperCase() ? -1 : 1));
