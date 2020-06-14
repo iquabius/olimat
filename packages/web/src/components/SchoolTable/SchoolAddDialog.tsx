@@ -15,17 +15,20 @@ import { MutationFunction } from '@apollo/client';
 
 import { allSchoolsQuery, City } from '.';
 
-interface Props {
+interface InnerProps {
 	handleBlur: FormEventHandler;
 	handleChange: FormEventHandler;
 	handleSubmit: FormEventHandler;
 	isSubmitting: boolean;
-	onClose: () => void;
-	open: boolean;
 	values: SchoolFormValues;
 }
 
-const SchoolAddDialog: React.FunctionComponent<Props> = ({
+interface OuterProps {
+	onClose: () => void;
+	open: boolean;
+}
+
+const SchoolAddDialog: React.FunctionComponent<InnerProps & OuterProps> = ({
 	open,
 	onClose,
 	handleSubmit,
@@ -139,10 +142,10 @@ interface SchoolFormValues {
 
 interface SchoolFormProps {
 	newSchool: MutationFunction;
-	onClose: Props['onClose'];
+	onClose: OuterProps['onClose'];
 }
 
-export default compose(
+export default compose<InnerProps, OuterProps>(
 	graphql(newSchoolMutation, {
 		// Use an unambiguous name for use in the `props` section below
 		name: 'newSchool',

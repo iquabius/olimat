@@ -1,10 +1,12 @@
 import { Button, createStyles, Theme, withStyles } from '@material-ui/core';
 import Router from 'next/router';
-import PropTypes from 'prop-types';
 import React from 'react';
 import { compose, withState } from 'recompose';
 
+import { WithStyles } from '@material-ui/styles';
+import { FormikProps } from 'formik';
 import CancelDialog from '../CancelDialog';
+import { QuestionFormValues } from '.';
 
 const styles = (theme: Theme) =>
 	createStyles({
@@ -43,7 +45,16 @@ const createCancelEditingHandler = (formikProps, showWarning) => () => {
 	Router.push(`/admin/questao?id=${formikProps.values.id}`);
 };
 
-const QuestionFormActionBox = ({
+interface InnerProps extends WithStyles<typeof styles> {
+	warningDialogOpen: boolean;
+	setWarningDialogOpen: (isOpen: boolean) => void;
+}
+
+interface OuterProps {
+	formikProps: FormikProps<QuestionFormValues>;
+}
+
+const QuestionFormActionBox: React.FC<InnerProps & OuterProps> = ({
 	classes,
 	formikProps,
 	setWarningDialogOpen,
@@ -81,14 +92,7 @@ const QuestionFormActionBox = ({
 	</div>
 );
 
-QuestionFormActionBox.propTypes = {
-	classes: PropTypes.object.isRequired,
-	formikProps: PropTypes.object.isRequired,
-	setWarningDialogOpen: PropTypes.func.isRequired,
-	warningDialogOpen: PropTypes.bool.isRequired,
-};
-
-export default compose(
+export default compose<InnerProps, OuterProps>(
 	withState('warningDialogOpen', 'setWarningDialogOpen', false),
 	withStyles(styles),
 )(QuestionFormActionBox);

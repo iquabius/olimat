@@ -25,17 +25,20 @@ interface FormValues {
 	year: string;
 }
 
-interface Props {
+interface InnerProps {
 	handleBlur: FocusEventHandler;
 	handleChange: FormEventHandler;
 	handleSubmit: FormEventHandler;
 	isSubmitting: boolean;
-	onClose: () => void;
-	open: boolean;
 	values: FormValues;
 }
 
-const OlympiadAddDialog: React.FunctionComponent<Props> = ({
+interface OuterProps {
+	onClose: () => void;
+	open: boolean;
+}
+
+const OlympiadAddDialog: React.FunctionComponent<InnerProps & OuterProps> = ({
 	open,
 	onClose,
 	handleSubmit,
@@ -108,10 +111,10 @@ interface Data {
 
 interface OlympiadFormProps {
 	newOlympiad: MutationFunction<Data>;
-	onClose: Props['onClose'];
+	onClose: OuterProps['onClose'];
 }
 
-export default compose(
+export default compose<InnerProps, OuterProps>(
 	graphql(newOlympiadMutation, {
 		// Use an unambiguous name for use in the `props` section below
 		name: 'newOlympiad',
