@@ -20,8 +20,7 @@ import Typography from '@material-ui/core/Typography';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import React, { FormEventHandler } from 'react';
-import { compose } from 'react-apollo';
-import { fromRenderProps } from 'recompose';
+import { compose, fromRenderProps } from 'recompose';
 
 import Link from '../Link';
 
