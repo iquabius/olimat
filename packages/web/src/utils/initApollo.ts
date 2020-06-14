@@ -1,9 +1,12 @@
-import { InMemoryCache, NormalizedCacheObject } from 'apollo-cache-inmemory';
-import { ApolloClient } from 'apollo-client';
-import { ApolloLink } from 'apollo-link';
-import { setContext } from 'apollo-link-context';
-import { onError } from 'apollo-link-error';
-import { createHttpLink } from 'apollo-link-http';
+import {
+	InMemoryCache,
+	NormalizedCacheObject,
+	ApolloClient,
+	ApolloLink,
+	createHttpLink,
+} from '@apollo/client';
+import { setContext } from '@apollo/link-context';
+import { onError } from '@apollo/link-error';
 import fetch from 'isomorphic-unfetch';
 
 let apolloClient = null;
