@@ -66,7 +66,7 @@ const FakeDataProvider = props => {
 FakeDataProvider.propTypes = {
 	/**
 	 * Used to render any component that uses a <Query/> or <Mutation/>
-	 * from 'react-apollo'.
+	 * from '@apollo/react-components'.
 	 * The component is wrapped by <ApolloProvider/>, with a mocked ApolloClient.
 	 */
 	children: PropTypes.node.isRequired,
