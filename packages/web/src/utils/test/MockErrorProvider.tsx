@@ -1,9 +1,12 @@
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import ApolloClient from 'apollo-client';
-import { ApolloLink, Observable } from 'apollo-link';
+import {
+	InMemoryCache,
+	ApolloClient,
+	ApolloLink,
+	Observable,
+} from '@apollo/client';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { ApolloProvider } from 'react-apollo';
+import { ApolloProvider } from '@apollo/react-components';
 
 const MockErrorProvider = ({ children, graphqlErrors }) => {
 	const defaultError = 'Unspecified error from MockErrorProvider.';
@@ -16,6 +19,8 @@ const MockErrorProvider = ({ children, graphqlErrors }) => {
 	const link = new ApolloLink(operation => {
 		return new Observable(observer => {
 			observer.next({
+				// Wait until we remove @apollo/react-hoc and @apollo/react-components
+				// @ts-ignore
 				errors:
 					graphqlErrors && graphqlErrors.length > 0
 						? graphqlErrors
@@ -30,6 +35,8 @@ const MockErrorProvider = ({ children, graphqlErrors }) => {
 		cache: new InMemoryCache(),
 	});
 
+	// Wait until we remove @apollo/react-hoc and @apollo/react-components
+	// @ts-ignore
 	return <ApolloProvider client={client}>{children}</ApolloProvider>;
 };
 

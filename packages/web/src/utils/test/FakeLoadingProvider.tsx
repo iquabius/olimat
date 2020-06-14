@@ -3,7 +3,7 @@
 // import { ApolloLink, Observable } from 'apollo-link';
 // import ApolloClient from 'apollo-client';
 // import { InMemoryCache } from 'apollo-cache-inmemory';
-// import { ApolloProvider } from 'react-apollo';
+// import { ApolloProvider } from '@apollo/react-components';
 
 // const FakeLoadingProvider = ({ children }) => {
 //   const client = new ApolloClient({

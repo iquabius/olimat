@@ -1,5 +1,5 @@
 import React from 'react';
-import { MockedProvider, MockedProviderProps } from 'react-apollo/test-utils';
+import { MockedProvider, MockedProviderProps } from '@apollo/react-testing';
 import { render } from 'react-testing-library';
 
 interface RenderApolloOptions {

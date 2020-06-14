@@ -55,6 +55,8 @@
     "yup": "0.28.1"
   },
   "devDependencies": {
+    "@apollo/link-schema": "^2.0.0-beta.3",
+    "@apollo/react-testing": "^3.1.4",
     "@types/classnames": "2.2.10",
     "@types/cookie": "0.3.3",
     "@types/next": "7.0.9",
