@@ -1,6 +1,5 @@
-import ApolloClient from 'apollo-client';
 import cookie from 'cookie';
-import { gql, FetchResult } from '@apollo/client';
+import { ApolloClient, gql, FetchResult } from '@apollo/client';
 import { FormEventHandler } from 'react';
 import { graphql, withApollo } from '@apollo/react-hoc';
 import { compose } from 'recompose';
