@@ -61,115 +61,116 @@ interface State {
 	showPassword: boolean;
 }
 
-class LoginForm extends React.Component<InnerProps & OuterProps, State> {
-	state = {
+const LoginForm: React.FC<InnerProps & OuterProps> = props => {
+	const [state, setState] = React.useState<State>({
 		password: '',
 		showPassword: false,
 		keepLoggedIn: false,
+	});
+
+	const handleChange = prop => event => {
+		// https://reactjs.org/docs/events.html#event-pooling
+		event.persist();
+		setState(state => ({ ...state, [prop]: event.target.value } as any));
 	};
 
-	handleChange = prop => event => {
-		this.setState({ [prop]: event.target.value } as any);
-	};
-
-	handleMouseDownPassword = event => {
+	const handleMouseDownPassword = event => {
 		event.preventDefault();
 	};
 
-	handleClickShowPasssword = () => {
-		this.setState(state => ({
+	const handleClickShowPasssword = () => {
+		setState(state => ({
+			...state,
 			showPassword: !state.showPassword,
 		}));
 	};
 
-	handleCheckbox = event => {
-		this.setState({ keepLoggedIn: event.target.checked });
+	const handleCheckbox = event => {
+		setState(state => ({ ...state, keepLoggedIn: event.target.checked }));
 	};
 
-	render() {
-		const { classes, handleSignIn } = this.props;
-		const showPasswordAdornment = (
-			<InputAdornment position="end">
-				<IconButton
-					style={{ width: 'auto' }}
-					onClick={this.handleClickShowPasssword}
-					onMouseDown={this.handleMouseDownPassword}
-				>
-					{this.state.showPassword ? <VisibilityOff /> : <Visibility />}
-				</IconButton>
-			</InputAdornment>
-		);
-		const keepLoggedInSwitch = (
-			<Switch
-				checked={this.state.keepLoggedIn}
-				onChange={this.handleCheckbox}
-				value="keepLoggedIn"
-				color="primary"
-			/>
-		);
+	const { classes, handleSignIn } = props;
+	const showPasswordAdornment = (
+		<InputAdornment position="end">
+			<IconButton
+				style={{ width: 'auto' }}
+				onClick={handleClickShowPasssword}
+				onMouseDown={handleMouseDownPassword}
+			>
+				{state.showPassword ? <VisibilityOff /> : <Visibility />}
+			</IconButton>
+		</InputAdornment>
+	);
+	const keepLoggedInSwitch = (
+		<Switch
+			checked={state.keepLoggedIn}
+			onChange={handleCheckbox}
+			value="keepLoggedIn"
+			color="primary"
+		/>
+	);
 
-		return (
-			<Paper className={classes.loginBox}>
-				<Typography className={classes.loginHead} variant="h5">
-					Acesse sua Conta
-				</Typography>
-				<Divider />
-				<form onSubmit={handleSignIn}>
-					<TextField
-						id="email"
-						name="email"
-						label="Email"
-						margin="normal"
-						fullWidth
-						onChange={this.handleChange('email')}
+	return (
+		<Paper className={classes.loginBox}>
+			<Typography className={classes.loginHead} variant="h5">
+				Acesse sua Conta
+			</Typography>
+			<Divider />
+			<form onSubmit={handleSignIn}>
+				<TextField
+					id="email"
+					name="email"
+					label="Email"
+					margin="normal"
+					fullWidth
+					onChange={handleChange('email')}
+				/>
+				<FormControl fullWidth margin="normal">
+					<InputLabel htmlFor="password">Senha</InputLabel>
+					<Input
+						id="password"
+						name="password"
+						inputProps={{ className: classes.passwordInput }}
+						type={state.showPassword ? 'text' : 'password'}
+						value={state.password}
+						onChange={handleChange('password')}
+						endAdornment={showPasswordAdornment}
 					/>
-					<FormControl fullWidth margin="normal">
-						<InputLabel htmlFor="password">Senha</InputLabel>
-						<Input
-							id="password"
-							name="password"
-							inputProps={{ className: classes.passwordInput }}
-							type={this.state.showPassword ? 'text' : 'password'}
-							value={this.state.password}
-							onChange={this.handleChange('password')}
-							endAdornment={showPasswordAdornment}
-						/>
-					</FormControl>
-					<FormGroup row>
-						<FormControlLabel
-							control={keepLoggedInSwitch}
-							label="Manter acesso"
-						/>
-					</FormGroup>
-					{/* <Typography variant="caption">
+				</FormControl>
+				<FormGroup row>
+					<FormControlLabel
+						control={keepLoggedInSwitch}
+						label="Manter acesso"
+					/>
+				</FormGroup>
+				{/* <Typography variant="caption">
             <Link href="#">Esqueceu a senha?</Link>
           </Typography> */}
-					<Button
-						aria-label="Entrar"
-						className={classes.loginButton}
-						fullWidth
-						variant="contained"
-						color="secondary"
-						size="large"
-						type="submit"
-					>
-						Entrar
-					</Button>
-				</form>
-				<Typography
-					className={classes.helpMessage}
-					variant="caption"
-					align="center"
+				<Button
+					aria-label="Entrar"
+					className={classes.loginButton}
+					fullWidth
+					variant="contained"
+					color="secondary"
+					size="large"
+					type="submit"
 				>
-					Ainda não tem uma conta?{' '}
-					<Link variant="primary" href="/criar_conta">
-						Crie a sua aqui.
-					</Link>
-				</Typography>
-			</Paper>
-		);
-	}
-}
+					Entrar
+				</Button>
+			</form>
+			<Typography
+				className={classes.helpMessage}
+				variant="caption"
+				align="center"
+			>
+				Ainda não tem uma conta?{' '}
+				<Link variant="primary" href="/criar_conta">
+					Crie a sua aqui.
+				</Link>
+			</Typography>
+		</Paper>
+	);
+};
 
 interface RenderProps {
 	handleSignIn: LoginConnectorProps['handleSignIn'];

@@ -53,62 +53,56 @@ const questionInitialValues = {
 	],
 };
 
-class QuestionCreateForm extends React.Component<InjectedNotistackProps> {
-	state = {
+const QuestionCreateForm: React.FC<InjectedNotistackProps> = props => {
+	const [state, setState] = React.useState({
 		warningDialogOpen: false,
+	});
+
+	const handleClose = () => {
+		setState({ warningDialogOpen: false });
 	};
 
-	handleClickOpen = () => {
-		this.setState({ warningDialogOpen: true });
-	};
-
-	handleClose = () => {
-		this.setState({ warningDialogOpen: false });
-	};
-
-	createBackToListHandler = isDirty => () => {
+	const createBackToListHandler = isDirty => () => {
 		// If the user entered any input, show a warning dialog to confirm
 		// before discarding the draft.
 		if (isDirty) {
-			this.setState({ warningDialogOpen: true });
+			setState({ warningDialogOpen: true });
 			return;
 		}
 		Router.push('/admin/questoes');
 	};
 
-	render() {
-		const { enqueueSnackbar } = this.props;
-		const { warningDialogOpen } = this.state;
-		return (
-			<CreateConnector>
-				{({ createQuestion }) => (
-					<QuestionForm
-						initialValues={questionInitialValues}
-						onSubmit={createHandleSubmit(createQuestion, enqueueSnackbar)}
-					>
-						{({ form, isDirty }) => (
-							<React.Fragment>
-								<FAButton
-									onClick={this.createBackToListHandler(isDirty)}
-									aria-label="Voltar pra lista de questões"
-								>
-									<ArrowBackIcon />
-								</FAButton>
-								<CancelDialog
-									open={warningDialogOpen}
-									onCancel={this.handleClose}
-									onContinue={() => {
-										Router.push('/admin/questoes');
-									}}
-								/>
-								{form}
-							</React.Fragment>
-						)}
-					</QuestionForm>
-				)}
-			</CreateConnector>
-		);
-	}
-}
+	const { enqueueSnackbar } = props;
+	const { warningDialogOpen } = state;
+	return (
+		<CreateConnector>
+			{({ createQuestion }) => (
+				<QuestionForm
+					initialValues={questionInitialValues}
+					onSubmit={createHandleSubmit(createQuestion, enqueueSnackbar)}
+				>
+					{({ form, isDirty }) => (
+						<React.Fragment>
+							<FAButton
+								onClick={createBackToListHandler(isDirty)}
+								aria-label="Voltar pra lista de questões"
+							>
+								<ArrowBackIcon />
+							</FAButton>
+							<CancelDialog
+								open={warningDialogOpen}
+								onCancel={handleClose}
+								onContinue={() => {
+									Router.push('/admin/questoes');
+								}}
+							/>
+							{form}
+						</React.Fragment>
+					)}
+				</QuestionForm>
+			)}
+		</CreateConnector>
+	);
+};
 
 export default withSnackbar(QuestionCreateForm);

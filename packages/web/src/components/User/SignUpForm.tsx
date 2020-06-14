@@ -52,109 +52,104 @@ interface Props extends WithStyles<typeof styles> {
 	handleCreateUser: FormEventHandler;
 }
 
-class SignUpForm extends React.Component<Props> {
-	state = {
+const SignUpForm: React.FC<Props> = props => {
+	const [state, setState] = React.useState({
 		password: '',
 		showPassword: false,
+	});
+
+	const handleChange = prop => event => {
+		event.persist();
+		setState(state => ({ ...state, [prop]: event.target.value }));
 	};
 
-	handleChange = prop => event => {
-		this.setState({ [prop]: event.target.value });
-	};
-
-	handleMouseDownPassword = event => {
+	const handleMouseDownPassword = event => {
 		event.preventDefault();
 	};
 
-	handleClickShowPasssword = () => {
-		this.setState({ showPassword: !this.state.showPassword });
+	const handleClickShowPasssword = () => {
+		setState(state => ({ ...state, showPassword: !state.showPassword }));
 	};
 
-	render() {
-		const { classes } = this.props;
-		return (
-			<Paper className={classes.signUpBox}>
-				<Typography className={classes.signUpHead} variant="h5">
-					Crie uma conta!
-				</Typography>
-				<Divider />
-				<form onSubmit={this.props.handleCreateUser}>
-					<TextField
-						id="name"
-						name="name"
-						label="Nome"
-						margin="normal"
-						fullWidth
-						onChange={this.handleChange('name')}
+	const { classes } = props;
+	return (
+		<Paper className={classes.signUpBox}>
+			<Typography className={classes.signUpHead} variant="h5">
+				Crie uma conta!
+			</Typography>
+			<Divider />
+			<form onSubmit={props.handleCreateUser}>
+				<TextField
+					id="name"
+					name="name"
+					label="Nome"
+					margin="normal"
+					fullWidth
+					onChange={handleChange('name')}
+				/>
+				<TextField
+					id="email"
+					name="email"
+					label="Email"
+					margin="normal"
+					fullWidth
+					onChange={handleChange('email')}
+				/>
+				<TextField
+					id="confirmEmail"
+					name="confirmEmail"
+					label="Confirmar email"
+					margin="normal"
+					fullWidth
+					onChange={handleChange('confirmEmail')}
+				/>
+				<FormControl fullWidth margin="normal">
+					<InputLabel htmlFor="password">Senha</InputLabel>
+					<Input
+						id="password"
+						name="password"
+						inputProps={{ className: classes.passwordInput }}
+						type={state.showPassword ? 'text' : 'password'}
+						value={state.password}
+						onChange={handleChange('password')}
+						endAdornment={
+							<InputAdornment position="end">
+								<IconButton
+									style={{ width: 'auto' }}
+									onClick={handleClickShowPasssword}
+									onMouseDown={handleMouseDownPassword}
+								>
+									{state.showPassword ? <VisibilityOff /> : <Visibility />}
+								</IconButton>
+							</InputAdornment>
+						}
 					/>
-					<TextField
-						id="email"
-						name="email"
-						label="Email"
-						margin="normal"
-						fullWidth
-						onChange={this.handleChange('email')}
-					/>
-					<TextField
-						id="confirmEmail"
-						name="confirmEmail"
-						label="Confirmar email"
-						margin="normal"
-						fullWidth
-						onChange={this.handleChange('confirmEmail')}
-					/>
-					<FormControl fullWidth margin="normal">
-						<InputLabel htmlFor="password">Senha</InputLabel>
-						<Input
-							id="password"
-							name="password"
-							inputProps={{ className: classes.passwordInput }}
-							type={this.state.showPassword ? 'text' : 'password'}
-							value={this.state.password}
-							onChange={this.handleChange('password')}
-							endAdornment={
-								<InputAdornment position="end">
-									<IconButton
-										style={{ width: 'auto' }}
-										onClick={this.handleClickShowPasssword}
-										onMouseDown={this.handleMouseDownPassword}
-									>
-										{this.state.showPassword ? (
-											<VisibilityOff />
-										) : (
-											<Visibility />
-										)}
-									</IconButton>
-								</InputAdornment>
-							}
-						/>
-					</FormControl>
-					<Button
-						aria-label="Criar conta"
-						className={classes.signUpButton}
-						fullWidth
-						variant="contained"
-						color="secondary"
-						size="large"
-						type="submit"
-					>
-						Criar conta
-					</Button>
-				</form>
-				<Typography
-					className={classes.helpMessage}
-					variant="caption"
-					align="center"
+				</FormControl>
+				<Button
+					aria-label="Criar conta"
+					className={classes.signUpButton}
+					fullWidth
+					variant="contained"
+					color="secondary"
+					size="large"
+					type="submit"
 				>
-					Já possui uma conta?{' '}
-					<Link variant="primary" href="/login">
-						Faça login aqui.
-					</Link>
-				</Typography>
-			</Paper>
-		);
-	}
-}
+					Criar conta
+				</Button>
+			</form>
+			<Typography
+				className={classes.helpMessage}
+				variant="caption"
+				align="center"
+			>
+				Já possui uma conta?{' '}
+				<Link variant="primary" href="/login">
+					Faça login aqui.
+				</Link>
+			</Typography>
+		</Paper>
+	);
+};
 
 interface Response {
 	signup: {
