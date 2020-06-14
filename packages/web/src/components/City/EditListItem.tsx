@@ -11,7 +11,7 @@ import TextField from '@material-ui/core/TextField';
 import CloseIcon from '@material-ui/icons/Close';
 import SaveIcon from '@material-ui/icons/Save';
 import { Formik } from 'formik';
-import gql from 'graphql-tag';
+import { gql } from '@apollo/client';
 import React, { MouseEventHandler } from 'react';
 import { Mutation } from '@apollo/react-components';
 

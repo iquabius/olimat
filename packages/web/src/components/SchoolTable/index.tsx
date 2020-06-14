@@ -12,7 +12,7 @@ import {
 import Checkbox from '@material-ui/core/Checkbox';
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
-import gql from 'graphql-tag';
+import { gql } from '@apollo/client';
 import React from 'react';
 import { graphql } from '@apollo/react-hoc';
 import { compose } from 'recompose';

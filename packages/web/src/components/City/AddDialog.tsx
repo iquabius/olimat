@@ -7,7 +7,7 @@ import {
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { Formik } from 'formik';
-import gql from 'graphql-tag';
+import { gql } from '@apollo/client';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Mutation } from '@apollo/react-components';

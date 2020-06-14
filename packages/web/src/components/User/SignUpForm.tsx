@@ -18,11 +18,10 @@ import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import ApolloClient from 'apollo-client';
 import cookie from 'cookie';
-import gql from 'graphql-tag';
+import { gql, FetchResult } from '@apollo/client';
 import React, { FormEventHandler } from 'react';
 import { graphql, withApollo } from '@apollo/react-hoc';
 import { compose } from 'recompose';
-import { FetchResult } from '@apollo/client';
 
 import redirect from '@olimat/web/utils/redirect';
 import Link from '../Link';

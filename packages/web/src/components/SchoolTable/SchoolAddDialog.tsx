@@ -7,11 +7,10 @@ import {
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { withFormik } from 'formik';
-import gql from 'graphql-tag';
+import { gql, MutationFunction } from '@apollo/client';
 import React, { FormEventHandler } from 'react';
 import { graphql } from '@apollo/react-hoc';
 import { compose } from 'recompose';
-import { MutationFunction } from '@apollo/client';
 
 import { allSchoolsQuery, City } from '.';
 

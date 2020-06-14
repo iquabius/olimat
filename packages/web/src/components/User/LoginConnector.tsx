@@ -1,10 +1,9 @@
 import ApolloClient from 'apollo-client';
 import cookie from 'cookie';
-import gql from 'graphql-tag';
+import { gql, FetchResult } from '@apollo/client';
 import { FormEventHandler } from 'react';
 import { graphql, withApollo } from '@apollo/react-hoc';
 import { compose } from 'recompose';
-import { FetchResult } from '@apollo/client';
 import redirect from '@olimat/web/utils/redirect';
 
 export const loginMutation = gql`

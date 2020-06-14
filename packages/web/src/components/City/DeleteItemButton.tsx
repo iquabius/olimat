@@ -9,7 +9,7 @@ import {
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { Formik } from 'formik';
-import gql from 'graphql-tag';
+import { gql } from '@apollo/client';
 import { InjectedNotistackProps, withSnackbar } from 'notistack';
 import React from 'react';
 import { Mutation } from '@apollo/react-components';

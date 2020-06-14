@@ -1,8 +1,7 @@
-import gql from 'graphql-tag';
+import { gql, MutationFunction } from '@apollo/client';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Mutation } from '@apollo/react-components';
-import { MutationFunction } from '@apollo/client';
 
 import { questionsConnectionQuery } from './ListConnector';
 
