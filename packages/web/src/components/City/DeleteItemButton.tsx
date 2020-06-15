@@ -9,10 +9,9 @@ import {
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { Formik } from 'formik';
-import { gql } from '@apollo/client';
+import { gql, useMutation } from '@apollo/client';
 import { InjectedNotistackProps, withSnackbar } from 'notistack';
 import React from 'react';
-import { Mutation } from '@apollo/react-components';
 import { withState } from 'recompose';
 import compose from 'recompose/compose';
 
@@ -76,59 +75,59 @@ interface OuterProps {
 // TODO: While deleting the edit button should also be disabled
 const CityDeleteItemButton: React.FunctionComponent<
 	InnerProps & OuterProps
-> = ({ city, deleteWarningOpen, enqueueSnackbar, setDeleteWarningOpen }) => (
-	<Mutation mutation={deleteCityMutation} update={updateCache}>
-		{deleteCity => (
-			<Formik
-				initialValues={{ id: '' }}
-				onSubmit={openDeleteWarningDialog(setDeleteWarningOpen)}
-			>
-				{({ handleSubmit, isSubmitting, setSubmitting }) => (
-					// Maybe the wrapping element should de a <form/>
-					// We set IconButton type to 'submit'
-					<React.Fragment>
-						<form onSubmit={handleSubmit} style={{ display: 'inline' }}>
-							<IconButton
-								disabled={isSubmitting}
-								type="submit"
-								aria-label="Excluir cidade"
-							>
-								<DeleteIcon />
-							</IconButton>
-						</form>
-						<Dialog
-							open={deleteWarningOpen}
-							onClose={onCancelDelete(setDeleteWarningOpen, setSubmitting)}
-							aria-labelledby="alert-dialog-title"
-							aria-describedby="alert-dialog-description"
+> = ({ city, deleteWarningOpen, enqueueSnackbar, setDeleteWarningOpen }) => {
+	const [deleteCity] = useMutation(deleteCityMutation, { update: updateCache });
+
+	return (
+		<Formik
+			initialValues={{ id: '' }}
+			onSubmit={openDeleteWarningDialog(setDeleteWarningOpen)}
+		>
+			{({ handleSubmit, isSubmitting, setSubmitting }) => (
+				// Maybe the wrapping element should de a <form/>
+				// We set IconButton type to 'submit'
+				<React.Fragment>
+					<form onSubmit={handleSubmit} style={{ display: 'inline' }}>
+						<IconButton
+							disabled={isSubmitting}
+							type="submit"
+							aria-label="Excluir cidade"
 						>
-							<DialogTitle id="alert-dialog-title">{`Excluir ${city.name}?`}</DialogTitle>
-							<DialogContent>
-								<DialogContentText id="alert-dialog-description">
-									{`A cidade de ${city.name} será apagada permanentemente.`}
-								</DialogContentText>
-							</DialogContent>
-							<DialogActions>
-								<Button
-									onClick={onCancelDelete(setDeleteWarningOpen, setSubmitting)}
-									color="secondary"
-								>
-									Cancelar
-								</Button>
-								<Button
-									onClick={onSubmitDelete(deleteCity, city, enqueueSnackbar)}
-									color="secondary"
-								>
-									Excluir
-								</Button>
-							</DialogActions>
-						</Dialog>
-					</React.Fragment>
-				)}
-			</Formik>
-		)}
-	</Mutation>
-);
+							<DeleteIcon />
+						</IconButton>
+					</form>
+					<Dialog
+						open={deleteWarningOpen}
+						onClose={onCancelDelete(setDeleteWarningOpen, setSubmitting)}
+						aria-labelledby="alert-dialog-title"
+						aria-describedby="alert-dialog-description"
+					>
+						<DialogTitle id="alert-dialog-title">{`Excluir ${city.name}?`}</DialogTitle>
+						<DialogContent>
+							<DialogContentText id="alert-dialog-description">
+								{`A cidade de ${city.name} será apagada permanentemente.`}
+							</DialogContentText>
+						</DialogContent>
+						<DialogActions>
+							<Button
+								onClick={onCancelDelete(setDeleteWarningOpen, setSubmitting)}
+								color="secondary"
+							>
+								Cancelar
+							</Button>
+							<Button
+								onClick={onSubmitDelete(deleteCity, city, enqueueSnackbar)}
+								color="secondary"
+							>
+								Excluir
+							</Button>
+						</DialogActions>
+					</Dialog>
+				</React.Fragment>
+			)}
+		</Formik>
+	);
+};
 
 export default compose<InnerProps, OuterProps>(
 	withSnackbar,
