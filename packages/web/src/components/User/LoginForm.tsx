@@ -19,12 +19,11 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import React, { FormEventHandler } from 'react';
-import { compose, fromRenderProps } from 'recompose';
+import React from 'react';
 
 import Link from '../Link';
 
-import LoginConnector, { LoginConnectorProps } from './LoginConnector';
+import { useLoginHandler } from './LoginConnector';
 
 const styles = (theme: Theme) =>
 	createStyles({
@@ -49,11 +48,7 @@ const styles = (theme: Theme) =>
 		},
 	});
 
-interface InnerProps {
-	handleSignIn: FormEventHandler;
-}
-
-interface OuterProps extends WithStyles<typeof styles> {}
+interface Props extends WithStyles<typeof styles> {}
 
 interface State {
 	keepLoggedIn: boolean;
@@ -61,7 +56,7 @@ interface State {
 	showPassword: boolean;
 }
 
-const LoginForm: React.FC<InnerProps & OuterProps> = props => {
+const LoginForm: React.FC<Props> = props => {
 	const [state, setState] = React.useState<State>({
 		password: '',
 		showPassword: false,
@@ -89,7 +84,8 @@ const LoginForm: React.FC<InnerProps & OuterProps> = props => {
 		setState(state => ({ ...state, keepLoggedIn: event.target.checked }));
 	};
 
-	const { classes, handleSignIn } = props;
+	const { classes } = props;
+	const handleSignIn = useLoginHandler();
 	const showPasswordAdornment = (
 		<InputAdornment position="end">
 			<IconButton
@@ -172,16 +168,4 @@ const LoginForm: React.FC<InnerProps & OuterProps> = props => {
 	);
 };
 
-interface RenderProps {
-	handleSignIn: LoginConnectorProps['handleSignIn'];
-}
-
-const loginConnector = fromRenderProps<InnerProps, OuterProps, RenderProps>(
-	LoginConnector,
-	({ handleSignIn }) => ({ handleSignIn }),
-);
-
-export default compose(
-	loginConnector,
-	withStyles(styles),
-)(LoginForm);
+export default withStyles(styles)(LoginForm);

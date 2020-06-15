@@ -11,19 +11,13 @@ export const loginMutation = gql`
 	}
 `;
 
-export interface LoginConnectorProps {
-	children: (connectorProps: { handleSignIn: FormEventHandler }) => JSX.Element;
-}
-
-const LoginConnector: React.FunctionComponent<LoginConnectorProps> = ({
-	children,
-}) => {
+export const useLoginHandler = () => {
 	const [tryToLogin, {}] = useMutation<Response, Variables>(loginMutation);
 	const client = useApolloClient();
 
-	const handleSignIn: FormEventHandler = event => {
+	const handleSignIn: FormEventHandler<HTMLFormElement> = event => {
 		/* global FormData */
-		const data = new FormData(event.target as HTMLFormElement);
+		const data = new FormData(event.currentTarget);
 
 		event.preventDefault();
 		event.stopPropagation();
@@ -54,7 +48,7 @@ const LoginConnector: React.FunctionComponent<LoginConnectorProps> = ({
 			});
 	};
 
-	return children({ handleSignIn });
+	return handleSignIn;
 };
 
 interface Response {
@@ -67,5 +61,3 @@ interface Variables {
 	email: string;
 	password: string;
 }
-
-export default LoginConnector;
