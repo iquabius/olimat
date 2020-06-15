@@ -1,7 +1,6 @@
-import { gql } from '@apollo/client';
+import { gql, useQuery } from '@apollo/client';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Query } from '@apollo/react-components';
 
 import ErrorMessage from '../ErrorMessage';
 
@@ -14,19 +13,15 @@ export const allExams = gql`
 	}
 `;
 
-const ExamListConnector = ({ children }) => (
-	<Query query={allExams}>
-		{({ data, error, loading }) => {
-			if (error)
-				return (
-					<ErrorMessage message={`Error loading exams (${error.message})`} />
-				);
-			if (loading) return <div>Loading</div>;
+const ExamListConnector = ({ children }) => {
+	const { data, error, loading } = useQuery(allExams);
 
-			return children({ exams: data.exams });
-		}}
-	</Query>
-);
+	if (error)
+		return <ErrorMessage message={`Error loading exams (${error.message})`} />;
+	if (loading) return <div>Loading</div>;
+
+	return children({ exams: data.exams });
+};
 
 ExamListConnector.propTypes = {
 	children: PropTypes.func.isRequired,
