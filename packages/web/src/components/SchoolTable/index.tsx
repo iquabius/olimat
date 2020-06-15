@@ -12,10 +12,8 @@ import {
 import Checkbox from '@material-ui/core/Checkbox';
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
-import { gql } from '@apollo/client';
+import { gql, useQuery } from '@apollo/client';
 import React from 'react';
-import { graphql } from '@apollo/react-hoc';
-import { compose } from 'recompose';
 
 import EnhancedTableHead from './EnhancedTableHead';
 import EnhancedTableToolbar from './EnhancedTableToolbar';
@@ -46,12 +44,7 @@ interface School {
 	city: City;
 	phone: string;
 }
-interface Props extends WithStyles<typeof styles> {
-	data: {
-		loading: boolean;
-		schools: School[];
-	};
-}
+interface Props extends WithStyles<typeof styles> {}
 
 type SchoolTableOrder = 'asc' | 'desc';
 
@@ -141,9 +134,10 @@ const SchoolTable: React.FC<Props> = props => {
 
 	const { classes } = props;
 	const { order, orderBy, selected, rowsPerPage, page } = state;
-	if (props.data.loading) return <p>Carregando escolas...</p>;
+	const { data, loading } = useQuery<{ schools: School[] }>(allSchoolsQuery);
+	if (loading) return <p>Carregando escolas...</p>;
 
-	const schools = props.data.schools
+	const schools = data.schools
 		.slice()
 		.sort((a, b) => (a.name.toUpperCase() < b.name.toUpperCase() ? -1 : 1));
 	const emptyRows =
@@ -237,7 +231,4 @@ export const allSchoolsQuery = gql`
 	}
 `;
 
-export default compose(
-	graphql(allSchoolsQuery),
-	withStyles(styles),
-)(SchoolTable);
+export default withStyles(styles)(SchoolTable);
