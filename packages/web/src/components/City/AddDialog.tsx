@@ -7,10 +7,9 @@ import {
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { Formik } from 'formik';
-import { gql } from '@apollo/client';
+import { gql, useMutation } from '@apollo/client';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Mutation } from '@apollo/react-components';
 
 import { allCitiesQuery } from './List';
 
@@ -46,51 +45,45 @@ const updateCache = (proxy, { data: { createCity } }) => {
 	proxy.writeQuery({ query: allCitiesQuery, data: { cities } });
 };
 
-const AddDialog = ({ open, onClose }) => (
-	<Mutation mutation={newCityMutation} update={updateCache}>
-		{(newCity, { data }) => (
-			<Formik
-				initialValues={{ name: '' }}
-				onSubmit={onSubmitCity(newCity, onClose)}
-			>
-				{({ handleSubmit, handleChange, handleBlur, isSubmitting, values }) => (
-					<Dialog
-						open={open}
-						onClose={onClose}
-						aria-labelledby="city-add-dialog"
-					>
-						<DialogTitle id="city-add-dialog">Adicione uma cidade</DialogTitle>
-						<form onSubmit={handleSubmit}>
-							<DialogContent>
-								<TextField
-									name="name"
-									margin="dense"
-									label="Nome"
-									fullWidth
-									value={values.name}
-									onChange={handleChange}
-									onBlur={handleBlur}
-								/>
-							</DialogContent>
-							<DialogActions>
-								<Button
-									disabled={isSubmitting}
-									onClick={onClose}
-									color="primary"
-								>
-									Cancelar
-								</Button>
-								<Button disabled={isSubmitting} type="submit" color="primary">
-									Adicionar
-								</Button>
-							</DialogActions>
-						</form>
-					</Dialog>
-				)}
-			</Formik>
-		)}
-	</Mutation>
-);
+const AddDialog = ({ open, onClose }) => {
+	const [newCity, { data }] = useMutation(newCityMutation, {
+		update: updateCache,
+	});
+
+	return (
+		<Formik
+			initialValues={{ name: '' }}
+			onSubmit={onSubmitCity(newCity, onClose)}
+		>
+			{({ handleSubmit, handleChange, handleBlur, isSubmitting, values }) => (
+				<Dialog open={open} onClose={onClose} aria-labelledby="city-add-dialog">
+					<DialogTitle id="city-add-dialog">Adicione uma cidade</DialogTitle>
+					<form onSubmit={handleSubmit}>
+						<DialogContent>
+							<TextField
+								name="name"
+								margin="dense"
+								label="Nome"
+								fullWidth
+								value={values.name}
+								onChange={handleChange}
+								onBlur={handleBlur}
+							/>
+						</DialogContent>
+						<DialogActions>
+							<Button disabled={isSubmitting} onClick={onClose} color="primary">
+								Cancelar
+							</Button>
+							<Button disabled={isSubmitting} type="submit" color="primary">
+								Adicionar
+							</Button>
+						</DialogActions>
+					</form>
+				</Dialog>
+			)}
+		</Formik>
+	);
+};
 
 AddDialog.propTypes = {
 	onClose: PropTypes.func.isRequired,
