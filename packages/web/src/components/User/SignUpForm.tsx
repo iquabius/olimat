@@ -17,10 +17,8 @@ import Typography from '@material-ui/core/Typography';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import cookie from 'cookie';
-import { ApolloClient, gql, FetchResult } from '@apollo/client';
+import { gql, FetchResult, useMutation, useApolloClient } from '@apollo/client';
 import React, { FormEventHandler } from 'react';
-import { graphql, withApollo } from '@apollo/react-hoc';
-import { compose } from 'recompose';
 
 import redirect from '@olimat/web/utils/redirect';
 import Link from '../Link';
@@ -48,15 +46,57 @@ const styles = (theme: Theme) =>
 		},
 	});
 
-interface Props extends WithStyles<typeof styles> {
-	handleCreateUser: FormEventHandler;
-}
+interface Props extends WithStyles<typeof styles> {}
+
+const signUpMutation = gql`
+	mutation signUpMutation($name: String!, $email: String!, $password: String!) {
+		signup(name: $name, email: $email, password: $password) {
+			token
+		}
+	}
+`;
 
 const SignUpForm: React.FC<Props> = props => {
 	const [state, setState] = React.useState({
 		password: '',
 		showPassword: false,
 	});
+
+	const [tryToSignUp, {}] = useMutation<Response, Variables>(signUpMutation);
+	const client = useApolloClient();
+	const handleCreateUser: FormEventHandler<HTMLFormElement> = event => {
+		/* global FormData */
+		const data = new FormData(event.currentTarget);
+
+		event.preventDefault();
+		event.stopPropagation();
+
+		tryToSignUp({
+			variables: {
+				email: data.get('email').toString(),
+				password: data.get('password').toString(),
+				name: data.get('name').toString(),
+			},
+		})
+			.then(({ data: { signup: { token } } }: FetchResult<Response>) => {
+				// Store the token in cookie
+				document.cookie = cookie.serialize('token', token, {
+					maxAge: 30 * 24 * 60 * 60, // 30 days
+				});
+
+				// Force a reload of all the current queries now that the user is
+				// logged in
+				client.resetStore().then(() => {
+					// Now redirect to the homepage
+					redirect({}, '/');
+				});
+			})
+			.catch(error => {
+				// Something went wrong, such as incorrect password, or no network
+				// available, etc.
+				console.error(error);
+			});
+	};
 
 	const handleChange = prop => event => {
 		event.persist();
@@ -78,7 +118,7 @@ const SignUpForm: React.FC<Props> = props => {
 				Crie uma conta!
 			</Typography>
 			<Divider />
-			<form onSubmit={props.handleCreateUser}>
+			<form onSubmit={handleCreateUser}>
 				<TextField
 					id="name"
 					name="name"
@@ -163,64 +203,4 @@ interface Variables {
 	password: string;
 }
 
-interface InputProps {
-	client: ApolloClient<any>;
-}
-
-export default compose(
-	withStyles(styles),
-	// withApollo exposes `this.props.client` used when logging out
-	withApollo,
-	graphql<InputProps, Response, Variables, {}>(
-		gql`
-			mutation Create($name: String!, $email: String!, $password: String!) {
-				signup(name: $name, email: $email, password: $password) {
-					token
-				}
-			}
-		`,
-		{
-			// Apollo's way of injecting new props which are passed to the component
-			props: ({
-				mutate,
-				// `client` is provided by the `withApollo` HOC
-				ownProps: { client },
-			}) => ({
-				// `handleCreateUser` is the name of the prop passed to the component
-				handleCreateUser: event => {
-					/* global FormData */
-					const data = new FormData(event.target);
-
-					event.preventDefault();
-					event.stopPropagation();
-
-					mutate({
-						variables: {
-							email: data.get('email').toString(),
-							password: data.get('password').toString(),
-							name: data.get('name').toString(),
-						},
-					})
-						.then(({ data: { signup: { token } } }: FetchResult<Response>) => {
-							// Store the token in cookie
-							document.cookie = cookie.serialize('token', token, {
-								maxAge: 30 * 24 * 60 * 60, // 30 days
-							});
-
-							// Force a reload of all the current queries now that the user is
-							// logged in
-							client.resetStore().then(() => {
-								// Now redirect to the homepage
-								redirect({}, '/');
-							});
-						})
-						.catch(error => {
-							// Something went wrong, such as incorrect password, or no network
-							// available, etc.
-							console.error(error);
-						});
-				},
-			}),
-		},
-	),
-)(SignUpForm);
+export default withStyles(styles)(SignUpForm);
