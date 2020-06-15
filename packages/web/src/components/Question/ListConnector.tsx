@@ -1,7 +1,6 @@
-import { gql } from '@apollo/client';
+import { gql, useQuery } from '@apollo/client';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Query } from '@apollo/react-components';
 import { withState, compose } from 'recompose';
 
 export const questionsConnectionQuery = gql`
@@ -56,38 +55,37 @@ const ListConnector = ({
 	loadingMore,
 	setHasMore,
 	setLoadingMore,
-}) => (
-	<Query query={questionsConnectionQuery}>
-		{({ data, error, fetchMore, loading }) => {
-			if (loading) return <p>Carregando questões...</p>;
-			if (error) return <p>{`Erro ao carregar questões: ${error}`}</p>;
+}) => {
+	const { data, error, fetchMore, loading } = useQuery(
+		questionsConnectionQuery,
+	);
+	if (loading) return <p>Carregando questões...</p>;
+	if (error) return <p>{`Erro ao carregar questões: ${error}`}</p>;
 
-			const questions = data.questionsConnection.edges.map(questionEdgeToNode);
+	const questions = data.questionsConnection.edges.map(questionEdgeToNode);
 
-			const loadMoreHandler = async () => {
-				setLoadingMore(true);
-				// A função fetchMore() do Apollo Client retorna Promise<ApolloQueryResult>
-				const result = await fetchMore({
-					variables: {
-						cursor: data.questionsConnection.pageInfo.endCursor,
-					},
-					updateQuery,
-				});
-				setHasMore(result.data.questionsConnection.pageInfo.hasNextPage);
-				setLoadingMore(false);
-				return result;
-			};
+	const loadMoreHandler = async () => {
+		setLoadingMore(true);
+		// A função fetchMore() do Apollo Client retorna Promise<ApolloQueryResult>
+		const result = await fetchMore({
+			variables: {
+				cursor: data.questionsConnection.pageInfo.endCursor,
+			},
+			updateQuery,
+		});
+		setHasMore(result.data.questionsConnection.pageInfo.hasNextPage);
+		setLoadingMore(false);
+		return result;
+	};
 
-			return children({
-				// Move this logic to responseToFormValues() maybe?
-				questions,
-				loadingMore,
-				hasMore,
-				loadMoreHandler,
-			});
-		}}
-	</Query>
-);
+	return children({
+		// Move this logic to responseToFormValues() maybe?
+		questions,
+		loadingMore,
+		hasMore,
+		loadMoreHandler,
+	});
+};
 
 ListConnector.propTypes = {
 	children: PropTypes.func.isRequired,
