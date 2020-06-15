@@ -25,7 +25,7 @@ function create(initialState, { getToken }) {
 				),
 			);
 		}
-		if (networkError) console.log(`[Network error]: ${networkError.message}`);
+		if (networkError) console.log(`[Network error]: `, networkError);
 	});
 
 	const httpLink = createHttpLink({
