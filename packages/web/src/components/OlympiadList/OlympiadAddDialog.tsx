@@ -132,9 +132,9 @@ const handleSubmitOlympiad = ({ newOlympiad, onClose }: OlympiadFormProps) => (
 			const data = proxy.readQuery<{ olympiads: Olympiad[] }>({
 				query: allOlympiadsQuery,
 			});
-			data.olympiads.push(createOlympiad);
+			const olympiads = [...data.olympiads, createOlympiad];
 
-			proxy.writeQuery({ query: allOlympiadsQuery, data });
+			proxy.writeQuery({ query: allOlympiadsQuery, data: { olympiads } });
 		},
 	})
 		.then(response => {
