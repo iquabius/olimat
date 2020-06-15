@@ -6,7 +6,6 @@ import {
 import Head from 'next/head';
 import React from 'react';
 import { getDataFromTree } from '@apollo/react-ssr';
-import { ApolloProvider as ApolloProviderLegacy } from '@apollo/react-components';
 
 import { parseCookies } from './helpers';
 import initApollo from './initApollo';
@@ -65,17 +64,14 @@ export default App => {
 				try {
 					// Run all GraphQL queries
 					const app = (
-						// @ts-ignore
-						<ApolloProviderLegacy client={apollo}>
-							<ApolloProvider client={apollo}>
-								<App
-									{...appProps}
-									Component={Component}
-									router={router}
-									apolloClient={apollo}
-								/>
-							</ApolloProvider>
-						</ApolloProviderLegacy>
+						<ApolloProvider client={apollo}>
+							<App
+								{...appProps}
+								Component={Component}
+								router={router}
+								apolloClient={apollo}
+							/>
+						</ApolloProvider>
 					);
 					await getDataFromTree(app);
 				} catch (error) {
@@ -116,12 +112,9 @@ export default App => {
 
 		render() {
 			return (
-				// @ts-ignore
-				<ApolloProviderLegacy client={this.apolloClient}>
-					<ApolloProvider client={this.apolloClient}>
-						<App {...this.props} />
-					</ApolloProvider>
-				</ApolloProviderLegacy>
+				<ApolloProvider client={this.apolloClient}>
+					<App {...this.props} />
+				</ApolloProvider>
 			);
 		}
 	};
