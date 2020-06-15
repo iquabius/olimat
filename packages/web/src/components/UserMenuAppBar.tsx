@@ -4,15 +4,16 @@ import IconButton from '@material-ui/core/IconButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import cookie from 'cookie';
 import React from 'react';
-import { withApollo, WithApolloClient } from '@apollo/react-hoc';
+import { useApolloClient } from '@apollo/client';
 
 import redirect from '../utils/redirect';
 
 import Link from './Link';
 import PageContext from './PageContext';
 
-const UserMenuAppBar: React.FC<WithApolloClient<{}>> = props => {
+const UserMenuAppBar: React.FC = props => {
 	const [state, setState] = React.useState({ anchorEl: null });
+	const client = useApolloClient();
 
 	const handleMenu = event => {
 		setState({ anchorEl: event.currentTarget });
@@ -29,7 +30,7 @@ const UserMenuAppBar: React.FC<WithApolloClient<{}>> = props => {
 
 		// Force a reload of all the current queries now that the user is
 		// logged out, so we don't accidentally leave any state around.
-		props.client.cache.reset().then(() => {
+		client.cache.reset().then(() => {
 			// Redirect to a more useful page when signed out
 			redirect({}, '/login');
 		});
@@ -88,5 +89,4 @@ const UserMenuAppBar: React.FC<WithApolloClient<{}>> = props => {
 	);
 };
 
-// https://github.com/apollographql/react-apollo/issues/1759
-export default withApollo<{}, {}>(UserMenuAppBar);
+export default UserMenuAppBar;
