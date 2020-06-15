@@ -1,7 +1,6 @@
-import { gql, MutationFunction } from '@apollo/client';
+import { gql, MutationFunction, useMutation } from '@apollo/client';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Mutation } from '@apollo/react-components';
 
 import { questionsConnectionQuery } from './ListConnector';
 
@@ -23,14 +22,11 @@ interface DeleteConnectorProps {
 const DeleteConnector: React.FunctionComponent<DeleteConnectorProps> = ({
 	children,
 }) => {
-	return (
-		<Mutation
-			mutation={deleteQuestionMutation}
-			refetchQueries={[{ query: questionsConnectionQuery }]}
-		>
-			{deleteQuestion => children(deleteQuestion)}
-		</Mutation>
-	);
+	const [deleteQuestion] = useMutation(deleteQuestionMutation, {
+		refetchQueries: [{ query: questionsConnectionQuery }],
+	});
+
+	return children(deleteQuestion);
 };
 
 DeleteConnector.propTypes = {
