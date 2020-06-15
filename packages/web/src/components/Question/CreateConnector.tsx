@@ -1,7 +1,5 @@
-import { gql } from '@apollo/client';
+import { gql, useMutation } from '@apollo/client';
 import PropTypes from 'prop-types';
-import React from 'react';
-import { Mutation } from '@apollo/react-components';
 
 import { questionsConnectionQuery } from './ListConnector';
 
@@ -22,14 +20,13 @@ export const newQuestionMutation = gql`
 	}
 `;
 
-const CreateConnector = ({ children }) => (
-	<Mutation
-		mutation={newQuestionMutation}
-		refetchQueries={[{ query: questionsConnectionQuery }]}
-	>
-		{createQuestion => children({ createQuestion })}
-	</Mutation>
-);
+const CreateConnector = ({ children }) => {
+	const [createQuestion, {}] = useMutation(newQuestionMutation, {
+		refetchQueries: [{ query: questionsConnectionQuery }],
+	});
+
+	return children({ createQuestion });
+};
 
 CreateConnector.propTypes = {
 	children: PropTypes.func.isRequired,
