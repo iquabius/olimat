@@ -1,7 +1,7 @@
 // Este arquivo só é usado no servidor, pra testes.
 // Podemos importar dependências de desenvolvimento.
 // Talvez não funcione num ambiente de Integração Contínua (CI).
-import { InMemoryCache, ApolloClient } from '@apollo/client';
+import { InMemoryCache, ApolloClient, ApolloProvider } from '@apollo/client';
 import { SchemaLink } from '@apollo/link-schema';
 import faker from 'faker/locale/pt_BR';
 import {
@@ -11,7 +11,6 @@ import {
 } from 'graphql-tools';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { ApolloProvider } from '@apollo/react-components';
 import { typeDefs } from '@olimat/api';
 
 import mergeResolvers from './mergeResolvers';
@@ -56,17 +55,13 @@ const FakeDataProvider = props => {
 		cache: new InMemoryCache(),
 	});
 
-	return (
-		// Wait until we remove @apollo/react-hoc and @apollo/react-components
-		// @ts-ignore
-		<ApolloProvider client={client}>{children}</ApolloProvider>
-	);
+	return <ApolloProvider client={client}>{children}</ApolloProvider>;
 };
 
 FakeDataProvider.propTypes = {
 	/**
-	 * Used to render any component that uses a <Query/> or <Mutation/>
-	 * from '@apollo/react-components'.
+	 * Used to render any component that useQuery() or useMutation()
+	 * from '@apollo/client'.
 	 * The component is wrapped by <ApolloProvider/>, with a mocked ApolloClient.
 	 */
 	children: PropTypes.node.isRequired,
