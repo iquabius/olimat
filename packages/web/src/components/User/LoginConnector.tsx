@@ -1,8 +1,6 @@
 import cookie from 'cookie';
-import { ApolloClient, gql, FetchResult, useMutation } from '@apollo/client';
+import { gql, FetchResult, useMutation, useApolloClient } from '@apollo/client';
 import { FormEventHandler } from 'react';
-import { withApollo } from '@apollo/react-hoc';
-import { compose } from 'recompose';
 import redirect from '@olimat/web/utils/redirect';
 
 export const loginMutation = gql`
@@ -15,14 +13,13 @@ export const loginMutation = gql`
 
 export interface LoginConnectorProps {
 	children: (connectorProps: { handleSignIn: FormEventHandler }) => JSX.Element;
-	client: ApolloClient<any>;
 }
 
 const LoginConnector: React.FunctionComponent<LoginConnectorProps> = ({
 	children,
-	client,
 }) => {
 	const [tryToLogin, {}] = useMutation<Response, Variables>(loginMutation);
+	const client = useApolloClient();
 
 	const handleSignIn: FormEventHandler = event => {
 		/* global FormData */
@@ -49,7 +46,6 @@ const LoginConnector: React.FunctionComponent<LoginConnectorProps> = ({
 					// Now redirect to the homepage
 					redirect({}, '/');
 				});
-				console.log('Successful login!');
 			})
 			.catch(error => {
 				// Something went wrong, such as incorrect password, or no network
@@ -72,7 +68,4 @@ interface Variables {
 	password: string;
 }
 
-export default compose(
-	// withApollo exposes `client` prop used when logging out
-	withApollo,
-)(LoginConnector);
+export default LoginConnector;
