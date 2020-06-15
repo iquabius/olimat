@@ -46,7 +46,7 @@ const updateCache = (proxy, { data: { createCity } }) => {
 };
 
 const AddDialog = ({ open, onClose }) => {
-	const [newCity, { data }] = useMutation(newCityMutation, {
+	const [newCity] = useMutation(newCityMutation, {
 		update: updateCache,
 	});
 
