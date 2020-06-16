@@ -25,6 +25,8 @@ export interface WithDataProps {
  * https://github.com/apollographql/react-apollo/issues/3678#issuecomment-579359439
  * DONE: This is getting the data and sending it through __NEXT_DATA__, but the
  * HTML is still being rendered with the loading state on SSR.
+ * The problem may be that `loading` is still true after the `data` is fetched:
+ * https://github.com/apollographql/react-apollo/issues/3678#issuecomment-630075090.
  *
  * Or try getMarkupFromTree:
  * https://github.com/apollographql/react-apollo/issues/3251#issuecomment-513223453
