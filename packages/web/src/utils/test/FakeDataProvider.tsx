@@ -4,6 +4,10 @@
  * schema." Read more in the article:
  * https://medium.freecodecamp.org/a-new-approach-to-mocking-graphql-data-1ef49de3d491
  *
+ * This approach is not working with MockedProvider from Apollo Client 3.0. If
+ * it's not fixed by the time v3 is stable we should remove MockedProvider
+ * altogether set up FakeLoadingProvider.
+ *
  * This was introduced in the following commit:
  * https://github.com/iquabius/olimat/commit/a74150a773e964f0c5d321ad9e62fdd04b152f41
  */

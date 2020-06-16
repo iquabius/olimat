@@ -20,7 +20,7 @@ const MockExamDetails = () => (
 // https://stackoverflow.com/questions/44204828
 
 describe('<ExamDetails />', () => {
-	test('renders loading state initially', () => {
+	test.skip('renders loading state initially', () => {
 		const { getByText } = renderApollo(<MockExamDetails />);
 		getByText(/loading/i);
 	});
@@ -29,6 +29,7 @@ describe('<ExamDetails />', () => {
 		const customResolvers = {
 			// We need to update the GraphQL API as well
 			Exam: () => ({
+				// id: 'theExamId1',
 				title: '2017 - Fase 3 - Ano 5',
 			}),
 		};
