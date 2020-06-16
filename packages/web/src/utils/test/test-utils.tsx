@@ -17,12 +17,13 @@ interface RenderOptions {
 
 /**
  * This version of MockedProvider is not playing well with FakeDataProvider
-	and MockErrorProvider that uses Stripe approach to mocking:
-	https://medium.freecodecamp.org/a-new-approach-to-mocking-graphql-data-1ef49de3d491
-
-	Running the tests in isolation work, but running them together gives the
-	error: "No more mocked responses for the query":
-	https://github.com/apollographql/react-apollo/issues/4018
+ * and MockErrorProvider that uses Stripe's approach to mocking:
+ * https://medium.freecodecamp.org/a-new-approach-to-mocking-graphql-data-1ef49de3d491
+ *
+ * Running the tests in isolation works, but running them together gives the
+ * error: "No more mocked responses for the query":
+ * https://github.com/apollographql/react-apollo/issues/4018
+ *
  * @param node Component to render
  * @param options MockedProvider options
  */

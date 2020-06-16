@@ -19,6 +19,7 @@ const MockErrorProvider = ({ children, graphqlErrors }) => {
 	const link = new ApolloLink(operation => {
 		return new Observable(observer => {
 			observer.next({
+				// Wait until @apollo/client v3 is stable
 				// @ts-ignore
 				errors:
 					graphqlErrors && graphqlErrors.length > 0

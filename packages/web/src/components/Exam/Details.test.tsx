@@ -29,7 +29,6 @@ describe('<ExamDetails />', () => {
 		const customResolvers = {
 			// We need to update the GraphQL API as well
 			Exam: () => ({
-				// id: 'theExamId1',
 				title: '2017 - Fase 3 - Ano 5',
 			}),
 		};
