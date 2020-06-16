@@ -7,7 +7,7 @@ import {
 } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Router from 'next/router';
-import { InjectedNotistackProps, withSnackbar } from 'notistack';
+import { ProviderContext, withSnackbar } from 'notistack';
 import React from 'react';
 import { withState } from 'recompose';
 import compose from 'recompose/compose';
@@ -67,7 +67,7 @@ const truncate = (str, noWords) =>
 		.join(' ')
 		.concat(' [...]');
 
-interface InnerProps extends InjectedNotistackProps, WithStyles<typeof styles> {
+interface InnerProps extends ProviderContext, WithStyles<typeof styles> {
 	deleteWarningOpen: boolean;
 	setDeleteWarningOpen: (open: boolean) => void;
 	setSubmitting: (submitting: boolean) => void;
@@ -89,7 +89,6 @@ const SafeDeleteIconButton: React.FunctionComponent<
 	classes,
 	deleteWarningOpen,
 	enqueueSnackbar,
-	onPresentSnackbar, // This is here to avoid spredding it with ...otherProps below
 	question,
 	setDeleteWarningOpen,
 	setSubmitting,

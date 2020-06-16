@@ -10,7 +10,7 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { Formik } from 'formik';
 import { gql, useMutation } from '@apollo/client';
-import { InjectedNotistackProps, withSnackbar } from 'notistack';
+import { ProviderContext, withSnackbar } from 'notistack';
 import React from 'react';
 import { withState } from 'recompose';
 import compose from 'recompose/compose';
@@ -60,7 +60,7 @@ const updateCache = (cache, { data: { deleteCity } }) => {
 	});
 };
 
-interface InnerProps extends InjectedNotistackProps {
+interface InnerProps extends ProviderContext {
 	deleteWarningOpen: boolean;
 	setDeleteWarningOpen: (open: boolean) => void;
 }
