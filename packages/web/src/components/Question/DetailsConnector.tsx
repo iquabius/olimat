@@ -1,7 +1,6 @@
-import { gql } from '@apollo/client';
+import { gql, useQuery, useMutation } from '@apollo/client';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Mutation, Query } from '@apollo/react-components';
 
 import ErrorMessage from '../ErrorMessage';
 
@@ -53,31 +52,26 @@ export interface Question {
 	imageFullUrl?: string;
 }
 
-const QuestionDetailsConnector = ({ children, id }) => (
-	<Query query={questionQuery} variables={{ id }}>
-		{({ data, error, loading }) => (
-			<Mutation mutation={updateQuestionMutation}>
-				{updateQuestion => {
-					if (error) {
-						return (
-							<ErrorMessage
-								message={`Erro ao carregar questão (${error.message})`}
-							/>
-						);
-					}
-					if (loading) return <h1>Carregando questão...</h1>;
-					// TODO: Handle error when the backend is down
+const QuestionDetailsConnector = ({ children, id }) => {
+	const { data, error, loading } = useQuery(questionQuery, {
+		variables: { id },
+	});
+	const [updateQuestion] = useMutation(updateQuestionMutation);
 
-					return children({
-						isLoading: loading,
-						question: data.question,
-						updateQuestion,
-					});
-				}}
-			</Mutation>
-		)}
-	</Query>
-);
+	if (error) {
+		return (
+			<ErrorMessage message={`Erro ao carregar questão (${error.message})`} />
+		);
+	}
+	if (loading) return <h1>Carregando questão...</h1>;
+	// TODO: Handle error when the backend is down
+
+	return children({
+		isLoading: loading,
+		question: data.question,
+		updateQuestion,
+	});
+};
 
 QuestionDetailsConnector.propTypes = {
 	children: PropTypes.func.isRequired,

@@ -13,9 +13,8 @@ import {
 } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import EditIcon from '@material-ui/icons/Edit';
-import { gql } from '@apollo/client';
+import { gql, useQuery } from '@apollo/client';
 import React from 'react';
-import { Query } from '@apollo/react-components';
 import { withState, compose } from 'recompose';
 
 import AddDialog from './AddDialog';
@@ -45,68 +44,54 @@ interface Props extends WithStyles<typeof styles> {
 	setAddDialogOpen: (open: boolean) => void;
 }
 
-class CityList extends React.Component<Props> {
-	state = {
-		editing: null,
-	};
+const CityList: React.FC<Props> = props => {
+	const [editingCityId, setEditingCityId] = React.useState(null);
+	const { loading, error, data } = useQuery(allCitiesQuery);
+	if (loading) return <p>Loading...</p>;
+	if (error) return <p>Error :(</p>;
 
-	render() {
-		const { addDialogOpen, setAddDialogOpen, classes } = this.props;
-		const { editing } = this.state;
-		const handleOpenAddCity = () => setAddDialogOpen(true);
-		const handleCloseAddCity = () => setAddDialogOpen(false);
-		const handleEditCity = id => () => this.setState({ editing: id });
-		const handleCloseEditCity = () => this.setState({ editing: null });
+	const { addDialogOpen, setAddDialogOpen, classes } = props;
+	const handleOpenAddCity = () => setAddDialogOpen(true);
+	const handleCloseAddCity = () => setAddDialogOpen(false);
+	const handleEditCity = id => () => setEditingCityId(id);
+	const handleCloseEditCity = () => setEditingCityId(null);
 
-		return (
-			<Paper className={classes.root}>
-				<Toolbar>
-					<Button
-						onClick={handleOpenAddCity}
-						variant="contained"
-						color="primary"
-					>
-						Adicionar
-					</Button>
-				</Toolbar>
-				<AddDialog open={addDialogOpen} onClose={handleCloseAddCity} />
-				<Query query={allCitiesQuery}>
-					{({ loading, error, data }) => {
-						if (loading) return <p>Loading...</p>;
-						if (error) return <p>Error :(</p>;
-						return (
-							<List>
-								{data.cities.map(({ id, name }) => (
-									<ListItem key={id} role={undefined}>
-										{editing === id ? (
-											<EditListItem
-												handleCloseEdit={handleCloseEditCity}
-												city={{ id, name }}
-											/>
-										) : (
-											<React.Fragment>
-												<ListItemText primary={name} />
-												<ListItemSecondaryAction>
-													<DeleteItemButton city={{ id, name }} />
-													<IconButton
-														onClick={handleEditCity(id)}
-														aria-label="Editar cidade"
-													>
-														<EditIcon />
-													</IconButton>
-												</ListItemSecondaryAction>
-											</React.Fragment>
-										)}
-									</ListItem>
-								))}
-							</List>
-						);
-					}}
-				</Query>
-			</Paper>
-		);
-	}
-}
+	return (
+		<Paper className={classes.root}>
+			<Toolbar>
+				<Button onClick={handleOpenAddCity} variant="contained" color="primary">
+					Adicionar
+				</Button>
+			</Toolbar>
+			<AddDialog open={addDialogOpen} onClose={handleCloseAddCity} />
+			<List>
+				{data.cities.map(({ id, name }) => (
+					<ListItem key={id} role={undefined}>
+						{editingCityId === id ? (
+							<EditListItem
+								handleCloseEdit={handleCloseEditCity}
+								city={{ id, name }}
+							/>
+						) : (
+							<React.Fragment>
+								<ListItemText primary={name} />
+								<ListItemSecondaryAction>
+									<DeleteItemButton city={{ id, name }} />
+									<IconButton
+										onClick={handleEditCity(id)}
+										aria-label="Editar cidade"
+									>
+										<EditIcon />
+									</IconButton>
+								</ListItemSecondaryAction>
+							</React.Fragment>
+						)}
+					</ListItem>
+				))}
+			</List>
+		</Paper>
+	);
+};
 
 export default compose(
 	withState('addDialogOpen', 'setAddDialogOpen', false),

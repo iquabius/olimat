@@ -12,9 +12,8 @@ import { withStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { gql } from '@apollo/client';
+import { gql, useQuery } from '@apollo/client';
 import React from 'react';
-import { DataProps, graphql } from '@apollo/react-hoc';
 import { compose, withState } from 'recompose';
 
 import OlympiadAddDialog, { Olympiad } from './OlympiadAddDialog';
@@ -43,24 +42,21 @@ interface Response {
 	olympiads: Olympiad[];
 }
 
-interface InnerProps extends DataProps<Response>, WithStyles<typeof styles> {
+interface InnerProps extends WithStyles<typeof styles> {
 	addDialogOpen: boolean;
 	setAddDialogOpen: (open: boolean) => void;
 }
 
 const OlympiadList: React.FunctionComponent<InnerProps> = props => {
-	const {
-		addDialogOpen,
-		setAddDialogOpen,
-		classes,
-		data: { loading, olympiads },
-	} = props;
+	const { addDialogOpen, setAddDialogOpen, classes } = props;
+	const { data, loading } = useQuery<Response>(allOlympiadsQuery);
 	const handleOpenAddOlympiad = () => setAddDialogOpen(true);
 	const handleCloseAddOlympiad = () => setAddDialogOpen(false);
 
 	if (loading) {
 		return <div className={classes.root}>Loading</div>;
 	}
+	const { olympiads } = data;
 
 	return (
 		<Paper className={classes.root}>
@@ -118,6 +114,5 @@ export const allOlympiadsQuery = gql`
 
 export default compose<InnerProps, {}>(
 	withState('addDialogOpen', 'setAddDialogOpen', false),
-	graphql(allOlympiadsQuery),
 	withStyles(styles),
 )(OlympiadList);

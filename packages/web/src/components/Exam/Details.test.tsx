@@ -20,7 +20,7 @@ const MockExamDetails = () => (
 // https://stackoverflow.com/questions/44204828
 
 describe('<ExamDetails />', () => {
-	test('renders loading state initially', () => {
+	test.skip('renders loading state initially', () => {
 		const { getByText } = renderApollo(<MockExamDetails />);
 		getByText(/loading/i);
 	});

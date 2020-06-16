@@ -12,10 +12,8 @@ import {
 import Checkbox from '@material-ui/core/Checkbox';
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
-import { gql } from '@apollo/client';
+import { gql, useQuery } from '@apollo/client';
 import React from 'react';
-import { graphql } from '@apollo/react-hoc';
-import { compose } from 'recompose';
 
 import EnhancedTableHead from './EnhancedTableHead';
 import EnhancedTableToolbar from './EnhancedTableToolbar';
@@ -46,12 +44,7 @@ interface School {
 	city: City;
 	phone: string;
 }
-interface Props extends WithStyles<typeof styles> {
-	data: {
-		loading: boolean;
-		schools: School[];
-	};
-}
+interface Props extends WithStyles<typeof styles> {}
 
 type SchoolTableOrder = 'asc' | 'desc';
 
@@ -65,55 +58,51 @@ interface State {
 	rowsPerPage: number;
 }
 
-class SchoolTable extends React.Component<Props, State> {
-	constructor(props, context) {
-		super(props, context);
+const SchoolTable: React.FC<Props> = props => {
+	const [state, setState] = React.useState<State>({
+		addDialogOpen: false,
+		order: 'asc',
+		orderBy: 'name',
+		selected: [],
+		schools: [],
+		page: 0,
+		rowsPerPage: 10,
+	});
 
-		this.state = {
-			addDialogOpen: false,
-			order: 'asc',
-			orderBy: 'name',
-			selected: [],
-			schools: [],
-			page: 0,
-			rowsPerPage: 10,
-		};
-	}
-
-	handleOpenAddSchool = () => {
-		this.setState({ addDialogOpen: true });
+	const handleOpenAddSchool = () => {
+		setState(state => ({ ...state, addDialogOpen: true }));
 	};
 
-	handleCloseAddSchool = () => {
-		this.setState({ addDialogOpen: false });
+	const handleCloseAddSchool = () => {
+		setState(state => ({ ...state, addDialogOpen: false }));
 	};
 
-	handleRequestSort = (event, property) => {
+	const handleRequestSort = (event, property) => {
 		const orderBy = property;
 		let order: SchoolTableOrder = 'desc';
 
-		if (this.state.orderBy === property && this.state.order === 'desc') {
+		if (state.orderBy === property && state.order === 'desc') {
 			order = 'asc';
 		}
 
 		const schools =
 			order === 'desc'
-				? this.state.schools.sort((a, b) => (b[orderBy] < a[orderBy] ? -1 : 1))
-				: this.state.schools.sort((a, b) => (a[orderBy] < b[orderBy] ? -1 : 1));
+				? state.schools.sort((a, b) => (b[orderBy] < a[orderBy] ? -1 : 1))
+				: state.schools.sort((a, b) => (a[orderBy] < b[orderBy] ? -1 : 1));
 
-		this.setState({ schools, order, orderBy });
+		setState(state => ({ ...state, schools, order, orderBy }));
 	};
 
-	handleSelectAllClick = (event, checked) => {
+	const handleSelectAllClick = (event, checked) => {
 		if (checked) {
-			this.setState({ selected: this.state.schools.map(n => n.id) });
+			setState(state => ({ ...state, selected: state.schools.map(n => n.id) }));
 			return;
 		}
-		this.setState({ selected: [] });
+		setState(state => ({ ...state, selected: [] }));
 	};
 
-	handleClick = (event, id) => {
-		const { selected } = this.state;
+	const handleClick = (event, id) => {
+		const { selected } = state;
 		const selectedIndex = selected.indexOf(id);
 		let newSelected = [];
 
@@ -130,105 +119,104 @@ class SchoolTable extends React.Component<Props, State> {
 			);
 		}
 
-		this.setState({ selected: newSelected });
+		setState(state => ({ ...state, selected: newSelected }));
 	};
 
-	handleChangePage = (event, page) => {
-		this.setState({ page });
+	const handleChangePage = (event, page) => {
+		setState(state => ({ ...state, page }));
 	};
 
-	handleChangeRowsPerPage = event => {
-		this.setState({ rowsPerPage: event.target.value });
+	const handleChangeRowsPerPage = event => {
+		setState(state => ({ ...state, rowsPerPage: event.target.value }));
 	};
 
-	isSelected = id => this.state.selected.indexOf(id) !== -1;
+	const isSchoolSelected = id => state.selected.indexOf(id) !== -1;
 
-	render() {
-		const { classes } = this.props;
-		const { order, orderBy, selected, rowsPerPage, page } = this.state;
-		if (this.props.data.loading) return <p>Carregando escolas...</p>;
+	const { classes } = props;
+	const { order, orderBy, selected, rowsPerPage, page } = state;
+	const { data, loading } = useQuery<{ schools: School[] }>(allSchoolsQuery);
+	if (loading) return <p>Carregando escolas...</p>;
 
-		const schools = this.props.data.schools
-			.slice()
-			.sort((a, b) => (a.name.toUpperCase() < b.name.toUpperCase() ? -1 : 1));
-		const emptyRows =
-			rowsPerPage - Math.min(rowsPerPage, schools.length - page * rowsPerPage);
+	const schools = data.schools
+		.slice()
+		.sort((a, b) => (a.name.toUpperCase() < b.name.toUpperCase() ? -1 : 1));
+	const emptyRows =
+		rowsPerPage - Math.min(rowsPerPage, schools.length - page * rowsPerPage);
 
-		return (
-			<Paper className={classes.root}>
-				<EnhancedTableToolbar
-					onOpenAddSchool={this.handleOpenAddSchool}
-					numSelected={selected.length}
-				/>
-				<SchoolAddDialog
-					open={this.state.addDialogOpen}
-					onClose={this.handleCloseAddSchool}
-				/>
-				<div className={classes.tableWrapper}>
-					<Table className={classes.table}>
-						<EnhancedTableHead
-							numSelected={selected.length}
-							order={order}
-							orderBy={orderBy}
-							onSelectAllClick={this.handleSelectAllClick}
-							onRequestSort={this.handleRequestSort}
-							rowCount={schools.length}
-						/>
-						<TableBody>
-							{schools
-								.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-								.map(school => {
-									const isSelected = this.isSelected(school.id);
-									return (
-										<TableRow
-											hover
-											onClick={event => this.handleClick(event, school.id)}
-											role="checkbox"
-											aria-checked={isSelected}
-											tabIndex={-1}
-											key={school.id}
-											selected={isSelected}
-										>
-											<TableCell padding="checkbox">
-												<Checkbox checked={isSelected} />
-											</TableCell>
-											<TableCell padding="none">{school.name}</TableCell>
-											<TableCell>{school.city.name}</TableCell>
-											<TableCell>{school.phone}</TableCell>
-										</TableRow>
-									);
-								})}
-							{emptyRows > 0 && (
-								<TableRow style={{ height: 49 * emptyRows }}>
-									<TableCell colSpan={6} />
-								</TableRow>
-							)}
-						</TableBody>
-						<TableFooter>
-							<TableRow>
-								<TablePagination
-									colSpan={6}
-									count={schools.length}
-									labelRowsPerPage="Linhas por página:"
-									rowsPerPage={rowsPerPage}
-									page={page}
-									backIconButtonProps={{
-										'aria-label': 'Página Anterior',
-									}}
-									nextIconButtonProps={{
-										'aria-label': 'Próxima Página',
-									}}
-									onChangePage={this.handleChangePage}
-									onChangeRowsPerPage={this.handleChangeRowsPerPage}
-								/>
+	return (
+		<Paper className={classes.root}>
+			<EnhancedTableToolbar
+				onOpenAddSchool={handleOpenAddSchool}
+				numSelected={selected.length}
+			/>
+			<SchoolAddDialog
+				open={state.addDialogOpen}
+				onClose={handleCloseAddSchool}
+			/>
+			<div className={classes.tableWrapper}>
+				<Table className={classes.table}>
+					<EnhancedTableHead
+						numSelected={selected.length}
+						order={order}
+						orderBy={orderBy}
+						onSelectAllClick={handleSelectAllClick}
+						onRequestSort={handleRequestSort}
+						rowCount={schools.length}
+					/>
+					<TableBody>
+						{schools
+							.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+							.map(school => {
+								const isSelected = isSchoolSelected(school.id);
+								return (
+									<TableRow
+										hover
+										onClick={event => handleClick(event, school.id)}
+										role="checkbox"
+										aria-checked={isSelected}
+										tabIndex={-1}
+										key={school.id}
+										selected={isSelected}
+									>
+										<TableCell padding="checkbox">
+											<Checkbox checked={isSelected} />
+										</TableCell>
+										<TableCell padding="none">{school.name}</TableCell>
+										<TableCell>{school.city.name}</TableCell>
+										<TableCell>{school.phone}</TableCell>
+									</TableRow>
+								);
+							})}
+						{emptyRows > 0 && (
+							<TableRow style={{ height: 49 * emptyRows }}>
+								<TableCell colSpan={6} />
 							</TableRow>
-						</TableFooter>
-					</Table>
-				</div>
-			</Paper>
-		);
-	}
-}
+						)}
+					</TableBody>
+					<TableFooter>
+						<TableRow>
+							<TablePagination
+								colSpan={6}
+								count={schools.length}
+								labelRowsPerPage="Linhas por página:"
+								rowsPerPage={rowsPerPage}
+								page={page}
+								backIconButtonProps={{
+									'aria-label': 'Página Anterior',
+								}}
+								nextIconButtonProps={{
+									'aria-label': 'Próxima Página',
+								}}
+								onChangePage={handleChangePage}
+								onChangeRowsPerPage={handleChangeRowsPerPage}
+							/>
+						</TableRow>
+					</TableFooter>
+				</Table>
+			</div>
+		</Paper>
+	);
+};
 
 export const allSchoolsQuery = gql`
 	query allSchoolsQuery {
@@ -243,7 +231,4 @@ export const allSchoolsQuery = gql`
 	}
 `;
 
-export default compose(
-	graphql(allSchoolsQuery),
-	withStyles(styles),
-)(SchoolTable);
+export default withStyles(styles)(SchoolTable);

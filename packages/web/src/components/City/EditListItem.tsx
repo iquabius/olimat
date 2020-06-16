@@ -11,9 +11,8 @@ import TextField from '@material-ui/core/TextField';
 import CloseIcon from '@material-ui/icons/Close';
 import SaveIcon from '@material-ui/icons/Save';
 import { Formik } from 'formik';
-import { gql } from '@apollo/client';
+import { gql, useMutation } from '@apollo/client';
 import React, { MouseEventHandler } from 'react';
-import { Mutation } from '@apollo/react-components';
 
 import { allCitiesQuery } from './List';
 
@@ -80,58 +79,50 @@ const EditListItem: React.FunctionComponent<EditListItemProps> = ({
 	handleCloseEdit,
 	classes,
 }) => {
+	const [updateCity] = useMutation(updateCityMutation, { update: updateCache });
+
 	return (
-		<Mutation mutation={updateCityMutation} update={updateCache}>
-			{updateCity => (
-				<Formik
-					initialValues={city}
-					onSubmit={onSubmitEdit(updateCity, handleCloseEdit)}
-				>
-					{({
-						handleSubmit,
-						handleChange,
-						handleBlur,
-						isSubmitting,
-						values,
-					}) => (
-						<form onSubmit={handleSubmit}>
-							<ListItemText>
-								<TextField
-									name="name"
-									id="outlined-bare"
-									className={classes.textField}
-									margin="normal"
-									variant="outlined"
-									inputProps={{
-										className: classes.textFieldInput,
-										autoFocus: true,
-									}}
-									value={values.name}
-									onChange={handleChange}
-									onBlur={handleBlur}
-								/>
-							</ListItemText>
-							<ListItemSecondaryAction>
-								<IconButton
-									type="submit"
-									disabled={isSubmitting}
-									aria-label="Salvar cidade"
-								>
-									<SaveIcon color="primary" />
-								</IconButton>
-								<IconButton
-									onClick={handleCloseEdit}
-									disabled={isSubmitting}
-									aria-label="Cancelar edição"
-								>
-									<CloseIcon />
-								</IconButton>
-							</ListItemSecondaryAction>
-						</form>
-					)}
-				</Formik>
+		<Formik
+			initialValues={city}
+			onSubmit={onSubmitEdit(updateCity, handleCloseEdit)}
+		>
+			{({ handleSubmit, handleChange, handleBlur, isSubmitting, values }) => (
+				<form onSubmit={handleSubmit}>
+					<ListItemText>
+						<TextField
+							name="name"
+							id="outlined-bare"
+							className={classes.textField}
+							margin="normal"
+							variant="outlined"
+							inputProps={{
+								className: classes.textFieldInput,
+								autoFocus: true,
+							}}
+							value={values.name}
+							onChange={handleChange}
+							onBlur={handleBlur}
+						/>
+					</ListItemText>
+					<ListItemSecondaryAction>
+						<IconButton
+							type="submit"
+							disabled={isSubmitting}
+							aria-label="Salvar cidade"
+						>
+							<SaveIcon color="primary" />
+						</IconButton>
+						<IconButton
+							onClick={handleCloseEdit}
+							disabled={isSubmitting}
+							aria-label="Cancelar edição"
+						>
+							<CloseIcon />
+						</IconButton>
+					</ListItemSecondaryAction>
+				</form>
 			)}
-		</Mutation>
+		</Formik>
 	);
 };
 

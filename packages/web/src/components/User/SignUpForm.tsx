@@ -17,10 +17,8 @@ import Typography from '@material-ui/core/Typography';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import cookie from 'cookie';
-import { ApolloClient, gql, FetchResult } from '@apollo/client';
+import { gql, FetchResult, useMutation, useApolloClient } from '@apollo/client';
 import React, { FormEventHandler } from 'react';
-import { graphql, withApollo } from '@apollo/react-hoc';
-import { compose } from 'recompose';
 
 import redirect from '@olimat/web/utils/redirect';
 import Link from '../Link';
@@ -48,113 +46,150 @@ const styles = (theme: Theme) =>
 		},
 	});
 
-interface Props extends WithStyles<typeof styles> {
-	handleCreateUser: FormEventHandler;
-}
+interface Props extends WithStyles<typeof styles> {}
 
-class SignUpForm extends React.Component<Props> {
-	state = {
+const signUpMutation = gql`
+	mutation signUpMutation($name: String!, $email: String!, $password: String!) {
+		signup(name: $name, email: $email, password: $password) {
+			token
+		}
+	}
+`;
+
+const SignUpForm: React.FC<Props> = props => {
+	const [state, setState] = React.useState({
 		password: '',
 		showPassword: false,
+	});
+
+	const [tryToSignUp, {}] = useMutation<Response, Variables>(signUpMutation);
+	const client = useApolloClient();
+	const handleCreateUser: FormEventHandler<HTMLFormElement> = event => {
+		/* global FormData */
+		const data = new FormData(event.currentTarget);
+
+		event.preventDefault();
+		event.stopPropagation();
+
+		tryToSignUp({
+			variables: {
+				email: data.get('email').toString(),
+				password: data.get('password').toString(),
+				name: data.get('name').toString(),
+			},
+		})
+			.then(({ data: { signup: { token } } }: FetchResult<Response>) => {
+				// Store the token in cookie
+				document.cookie = cookie.serialize('token', token, {
+					maxAge: 30 * 24 * 60 * 60, // 30 days
+				});
+
+				// Force a reload of all the current queries now that the user is
+				// logged in
+				client.resetStore().then(() => {
+					// Now redirect to the homepage
+					redirect({}, '/');
+				});
+			})
+			.catch(error => {
+				// Something went wrong, such as incorrect password, or no network
+				// available, etc.
+				console.error(error);
+			});
 	};
 
-	handleChange = prop => event => {
-		this.setState({ [prop]: event.target.value });
+	const handleChange = prop => event => {
+		event.persist();
+		setState(state => ({ ...state, [prop]: event.target.value }));
 	};
 
-	handleMouseDownPassword = event => {
+	const handleMouseDownPassword = event => {
 		event.preventDefault();
 	};
 
-	handleClickShowPasssword = () => {
-		this.setState({ showPassword: !this.state.showPassword });
+	const handleClickShowPasssword = () => {
+		setState(state => ({ ...state, showPassword: !state.showPassword }));
 	};
 
-	render() {
-		const { classes } = this.props;
-		return (
-			<Paper className={classes.signUpBox}>
-				<Typography className={classes.signUpHead} variant="h5">
-					Crie uma conta!
-				</Typography>
-				<Divider />
-				<form onSubmit={this.props.handleCreateUser}>
-					<TextField
-						id="name"
-						name="name"
-						label="Nome"
-						margin="normal"
-						fullWidth
-						onChange={this.handleChange('name')}
+	const { classes } = props;
+	return (
+		<Paper className={classes.signUpBox}>
+			<Typography className={classes.signUpHead} variant="h5">
+				Crie uma conta!
+			</Typography>
+			<Divider />
+			<form onSubmit={handleCreateUser}>
+				<TextField
+					id="name"
+					name="name"
+					label="Nome"
+					margin="normal"
+					fullWidth
+					onChange={handleChange('name')}
+				/>
+				<TextField
+					id="email"
+					name="email"
+					label="Email"
+					margin="normal"
+					fullWidth
+					onChange={handleChange('email')}
+				/>
+				<TextField
+					id="confirmEmail"
+					name="confirmEmail"
+					label="Confirmar email"
+					margin="normal"
+					fullWidth
+					onChange={handleChange('confirmEmail')}
+				/>
+				<FormControl fullWidth margin="normal">
+					<InputLabel htmlFor="password">Senha</InputLabel>
+					<Input
+						id="password"
+						name="password"
+						inputProps={{ className: classes.passwordInput }}
+						type={state.showPassword ? 'text' : 'password'}
+						value={state.password}
+						onChange={handleChange('password')}
+						endAdornment={
+							<InputAdornment position="end">
+								<IconButton
+									style={{ width: 'auto' }}
+									onClick={handleClickShowPasssword}
+									onMouseDown={handleMouseDownPassword}
+								>
+									{state.showPassword ? <VisibilityOff /> : <Visibility />}
+								</IconButton>
+							</InputAdornment>
+						}
 					/>
-					<TextField
-						id="email"
-						name="email"
-						label="Email"
-						margin="normal"
-						fullWidth
-						onChange={this.handleChange('email')}
-					/>
-					<TextField
-						id="confirmEmail"
-						name="confirmEmail"
-						label="Confirmar email"
-						margin="normal"
-						fullWidth
-						onChange={this.handleChange('confirmEmail')}
-					/>
-					<FormControl fullWidth margin="normal">
-						<InputLabel htmlFor="password">Senha</InputLabel>
-						<Input
-							id="password"
-							name="password"
-							inputProps={{ className: classes.passwordInput }}
-							type={this.state.showPassword ? 'text' : 'password'}
-							value={this.state.password}
-							onChange={this.handleChange('password')}
-							endAdornment={
-								<InputAdornment position="end">
-									<IconButton
-										style={{ width: 'auto' }}
-										onClick={this.handleClickShowPasssword}
-										onMouseDown={this.handleMouseDownPassword}
-									>
-										{this.state.showPassword ? (
-											<VisibilityOff />
-										) : (
-											<Visibility />
-										)}
-									</IconButton>
-								</InputAdornment>
-							}
-						/>
-					</FormControl>
-					<Button
-						aria-label="Criar conta"
-						className={classes.signUpButton}
-						fullWidth
-						variant="contained"
-						color="secondary"
-						size="large"
-						type="submit"
-					>
-						Criar conta
-					</Button>
-				</form>
-				<Typography
-					className={classes.helpMessage}
-					variant="caption"
-					align="center"
+				</FormControl>
+				<Button
+					aria-label="Criar conta"
+					className={classes.signUpButton}
+					fullWidth
+					variant="contained"
+					color="secondary"
+					size="large"
+					type="submit"
 				>
-					Já possui uma conta?{' '}
-					<Link variant="primary" href="/login">
-						Faça login aqui.
-					</Link>
-				</Typography>
-			</Paper>
-		);
-	}
-}
+					Criar conta
+				</Button>
+			</form>
+			<Typography
+				className={classes.helpMessage}
+				variant="caption"
+				align="center"
+			>
+				Já possui uma conta?{' '}
+				<Link variant="primary" href="/login">
+					Faça login aqui.
+				</Link>
+			</Typography>
+		</Paper>
+	);
+};
 
 interface Response {
 	signup: {
@@ -168,64 +203,4 @@ interface Variables {
 	password: string;
 }
 
-interface InputProps {
-	client: ApolloClient<any>;
-}
-
-export default compose(
-	withStyles(styles),
-	// withApollo exposes `this.props.client` used when logging out
-	withApollo,
-	graphql<InputProps, Response, Variables, {}>(
-		gql`
-			mutation Create($name: String!, $email: String!, $password: String!) {
-				signup(name: $name, email: $email, password: $password) {
-					token
-				}
-			}
-		`,
-		{
-			// Apollo's way of injecting new props which are passed to the component
-			props: ({
-				mutate,
-				// `client` is provided by the `withApollo` HOC
-				ownProps: { client },
-			}) => ({
-				// `handleCreateUser` is the name of the prop passed to the component
-				handleCreateUser: event => {
-					/* global FormData */
-					const data = new FormData(event.target);
-
-					event.preventDefault();
-					event.stopPropagation();
-
-					mutate({
-						variables: {
-							email: data.get('email').toString(),
-							password: data.get('password').toString(),
-							name: data.get('name').toString(),
-						},
-					})
-						.then(({ data: { signup: { token } } }: FetchResult<Response>) => {
-							// Store the token in cookie
-							document.cookie = cookie.serialize('token', token, {
-								maxAge: 30 * 24 * 60 * 60, // 30 days
-							});
-
-							// Force a reload of all the current queries now that the user is
-							// logged in
-							client.resetStore().then(() => {
-								// Now redirect to the homepage
-								redirect({}, '/');
-							});
-						})
-						.catch(error => {
-							// Something went wrong, such as incorrect password, or no network
-							// available, etc.
-							console.error(error);
-						});
-				},
-			}),
-		},
-	),
-)(SignUpForm);
+export default withStyles(styles)(SignUpForm);

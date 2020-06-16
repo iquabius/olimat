@@ -1,6 +1,5 @@
-import { gql } from '@apollo/client';
+import { gql, useQuery } from '@apollo/client';
 import React from 'react';
-import { Query } from '@apollo/react-components';
 
 import ErrorMessage from '../ErrorMessage';
 import { Question } from '../Question/DetailsConnector';
@@ -38,21 +37,17 @@ interface ExamDetailsConnectorProps {
 
 const ExamDetailsConnector: React.FunctionComponent<
 	ExamDetailsConnectorProps
-> = ({ children, id }) => (
-	<Query query={examQuery} variables={{ id }}>
-		{({ data, error, loading }) => {
-			if (error)
-				return (
-					<ErrorMessage
-						message={`Erro ao carregar questão (${error.message})`}
-					/>
-				);
-			if (loading) return <div>Loading...</div>;
-			const exam = data.exam;
+> = ({ children, id }) => {
+	const { data, error, loading } = useQuery(examQuery, { variables: { id } });
 
-			return children({ exam });
-		}}
-	</Query>
-);
+	if (error)
+		return (
+			<ErrorMessage message={`Erro ao carregar questão (${error.message})`} />
+		);
+	if (loading) return <div>Loading...</div>;
+	const exam = data.exam;
+
+	return children({ exam });
+};
 
 export default ExamDetailsConnector;

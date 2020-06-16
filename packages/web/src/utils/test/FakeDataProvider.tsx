@@ -1,7 +1,17 @@
-// Este arquivo só é usado no servidor, pra testes.
-// Podemos importar dependências de desenvolvimento.
-// Talvez não funcione num ambiente de Integração Contínua (CI).
-import { InMemoryCache, ApolloClient } from '@apollo/client';
+/**
+ * This approach to mocking GraphQL data is used Stripe with the intention to
+ * "reduce boilerplate by eliminating per-request mocks and using a mocked
+ * schema." Read more in the article:
+ * https://medium.freecodecamp.org/a-new-approach-to-mocking-graphql-data-1ef49de3d491
+ *
+ * This approach is not working with MockedProvider from Apollo Client 3.0. If
+ * it's not fixed by the time v3 is stable we should remove MockedProvider
+ * altogether set up FakeLoadingProvider.
+ *
+ * This was introduced in the following commit:
+ * https://github.com/iquabius/olimat/commit/a74150a773e964f0c5d321ad9e62fdd04b152f41
+ */
+import { InMemoryCache, ApolloClient, ApolloProvider } from '@apollo/client';
 import { SchemaLink } from '@apollo/link-schema';
 import faker from 'faker/locale/pt_BR';
 import {
@@ -11,7 +21,6 @@ import {
 } from 'graphql-tools';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { ApolloProvider } from '@apollo/react-components';
 import { typeDefs } from '@olimat/api';
 
 import mergeResolvers from './mergeResolvers';
@@ -56,17 +65,13 @@ const FakeDataProvider = props => {
 		cache: new InMemoryCache(),
 	});
 
-	return (
-		// Wait until we remove @apollo/react-hoc and @apollo/react-components
-		// @ts-ignore
-		<ApolloProvider client={client}>{children}</ApolloProvider>
-	);
+	return <ApolloProvider client={client}>{children}</ApolloProvider>;
 };
 
 FakeDataProvider.propTypes = {
 	/**
-	 * Used to render any component that uses a <Query/> or <Mutation/>
-	 * from '@apollo/react-components'.
+	 * Used to render any component that useQuery() or useMutation()
+	 * from '@apollo/client'.
 	 * The component is wrapped by <ApolloProvider/>, with a mocked ApolloClient.
 	 */
 	children: PropTypes.node.isRequired,

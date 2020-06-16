@@ -1,8 +1,7 @@
 import { CircularProgress } from '@material-ui/core';
-import { gql } from '@apollo/client';
+import { gql, useQuery } from '@apollo/client';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Query } from '@apollo/react-components';
 
 // https://www.prisma.io/forum/t/23
 export const questionTypeOptions = gql`
@@ -35,16 +34,14 @@ export const questionTypeOptions = gql`
 //   }
 // }
 
-const QuestionTypeConnector = ({ children }) => (
-	<Query query={questionTypeOptions}>
-		{({ data, error, loading }) => {
-			if (loading) {
-				return <CircularProgress size={50} color="secondary" />;
-			}
-			return children({ questionTypes: data.__type.enumValues });
-		}}
-	</Query>
-);
+const QuestionTypeConnector = ({ children }) => {
+	const { data, loading } = useQuery(questionTypeOptions);
+
+	if (loading) {
+		return <CircularProgress size={50} color="secondary" />;
+	}
+	return children({ questionTypes: data.__type.enumValues });
+};
 
 QuestionTypeConnector.propTypes = {
 	children: PropTypes.func.isRequired,

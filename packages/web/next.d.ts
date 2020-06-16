@@ -1,4 +1,4 @@
-import ApolloClient from 'apollo-client';
+import { ApolloClient } from '@apollo/client';
 import { NextContext as DefaultNextContext } from 'next';
 
 // Extends default NextContext to include apolloClient

@@ -6,7 +6,6 @@ import {
 import Head from 'next/head';
 import React from 'react';
 import { getDataFromTree } from '@apollo/react-ssr';
-import { ApolloProvider as ApolloProviderHoc } from '@apollo/react-hoc';
 
 import { parseCookies } from './helpers';
 import initApollo from './initApollo';
@@ -19,6 +18,23 @@ export interface WithDataProps {
 	apolloState: NormalizedCacheObject;
 }
 
+/**
+ * SSR is not working after moving to hooks api. We could try to update this
+ * HoC: https://github.com/vercel/next.js/pull/9516.
+ * Or try upgrading "@apollo/react-ssr": "^4.0.0-beta.1".
+ * https://github.com/apollographql/react-apollo/issues/3678#issuecomment-579359439
+ * DONE: This is getting the data and sending it through __NEXT_DATA__, but the
+ * HTML is still being rendered with the loading state on SSR.
+ * The problem may be that `loading` is still true after the `data` is fetched:
+ * https://github.com/apollographql/react-apollo/issues/3678#issuecomment-630075090.
+ *
+ * Or try getMarkupFromTree:
+ * https://github.com/apollographql/react-apollo/issues/3251#issuecomment-513223453
+ *
+ * We should also change it to work for PageComponents instead of App. This way
+ * we can take advantage of static optimizationi n Next.js version 9.
+ * https://github.com/vercel/next.js/issues/9503
+ */
 export default App => {
 	return class WithData extends React.Component<WithDataProps> {
 		static displayName = `WithData(${getDisplayName(App)})`;
@@ -52,17 +68,14 @@ export default App => {
 				try {
 					// Run all GraphQL queries
 					const app = (
-						// @ts-ignore
-						<ApolloProviderHoc client={apollo}>
-							<ApolloProvider client={apollo}>
-								<App
-									{...appProps}
-									Component={Component}
-									router={router}
-									apolloClient={apollo}
-								/>
-							</ApolloProvider>
-						</ApolloProviderHoc>
+						<ApolloProvider client={apollo}>
+							<App
+								{...appProps}
+								Component={Component}
+								router={router}
+								apolloClient={apollo}
+							/>
+						</ApolloProvider>
 					);
 					await getDataFromTree(app);
 				} catch (error) {
@@ -95,18 +108,17 @@ export default App => {
 			// will be initialized there), meaning the below will only ever be
 			// executed on the client.
 			this.apolloClient = initApollo(props.apolloState, {
-				getToken: () => parseCookies().token,
+				getToken: process.browser
+					? () => parseCookies().token
+					: () => undefined,
 			});
 		}
 
 		render() {
 			return (
-				// @ts-ignore
-				<ApolloProviderHoc client={this.apolloClient}>
-					<ApolloProvider client={this.apolloClient}>
-						<App {...this.props} />
-					</ApolloProvider>
-				</ApolloProviderHoc>
+				<ApolloProvider client={this.apolloClient}>
+					<App {...this.props} />
+				</ApolloProvider>
 			);
 		}
 	};
