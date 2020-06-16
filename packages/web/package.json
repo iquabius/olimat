@@ -64,7 +64,7 @@
     "cross-env": "5.2.1",
     "faker": "4.1.0",
     "graphql-import": "0.7.1",
-    "graphql-tools": "4.0.7",
+    "graphql-tools": "4.0.8",
     "jest-dom": "3.5.0",
     "react-testing-library": "6.1.2",
     "rimraf": "2.7.1"
