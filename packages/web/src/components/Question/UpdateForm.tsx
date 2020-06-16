@@ -1,5 +1,5 @@
 import Router, { withRouter, WithRouterProps } from 'next/router';
-import { InjectedNotistackProps, withSnackbar } from 'notistack';
+import { ProviderContext, withSnackbar } from 'notistack';
 import React from 'react';
 import compose from 'recompose/compose';
 
@@ -38,7 +38,7 @@ export const createSubmitHandler = (
 	);
 };
 
-interface Props extends InjectedNotistackProps, WithRouterProps {}
+interface Props extends ProviderContext, WithRouterProps {}
 
 const QuestionUpdateForm: React.FunctionComponent<Props> = ({
 	enqueueSnackbar,

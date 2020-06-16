@@ -1,6 +1,6 @@
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import Router from 'next/router';
-import { InjectedNotistackProps, withSnackbar } from 'notistack';
+import { ProviderContext, withSnackbar } from 'notistack';
 import React from 'react';
 
 import FAButton from '../FAButton';
@@ -53,7 +53,7 @@ const questionInitialValues = {
 	],
 };
 
-const QuestionCreateForm: React.FC<InjectedNotistackProps> = props => {
+const QuestionCreateForm: React.FC<ProviderContext> = props => {
 	const [state, setState] = React.useState({
 		warningDialogOpen: false,
 	});
