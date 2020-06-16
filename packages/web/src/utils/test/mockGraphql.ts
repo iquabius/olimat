@@ -14,7 +14,8 @@ const mockGraphql = async (query, args = {}) => {
 		const res = await graphql(schema, query.loc.source.body, null, null, args);
 		return res.data;
 	} catch (e) {
-		return console.log(e.message);
+		console.log(e.message);
+		return { errors: e };
 	}
 };
 

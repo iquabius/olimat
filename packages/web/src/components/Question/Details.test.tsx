@@ -2,6 +2,7 @@ import Router from 'next/router';
 import { SnackbarProvider } from 'notistack';
 import React from 'react';
 import { fireEvent, render, waitForElement } from 'react-testing-library';
+import { GraphQLError } from 'graphql';
 
 import FakeDataProvider from '@olimat/web/utils/test/FakeDataProvider';
 import MockErrorProvider from '@olimat/web/utils/test/MockErrorProvider';
@@ -144,7 +145,9 @@ describe('<QuestionDetails />', () => {
 					query: deleteQuestionMutation,
 					variables: { id: data.question.id },
 				},
-				result: { errors: [{ message: errorMsg }] },
+				// This simulates a GraphQL error:
+				// https://www.apollographql.com/docs/react/development-testing/testing/#testing-error-states
+				result: { errors: [new GraphQLError(errorMsg)] },
 			},
 		];
 
