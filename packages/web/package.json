@@ -33,7 +33,7 @@
     "jss": "10.0.4",
     "lodash": "4.17.15",
     "next": "8.0.3",
-    "notistack": "0.4.3",
+    "notistack": "0.9.17",
     "nprogress": "0.2.0",
     "prop-types": "15.7.2",
     "react": "16.12.0",
