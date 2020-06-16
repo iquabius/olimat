@@ -20,15 +20,17 @@ export interface WithDataProps {
 
 /**
  * SSR is not working after moving to hooks api. We could try to update this
- * HoC: https://github.com/vercel/next.js/pull/9516. We could try upgrading
- * "@apollo/react-ssr": "^4.0.0-beta.1".
+ * HoC: https://github.com/vercel/next.js/pull/9516.
+ * Or try upgrading "@apollo/react-ssr": "^4.0.0-beta.1".
  * https://github.com/apollographql/react-apollo/issues/3678#issuecomment-579359439
+ * DONE: This is getting the data and sending it through __NEXT_DATA__, but the
+ * HTML is still being rendered with the loading state on SSR.
  *
  * Or try getMarkupFromTree:
  * https://github.com/apollographql/react-apollo/issues/3251#issuecomment-513223453
  *
  * We should also change it to work for PageComponents instead of App. This way
- * we can take advantage of static optimization in Next.js version 9.
+ * we can take advantage of static optimizationi n Next.js version 9.
  * https://github.com/vercel/next.js/issues/9503
  */
 export default App => {
