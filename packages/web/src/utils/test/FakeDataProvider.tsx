@@ -1,6 +1,12 @@
-// Este arquivo só é usado no servidor, pra testes.
-// Podemos importar dependências de desenvolvimento.
-// Talvez não funcione num ambiente de Integração Contínua (CI).
+/**
+ * This approach to mocking GraphQL data is used Stripe with the intention to
+ * "reduce boilerplate by eliminating per-request mocks and using a mocked
+ * schema." Read more in the article:
+ * https://medium.freecodecamp.org/a-new-approach-to-mocking-graphql-data-1ef49de3d491
+ *
+ * This was introduced in the following commit:
+ * https://github.com/iquabius/olimat/commit/a74150a773e964f0c5d321ad9e62fdd04b152f41
+ */
 import { InMemoryCache, ApolloClient, ApolloProvider } from '@apollo/client';
 import { SchemaLink } from '@apollo/link-schema';
 import faker from 'faker/locale/pt_BR';

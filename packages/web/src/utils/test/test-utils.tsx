@@ -1,5 +1,6 @@
 import React from 'react';
-import { MockedProvider, MockedProviderProps } from '@apollo/react-testing';
+import { MockedProvider } from '@apollo/client/testing';
+import { MockedProviderProps } from '@apollo/client/utilities/testing/mocking/MockedProvider';
 import { render } from 'react-testing-library';
 
 interface RenderApolloOptions {
@@ -22,6 +23,14 @@ export const renderApollo = (node, options: RenderApolloOptions = {}) => {
 		cache,
 		...otherOptions
 	} = options;
+
+	// This version of MockedProvider is not playing well with FakeDataProvider
+	// and MockErrorProvider that uses Stripe approach to mocking:
+	// https://medium.freecodecamp.org/a-new-approach-to-mocking-graphql-data-1ef49de3d491
+
+	// Running the tests in isolation work, but running them together gives the
+	// error: "No more mocked responses for the query":
+	// https://github.com/apollographql/react-apollo/issues/4018
 	return render(
 		<MockedProvider
 			mocks={mocks}
