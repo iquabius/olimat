@@ -41,7 +41,7 @@
     "react-filepond": "5.0.0",
     "react-lines-ellipsis": "0.14.1",
     "recompose": "0.30.0",
-    "webpack-bundle-analyzer": "3.6.0",
+    "webpack-bundle-analyzer": "3.8.0",
     "yup": "0.28.1"
   },
   "devDependencies": {
