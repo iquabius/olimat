@@ -14,6 +14,7 @@ describe('[Exam.author]', () => {
 	test('uses exam id from parent to lookup author', async () => {
 		const mockAuthor = { id: 'aId1' };
 		// o prisma client usa métodos encadeados pra buscar relações
+		// @ts-ignore
 		mockContext.prisma.exam.mockReturnValueOnce({
 			author: () => mockAuthor,
 		});
@@ -30,6 +31,7 @@ describe('[Exam.author]', () => {
 describe('[Exam.questions]', () => {
 	test('uses exam id from parent to lookup questions', async () => {
 		const mockQuestions = [{ id: 'qId1', wording: 'Questão 1' }];
+		// @ts-ignore
 		mockContext.prisma.exam.mockReturnValueOnce({
 			questions: () => mockQuestions,
 		});
@@ -46,6 +48,7 @@ describe('[Exam.questions]', () => {
 	});
 
 	test('returns empty array if no response', async () => {
+		// @ts-ignore
 		mockContext.prisma.exam.mockReturnValueOnce({
 			questions: () => [],
 		});

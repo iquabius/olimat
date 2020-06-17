@@ -253,6 +253,8 @@ export interface QuestionChoiceUpdateManyInput {
 
   connect: Maybe<QuestionChoiceWhereUniqueInput[]>;
 
+  set: Maybe<QuestionChoiceWhereUniqueInput[]>;
+
   disconnect: Maybe<QuestionChoiceWhereUniqueInput[]>;
 
   deleteMany: Maybe<QuestionChoiceScalarWhereInput[]>;
@@ -725,18 +727,13 @@ export interface DeleteSchoolMutationArgs {
   id: string;
 }
 
-import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
-
 import {
-  City,
-  Olympiad,
-  OlympiadConnection,
-  Question,
-  QuestionConnection,
-  School,
-  Exam,
-  User,
-} from './prisma-client';
+  GraphQLResolveInfo,
+  GraphQLScalarType,
+  GraphQLScalarTypeConfig,
+} from 'graphql';
+
+import { AuthPayloadHack, QuestionPayloadHack } from '../utils';
 
 import { OliContext } from '../utils';
 
@@ -762,8 +759,15 @@ export interface ISubscriptionResolverObject<Result, Parent, Context, Args> {
   ): R | Result | Promise<R | Result>;
 }
 
-export type SubscriptionResolver<Result, Parent = {}, Context = {}, Args = {}> =
-  | ((...args: any[]) => ISubscriptionResolverObject<Result, Parent, Context, Args>)
+export type SubscriptionResolver<
+  Result,
+  Parent = {},
+  Context = {},
+  Args = {}
+> =
+  | ((
+      ...args: any[]
+    ) => ISubscriptionResolverObject<Result, Parent, Context, Args>)
   | ISubscriptionResolverObject<Result, Parent, Context, Args>;
 
 export type TypeResolveFn<Types, Parent = {}, Context = {}> = (
@@ -784,65 +788,111 @@ export type DirectiveResolverFn<TResult, TArgs = {}, TContext = {}> = (
 
 export namespace QueryResolvers {
   export interface Resolvers<Context = OliContext, TypeParent = {}> {
-    city?: CityResolver<Maybe<City>, TypeParent, Context>;
+    city?: CityResolver<
+      Maybe<import('./prisma-client').City>,
+      TypeParent,
+      Context
+    >;
 
-    cities?: CitiesResolver<City[], TypeParent, Context>;
+    cities?: CitiesResolver<
+      import('./prisma-client').City[],
+      TypeParent,
+      Context
+    >;
 
-    olympiad?: OlympiadResolver<Maybe<Olympiad>, TypeParent, Context>;
+    olympiad?: OlympiadResolver<
+      Maybe<import('./prisma-client').Olympiad>,
+      TypeParent,
+      Context
+    >;
 
-    olympiads?: OlympiadsResolver<Olympiad[], TypeParent, Context>;
+    olympiads?: OlympiadsResolver<
+      import('./prisma-client').Olympiad[],
+      TypeParent,
+      Context
+    >;
 
-    olympiadsConnection?: OlympiadsConnectionResolver<OlympiadConnection, TypeParent, Context>;
+    olympiadsConnection?: OlympiadsConnectionResolver<
+      import('./prisma-client').OlympiadConnection,
+      TypeParent,
+      Context
+    >;
 
-    question?: QuestionResolver<Maybe<Question>, TypeParent, Context>;
+    question?: QuestionResolver<
+      Maybe<import('./prisma-client').Question>,
+      TypeParent,
+      Context
+    >;
 
-    questions?: QuestionsResolver<Question[], TypeParent, Context>;
+    questions?: QuestionsResolver<
+      import('./prisma-client').Question[],
+      TypeParent,
+      Context
+    >;
 
-    questionsConnection?: QuestionsConnectionResolver<QuestionConnection, TypeParent, Context>;
+    questionsConnection?: QuestionsConnectionResolver<
+      import('./prisma-client').QuestionConnection,
+      TypeParent,
+      Context
+    >;
 
-    schools?: SchoolsResolver<School[], TypeParent, Context>;
+    schools?: SchoolsResolver<
+      import('./prisma-client').School[],
+      TypeParent,
+      Context
+    >;
 
-    school?: SchoolResolver<Maybe<School>, TypeParent, Context>;
+    school?: SchoolResolver<
+      Maybe<import('./prisma-client').School>,
+      TypeParent,
+      Context
+    >;
 
-    exams?: ExamsResolver<Exam[], TypeParent, Context>;
+    exams?: ExamsResolver<
+      import('./prisma-client').Exam[],
+      TypeParent,
+      Context
+    >;
 
-    exam?: ExamResolver<Maybe<Exam>, TypeParent, Context>;
+    exam?: ExamResolver<
+      Maybe<import('./prisma-client').Exam>,
+      TypeParent,
+      Context
+    >;
 
-    me?: MeResolver<Maybe<User>, TypeParent, Context>;
+    me?: MeResolver<Maybe<import('./prisma-client').User>, TypeParent, Context>;
   }
 
-  export type CityResolver<R = Maybe<City>, Parent = {}, Context = OliContext> = Resolver<
-    R,
-    Parent,
-    Context,
-    CityArgs
-  >;
+  export type CityResolver<
+    R = Maybe<import('./prisma-client').City>,
+    Parent = {},
+    Context = OliContext
+  > = Resolver<R, Parent, Context, CityArgs>;
   export interface CityArgs {
     id: string;
   }
 
-  export type CitiesResolver<R = City[], Parent = {}, Context = OliContext> = Resolver<
-    R,
-    Parent,
-    Context
-  >;
-  export type OlympiadResolver<R = Maybe<Olympiad>, Parent = {}, Context = OliContext> = Resolver<
-    R,
-    Parent,
-    Context,
-    OlympiadArgs
-  >;
+  export type CitiesResolver<
+    R = import('./prisma-client').City[],
+    Parent = {},
+    Context = OliContext
+  > = Resolver<R, Parent, Context>;
+  export type OlympiadResolver<
+    R = Maybe<import('./prisma-client').Olympiad>,
+    Parent = {},
+    Context = OliContext
+  > = Resolver<R, Parent, Context, OlympiadArgs>;
   export interface OlympiadArgs {
     id: string;
   }
 
-  export type OlympiadsResolver<R = Olympiad[], Parent = {}, Context = OliContext> = Resolver<
-    R,
-    Parent,
-    Context
-  >;
+  export type OlympiadsResolver<
+    R = import('./prisma-client').Olympiad[],
+    Parent = {},
+    Context = OliContext
+  > = Resolver<R, Parent, Context>;
   export type OlympiadsConnectionResolver<
-    R = OlympiadConnection,
+    R = import('./prisma-client').OlympiadConnection,
     Parent = {},
     Context = OliContext
   > = Resolver<R, Parent, Context, OlympiadsConnectionArgs>;
@@ -852,23 +902,22 @@ export namespace QueryResolvers {
     after: Maybe<string>;
   }
 
-  export type QuestionResolver<R = Maybe<Question>, Parent = {}, Context = OliContext> = Resolver<
-    R,
-    Parent,
-    Context,
-    QuestionArgs
-  >;
+  export type QuestionResolver<
+    R = Maybe<import('./prisma-client').Question>,
+    Parent = {},
+    Context = OliContext
+  > = Resolver<R, Parent, Context, QuestionArgs>;
   export interface QuestionArgs {
     id: string;
   }
 
-  export type QuestionsResolver<R = Question[], Parent = {}, Context = OliContext> = Resolver<
-    R,
-    Parent,
-    Context
-  >;
+  export type QuestionsResolver<
+    R = import('./prisma-client').Question[],
+    Parent = {},
+    Context = OliContext
+  > = Resolver<R, Parent, Context>;
   export type QuestionsConnectionResolver<
-    R = QuestionConnection,
+    R = import('./prisma-client').QuestionConnection,
     Parent = {},
     Context = OliContext
   > = Resolver<R, Parent, Context, QuestionsConnectionArgs>;
@@ -888,64 +937,68 @@ export namespace QueryResolvers {
     last: Maybe<number>;
   }
 
-  export type SchoolsResolver<R = School[], Parent = {}, Context = OliContext> = Resolver<
-    R,
-    Parent,
-    Context
-  >;
-  export type SchoolResolver<R = Maybe<School>, Parent = {}, Context = OliContext> = Resolver<
-    R,
-    Parent,
-    Context,
-    SchoolArgs
-  >;
+  export type SchoolsResolver<
+    R = import('./prisma-client').School[],
+    Parent = {},
+    Context = OliContext
+  > = Resolver<R, Parent, Context>;
+  export type SchoolResolver<
+    R = Maybe<import('./prisma-client').School>,
+    Parent = {},
+    Context = OliContext
+  > = Resolver<R, Parent, Context, SchoolArgs>;
   export interface SchoolArgs {
     id: string;
   }
 
-  export type ExamsResolver<R = Exam[], Parent = {}, Context = OliContext> = Resolver<
-    R,
-    Parent,
-    Context
-  >;
-  export type ExamResolver<R = Maybe<Exam>, Parent = {}, Context = OliContext> = Resolver<
-    R,
-    Parent,
-    Context,
-    ExamArgs
-  >;
+  export type ExamsResolver<
+    R = import('./prisma-client').Exam[],
+    Parent = {},
+    Context = OliContext
+  > = Resolver<R, Parent, Context>;
+  export type ExamResolver<
+    R = Maybe<import('./prisma-client').Exam>,
+    Parent = {},
+    Context = OliContext
+  > = Resolver<R, Parent, Context, ExamArgs>;
   export interface ExamArgs {
     id: string;
   }
 
-  export type MeResolver<R = Maybe<User>, Parent = {}, Context = OliContext> = Resolver<
-    R,
-    Parent,
-    Context
-  >;
+  export type MeResolver<
+    R = Maybe<import('./prisma-client').User>,
+    Parent = {},
+    Context = OliContext
+  > = Resolver<R, Parent, Context>;
 }
 
 export namespace CityResolvers {
-  export interface Resolvers<Context = OliContext, TypeParent = City> {
+  export interface Resolvers<
+    Context = OliContext,
+    TypeParent = import('./prisma-client').City
+  > {
     id?: IdResolver<string, TypeParent, Context>;
 
     name?: NameResolver<string, TypeParent, Context>;
   }
 
-  export type IdResolver<R = string, Parent = City, Context = OliContext> = Resolver<
-    R,
-    Parent,
-    Context
-  >;
-  export type NameResolver<R = string, Parent = City, Context = OliContext> = Resolver<
-    R,
-    Parent,
-    Context
-  >;
+  export type IdResolver<
+    R = string,
+    Parent = import('./prisma-client').City,
+    Context = OliContext
+  > = Resolver<R, Parent, Context>;
+  export type NameResolver<
+    R = string,
+    Parent = import('./prisma-client').City,
+    Context = OliContext
+  > = Resolver<R, Parent, Context>;
 }
 
 export namespace OlympiadResolvers {
-  export interface Resolvers<Context = OliContext, TypeParent = Olympiad> {
+  export interface Resolvers<
+    Context = OliContext,
+    TypeParent = import('./prisma-client').Olympiad
+  > {
     id?: IdResolver<string, TypeParent, Context>;
 
     name?: NameResolver<string, TypeParent, Context>;
@@ -954,123 +1007,145 @@ export namespace OlympiadResolvers {
 
     year?: YearResolver<DateTime, TypeParent, Context>;
 
-    createdBy?: CreatedByResolver<User, TypeParent, Context>;
+    createdBy?: CreatedByResolver<
+      import('./prisma-client').User,
+      TypeParent,
+      Context
+    >;
 
     createdAt?: CreatedAtResolver<DateTime, TypeParent, Context>;
 
     updatedAt?: UpdatedAtResolver<DateTime, TypeParent, Context>;
   }
 
-  export type IdResolver<R = string, Parent = Olympiad, Context = OliContext> = Resolver<
-    R,
-    Parent,
-    Context
-  >;
-  export type NameResolver<R = string, Parent = Olympiad, Context = OliContext> = Resolver<
-    R,
-    Parent,
-    Context
-  >;
-  export type IsPublishedResolver<
-    R = Maybe<boolean>,
-    Parent = Olympiad,
+  export type IdResolver<
+    R = string,
+    Parent = import('./prisma-client').Olympiad,
     Context = OliContext
   > = Resolver<R, Parent, Context>;
-  export type YearResolver<R = DateTime, Parent = Olympiad, Context = OliContext> = Resolver<
-    R,
-    Parent,
-    Context
-  >;
-  export type CreatedByResolver<R = User, Parent = Olympiad, Context = OliContext> = Resolver<
-    R,
-    Parent,
-    Context
-  >;
-  export type CreatedAtResolver<R = DateTime, Parent = Olympiad, Context = OliContext> = Resolver<
-    R,
-    Parent,
-    Context
-  >;
-  export type UpdatedAtResolver<R = DateTime, Parent = Olympiad, Context = OliContext> = Resolver<
-    R,
-    Parent,
-    Context
-  >;
+  export type NameResolver<
+    R = string,
+    Parent = import('./prisma-client').Olympiad,
+    Context = OliContext
+  > = Resolver<R, Parent, Context>;
+  export type IsPublishedResolver<
+    R = Maybe<boolean>,
+    Parent = import('./prisma-client').Olympiad,
+    Context = OliContext
+  > = Resolver<R, Parent, Context>;
+  export type YearResolver<
+    R = DateTime,
+    Parent = import('./prisma-client').Olympiad,
+    Context = OliContext
+  > = Resolver<R, Parent, Context>;
+  export type CreatedByResolver<
+    R = import('./prisma-client').User,
+    Parent = import('./prisma-client').Olympiad,
+    Context = OliContext
+  > = Resolver<R, Parent, Context>;
+  export type CreatedAtResolver<
+    R = DateTime,
+    Parent = import('./prisma-client').Olympiad,
+    Context = OliContext
+  > = Resolver<R, Parent, Context>;
+  export type UpdatedAtResolver<
+    R = DateTime,
+    Parent = import('./prisma-client').Olympiad,
+    Context = OliContext
+  > = Resolver<R, Parent, Context>;
 }
 
 export namespace UserResolvers {
-  export interface Resolvers<Context = OliContext, TypeParent = User> {
+  export interface Resolvers<
+    Context = OliContext,
+    TypeParent = import('./prisma-client').User
+  > {
     id?: IdResolver<string, TypeParent, Context>;
 
     email?: EmailResolver<string, TypeParent, Context>;
 
     name?: NameResolver<string, TypeParent, Context>;
 
-    exams?: ExamsResolver<Exam[], TypeParent, Context>;
+    exams?: ExamsResolver<
+      import('./prisma-client').Exam[],
+      TypeParent,
+      Context
+    >;
   }
 
-  export type IdResolver<R = string, Parent = User, Context = OliContext> = Resolver<
-    R,
-    Parent,
-    Context
-  >;
-  export type EmailResolver<R = string, Parent = User, Context = OliContext> = Resolver<
-    R,
-    Parent,
-    Context
-  >;
-  export type NameResolver<R = string, Parent = User, Context = OliContext> = Resolver<
-    R,
-    Parent,
-    Context
-  >;
-  export type ExamsResolver<R = Exam[], Parent = User, Context = OliContext> = Resolver<
-    R,
-    Parent,
-    Context
-  >;
+  export type IdResolver<
+    R = string,
+    Parent = import('./prisma-client').User,
+    Context = OliContext
+  > = Resolver<R, Parent, Context>;
+  export type EmailResolver<
+    R = string,
+    Parent = import('./prisma-client').User,
+    Context = OliContext
+  > = Resolver<R, Parent, Context>;
+  export type NameResolver<
+    R = string,
+    Parent = import('./prisma-client').User,
+    Context = OliContext
+  > = Resolver<R, Parent, Context>;
+  export type ExamsResolver<
+    R = import('./prisma-client').Exam[],
+    Parent = import('./prisma-client').User,
+    Context = OliContext
+  > = Resolver<R, Parent, Context>;
 }
 
 export namespace ExamResolvers {
-  export interface Resolvers<Context = OliContext, TypeParent = Exam> {
+  export interface Resolvers<
+    Context = OliContext,
+    TypeParent = import('./prisma-client').Exam
+  > {
     id?: IdResolver<string, TypeParent, Context>;
 
     title?: TitleResolver<string, TypeParent, Context>;
 
     description?: DescriptionResolver<Maybe<string>, TypeParent, Context>;
 
-    author?: AuthorResolver<User, TypeParent, Context>;
+    author?: AuthorResolver<
+      import('./prisma-client').User,
+      TypeParent,
+      Context
+    >;
 
-    questions?: QuestionsResolver<Maybe<Question[]>, TypeParent, Context>;
+    questions?: QuestionsResolver<
+      Maybe<import('./prisma-client').Question[]>,
+      TypeParent,
+      Context
+    >;
 
     createdAt?: CreatedAtResolver<DateTime, TypeParent, Context>;
 
     updatedAt?: UpdatedAtResolver<DateTime, TypeParent, Context>;
   }
 
-  export type IdResolver<R = string, Parent = Exam, Context = OliContext> = Resolver<
-    R,
-    Parent,
-    Context
-  >;
-  export type TitleResolver<R = string, Parent = Exam, Context = OliContext> = Resolver<
-    R,
-    Parent,
-    Context
-  >;
-  export type DescriptionResolver<
-    R = Maybe<string>,
-    Parent = Exam,
+  export type IdResolver<
+    R = string,
+    Parent = import('./prisma-client').Exam,
     Context = OliContext
   > = Resolver<R, Parent, Context>;
-  export type AuthorResolver<R = User, Parent = Exam, Context = OliContext> = Resolver<
-    R,
-    Parent,
-    Context
-  >;
+  export type TitleResolver<
+    R = string,
+    Parent = import('./prisma-client').Exam,
+    Context = OliContext
+  > = Resolver<R, Parent, Context>;
+  export type DescriptionResolver<
+    R = Maybe<string>,
+    Parent = import('./prisma-client').Exam,
+    Context = OliContext
+  > = Resolver<R, Parent, Context>;
+  export type AuthorResolver<
+    R = import('./prisma-client').User,
+    Parent = import('./prisma-client').Exam,
+    Context = OliContext
+  > = Resolver<R, Parent, Context>;
   export type QuestionsResolver<
-    R = Maybe<Question[]>,
-    Parent = Exam,
+    R = Maybe<import('./prisma-client').Question[]>,
+    Parent = import('./prisma-client').Exam,
     Context = OliContext
   > = Resolver<R, Parent, Context, QuestionsArgs>;
   export interface QuestionsArgs {
@@ -1089,20 +1164,23 @@ export namespace ExamResolvers {
     last: Maybe<number>;
   }
 
-  export type CreatedAtResolver<R = DateTime, Parent = Exam, Context = OliContext> = Resolver<
-    R,
-    Parent,
-    Context
-  >;
-  export type UpdatedAtResolver<R = DateTime, Parent = Exam, Context = OliContext> = Resolver<
-    R,
-    Parent,
-    Context
-  >;
+  export type CreatedAtResolver<
+    R = DateTime,
+    Parent = import('./prisma-client').Exam,
+    Context = OliContext
+  > = Resolver<R, Parent, Context>;
+  export type UpdatedAtResolver<
+    R = DateTime,
+    Parent = import('./prisma-client').Exam,
+    Context = OliContext
+  > = Resolver<R, Parent, Context>;
 }
 
 export namespace QuestionResolvers {
-  export interface Resolvers<Context = OliContext, TypeParent = Question> {
+  export interface Resolvers<
+    Context = OliContext,
+    TypeParent = import('./prisma-client').Question
+  > {
     id?: IdResolver<string, TypeParent, Context>;
     /** O tipo da questão, _múltipla escolha_ ou _discursiva_. */
     type?: TypeResolver<QuestionType, TypeParent, Context>;
@@ -1113,69 +1191,79 @@ export namespace QuestionResolvers {
 
     imageFullUrl?: ImageFullUrlResolver<Maybe<string>, TypeParent, Context>;
     /** Enunciado secundário, depois da imagem. */
-    secondaryWording?: SecondaryWordingResolver<Maybe<string>, TypeParent, Context>;
+    secondaryWording?: SecondaryWordingResolver<
+      Maybe<string>,
+      TypeParent,
+      Context
+    >;
     /** Alternativas da questão. */
     choices?: ChoicesResolver<QuestionChoice[], TypeParent, Context>;
   }
 
-  export type IdResolver<R = string, Parent = Question, Context = OliContext> = Resolver<
-    R,
-    Parent,
-    Context
-  >;
-  export type TypeResolver<R = QuestionType, Parent = Question, Context = OliContext> = Resolver<
-    R,
-    Parent,
-    Context
-  >;
-  export type WordingResolver<R = string, Parent = Question, Context = OliContext> = Resolver<
-    R,
-    Parent,
-    Context
-  >;
+  export type IdResolver<
+    R = string,
+    Parent = import('./prisma-client').Question,
+    Context = OliContext
+  > = Resolver<R, Parent, Context>;
+  export type TypeResolver<
+    R = QuestionType,
+    Parent = import('./prisma-client').Question,
+    Context = OliContext
+  > = Resolver<R, Parent, Context>;
+  export type WordingResolver<
+    R = string,
+    Parent = import('./prisma-client').Question,
+    Context = OliContext
+  > = Resolver<R, Parent, Context>;
   export type ImageUrlResolver<
     R = Maybe<string>,
-    Parent = Question,
+    Parent = import('./prisma-client').Question,
     Context = OliContext
   > = Resolver<R, Parent, Context>;
   export type ImageFullUrlResolver<
     R = Maybe<string>,
-    Parent = Question,
+    Parent = import('./prisma-client').Question,
     Context = OliContext
   > = Resolver<R, Parent, Context>;
   export type SecondaryWordingResolver<
     R = Maybe<string>,
-    Parent = Question,
+    Parent = import('./prisma-client').Question,
     Context = OliContext
   > = Resolver<R, Parent, Context>;
   export type ChoicesResolver<
     R = QuestionChoice[],
-    Parent = Question,
+    Parent = import('./prisma-client').Question,
     Context = OliContext
   > = Resolver<R, Parent, Context>;
 }
 
 export namespace QuestionChoiceResolvers {
-  export interface Resolvers<Context = OliContext, TypeParent = QuestionChoice> {
+  export interface Resolvers<
+    Context = OliContext,
+    TypeParent = QuestionChoice
+  > {
     id?: IdResolver<string, TypeParent, Context>;
 
     text?: TextResolver<string, TypeParent, Context>;
   }
 
-  export type IdResolver<R = string, Parent = QuestionChoice, Context = OliContext> = Resolver<
-    R,
-    Parent,
-    Context
-  >;
-  export type TextResolver<R = string, Parent = QuestionChoice, Context = OliContext> = Resolver<
-    R,
-    Parent,
-    Context
-  >;
+  export type IdResolver<
+    R = string,
+    Parent = QuestionChoice,
+    Context = OliContext
+  > = Resolver<R, Parent, Context>;
+  export type TextResolver<
+    R = string,
+    Parent = QuestionChoice,
+    Context = OliContext
+  > = Resolver<R, Parent, Context>;
 }
 
 export namespace OlympiadConnectionResolvers {
-  export interface Resolvers<Context = OliContext, TypeParent = OlympiadConnection> {
+  export interface Resolvers<
+    Context = OliContext,
+    TypeParent = import('./prisma-client').OlympiadConnection
+  > {
     pageInfo?: PageInfoResolver<PageInfo, TypeParent, Context>;
 
     edges?: EdgesResolver<(Maybe<OlympiadEdge>)[], TypeParent, Context>;
@@ -1185,17 +1273,17 @@ export namespace OlympiadConnectionResolvers {
 
   export type PageInfoResolver<
     R = PageInfo,
-    Parent = OlympiadConnection,
+    Parent = import('./prisma-client').OlympiadConnection,
     Context = OliContext
   > = Resolver<R, Parent, Context>;
   export type EdgesResolver<
     R = (Maybe<OlympiadEdge>)[],
-    Parent = OlympiadConnection,
+    Parent = import('./prisma-client').OlympiadConnection,
     Context = OliContext
   > = Resolver<R, Parent, Context>;
   export type AggregateResolver<
     R = AggregateOlympiad,
-    Parent = OlympiadConnection,
+    Parent = import('./prisma-client').OlympiadConnection,
     Context = OliContext
   > = Resolver<R, Parent, Context>;
 }
@@ -1211,11 +1299,11 @@ export namespace PageInfoResolvers {
     endCursor?: EndCursorResolver<Maybe<string>, TypeParent, Context>;
   }
 
-  export type HasNextPageResolver<R = boolean, Parent = PageInfo, Context = OliContext> = Resolver<
-    R,
-    Parent,
-    Context
-  >;
+  export type HasNextPageResolver<
+    R = boolean,
+    Parent = PageInfo,
+    Context = OliContext
+  > = Resolver<R, Parent, Context>;
   export type HasPreviousPageResolver<
     R = boolean,
     Parent = PageInfo,
@@ -1235,25 +1323,32 @@ export namespace PageInfoResolvers {
 
 export namespace OlympiadEdgeResolvers {
   export interface Resolvers<Context = OliContext, TypeParent = OlympiadEdge> {
-    node?: NodeResolver<Olympiad, TypeParent, Context>;
+    node?: NodeResolver<
+      import('./prisma-client').Olympiad,
+      TypeParent,
+      Context
+    >;
 
     cursor?: CursorResolver<string, TypeParent, Context>;
   }
 
-  export type NodeResolver<R = Olympiad, Parent = OlympiadEdge, Context = OliContext> = Resolver<
-    R,
-    Parent,
-    Context
-  >;
-  export type CursorResolver<R = string, Parent = OlympiadEdge, Context = OliContext> = Resolver<
-    R,
-    Parent,
-    Context
-  >;
+  export type NodeResolver<
+    R = import('./prisma-client').Olympiad,
+    Parent = OlympiadEdge,
+    Context = OliContext
+  > = Resolver<R, Parent, Context>;
+  export type CursorResolver<
+    R = string,
+    Parent = OlympiadEdge,
+    Context = OliContext
+  > = Resolver<R, Parent, Context>;
 }
 
 export namespace AggregateOlympiadResolvers {
-  export interface Resolvers<Context = OliContext, TypeParent = AggregateOlympiad> {
+  export interface Resolvers<
+    Context = OliContext,
+    TypeParent = AggregateOlympiad
+  > {
     count?: CountResolver<number, TypeParent, Context>;
   }
 
@@ -1265,7 +1360,10 @@ export namespace AggregateOlympiadResolvers {
 }
 
 export namespace QuestionConnectionResolvers {
-  export interface Resolvers<Context = OliContext, TypeParent = QuestionConnection> {
+  export interface Resolvers<
+    Context = OliContext,
+    TypeParent = import('./prisma-client').QuestionConnection
+  > {
     pageInfo?: PageInfoResolver<PageInfo, TypeParent, Context>;
 
     edges?: EdgesResolver<(Maybe<QuestionEdge>)[], TypeParent, Context>;
@@ -1275,42 +1373,49 @@ export namespace QuestionConnectionResolvers {
 
   export type PageInfoResolver<
     R = PageInfo,
-    Parent = QuestionConnection,
+    Parent = import('./prisma-client').QuestionConnection,
     Context = OliContext
   > = Resolver<R, Parent, Context>;
   export type EdgesResolver<
     R = (Maybe<QuestionEdge>)[],
-    Parent = QuestionConnection,
+    Parent = import('./prisma-client').QuestionConnection,
     Context = OliContext
   > = Resolver<R, Parent, Context>;
   export type AggregateResolver<
     R = AggregateQuestion,
-    Parent = QuestionConnection,
+    Parent = import('./prisma-client').QuestionConnection,
     Context = OliContext
   > = Resolver<R, Parent, Context>;
 }
 
 export namespace QuestionEdgeResolvers {
   export interface Resolvers<Context = OliContext, TypeParent = QuestionEdge> {
-    node?: NodeResolver<Question, TypeParent, Context>;
+    node?: NodeResolver<
+      import('./prisma-client').Question,
+      TypeParent,
+      Context
+    >;
 
     cursor?: CursorResolver<string, TypeParent, Context>;
   }
 
-  export type NodeResolver<R = Question, Parent = QuestionEdge, Context = OliContext> = Resolver<
-    R,
-    Parent,
-    Context
-  >;
-  export type CursorResolver<R = string, Parent = QuestionEdge, Context = OliContext> = Resolver<
-    R,
-    Parent,
-    Context
-  >;
+  export type NodeResolver<
+    R = import('./prisma-client').Question,
+    Parent = QuestionEdge,
+    Context = OliContext
+  > = Resolver<R, Parent, Context>;
+  export type CursorResolver<
+    R = string,
+    Parent = QuestionEdge,
+    Context = OliContext
+  > = Resolver<R, Parent, Context>;
 }
 
 export namespace AggregateQuestionResolvers {
-  export interface Resolvers<Context = OliContext, TypeParent = AggregateQuestion> {
+  export interface Resolvers<
+    Context = OliContext,
+    TypeParent = AggregateQuestion
+  > {
     count?: CountResolver<number, TypeParent, Context>;
   }
 
@@ -1322,7 +1427,10 @@ export namespace AggregateQuestionResolvers {
 }
 
 export namespace SchoolResolvers {
-  export interface Resolvers<Context = OliContext, TypeParent = School> {
+  export interface Resolvers<
+    Context = OliContext,
+    TypeParent = import('./prisma-client').School
+  > {
     id?: IdResolver<string, TypeParent, Context>;
 
     name?: NameResolver<string, TypeParent, Context>;
@@ -1331,101 +1439,152 @@ export namespace SchoolResolvers {
 
     phone?: PhoneResolver<Maybe<string>, TypeParent, Context>;
 
-    olympiadCood?: OlympiadCoodResolver<User, TypeParent, Context>;
+    olympiadCood?: OlympiadCoodResolver<
+      import('./prisma-client').User,
+      TypeParent,
+      Context
+    >;
 
     pedagogyCoord?: PedagogyCoordResolver<Maybe<string>, TypeParent, Context>;
 
     director?: DirectorResolver<Maybe<string>, TypeParent, Context>;
 
-    city?: CityResolver<City, TypeParent, Context>;
+    city?: CityResolver<import('./prisma-client').City, TypeParent, Context>;
 
     address?: AddressResolver<Maybe<string>, TypeParent, Context>;
   }
 
-  export type IdResolver<R = string, Parent = School, Context = OliContext> = Resolver<
-    R,
-    Parent,
-    Context
-  >;
-  export type NameResolver<R = string, Parent = School, Context = OliContext> = Resolver<
-    R,
-    Parent,
-    Context
-  >;
-  export type EmailResolver<R = string, Parent = School, Context = OliContext> = Resolver<
-    R,
-    Parent,
-    Context
-  >;
-  export type PhoneResolver<R = Maybe<string>, Parent = School, Context = OliContext> = Resolver<
-    R,
-    Parent,
-    Context
-  >;
-  export type OlympiadCoodResolver<R = User, Parent = School, Context = OliContext> = Resolver<
-    R,
-    Parent,
-    Context
-  >;
-  export type PedagogyCoordResolver<
-    R = Maybe<string>,
-    Parent = School,
+  export type IdResolver<
+    R = string,
+    Parent = import('./prisma-client').School,
     Context = OliContext
   > = Resolver<R, Parent, Context>;
-  export type DirectorResolver<R = Maybe<string>, Parent = School, Context = OliContext> = Resolver<
-    R,
-    Parent,
-    Context
-  >;
-  export type CityResolver<R = City, Parent = School, Context = OliContext> = Resolver<
-    R,
-    Parent,
-    Context
-  >;
-  export type AddressResolver<R = Maybe<string>, Parent = School, Context = OliContext> = Resolver<
-    R,
-    Parent,
-    Context
-  >;
+  export type NameResolver<
+    R = string,
+    Parent = import('./prisma-client').School,
+    Context = OliContext
+  > = Resolver<R, Parent, Context>;
+  export type EmailResolver<
+    R = string,
+    Parent = import('./prisma-client').School,
+    Context = OliContext
+  > = Resolver<R, Parent, Context>;
+  export type PhoneResolver<
+    R = Maybe<string>,
+    Parent = import('./prisma-client').School,
+    Context = OliContext
+  > = Resolver<R, Parent, Context>;
+  export type OlympiadCoodResolver<
+    R = import('./prisma-client').User,
+    Parent = import('./prisma-client').School,
+    Context = OliContext
+  > = Resolver<R, Parent, Context>;
+  export type PedagogyCoordResolver<
+    R = Maybe<string>,
+    Parent = import('./prisma-client').School,
+    Context = OliContext
+  > = Resolver<R, Parent, Context>;
+  export type DirectorResolver<
+    R = Maybe<string>,
+    Parent = import('./prisma-client').School,
+    Context = OliContext
+  > = Resolver<R, Parent, Context>;
+  export type CityResolver<
+    R = import('./prisma-client').City,
+    Parent = import('./prisma-client').School,
+    Context = OliContext
+  > = Resolver<R, Parent, Context>;
+  export type AddressResolver<
+    R = Maybe<string>,
+    Parent = import('./prisma-client').School,
+    Context = OliContext
+  > = Resolver<R, Parent, Context>;
 }
 
 export namespace MutationResolvers {
   export interface Resolvers<Context = OliContext, TypeParent = {}> {
-    signup?: SignupResolver<AuthPayload, TypeParent, Context>;
+    signup?: SignupResolver<AuthPayloadHack, TypeParent, Context>;
 
-    login?: LoginResolver<AuthPayload, TypeParent, Context>;
+    login?: LoginResolver<AuthPayloadHack, TypeParent, Context>;
 
-    createCity?: CreateCityResolver<City, TypeParent, Context>;
+    createCity?: CreateCityResolver<
+      import('./prisma-client').City,
+      TypeParent,
+      Context
+    >;
 
-    deleteCity?: DeleteCityResolver<City, TypeParent, Context>;
+    deleteCity?: DeleteCityResolver<
+      import('./prisma-client').City,
+      TypeParent,
+      Context
+    >;
 
-    updateCity?: UpdateCityResolver<City, TypeParent, Context>;
+    updateCity?: UpdateCityResolver<
+      import('./prisma-client').City,
+      TypeParent,
+      Context
+    >;
 
-    createExam?: CreateExamResolver<Exam, TypeParent, Context>;
+    createExam?: CreateExamResolver<
+      import('./prisma-client').Exam,
+      TypeParent,
+      Context
+    >;
 
-    deleteExam?: DeleteExamResolver<Exam, TypeParent, Context>;
+    deleteExam?: DeleteExamResolver<
+      import('./prisma-client').Exam,
+      TypeParent,
+      Context
+    >;
 
-    createOlympiad?: CreateOlympiadResolver<Olympiad, TypeParent, Context>;
+    createOlympiad?: CreateOlympiadResolver<
+      import('./prisma-client').Olympiad,
+      TypeParent,
+      Context
+    >;
 
-    createQuestion?: CreateQuestionResolver<QuestionPayload, TypeParent, Context>;
+    createQuestion?: CreateQuestionResolver<
+      QuestionPayloadHack,
+      TypeParent,
+      Context
+    >;
 
-    deleteQuestion?: DeleteQuestionResolver<QuestionPayload, TypeParent, Context>;
+    deleteQuestion?: DeleteQuestionResolver<
+      QuestionPayloadHack,
+      TypeParent,
+      Context
+    >;
 
-    updateQuestion?: UpdateQuestionResolver<QuestionPayload, TypeParent, Context>;
+    updateQuestion?: UpdateQuestionResolver<
+      QuestionPayloadHack,
+      TypeParent,
+      Context
+    >;
 
-    createSchool?: CreateSchoolResolver<School, TypeParent, Context>;
+    createSchool?: CreateSchoolResolver<
+      import('./prisma-client').School,
+      TypeParent,
+      Context
+    >;
 
-    deleteOlympiad?: DeleteOlympiadResolver<Olympiad, TypeParent, Context>;
+    deleteOlympiad?: DeleteOlympiadResolver<
+      import('./prisma-client').Olympiad,
+      TypeParent,
+      Context
+    >;
 
-    deleteSchool?: DeleteSchoolResolver<School, TypeParent, Context>;
+    deleteSchool?: DeleteSchoolResolver<
+      import('./prisma-client').School,
+      TypeParent,
+      Context
+    >;
   }
 
-  export type SignupResolver<R = AuthPayload, Parent = {}, Context = OliContext> = Resolver<
-    R,
-    Parent,
-    Context,
-    SignupArgs
-  >;
+  export type SignupResolver<
+    R = AuthPayloadHack,
+    Parent = {},
+    Context = OliContext
+  > = Resolver<R, Parent, Context, SignupArgs>;
   export interface SignupArgs {
     email: string;
 
@@ -1434,78 +1593,71 @@ export namespace MutationResolvers {
     name: string;
   }
 
-  export type LoginResolver<R = AuthPayload, Parent = {}, Context = OliContext> = Resolver<
-    R,
-    Parent,
-    Context,
-    LoginArgs
-  >;
+  export type LoginResolver<
+    R = AuthPayloadHack,
+    Parent = {},
+    Context = OliContext
+  > = Resolver<R, Parent, Context, LoginArgs>;
   export interface LoginArgs {
     email: string;
 
     password: string;
   }
 
-  export type CreateCityResolver<R = City, Parent = {}, Context = OliContext> = Resolver<
-    R,
-    Parent,
-    Context,
-    CreateCityArgs
-  >;
+  export type CreateCityResolver<
+    R = import('./prisma-client').City,
+    Parent = {},
+    Context = OliContext
+  > = Resolver<R, Parent, Context, CreateCityArgs>;
   export interface CreateCityArgs {
     name: string;
   }
 
-  export type DeleteCityResolver<R = City, Parent = {}, Context = OliContext> = Resolver<
-    R,
-    Parent,
-    Context,
-    DeleteCityArgs
-  >;
+  export type DeleteCityResolver<
+    R = import('./prisma-client').City,
+    Parent = {},
+    Context = OliContext
+  > = Resolver<R, Parent, Context, DeleteCityArgs>;
   export interface DeleteCityArgs {
     id: string;
   }
 
-  export type UpdateCityResolver<R = City, Parent = {}, Context = OliContext> = Resolver<
-    R,
-    Parent,
-    Context,
-    UpdateCityArgs
-  >;
+  export type UpdateCityResolver<
+    R = import('./prisma-client').City,
+    Parent = {},
+    Context = OliContext
+  > = Resolver<R, Parent, Context, UpdateCityArgs>;
   export interface UpdateCityArgs {
     id: string;
 
     name: string;
   }
 
-  export type CreateExamResolver<R = Exam, Parent = {}, Context = OliContext> = Resolver<
-    R,
-    Parent,
-    Context,
-    CreateExamArgs
-  >;
+  export type CreateExamResolver<
+    R = import('./prisma-client').Exam,
+    Parent = {},
+    Context = OliContext
+  > = Resolver<R, Parent, Context, CreateExamArgs>;
   export interface CreateExamArgs {
     title: string;
 
     description: string;
   }
 
-  export type DeleteExamResolver<R = Exam, Parent = {}, Context = OliContext> = Resolver<
-    R,
-    Parent,
-    Context,
-    DeleteExamArgs
-  >;
+  export type DeleteExamResolver<
+    R = import('./prisma-client').Exam,
+    Parent = {},
+    Context = OliContext
+  > = Resolver<R, Parent, Context, DeleteExamArgs>;
   export interface DeleteExamArgs {
     id: string;
   }
 
-  export type CreateOlympiadResolver<R = Olympiad, Parent = {}, Context = OliContext> = Resolver<
-    R,
-    Parent,
-    Context,
-    CreateOlympiadArgs
-  >;
+  export type CreateOlympiadResolver<
+    R = import('./prisma-client').Olympiad,
+    Parent = {},
+    Context = OliContext
+  > = Resolver<R, Parent, Context, CreateOlympiadArgs>;
   export interface CreateOlympiadArgs {
     name: string;
 
@@ -1513,7 +1665,7 @@ export namespace MutationResolvers {
   }
 
   export type CreateQuestionResolver<
-    R = QuestionPayload,
+    R = QuestionPayloadHack,
     Parent = {},
     Context = OliContext
   > = Resolver<R, Parent, Context, CreateQuestionArgs>;
@@ -1522,7 +1674,7 @@ export namespace MutationResolvers {
   }
 
   export type DeleteQuestionResolver<
-    R = QuestionPayload,
+    R = QuestionPayloadHack,
     Parent = {},
     Context = OliContext
   > = Resolver<R, Parent, Context, DeleteQuestionArgs>;
@@ -1531,7 +1683,7 @@ export namespace MutationResolvers {
   }
 
   export type UpdateQuestionResolver<
-    R = QuestionPayload,
+    R = QuestionPayloadHack,
     Parent = {},
     Context = OliContext
   > = Resolver<R, Parent, Context, UpdateQuestionArgs>;
@@ -1539,12 +1691,11 @@ export namespace MutationResolvers {
     input: UpdateQuestionInput;
   }
 
-  export type CreateSchoolResolver<R = School, Parent = {}, Context = OliContext> = Resolver<
-    R,
-    Parent,
-    Context,
-    CreateSchoolArgs
-  >;
+  export type CreateSchoolResolver<
+    R = import('./prisma-client').School,
+    Parent = {},
+    Context = OliContext
+  > = Resolver<R, Parent, Context, CreateSchoolArgs>;
   export interface CreateSchoolArgs {
     name: string;
 
@@ -1561,54 +1712,62 @@ export namespace MutationResolvers {
     address: Maybe<string>;
   }
 
-  export type DeleteOlympiadResolver<R = Olympiad, Parent = {}, Context = OliContext> = Resolver<
-    R,
-    Parent,
-    Context,
-    DeleteOlympiadArgs
-  >;
+  export type DeleteOlympiadResolver<
+    R = import('./prisma-client').Olympiad,
+    Parent = {},
+    Context = OliContext
+  > = Resolver<R, Parent, Context, DeleteOlympiadArgs>;
   export interface DeleteOlympiadArgs {
     id: string;
   }
 
-  export type DeleteSchoolResolver<R = School, Parent = {}, Context = OliContext> = Resolver<
-    R,
-    Parent,
-    Context,
-    DeleteSchoolArgs
-  >;
+  export type DeleteSchoolResolver<
+    R = import('./prisma-client').School,
+    Parent = {},
+    Context = OliContext
+  > = Resolver<R, Parent, Context, DeleteSchoolArgs>;
   export interface DeleteSchoolArgs {
     id: string;
   }
 }
 
 export namespace AuthPayloadResolvers {
-  export interface Resolvers<Context = OliContext, TypeParent = AuthPayload> {
+  export interface Resolvers<
+    Context = OliContext,
+    TypeParent = AuthPayloadHack
+  > {
     token?: TokenResolver<string, TypeParent, Context>;
 
-    user?: UserResolver<User, TypeParent, Context>;
+    user?: UserResolver<import('./prisma-client').User, TypeParent, Context>;
   }
 
-  export type TokenResolver<R = string, Parent = AuthPayload, Context = OliContext> = Resolver<
-    R,
-    Parent,
-    Context
-  >;
-  export type UserResolver<R = User, Parent = AuthPayload, Context = OliContext> = Resolver<
-    R,
-    Parent,
-    Context
-  >;
+  export type TokenResolver<
+    R = string,
+    Parent = AuthPayloadHack,
+    Context = OliContext
+  > = Resolver<R, Parent, Context>;
+  export type UserResolver<
+    R = import('./prisma-client').User,
+    Parent = AuthPayloadHack,
+    Context = OliContext
+  > = Resolver<R, Parent, Context>;
 }
 
 export namespace QuestionPayloadResolvers {
-  export interface Resolvers<Context = OliContext, TypeParent = QuestionPayload> {
-    question?: QuestionResolver<Maybe<Question>, TypeParent, Context>;
+  export interface Resolvers<
+    Context = OliContext,
+    TypeParent = QuestionPayloadHack
+  > {
+    question?: QuestionResolver<
+      Maybe<import('./prisma-client').Question>,
+      TypeParent,
+      Context
+    >;
   }
 
   export type QuestionResolver<
-    R = Maybe<Question>,
-    Parent = QuestionPayload,
+    R = Maybe<import('./prisma-client').Question>,
+    Parent = QuestionPayloadHack,
     Context = OliContext
   > = Resolver<R, Parent, Context>;
 }
@@ -1619,7 +1778,9 @@ export namespace NodeResolvers {
   }
   export type ResolveType<
     R = 'User' | 'Question',
-    Parent = User | Question,
+    Parent =
+      | import('./prisma-client').User
+      | import('./prisma-client').Question,
     Context = OliContext
   > = TypeResolveFn<R, Parent, Context>;
 }
@@ -1668,10 +1829,12 @@ export interface DeprecatedDirectiveArgs {
   reason: string;
 }
 
-export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<DateTime, any> {
+export interface DateTimeScalarConfig
+  extends GraphQLScalarTypeConfig<DateTime, any> {
   name: 'DateTime';
 }
-export interface UploadScalarConfig extends GraphQLScalarTypeConfig<Upload, any> {
+export interface UploadScalarConfig
+  extends GraphQLScalarTypeConfig<Upload, any> {
   name: 'Upload';
 }
 

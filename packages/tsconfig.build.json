@@ -1,0 +1,9 @@
+{
+  "files": [],
+  "references": [
+		{ "path": "api" },
+		// "error TS5053: Option 'noEmit' cannot be specified with option 'composite'."
+		// TS incremental build is not playing well with Babel projects
+    // { "path": "web" }
+  ]
+}
