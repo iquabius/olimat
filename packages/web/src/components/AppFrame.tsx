@@ -23,17 +23,18 @@ import { useChangeTheme } from './ThemeContext';
 import PageTitle from './PageTitle';
 import UserMenuAppBar from './UserMenuAppBar';
 
-Router.onRouteChangeStart = () => {
+// https://github.com/zeit/next.js/issues/4863
+Router.events.on('routeChangeStart', () => {
 	NProgress.start();
-};
+});
 
-Router.onRouteChangeComplete = () => {
+Router.events.on('routeChangeComplete', () => {
 	NProgress.done();
-};
+});
 
-Router.onRouteChangeError = () => {
+Router.events.on('routeChangeError', () => {
 	NProgress.done();
-};
+});
 
 const styles = (theme: Theme) =>
 	createStyles({
