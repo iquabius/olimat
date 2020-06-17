@@ -1,5 +1,5 @@
 import find from 'lodash/find';
-import App, { Container } from 'next/app';
+import App from 'next/app';
 import { StylesProvider, jssPreset } from '@material-ui/styles';
 import { create } from 'jss';
 // @ts-ignore
@@ -91,13 +91,11 @@ class OliApp extends App<Props> {
 		const { Component, pageProps, router } = this.props;
 
 		return (
-			<Container>
-				<AppWrapper pageProps={pageProps} router={router}>
-					<SnackbarProvider maxSnack={3}>
-						<Component {...pageProps} />
-					</SnackbarProvider>
-				</AppWrapper>
-			</Container>
+			<AppWrapper pageProps={pageProps} router={router}>
+				<SnackbarProvider maxSnack={3}>
+					<Component {...pageProps} />
+				</SnackbarProvider>
+			</AppWrapper>
 		);
 	}
 }
