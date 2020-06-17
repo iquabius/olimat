@@ -78,7 +78,7 @@ const UserMenuAppBar: React.FC = props => {
 					<Button
 						color="inherit"
 						component={buttonProps => (
-							<Link variant="button" prefetch href="/login" {...buttonProps} />
+							<Link variant="button" href="/login" {...buttonProps} />
 						)}
 					>
 						Login
