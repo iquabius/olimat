@@ -24,8 +24,10 @@
     "strict": false,
     "forceConsistentCasingInFileNames": true,
     "module": "esnext",
-    "resolveJsonModule": true,
-    "isolatedModules": true
+		"resolveJsonModule": true,
+		// error TS5053: Option 'declaration' cannot be specified with option
+		// 'isolatedModules'.
+    // "isolatedModules": true
   },
   "references": [
     {
