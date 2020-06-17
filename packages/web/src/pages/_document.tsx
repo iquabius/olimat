@@ -6,6 +6,7 @@ import { themeColor } from '../components/ThemeContext';
 
 class MyDocument extends Document {
 	render() {
+		console.log('MyDocument.render()');
 		return (
 			<html lang="en" dir="ltr">
 				<Head>
@@ -40,6 +41,8 @@ class MyDocument extends Document {
 }
 
 MyDocument.getInitialProps = async ctx => {
+	console.log('MyDocument.getInitialProps()');
+	// Is this still the same in version 9.0?
 	// Resolution order
 	//
 	// On the server:

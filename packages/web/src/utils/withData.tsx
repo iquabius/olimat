@@ -41,10 +41,13 @@ export default App => {
 
 		static async getInitialProps(ctx) {
 			const {
-				Component,
-				router,
+				AppTree,
 				ctx: { req, res },
 			} = ctx;
+			console.log('WithData.getInitialProps() -> ctx: ', Object.keys(ctx));
+			console.log('WithData.getInitialProps() -> router:', {
+				pathname: ctx.router.pathname,
+			});
 
 			// One-time-use apollo client for initial props and rendering (on server)
 			const apollo = initApollo(
@@ -57,6 +60,7 @@ export default App => {
 			if (App.getInitialProps) {
 				appProps = await App.getInitialProps(ctx);
 			}
+			console.log('WithData -> appProps: ', Object.keys(appProps));
 
 			// When redirecting, the response is finished. No point in continuing to render.
 			if (res && res.finished) {
@@ -69,14 +73,15 @@ export default App => {
 					// Run all GraphQL queries
 					const app = (
 						<ApolloProvider client={apollo}>
-							<App
+							<AppTree
 								{...appProps}
-								Component={Component}
-								router={router}
+								// I think we don't need to pass apolloClient here since we
+								// don't use it in OliApp.render()
 								apolloClient={apollo}
 							/>
 						</ApolloProvider>
 					);
+					console.log('Awaiting getDataFromTree()...');
 					await getDataFromTree(app);
 				} catch (error) {
 					// Prevent Apollo Client GraphQL errors from crashing SSR.
@@ -92,6 +97,7 @@ export default App => {
 
 			// Extract query data from the Apollo's store
 			const apolloState = apollo.cache.extract();
+			console.log('getDataFromTree() finished -> data extracted');
 
 			return {
 				apolloState,
@@ -115,6 +121,7 @@ export default App => {
 		}
 
 		render() {
+			console.log('WithData.render()');
 			return (
 				<ApolloProvider client={this.apolloClient}>
 					<App {...this.props} />
