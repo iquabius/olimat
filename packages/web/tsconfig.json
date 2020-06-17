@@ -1,17 +1,43 @@
 {
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
+    "target": "es5",
     "jsx": "preserve",
-    "lib": ["dom", "es2018"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
+    "skipLibCheck": true,
     // Next.js is using Babel to compile the React app.
     // This configuration's only purpuse is for type checking.
     "noEmit": true,
+    "esModuleInterop": true,
     "preserveConstEnums": true,
     "baseUrl": "src",
-    "paths": {"@olimat/web/*": ["*"]},
+    "paths": {
+      "@olimat/web/*": [
+        "*"
+      ]
+    },
+    "strict": false,
+    "forceConsistentCasingInFileNames": true,
+    "module": "esnext",
+    "resolveJsonModule": true,
+    "isolatedModules": true
   },
   "references": [
-    { "path": "../api" }
+    {
+      "path": "../api"
+    }
+  ],
+  "exclude": [
+    "node_modules"
+  ],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
   ]
 }
