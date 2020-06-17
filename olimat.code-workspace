@@ -2,11 +2,11 @@
   "folders": [
     {
       // Servidor Apollo + Prisma
-      "path": "api"
+      "path": "packages/api"
     },
     {
       // Aplicação Next.js + React.js
-      "path": "web"
+      "path": "packages/web"
     }
   ],
   "launch": {

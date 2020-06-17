@@ -6,17 +6,26 @@ generates:
       avoidOptionals: true
       contextType: ../utils#OliContext
       # Corresponding mapped types should be excluded from generated file
-      # since they're imported from prisma-client
+      # since they're imported from prisma-client. But it doesn't look possible.
+      # So we add a suffix to the imported names to prevent name clashes.
+      # mapperTypeSuffix: Model
+      # But it's not supported until v1.13.0
+      # https://github.com/dotansimha/graphql-code-generator/releases/tag/v1.13.0
+      # So make this hack for now, as per:
+      # https://github.com/dotansimha/graphql-code-generator/issues/2932#issuecomment-552910765
       mappers:
-        City: ./prisma-client#City
-        # Node: ./prisma-client#Node
-        Olympiad: ./prisma-client#Olympiad
-        OlympiadConnection: ./prisma-client#OlympiadConnection
-        Question: ./prisma-client#Question
-        QuestionConnection: ./prisma-client#QuestionConnection
-        School: ./prisma-client#School
-        Exam: ./prisma-client#Exam
-        User: ./prisma-client#User
+        # Types from codegen and prisma are incompatible...
+        AuthPayload: ../utils#AuthPayloadHack
+        QuestionPayload: ../utils#QuestionPayloadHack
+        City: import('./prisma-client').City
+        # Node: import('./prisma-client').Node
+        Olympiad: import('./prisma-client').Olympiad
+        OlympiadConnection: import('./prisma-client').OlympiadConnection
+        Question: import('./prisma-client').Question
+        QuestionConnection: import('./prisma-client').QuestionConnection
+        School: import('./prisma-client').School
+        Exam: import('./prisma-client').Exam
+        User: import('./prisma-client').User
     plugins:
       - "typescript-common"
       - "typescript-server"
