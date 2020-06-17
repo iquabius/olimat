@@ -8,12 +8,15 @@ generates:
       # Corresponding mapped types should be excluded from generated file
       # since they're imported from prisma-client. But it doesn't look possible.
       # So we add a suffix to the imported names to prevent name clashes.
-			# mapperTypeSuffix: Model
-			# But it's not supported until v1.13.0
-			# https://github.com/dotansimha/graphql-code-generator/releases/tag/v1.13.0
-			# So make this hack for now, as per:
-			# https://github.com/dotansimha/graphql-code-generator/issues/2932#issuecomment-552910765
+      # mapperTypeSuffix: Model
+      # But it's not supported until v1.13.0
+      # https://github.com/dotansimha/graphql-code-generator/releases/tag/v1.13.0
+      # So make this hack for now, as per:
+      # https://github.com/dotansimha/graphql-code-generator/issues/2932#issuecomment-552910765
       mappers:
+        # Types from codegen and prisma are incompatible...
+        AuthPayload: ../utils#AuthPayloadHack
+        QuestionPayload: ../utils#QuestionPayloadHack
         City: import('./prisma-client').City
         # Node: import('./prisma-client').Node
         Olympiad: import('./prisma-client').Olympiad

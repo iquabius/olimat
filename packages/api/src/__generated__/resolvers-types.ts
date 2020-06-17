@@ -733,6 +733,8 @@ import {
   GraphQLScalarTypeConfig,
 } from 'graphql';
 
+import { AuthPayloadHack, QuestionPayloadHack } from '../utils';
+
 import { OliContext } from '../utils';
 
 export type Resolver<Result, Parent = {}, Context = {}, Args = {}> = (
@@ -1501,9 +1503,9 @@ export namespace SchoolResolvers {
 
 export namespace MutationResolvers {
   export interface Resolvers<Context = OliContext, TypeParent = {}> {
-    signup?: SignupResolver<AuthPayload, TypeParent, Context>;
+    signup?: SignupResolver<AuthPayloadHack, TypeParent, Context>;
 
-    login?: LoginResolver<AuthPayload, TypeParent, Context>;
+    login?: LoginResolver<AuthPayloadHack, TypeParent, Context>;
 
     createCity?: CreateCityResolver<
       import('./prisma-client').City,
@@ -1542,19 +1544,19 @@ export namespace MutationResolvers {
     >;
 
     createQuestion?: CreateQuestionResolver<
-      QuestionPayload,
+      QuestionPayloadHack,
       TypeParent,
       Context
     >;
 
     deleteQuestion?: DeleteQuestionResolver<
-      QuestionPayload,
+      QuestionPayloadHack,
       TypeParent,
       Context
     >;
 
     updateQuestion?: UpdateQuestionResolver<
-      QuestionPayload,
+      QuestionPayloadHack,
       TypeParent,
       Context
     >;
@@ -1579,7 +1581,7 @@ export namespace MutationResolvers {
   }
 
   export type SignupResolver<
-    R = AuthPayload,
+    R = AuthPayloadHack,
     Parent = {},
     Context = OliContext
   > = Resolver<R, Parent, Context, SignupArgs>;
@@ -1592,7 +1594,7 @@ export namespace MutationResolvers {
   }
 
   export type LoginResolver<
-    R = AuthPayload,
+    R = AuthPayloadHack,
     Parent = {},
     Context = OliContext
   > = Resolver<R, Parent, Context, LoginArgs>;
@@ -1663,7 +1665,7 @@ export namespace MutationResolvers {
   }
 
   export type CreateQuestionResolver<
-    R = QuestionPayload,
+    R = QuestionPayloadHack,
     Parent = {},
     Context = OliContext
   > = Resolver<R, Parent, Context, CreateQuestionArgs>;
@@ -1672,7 +1674,7 @@ export namespace MutationResolvers {
   }
 
   export type DeleteQuestionResolver<
-    R = QuestionPayload,
+    R = QuestionPayloadHack,
     Parent = {},
     Context = OliContext
   > = Resolver<R, Parent, Context, DeleteQuestionArgs>;
@@ -1681,7 +1683,7 @@ export namespace MutationResolvers {
   }
 
   export type UpdateQuestionResolver<
-    R = QuestionPayload,
+    R = QuestionPayloadHack,
     Parent = {},
     Context = OliContext
   > = Resolver<R, Parent, Context, UpdateQuestionArgs>;
@@ -1730,7 +1732,10 @@ export namespace MutationResolvers {
 }
 
 export namespace AuthPayloadResolvers {
-  export interface Resolvers<Context = OliContext, TypeParent = AuthPayload> {
+  export interface Resolvers<
+    Context = OliContext,
+    TypeParent = AuthPayloadHack
+  > {
     token?: TokenResolver<string, TypeParent, Context>;
 
     user?: UserResolver<import('./prisma-client').User, TypeParent, Context>;
@@ -1738,12 +1743,12 @@ export namespace AuthPayloadResolvers {
 
   export type TokenResolver<
     R = string,
-    Parent = AuthPayload,
+    Parent = AuthPayloadHack,
     Context = OliContext
   > = Resolver<R, Parent, Context>;
   export type UserResolver<
     R = import('./prisma-client').User,
-    Parent = AuthPayload,
+    Parent = AuthPayloadHack,
     Context = OliContext
   > = Resolver<R, Parent, Context>;
 }
@@ -1751,7 +1756,7 @@ export namespace AuthPayloadResolvers {
 export namespace QuestionPayloadResolvers {
   export interface Resolvers<
     Context = OliContext,
-    TypeParent = QuestionPayload
+    TypeParent = QuestionPayloadHack
   > {
     question?: QuestionResolver<
       Maybe<import('./prisma-client').Question>,
@@ -1762,7 +1767,7 @@ export namespace QuestionPayloadResolvers {
 
   export type QuestionResolver<
     R = Maybe<import('./prisma-client').Question>,
-    Parent = QuestionPayload,
+    Parent = QuestionPayloadHack,
     Context = OliContext
   > = Resolver<R, Parent, Context>;
 }
