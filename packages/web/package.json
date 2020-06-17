@@ -6,11 +6,11 @@
   "description": "Aplicação Web (cliente) para gerenciamento das Olímpiadas de Matemática da UNEMAT",
   "author": "Josias Iquabius <iquabius@gmail.com>",
   "scripts": {
-    "dev": "next ./src",
-    "build": "next build ./src",
+    "dev": "next",
+    "build": "next build",
     "build:clean": "rimraf .next",
-    "start": "next start ./src",
-    "analyze": "cross-env ANALYZE=1 next build ./src"
+    "start": "next start",
+    "analyze": "cross-env ANALYZE=1 next build"
   },
   "dependencies": {
     "@apollo/client": "3.0.0-rc.4",
