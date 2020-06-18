@@ -6,7 +6,7 @@ import {
 } from '@material-ui/core/styles';
 import classNames from 'classnames';
 import NextLink from 'next/link';
-import { withRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import React, { ReactEventHandler, KeyboardEventHandler } from 'react';
 import compose from 'recompose/compose';
 
@@ -34,11 +34,7 @@ const styles = (theme: Theme) =>
 		},
 	});
 
-interface InnerProps extends WithStyles<typeof styles> {
-	router: {
-		pathname: string;
-	};
-}
+interface InnerProps extends WithStyles<typeof styles> {}
 
 type Variant = 'default' | 'primary' | 'secondary' | 'button' | 'inherit';
 
@@ -63,10 +59,10 @@ const Link: React.FunctionComponent<InnerProps & OuterProps> = props => {
 		href,
 		onClick,
 		prefetch,
-		router,
 		variant,
 		...other
 	} = props;
+	const router = useRouter();
 
 	let ComponentRoot;
 	const className = classNames(
@@ -125,7 +121,4 @@ Link.defaultProps = {
 	activeClassName: 'active',
 };
 
-export default compose<InnerProps, OuterProps>(
-	withRouter,
-	withStyles(styles),
-)(Link);
+export default compose<InnerProps, OuterProps>(withStyles(styles))(Link);
