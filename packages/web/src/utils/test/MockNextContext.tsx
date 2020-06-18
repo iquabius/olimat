@@ -1,43 +1,40 @@
-import Router, {
-	PopStateCallback,
-	RouterProps,
-	WithRouterProps,
-} from 'next/router';
+import Router, { NextRouter } from 'next/router';
+import { WithRouterProps } from 'next/dist/client/with-router';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-const FakePrefetch: React.FunctionComponent = props => <div />;
-
-export const mockRouter: RouterProps = {
+export const mockRouter: NextRouter = {
 	asPath: '/',
 	route: '/',
 	pathname: '/',
 	query: {},
-	components: {},
 	// TODO: Properly mock the following methods
 	back() {},
-	beforePopState: (cb: PopStateCallback) => undefined,
-	prefetch: async (url: string) => FakePrefetch,
+	beforePopState: cb => undefined,
+	prefetch: (url: string) => null,
 	push(href, as, options) {
 		this.pathname = href;
 		return new Promise(resolve => resolve());
 	},
-	reload: async (route: string) => {},
+	reload: () => {},
 	replace: async () => true,
 	events: {
 		// TODO: Implement EventEmitter
+		emit() {},
 		on() {},
 		off() {},
 	},
 };
 
-Router.router = mockRouter;
+Router.router = Object.assign(mockRouter, Router.router);
 
 // API de contexto antiga do React
 // https://github.com/zeit/next.js/issues/5205#issuecomment-422846339
 export default class MockNextContext extends React.Component<WithRouterProps> {
 	static propTypes = {
 		// children: PropTypes.node.isRequired,
+		// 'headManager' may not be necessary anymore:
+		// https://github.com/vercel/next.js/blob/9b999b1ce30f1bd4779e3cb33a41cce6467c2ebc/packages/next/client/with-router.tsx#L5
 		headManager: PropTypes.object,
 		router: PropTypes.object,
 	};
