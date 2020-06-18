@@ -9,6 +9,8 @@ import { File, FilePond, registerPlugin } from 'react-filepond';
 // - https://github.com/zeit/next-plugins/issues/282
 // import 'filepond/dist/filepond.min.css';
 // import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
+// Será que funfa na versão 9? Parece que precisa ser em _app.tsx:
+// https://nextjs.org/blog/next-9-2#built-in-css-support-for-global-stylesheets
 
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 

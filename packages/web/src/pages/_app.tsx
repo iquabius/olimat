@@ -1,5 +1,5 @@
 import find from 'lodash/find';
-import App, { Container } from 'next/app';
+import App from 'next/app';
 import { StylesProvider, jssPreset } from '@material-ui/styles';
 import { create } from 'jss';
 // @ts-ignore
@@ -47,6 +47,7 @@ function AppWrapper(props) {
 	const { children, pageProps, router } = props;
 
 	// const router = useRouter();
+	console.log('AppWrapper -> router: ', { pathname: router.pathname });
 
 	React.useEffect(() => {
 		// Remove the server-side injected CSS.
@@ -89,20 +90,28 @@ interface Props {
 class OliApp extends App<Props> {
 	render() {
 		const { Component, pageProps, router } = this.props;
+		console.log('OliApp.render() -> props: ', Object.keys(this.props));
+		console.log('OliApp.render() -> props -> router: ', {
+			pathname: router.pathname,
+		});
 
 		return (
-			<Container>
-				<AppWrapper pageProps={pageProps} router={router}>
-					<SnackbarProvider maxSnack={3}>
-						<Component {...pageProps} />
-					</SnackbarProvider>
-				</AppWrapper>
-			</Container>
+			<AppWrapper pageProps={pageProps} router={router}>
+				<SnackbarProvider maxSnack={3}>
+					<Component {...pageProps} />
+				</SnackbarProvider>
+			</AppWrapper>
 		);
 	}
 }
 
-OliApp.getInitialProps = async ({ Component, ctx }) => {
+OliApp.getInitialProps = async appCtx => {
+	const { Component, ctx } = appCtx;
+	console.log('OliApp.getInitialProps -> appCtx: ', Object.keys(appCtx));
+	console.log('OliApp.getInitialProps -> appCtx -> Component: ', Component);
+	console.log('OliApp.getInitialProps -> appCtx -> router: ', {
+		pathname: appCtx.router.pathname,
+	});
 	const { loggedInUser } = await checkLoggedIn(ctx.apolloClient);
 	let pageProps = {};
 
@@ -112,9 +121,12 @@ OliApp.getInitialProps = async ({ Component, ctx }) => {
 
 	pageProps = {
 		...pageProps,
+		// It looks like this shouldn't be nested here.
+		// C+shift+F "loggedInUser" to check usage.
 		loggedInUser,
 	};
 
+	console.log('OliApp.getInitialProps -> pageProps: ', Object.keys(pageProps));
 	return { pageProps };
 };
 

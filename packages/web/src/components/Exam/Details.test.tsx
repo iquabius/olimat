@@ -9,7 +9,7 @@ import { renderApollo } from '@olimat/web/utils/test/test-utils';
 import ExamDetails from './Details';
 
 const MockExamDetails = () => (
-	<MockNextContext router={{ query: { id: 'theExamId1' } } as any}>
+	<MockNextContext router={{ query: { id: 'theExamId1' } }}>
 		<ExamDetails />
 	</MockNextContext>
 );

@@ -11,9 +11,8 @@ import {
 import EditIcon from '@material-ui/icons/Edit';
 import Error from 'next/error';
 import NextLink from 'next/link';
-import { DefaultQuery, withRouter, WithRouterProps } from 'next/router';
+import { useRouter } from 'next/router';
 import React from 'react';
-import compose from 'recompose/compose';
 
 import FAButton from '../FAButton';
 import SafeDeleteIconButton from '../SafeDeleteIconButton';
@@ -44,21 +43,17 @@ const styles = (theme: Theme) =>
 		},
 	});
 
-interface Query extends DefaultQuery {
-	id?: string;
-}
+interface Props extends WithStyles<typeof styles> {}
 
-interface Props extends WithRouterProps<Query>, WithStyles<typeof styles> {}
-
-const QuestionDetails: React.FunctionComponent<Props> = ({
-	classes,
-	router,
-}) => {
+const QuestionDetails: React.FunctionComponent<Props> = ({ classes }) => {
+	// Why is this component's data missing from __NEXT_DATA__?
+	// Besides, @apollo/react-ssr is rendering loading state on initial HTML.
+	const router = useRouter();
 	const id = router.query.id;
 	if (!id) return <Error statusCode={404} />;
 
 	return (
-		<QuestionDetailsConnector id={id}>
+		<QuestionDetailsConnector id={id.toString()}>
 			{({ question }) => {
 				// TODO: Mover essa lógica para o Connector
 				if (!question) return <div>Essa questão não existe!</div>;
@@ -107,7 +102,4 @@ const QuestionDetails: React.FunctionComponent<Props> = ({
 	);
 };
 
-export default compose(
-	withRouter,
-	withStyles(styles),
-)(QuestionDetails);
+export default withStyles(styles)(QuestionDetails);

@@ -1,16 +1,3 @@
 {
-  "presets": [
-    "next/babel",
-    "@zeit/next-typescript/babel"
-  ],
-  // I was getting a syntax error after moving Jest to monorepo root
-  // https://github.com/zeit/next.js/issues/2499
-  "env": {
-    "test": {
-      "presets": [
-        "next/babel",
-        "@zeit/next-typescript/babel"
-      ]
-    }
-  }
+	"presets": ["next/babel"]
 }

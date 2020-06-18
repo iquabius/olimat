@@ -7,9 +7,8 @@ import {
 	WithStyles,
 } from '@material-ui/core';
 import Error from 'next/error';
-import { DefaultQuery, withRouter, WithRouterProps } from 'next/router';
+import { useRouter } from 'next/router';
 import React from 'react';
-import compose from 'recompose/compose';
 
 import ExamDetailsConnector from './DetailsConnector';
 import ExamQuestionItem from './QuestionItem';
@@ -38,18 +37,15 @@ const styles = (theme: Theme) =>
 		},
 	});
 
-interface Query extends DefaultQuery {
-	id?: string;
-}
+interface Props extends WithStyles<typeof styles> {}
 
-interface Props extends WithRouterProps<Query>, WithStyles<typeof styles> {}
-
-const ExamDetails: React.FunctionComponent<Props> = ({ classes, router }) => {
+const ExamDetails: React.FunctionComponent<Props> = ({ classes }) => {
+	const router = useRouter();
 	const id = router.query.id;
 	if (!id) return <Error statusCode={404} />;
 
 	return (
-		<ExamDetailsConnector id={id}>
+		<ExamDetailsConnector id={id.toString()}>
 			{({ exam }) => {
 				if (!exam) return <div>Essa prova não existe.</div>;
 
@@ -75,7 +71,4 @@ const ExamDetails: React.FunctionComponent<Props> = ({ classes, router }) => {
 	);
 };
 
-export default compose(
-	withRouter,
-	withStyles(styles),
-)(ExamDetails);
+export default withStyles(styles)(ExamDetails);

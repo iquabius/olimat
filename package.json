@@ -49,6 +49,6 @@
     "test:watch": "jest --watch",
     "typecheck": "npm-run-all --parallel typecheck:*",
     "typecheck:api": "tsc --noEmit --composite false --project packages/api/tsconfig.json",
-    "typecheck:web": "tsc --noEmit --composite false --project packages/web/tsconfig.json"
+    "typecheck:web": "tsc --noEmit --project packages/web/tsconfig.json"
   }
 }

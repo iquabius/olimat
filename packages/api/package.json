@@ -10,7 +10,9 @@
     "@olimat/api": "dist"
   },
   "scripts": {
-    "prebuild": "rimraf dist && copyfiles -V -u 1 ./src/schema.graphql ./src/**/*.graphql ./dist",
+		"prebuild": "rimraf dist && copyfiles -V -u 1 ./src/schema.graphql ./src/**/*.graphql ./dist",
+		"build": "Uses an outdated version of TS, dependency of graphql-code-gen",
+		"build": "tsc --build --verbose .",
     "build:clean": "rimraf dist",
     "start": "node -r dotenv/config dist/index.js",
     "dev": "nodemon -e ts,graphql -x ts-node -r dotenv/config src/index.ts",

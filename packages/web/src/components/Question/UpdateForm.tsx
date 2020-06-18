@@ -1,7 +1,6 @@
-import Router, { withRouter, WithRouterProps } from 'next/router';
+import Router, { useRouter } from 'next/router';
 import { ProviderContext, withSnackbar } from 'notistack';
 import React from 'react';
-import compose from 'recompose/compose';
 
 import QuestionDetailsConnector from './DetailsConnector';
 import QuestionForm from './Form';
@@ -38,27 +37,26 @@ export const createSubmitHandler = (
 	);
 };
 
-interface Props extends ProviderContext, WithRouterProps {}
+interface Props extends ProviderContext {}
 
 const QuestionUpdateForm: React.FunctionComponent<Props> = ({
 	enqueueSnackbar,
-	router,
-}) => (
-	<QuestionDetailsConnector id={router.query.id as string}>
-		{({ isLoading, question, updateQuestion }) => (
-			<QuestionForm
-				initialValues={responseToFormValues(question)}
-				onSubmit={createSubmitHandler(
-					question,
-					updateQuestion,
-					enqueueSnackbar,
-				)}
-			/>
-		)}
-	</QuestionDetailsConnector>
-);
+}) => {
+	const router = useRouter();
+	return (
+		<QuestionDetailsConnector id={router.query.id.toString()}>
+			{({ isLoading, question, updateQuestion }) => (
+				<QuestionForm
+					initialValues={responseToFormValues(question)}
+					onSubmit={createSubmitHandler(
+						question,
+						updateQuestion,
+						enqueueSnackbar,
+					)}
+				/>
+			)}
+		</QuestionDetailsConnector>
+	);
+};
 
-export default compose(
-	withSnackbar,
-	withRouter,
-)(QuestionUpdateForm);
+export default withSnackbar(QuestionUpdateForm);

@@ -107,8 +107,13 @@ workflows:
           # record: true         # record results to Cypress Dashboard
           build: |
             npx lerna bootstrap --ci
-            npm run build
+            # Build separately because TS 3.9.0 is not emitting .js files
+            # in api/dist
             cd packages/api
+            npm run build
+            cd ../web
+            npm run build
+            cd ../api
             # We're deploying prisma twice,
             # can we reuse the one from integration tests?
             npx prisma deploy

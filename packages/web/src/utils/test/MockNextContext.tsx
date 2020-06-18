@@ -1,60 +1,92 @@
-import Router, {
-	PopStateCallback,
-	RouterProps,
-	WithRouterProps,
-} from 'next/router';
-import PropTypes from 'prop-types';
+import Router, { NextRouter } from 'next/router';
+import { RouterContext } from 'next/dist/next-server/lib/router-context';
 import React from 'react';
 
-const FakePrefetch: React.FunctionComponent = props => <div />;
-
-export const mockRouter: RouterProps = {
+export const mockRouter: NextRouter = {
 	asPath: '/',
 	route: '/',
 	pathname: '/',
 	query: {},
-	components: {},
-	// TODO: Properly mock the following methods
 	back() {},
-	beforePopState: (cb: PopStateCallback) => undefined,
-	prefetch: async (url: string) => FakePrefetch,
+	beforePopState: cb => undefined,
+	prefetch: (url: string) => null,
 	push(href, as, options) {
 		this.pathname = href;
 		return new Promise(resolve => resolve());
 	},
-	reload: async (route: string) => {},
+	reload: () => {},
 	replace: async () => true,
 	events: {
-		// TODO: Implement EventEmitter
+		emit() {},
 		on() {},
 		off() {},
 	},
 };
 
-Router.router = mockRouter;
+// TODO: Refactor tests to remove usage of this global Router singleton
+Router.router = Object.assign(mockRouter, Router.router);
 
-// API de contexto antiga do React
-// https://github.com/zeit/next.js/issues/5205#issuecomment-422846339
-export default class MockNextContext extends React.Component<WithRouterProps> {
-	static propTypes = {
-		// children: PropTypes.node.isRequired,
-		headManager: PropTypes.object,
-		router: PropTypes.object,
-	};
+/**
+ * This component mocks next/router. For now it does not work for next/head.
+ *
+ * Inspired by:
+ * - https://w11i.me/next-js-userouter-testing
+ * - https://github.com/vercel/next.js/issues/7479#issuecomment-498031927
+ *
+ * @param props
+ */
+export const MockNextContext: React.FC<{
+	router: Partial<NextRouter>;
+}> = props => {
+	const { children, router } = props;
+	const contextRouter = { ...mockRouter, ...router };
 
-	static childContextTypes = {
-		headManager: PropTypes.object,
-		router: PropTypes.object,
-	};
+	return (
+		<RouterContext.Provider value={contextRouter}>
+			{children}
+		</RouterContext.Provider>
+	);
+};
 
-	getChildContext() {
-		const { router } = this.props;
-		return {
-			router: Object.assign(mockRouter, router),
-		};
-	}
+export default MockNextContext;
 
-	render() {
-		return this.props.children;
-	}
-}
+/**
+ * This is a HoC that returns a component wrapped with Next's router.
+ *
+ * @param Component
+ * @param router
+ */
+// export const withTestNextRouter = (
+// 	Component: React.ComponentType,
+// 	router: Partial<NextRouter> = {},
+// ) => {
+// 	const WithTestNextRouter: React.FC = props => {
+// 		const contextRouter = { ...mockRouter, ...router };
+// 		return (
+// 			<RouterContext.Provider value={contextRouter}>
+// 				<Component />
+// 			</RouterContext.Provider>
+// 		);
+// 	};
+
+// 	return WithTestNextRouter;
+// };
+
+/**
+ * This is the original HoC from https://w11i.me/next-js-userouter-testing
+ *
+ * @param tree
+ * @param router
+ */
+// export const withTestNextRouter2 = (
+// 	tree: React.ReactElement,
+// 	router: Partial<NextRouter> = {},
+// ) => {
+// 	const contextRouter = { ...mockRouter, ...router };
+
+// 	return (
+// 		<RouterContext.Provider value={contextRouter}>
+// 			{tree}
+// 		</RouterContext.Provider>
+// 	);
+// };
