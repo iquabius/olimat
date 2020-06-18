@@ -11,7 +11,9 @@
     "allowJs": true,
     "skipLibCheck": true,
     // Next.js is using Babel to compile the React app.
-    // This configuration's only purpuse is for type checking.
+		// This configuration's only purpuse is for type checking.
+		// We're disabling 'composite' when type-checking.
+		// See commands in the root package.json
     "noEmit": true,
     "esModuleInterop": true,
     "preserveConstEnums": true,
@@ -25,9 +27,9 @@
     "forceConsistentCasingInFileNames": true,
     "module": "esnext",
 		"resolveJsonModule": true,
-		// error TS5053: Option 'declaration' cannot be specified with option
-		// 'isolatedModules'.
-    // "isolatedModules": true
+		// This also don't work with 'declaration' and 'composite'. That's why we
+		// disable 'composite' when type-checking. See commands in root package.json
+    "isolatedModules": true
   },
   "references": [
     {
