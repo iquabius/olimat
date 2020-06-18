@@ -15,7 +15,7 @@ import QuestionDetails from './Details';
 import { questionQuery } from './DetailsConnector';
 
 const MockQuestionDetails = () => (
-	<MockNextContext router={{ query: { id: 'theQuestionId1' } } as any}>
+	<MockNextContext router={{ query: { id: 'theQuestionId1' } }}>
 		<SnackbarProvider maxSnack={3}>
 			<QuestionDetails />
 		</SnackbarProvider>
