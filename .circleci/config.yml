@@ -107,10 +107,11 @@ workflows:
           # record: true         # record results to Cypress Dashboard
           build: |
             npx lerna bootstrap --ci
-            ls node_modules | grep olimat
+            ls node_modules | grep @
+            ls -al node_modules/@olimat/api
             npm run build
-            ls node_modules | grep olimat
-            cd packages/api
+            ls node_modules | grep @
+            ls -al node_modules/@olimat/api
             # We're deploying prisma twice,
             # can we reuse the one from integration tests?
             npx prisma deploy
