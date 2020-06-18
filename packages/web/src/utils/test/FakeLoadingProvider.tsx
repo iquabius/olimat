@@ -5,6 +5,10 @@
 // import { InMemoryCache } from 'apollo-cache-inmemory';
 // import { ApolloProvider } from '@apollo/client';
 
+// It's an empty function because of error TS1208:
+// "All files must be modules when the '--isolatedModules' flag is provided."
+// And we're not using this provider anywhere yet.
+const FakeLoadingProvider = () => {};
 // const FakeLoadingProvider = ({ children }) => {
 //   const client = new ApolloClient({
 //     link: new ApolloLink(() => new Observable(() => {})),
@@ -18,4 +22,4 @@
 //   children: PropTypes.node.isRequired,
 // };
 
-// export default FakeLoadingProvider;
+export default FakeLoadingProvider;
