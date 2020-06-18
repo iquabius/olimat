@@ -152,7 +152,7 @@ describe('<QuestionDetails />', () => {
 		];
 
 		const { getByLabelText, getByText } = renderApollo(
-			<MockNextContext router={{ query: { id: data.question.id } } as any}>
+			<MockNextContext router={{ query: { id: data.question.id } }}>
 				<SnackbarProvider maxSnack={3}>
 					<QuestionDetails />
 				</SnackbarProvider>
