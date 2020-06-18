@@ -19,6 +19,10 @@
     "composite": false,
     "declaration": false,
     "declarationMap": false,
+		// This also don't work with 'declaration' and 'composite'. That's why we
+		// disabled 'composite' above. See also:
+		// https://github.com/vercel/next.js/issues/7959
+    "isolatedModules": true,
     "esModuleInterop": true,
     "preserveConstEnums": true,
     "baseUrl": "src",
@@ -30,10 +34,7 @@
     "strict": false,
     "forceConsistentCasingInFileNames": true,
     "module": "esnext",
-		"resolveJsonModule": true,
-		// This also don't work with 'declaration' and 'composite'. That's why we
-		// disable 'composite' when type checking. See commands in root package.json
-    "isolatedModules": true
+		"resolveJsonModule": true
   },
   "references": [
     {
