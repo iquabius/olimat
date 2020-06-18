@@ -109,14 +109,15 @@ workflows:
             npx lerna bootstrap --ci
             ls packages/web/node_modules | grep @
             ls -al packages/web/node_modules/@olimat/api
-            cd packages/web
+            cd packages/api
+            npm run build
+            cd ../web
             pwd
             ls node_modules | grep @
             ls -al node_modules/@olimat/api
             npm run build
             cd ../api
             pwd
-            npm run build
             # We're deploying prisma twice,
             # can we reuse the one from integration tests?
             npx prisma deploy
