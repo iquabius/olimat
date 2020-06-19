@@ -113,7 +113,8 @@ OliApp.getInitialProps = async appCtx => {
 		pathname: appCtx.router.pathname,
 	});
 	// TODO: Find another way to check logged user to allow Next.js'
-	// automatic static optimization.
+	// automatic static optimization:
+	// https://nextjs.org/blog/next-9#automatic-static-optimization
 	// For now we don't need to show logged user in the home page for example.
 	const { loggedInUser } = await checkLoggedIn(ctx.apolloClient);
 	let pageProps = {};
