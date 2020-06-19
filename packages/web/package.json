@@ -10,7 +10,7 @@
     "build": "next build",
     "build:clean": "rimraf .next",
     "start": "next start",
-    "analyze": "cross-env ANALYZE=1 next build"
+    "analyze": "cross-env ANALYZE=true next build"
   },
   "dependencies": {
     "@apollo/client": "3.0.0-rc.6",
@@ -41,11 +41,11 @@
     "react-filepond": "5.0.0",
     "react-lines-ellipsis": "0.14.1",
     "recompose": "0.30.0",
-    "webpack-bundle-analyzer": "3.8.0",
     "yup": "0.29.1"
   },
   "devDependencies": {
     "@apollo/link-schema": "2.0.0-beta.3",
+    "@next/bundle-analyzer": "^9.4.4",
     "@types/classnames": "2.2.10",
     "@types/cookie": "0.4.0",
     "@types/nprogress": "0.2.0",
