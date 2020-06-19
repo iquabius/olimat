@@ -9,7 +9,7 @@ import React from 'react';
 
 import PageContext, { LoggedInUser } from '../components/PageContext';
 import checkLoggedIn from '../utils/checkLoggedIn';
-import withData from '../utils/withData';
+import { withApollo } from '../utils/apollo';
 import { ThemeProvider } from '../components/ThemeContext';
 import { pages } from '../pages';
 
@@ -112,6 +112,10 @@ OliApp.getInitialProps = async appCtx => {
 	console.log('OliApp.getInitialProps -> appCtx -> router: ', {
 		pathname: appCtx.router.pathname,
 	});
+	// TODO: Find another way to check logged user to allow Next.js'
+	// automatic static optimization:
+	// https://nextjs.org/blog/next-9#automatic-static-optimization
+	// For now we don't need to show logged user in the home page for example.
 	const { loggedInUser } = await checkLoggedIn(ctx.apolloClient);
 	let pageProps = {};
 
@@ -130,4 +134,4 @@ OliApp.getInitialProps = async appCtx => {
 	return { pageProps };
 };
 
-export default withData(OliApp);
+export default withApollo(OliApp);

@@ -1,6 +1,4 @@
 // import warning from 'warning';
-import http from 'http';
-import cookie from 'cookie';
 import camelCase from 'lodash/camelCase';
 import upperFirst from 'lodash/upperFirst';
 
@@ -29,9 +27,6 @@ export function pageToTitle(page) {
 
 	return titleize(name);
 }
-
-export const parseCookies = (req?: http.IncomingMessage, options = {}) =>
-	cookie.parse(req ? req.headers.cookie || '' : document.cookie, options);
 
 export function getCookie(name: string) {
 	const regex = new RegExp(`(?:(?:^|.*;*)${name}*=*([^;]*).*$)|^.*$`);
