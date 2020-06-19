@@ -4,9 +4,11 @@ import React from 'react';
 
 export const mockRouter: NextRouter = {
 	asPath: '/',
+	basePath: '',
 	route: '/',
 	pathname: '/',
 	query: {},
+	isFallback: false,
 	back() {},
 	beforePopState: cb => undefined,
 	prefetch: (url: string) => null,
