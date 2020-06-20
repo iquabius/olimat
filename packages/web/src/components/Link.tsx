@@ -4,7 +4,7 @@ import {
 	withStyles,
 	WithStyles,
 } from '@material-ui/core/styles';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import React, { ReactEventHandler, KeyboardEventHandler } from 'react';
@@ -65,7 +65,7 @@ const Link: React.FunctionComponent<InnerProps & OuterProps> = props => {
 	const router = useRouter();
 
 	let ComponentRoot;
-	const className = classNames(
+	const className = clsx(
 		classes.root,
 		{
 			[classes[variant]]: variant !== 'inherit',
@@ -95,7 +95,7 @@ const Link: React.FunctionComponent<InnerProps & OuterProps> = props => {
 		};
 		children = (
 			<a
-				className={classNames(className, {
+				className={clsx(className, {
 					[activeClassName]: router.pathname === href && activeClassName,
 				})}
 				onClick={onClick}
