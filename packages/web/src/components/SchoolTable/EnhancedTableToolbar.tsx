@@ -7,7 +7,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import React, { MouseEventHandler } from 'react';
 
 const toolbarStyles = theme => ({
@@ -45,7 +45,7 @@ const EnhancedTableToolbar: React.FunctionComponent<Props> = props => {
 
 	return (
 		<Toolbar
-			className={classNames(classes.root, {
+			className={clsx(classes.root, {
 				[classes.highlight]: numSelected > 0,
 			})}
 		>

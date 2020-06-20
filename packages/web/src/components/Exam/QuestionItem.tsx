@@ -5,7 +5,7 @@ import {
 	withStyles,
 	WithStyles,
 } from '@material-ui/core';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import React from 'react';
 
 import ChoicesBox from '../Question/ChoicesBox';
@@ -44,7 +44,7 @@ const ExamQuestionItem: React.FunctionComponent<Props> = ({
 	questionNumber,
 	question,
 }) => (
-	<div className={classNames(classes.root, className)}>
+	<div className={clsx(classes.root, className)}>
 		<Typography gutterBottom paragraph>
 			<span
 				className={classes.questionNumber}

@@ -7,7 +7,7 @@ import {
 	withStyles,
 	WithStyles,
 } from '@material-ui/core/styles';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import React, { MouseEventHandler } from 'react';
 
 import Link from './Link';
@@ -115,7 +115,7 @@ class AppDrawerNavItem extends React.Component<Props, State> {
 								{...props}
 							/>
 						)}
-						className={classNames(classes.buttonLeaf, `depth-${depth}`)}
+						className={clsx(classes.buttonLeaf, `depth-${depth}`)}
 						disableRipple
 						onClick={onClick}
 						style={style}

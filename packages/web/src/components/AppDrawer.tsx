@@ -11,7 +11,7 @@ import {
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import React, { ReactEventHandler } from 'react';
 
 import { pageToTitle } from '../utils/helpers';
@@ -158,7 +158,7 @@ const AppDrawer: React.FunctionComponent<Props> = props => {
 			<Hidden lgUp={!disablePermanent} implementation="js">
 				<SwipeableDrawer
 					classes={{
-						paper: classNames(classes.paper, 'algolia-drawer'),
+						paper: clsx(classes.paper, 'algolia-drawer'),
 					}}
 					disableBackdropTransition={!iOS}
 					variant="temporary"

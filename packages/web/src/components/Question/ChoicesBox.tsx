@@ -1,5 +1,5 @@
 import { createStyles, Theme, withStyles, WithStyles } from '@material-ui/core';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import React from 'react';
 
 import { QuestionChoice } from './DetailsConnector';
@@ -48,10 +48,10 @@ const ChoicesBox: React.FunctionComponent<Props> = ({
 	className,
 }) => {
 	const optionClassName = dense
-		? classNames(classes.option, classes.dense)
+		? clsx(classes.option, classes.dense)
 		: classes.option;
 	return (
-		<ul className={classNames(classes.root, className)}>
+		<ul className={clsx(classes.root, className)}>
 			{choices.map((choice, index) => (
 				<li key={choice.id} className={optionClassName}>
 					<span

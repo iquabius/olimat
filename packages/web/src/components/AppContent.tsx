@@ -4,7 +4,7 @@ import {
 	withStyles,
 	WithStyles,
 } from '@material-ui/core/styles';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import React from 'react';
 
 const styles = (theme: Theme) =>
@@ -36,7 +36,7 @@ const AppContent: React.FunctionComponent<Props> = props => {
 
 	return (
 		<div className={classes.wrapper}>
-			<div className={classNames(classes.root, className)}>{children}</div>
+			<div className={clsx(classes.root, className)}>{children}</div>
 		</div>
 	);
 };
