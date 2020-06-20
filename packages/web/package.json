@@ -22,7 +22,7 @@
     "@material-ui/icons": "4.9.1",
     "@material-ui/styles": "4.10.0",
     "@olimat/api": "0.0.1",
-    "clsx": "^1.1.1",
+    "clsx": "1.1.1",
     "cookie": "0.4.1",
     "filepond": "3.9.0",
     "filepond-plugin-image-exif-orientation": "1.0.4",
