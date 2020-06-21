@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 import * as React from 'react';
 import clsx from 'clsx';
 import { useRouter } from 'next/router';
