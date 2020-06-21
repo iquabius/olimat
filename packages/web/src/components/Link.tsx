@@ -1,28 +1,59 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 import clsx from 'clsx';
 import { useRouter } from 'next/router';
-import NextLink from 'next/link';
-import MuiLink from '@material-ui/core/Link';
+import NextLink, { LinkProps as NextLinkProps } from 'next/link';
+import MuiLink, { LinkProps as MuiLinkProps } from '@material-ui/core/Link';
 
-const NextComposed = React.forwardRef(function NextComposed(props, ref) {
-	const { as, href, ...other } = props;
+// These types are from nextjs-with-typescript example in Material-UI's repo:
+// https://github.com/mui-org/material-ui/blob/ae047a72f/examples/nextjs-with-typescript/src/Link.tsx
+type NextComposedProps = Omit<
+	React.AnchorHTMLAttributes<HTMLAnchorElement>,
+	'href'
+> &
+	NextLinkProps;
 
-	return (
-		<NextLink href={href} as={as}>
-			<a ref={ref} {...other} />
-		</NextLink>
-	);
-});
+const NextComposed = React.forwardRef<HTMLAnchorElement, NextComposedProps>(
+	(props, ref) => {
+		const {
+			as,
+			href,
+			replace,
+			scroll,
+			passHref,
+			shallow,
+			prefetch,
+			...other
+		} = props;
 
-NextComposed.propTypes = {
-	as: PropTypes.string,
-	href: PropTypes.string,
-};
+		return (
+			<NextLink
+				href={href}
+				prefetch={prefetch}
+				as={as}
+				replace={replace}
+				scroll={scroll}
+				shallow={shallow}
+				passHref={passHref}
+			>
+				<a ref={ref} {...other} />
+			</NextLink>
+		);
+	},
+);
+
+interface LinkPropsBase {
+	activeClassName?: string;
+	innerRef?: React.Ref<HTMLAnchorElement>;
+	naked?: boolean;
+}
+
+export type LinkProps = LinkPropsBase &
+	NextComposedProps &
+	Omit<MuiLinkProps, 'href'>;
 
 // A styled version of the Next.js Link component:
 // https://nextjs.org/docs/#with-link
-function Link(props) {
+function Link(props: LinkProps) {
 	const {
 		activeClassName = 'active',
 		className: classNameProps,
@@ -34,22 +65,25 @@ function Link(props) {
 	} = props;
 
 	const router = useRouter();
-
+	const pathname = typeof href === 'string' ? href : href.pathname;
 	const className = clsx(classNameProps, {
-		[activeClassName]: router.pathname === href && activeClassName,
+		[activeClassName]: router.pathname === pathname && activeClassName,
 	});
 
 	// catch role passed from ButtonBase. This is definitely a link
 	const role = roleProp === 'button' ? undefined : roleProp;
 
+	// Next.js' Link supports an UrlObject:
+	// https://nextjs.org/docs/api-reference/next/link#with-url-object
+	const hrefHack = typeof href === 'string' ? href : href.protocol;
 	const isExternal =
-		href.indexOf('https:') === 0 || href.indexOf('mailto:') === 0;
+		hrefHack.indexOf('https:') === 0 || hrefHack.indexOf('mailto:') === 0;
 
 	if (isExternal) {
 		return (
 			<MuiLink
 				className={className}
-				href={href}
+				href={href as string}
 				ref={innerRef}
 				role={role}
 				{...other}
@@ -71,10 +105,9 @@ function Link(props) {
 
 	return (
 		<MuiLink
-			variant
 			component={NextComposed}
 			className={className}
-			href={href}
+			href={href as string}
 			ref={innerRef}
 			role={role}
 			{...other}
@@ -82,17 +115,6 @@ function Link(props) {
 	);
 }
 
-Link.propTypes = {
-	activeClassName: PropTypes.string,
-	as: PropTypes.string,
-	className: PropTypes.string,
-	href: PropTypes.string,
-	innerRef: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-	naked: PropTypes.bool,
-	onClick: PropTypes.func,
-	role: PropTypes.string,
-};
-
-export default React.forwardRef((props, ref) => (
+export default React.forwardRef<HTMLAnchorElement, LinkProps>((props, ref) => (
 	<Link {...props} innerRef={ref} />
 ));
