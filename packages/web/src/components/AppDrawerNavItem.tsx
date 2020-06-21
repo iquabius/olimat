@@ -109,7 +109,7 @@ class AppDrawerNavItem extends React.Component<Props, State> {
 					<Button
 						component={props => (
 							<Link
-								variant="button"
+								naked
 								activeClassName={classes.active}
 								href={href}
 								{...props}

@@ -183,7 +183,7 @@ const SignUpForm: React.FC<Props> = props => {
 				align="center"
 			>
 				Já possui uma conta?{' '}
-				<Link variant="primary" href="/login">
+				<Link color="primary" href="/login">
 					Faça login aqui.
 				</Link>
 			</Typography>

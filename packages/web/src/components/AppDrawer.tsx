@@ -10,7 +10,6 @@ import {
 } from '@material-ui/core/styles';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import clsx from 'clsx';
 import React, { ReactEventHandler } from 'react';
 
@@ -45,9 +44,6 @@ const styles = ({ palette }: Theme) =>
 			flexDirection: 'column',
 			alignItems: 'center',
 			justifyContent: 'center',
-		},
-		anchor: {
-			color: palette.text.secondary,
 		},
 	});
 
@@ -139,10 +135,14 @@ const AppDrawer: React.FunctionComponent<Props> = props => {
 				<React.Fragment>
 					<div className={classes.toolbarIe11}>
 						<Toolbar className={classes.toolbar}>
-							<Link className={classes.title} href="/" onClick={onClose}>
-								<Typography variant="h3" color="inherit">
-									OliMAT
-								</Typography>
+							<Link
+								className={classes.title}
+								href="/"
+								onClick={onClose}
+								variant="h3"
+								color="inherit"
+							>
+								OliMAT
 							</Link>
 							<Divider absolute />
 						</Toolbar>

@@ -160,7 +160,7 @@ const LoginForm: React.FC<Props> = props => {
 				align="center"
 			>
 				Ainda não tem uma conta?{' '}
-				<Link variant="primary" href="/criar_conta">
+				<Link color="primary" href="/criar_conta">
 					Crie a sua aqui.
 				</Link>
 			</Typography>
