@@ -38,15 +38,23 @@ const AppFooter = props => {
 						<Grid item xs={12} sm={6}>
 							<ul className={classes.list}>
 								<li className={classes.listItem}>
-									<Link href="https://github.com/mui-org/material-ui">
+									<Link
+										color="inherit"
+										href="https://github.com/mui-org/material-ui"
+									>
 										GitHub
 									</Link>
 								</li>
 								<li className={classes.listItem}>
-									<Link href="https://twitter.com/MaterialUI">Twitter</Link>
+									<Link color="inherit" href="https://twitter.com/MaterialUI">
+										Twitter
+									</Link>
 								</li>
 								<li className={classes.listItem}>
-									<Link href="https://github.com/mui-org/material-ui/tree/v1-beta/examples">
+									<Link
+										color="inherit"
+										href="https://github.com/mui-org/material-ui/tree/v1-beta/examples"
+									>
 										Examples
 									</Link>
 								</li>
@@ -55,13 +63,19 @@ const AppFooter = props => {
 						<Grid item xs={12} sm={6}>
 							<ul className={classes.list}>
 								<li className={classes.listItem}>
-									<Link href="/discover-more/community">Community</Link>
+									<Link color="inherit" href="/discover-more/community">
+										Community
+									</Link>
 								</li>
 								<li className={classes.listItem}>
-									<Link href="/discover-more/roadmap">Roadmap</Link>
+									<Link color="inherit" href="/discover-more/roadmap">
+										Roadmap
+									</Link>
 								</li>
 								<li className={classes.listItem}>
-									<Link href="/discover-more/team">Team</Link>
+									<Link color="inherit" href="/discover-more/team">
+										Team
+									</Link>
 								</li>
 							</ul>
 						</Grid>

@@ -103,7 +103,7 @@ const PageHome = props => {
 							<Button
 								component={buttonProps => (
 									<Link
-										variant="button"
+										naked
 										href="/getting-started/installation"
 										{...buttonProps}
 									/>

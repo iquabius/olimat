@@ -1,124 +1,98 @@
-import {
-	createStyles,
-	Theme,
-	withStyles,
-	WithStyles,
-} from '@material-ui/core/styles';
+import React from 'react';
+import PropTypes from 'prop-types';
 import clsx from 'clsx';
-import NextLink from 'next/link';
 import { useRouter } from 'next/router';
-import React, { ReactEventHandler, KeyboardEventHandler } from 'react';
-import compose from 'recompose/compose';
+import NextLink from 'next/link';
+import MuiLink from '@material-ui/core/Link';
 
-const styles = (theme: Theme) =>
-	createStyles({
-		root: {
-			textDecoration: 'none',
-			'&:hover': {
-				textDecoration: 'underline',
-			},
-		},
-		default: {
-			color: 'inherit',
-		},
-		primary: {
-			color: theme.palette.primary.main,
-		},
-		secondary: {
-			color: theme.palette.secondary.main,
-		},
-		button: {
-			'&:hover': {
-				textDecoration: 'inherit',
-			},
-		},
-	});
+const NextComposed = React.forwardRef(function NextComposed(props, ref) {
+	const { as, href, ...other } = props;
 
-interface InnerProps extends WithStyles<typeof styles> {}
+	return (
+		<NextLink href={href} as={as}>
+			<a ref={ref} {...other} />
+		</NextLink>
+	);
+});
 
-type Variant = 'default' | 'primary' | 'secondary' | 'button' | 'inherit';
+NextComposed.propTypes = {
+	as: PropTypes.string,
+	href: PropTypes.string,
+};
 
-interface OuterProps {
-	activeClassName?: string;
-	// children: node.isRequired;
-	className?: string;
-	component?: any;
-	href?: string;
-	onClick?: ReactEventHandler;
-	prefetch?: boolean;
-	variant?: Variant;
-}
-
-const Link: React.FunctionComponent<InnerProps & OuterProps> = props => {
+// A styled version of the Next.js Link component:
+// https://nextjs.org/docs/#with-link
+function Link(props) {
 	const {
-		activeClassName,
-		children: childrenProp,
-		classes,
-		className: classNameProp,
-		component: ComponentProp,
+		activeClassName = 'active',
+		className: classNameProps,
 		href,
-		onClick,
-		prefetch,
-		variant,
+		innerRef,
+		naked,
+		role: roleProp,
 		...other
 	} = props;
+
 	const router = useRouter();
 
-	let ComponentRoot;
-	const className = clsx(
-		classes.root,
-		{
-			[classes[variant]]: variant !== 'inherit',
-		},
-		classNameProp,
-	);
-	let RootProps;
-	let children = childrenProp;
+	const className = clsx(classNameProps, {
+		[activeClassName]: router.pathname === href && activeClassName,
+	});
 
-	if (ComponentProp) {
-		ComponentRoot = ComponentProp;
-		RootProps = {
-			...other,
-			className,
-		};
-	} else if (href) {
-		ComponentRoot = NextLink;
-		RootProps = {
-			href,
-			prefetch,
-			passHref: true,
-		};
-		const handleKeyPress: KeyboardEventHandler = event => {
-			if (event.key == 'Enter') {
-				onClick(event);
-			}
-		};
-		children = (
-			<a
-				className={clsx(className, {
-					[activeClassName]: router.pathname === href && activeClassName,
-				})}
-				onClick={onClick}
-				onKeyPress={handleKeyPress}
+	// catch role passed from ButtonBase. This is definitely a link
+	const role = roleProp === 'button' ? undefined : roleProp;
+
+	const isExternal =
+		href.indexOf('https:') === 0 || href.indexOf('mailto:') === 0;
+
+	if (isExternal) {
+		return (
+			<MuiLink
+				className={className}
+				href={href}
+				ref={innerRef}
+				role={role}
 				{...other}
-			>
-				{children}
-			</a>
+			/>
 		);
-	} else {
-		ComponentRoot = 'a';
-		RootProps = {
-			...other,
-			className,
-		};
 	}
 
-	return <ComponentRoot {...RootProps}>{children}</ComponentRoot>;
+	if (naked) {
+		return (
+			<NextComposed
+				className={className}
+				href={href}
+				ref={innerRef}
+				role={role}
+				{...other}
+			/>
+		);
+	}
+
+	return (
+		<MuiLink
+			variant
+			component={NextComposed}
+			className={className}
+			href={href}
+			ref={innerRef}
+			role={role}
+			{...other}
+		/>
+	);
+}
+
+Link.propTypes = {
+	activeClassName: PropTypes.string,
+	as: PropTypes.string,
+	className: PropTypes.string,
+	href: PropTypes.string,
+	innerRef: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+	naked: PropTypes.bool,
+	onClick: PropTypes.func,
+	role: PropTypes.string,
 };
 
-Link.defaultProps = {
-	variant: 'default',
-	activeClassName: 'active',
-};
-
-export default compose<InnerProps, OuterProps>(withStyles(styles))(Link);
+export default React.forwardRef((props, ref) => (
+	<Link {...props} innerRef={ref} />
+));

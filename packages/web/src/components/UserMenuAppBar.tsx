@@ -78,7 +78,7 @@ const UserMenuAppBar: React.FC = props => {
 					<Button
 						color="inherit"
 						component={buttonProps => (
-							<Link variant="button" href="/login" {...buttonProps} />
+							<Link naked href="/login" {...buttonProps} />
 						)}
 					>
 						Login
