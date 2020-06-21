@@ -51,7 +51,7 @@ class LoadMoreButton extends React.Component<Props> {
 	// Veja: https://www.nngroup.com/articles/response-times-3-important-limits/
 	tooLongTimer = undefined;
 
-	componentWillReceiveProps({ loadingMore }) {
+	UNSAFE_componentWillReceiveProps({ loadingMore }) {
 		const { tooLong } = this.state;
 		if (loadingMore === this.props.loadingMore) {
 			// console.log('loadingMore is the same. leaving...');
