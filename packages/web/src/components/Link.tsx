@@ -18,6 +18,7 @@ const NextComposed = React.forwardRef<HTMLAnchorElement, NextComposedProps>(
 		const {
 			as,
 			href,
+			children,
 			replace,
 			scroll,
 			passHref,
@@ -36,7 +37,9 @@ const NextComposed = React.forwardRef<HTMLAnchorElement, NextComposedProps>(
 				shallow={shallow}
 				passHref={passHref}
 			>
-				<a ref={ref} {...other} />
+				<a ref={ref} {...other}>
+					{children}
+				</a>
 			</NextLink>
 		);
 	},
