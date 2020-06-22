@@ -60,7 +60,7 @@
     "node-fetch": "2.6.0",
     "nodemon": "2.0.4",
     "prisma": "1.28.5",
-    "rimraf": "2.7.1",
+    "rimraf": "3.0.2",
     "ts-node": "8.10.2"
   },
   "repository": "github:iquabius/olimat"
