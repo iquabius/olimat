@@ -47,7 +47,7 @@ const updateQuery = (previousResult, { fetchMoreResult }) => {
 		: previousResult;
 };
 
-const questionEdgeToNode = questionEdge => questionEdge.node;
+const questionEdgeToNode = (questionEdge) => questionEdge.node;
 
 const ListConnector = ({
 	children,

@@ -9,7 +9,7 @@ interface PageTitleProps {
 }
 
 // TODO: it really wants to be named useTitle but we're not quite there yet.
-const PageTitle: React.FunctionComponent<PageTitleProps> = props => {
+const PageTitle: React.FunctionComponent<PageTitleProps> = (props) => {
 	return (
 		<PageContext.Consumer>
 			{({ activePage }) => {

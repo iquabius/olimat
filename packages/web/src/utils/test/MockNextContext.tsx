@@ -10,11 +10,11 @@ export const mockRouter: NextRouter = {
 	query: {},
 	isFallback: false,
 	back() {},
-	beforePopState: cb => undefined,
+	beforePopState: (cb) => undefined,
 	prefetch: (url: string) => null,
 	push(href, as, options) {
 		this.pathname = href;
-		return new Promise(resolve => resolve());
+		return new Promise((resolve) => resolve());
 	},
 	reload: () => {},
 	replace: async () => true,
@@ -39,7 +39,7 @@ Router.router = Object.assign(mockRouter, Router.router);
  */
 export const MockNextContext: React.FC<{
 	router: Partial<NextRouter>;
-}> = props => {
+}> = (props) => {
 	const { children, router } = props;
 	const contextRouter = { ...mockRouter, ...router };
 

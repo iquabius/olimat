@@ -42,7 +42,7 @@ const deleteHandler = (
 			setSubmitting(false);
 			Router.push('/admin/questoes');
 		})
-		.catch(error => {
+		.catch((error) => {
 			// Something went wrong, such as incorrect password, or no network available, etc.
 			const errorMessage = `Erro ao excluir questão: "${error.message}"`;
 			enqueueSnackbar(errorMessage, { variant: 'error' });
@@ -61,11 +61,7 @@ const onCancelDelete = (setDeleteWarningOpen, setSubmitting) => () => {
  * @param {Number} noWords Number of words
  */
 const truncate = (str, noWords) =>
-	str
-		.split(' ')
-		.splice(0, noWords)
-		.join(' ')
-		.concat(' [...]');
+	str.split(' ').splice(0, noWords).join(' ').concat(' [...]');
 
 interface InnerProps extends ProviderContext, WithStyles<typeof styles> {
 	deleteWarningOpen: boolean;
@@ -97,7 +93,7 @@ const SafeDeleteIconButton: React.FunctionComponent<
 }) => {
 	return (
 		<DeleteConnector>
-			{deleteQuestion => (
+			{(deleteQuestion) => (
 				<React.Fragment>
 					<IconButton
 						className={classes.root}

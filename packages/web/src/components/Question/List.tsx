@@ -20,7 +20,7 @@ const styles = (theme: Theme) =>
 
 interface Props extends WithStyles<typeof styles> {}
 
-const QuestionList: React.FC<Props> = props => {
+const QuestionList: React.FC<Props> = (props) => {
 	const { classes } = props;
 
 	return (
@@ -36,7 +36,7 @@ const QuestionList: React.FC<Props> = props => {
 				{({ questions, loadMoreHandler, loadingMore, hasMore }) => (
 					<div>
 						<div className={classes.grid}>
-							{questions.map(question => (
+							{questions.map((question) => (
 								<ListItem key={question.id} question={question} />
 							))}
 						</div>

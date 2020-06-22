@@ -14,7 +14,7 @@ import { ThemeProvider } from '../components/ThemeContext';
 import { pages } from '../pages';
 
 function findActivePage(currentPages, pathname) {
-	const activePage = find(currentPages, page => {
+	const activePage = find(currentPages, (page) => {
 		if (page.children) {
 			return pathname.indexOf(page.pathname) === 0;
 		}
@@ -105,7 +105,7 @@ class OliApp extends App<Props> {
 	}
 }
 
-OliApp.getInitialProps = async appCtx => {
+OliApp.getInitialProps = async (appCtx) => {
 	const { Component, ctx } = appCtx;
 	console.log('OliApp.getInitialProps -> appCtx: ', Object.keys(appCtx));
 	console.log('OliApp.getInitialProps -> appCtx -> Component: ', Component);

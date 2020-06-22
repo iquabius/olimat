@@ -31,7 +31,7 @@ const onCancelDelete = (setDeleteWarningOpen, setSubmitting) => () => {
 	setDeleteWarningOpen(false);
 };
 
-const openDeleteWarningDialog = setDeleteWarningOpen => () =>
+const openDeleteWarningDialog = (setDeleteWarningOpen) => () =>
 	setDeleteWarningOpen(true);
 
 const onSubmitDelete = (deleteCity, city, enqueueSnackbar) => () => {
@@ -40,12 +40,12 @@ const onSubmitDelete = (deleteCity, city, enqueueSnackbar) => () => {
 			id: city.id,
 		},
 	})
-		.then(response => {
+		.then((response) => {
 			console.log(`Delete City Mutation response: `);
 			console.log(response);
 			enqueueSnackbar('Cidade excluída', { variant: 'success' });
 		})
-		.catch(error => {
+		.catch((error) => {
 			// Something went wrong, such as incorrect password, or no network available, etc.
 			const errorMessage = `Erro ao excluir cidade: "${error.message}"`;
 			enqueueSnackbar(errorMessage, { variant: 'error' });
@@ -56,7 +56,7 @@ const updateCache = (cache, { data: { deleteCity } }) => {
 	const { cities } = cache.readQuery({ query: allCitiesQuery });
 	cache.writeQuery({
 		query: allCitiesQuery,
-		data: { cities: cities.filter(c => c.id !== deleteCity.id) },
+		data: { cities: cities.filter((c) => c.id !== deleteCity.id) },
 	});
 };
 

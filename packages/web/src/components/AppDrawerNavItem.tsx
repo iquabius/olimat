@@ -84,7 +84,7 @@ class AppDrawerNavItem extends React.Component<Props, State> {
 	}
 
 	handleClick = () => {
-		this.setState(state => ({ open: !state.open }));
+		this.setState((state) => ({ open: !state.open }));
 	};
 
 	render() {

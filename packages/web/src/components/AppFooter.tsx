@@ -6,7 +6,7 @@ import React from 'react';
 
 import Link from './Link';
 
-const styleSheet = theme => ({
+const styleSheet = (theme) => ({
 	root: {
 		overflow: 'auto',
 	},
@@ -24,7 +24,7 @@ const styleSheet = theme => ({
 	},
 });
 
-const AppFooter = props => {
+const AppFooter = (props) => {
 	const { classes } = props;
 
 	return (

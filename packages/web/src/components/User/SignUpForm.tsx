@@ -56,7 +56,7 @@ const signUpMutation = gql`
 	}
 `;
 
-const SignUpForm: React.FC<Props> = props => {
+const SignUpForm: React.FC<Props> = (props) => {
 	const [state, setState] = React.useState({
 		password: '',
 		showPassword: false,
@@ -64,7 +64,7 @@ const SignUpForm: React.FC<Props> = props => {
 
 	const [tryToSignUp, {}] = useMutation<Response, Variables>(signUpMutation);
 	const client = useApolloClient();
-	const handleCreateUser: FormEventHandler<HTMLFormElement> = event => {
+	const handleCreateUser: FormEventHandler<HTMLFormElement> = (event) => {
 		/* global FormData */
 		const data = new FormData(event.currentTarget);
 
@@ -78,37 +78,43 @@ const SignUpForm: React.FC<Props> = props => {
 				name: data.get('name').toString(),
 			},
 		})
-			.then(({ data: { signup: { token } } }: FetchResult<Response>) => {
-				// Store the token in cookie
-				document.cookie = cookie.serialize('token', token, {
-					maxAge: 30 * 24 * 60 * 60, // 30 days
-				});
+			.then(
+				({
+					data: {
+						signup: { token },
+					},
+				}: FetchResult<Response>) => {
+					// Store the token in cookie
+					document.cookie = cookie.serialize('token', token, {
+						maxAge: 30 * 24 * 60 * 60, // 30 days
+					});
 
-				// Force a reload of all the current queries now that the user is
-				// logged in
-				client.resetStore().then(() => {
-					// Now redirect to the homepage
-					redirect({}, '/');
-				});
-			})
-			.catch(error => {
+					// Force a reload of all the current queries now that the user is
+					// logged in
+					client.resetStore().then(() => {
+						// Now redirect to the homepage
+						redirect({}, '/');
+					});
+				},
+			)
+			.catch((error) => {
 				// Something went wrong, such as incorrect password, or no network
 				// available, etc.
 				console.error(error);
 			});
 	};
 
-	const handleChange = prop => event => {
+	const handleChange = (prop) => (event) => {
 		event.persist();
-		setState(state => ({ ...state, [prop]: event.target.value }));
+		setState((state) => ({ ...state, [prop]: event.target.value }));
 	};
 
-	const handleMouseDownPassword = event => {
+	const handleMouseDownPassword = (event) => {
 		event.preventDefault();
 	};
 
 	const handleClickShowPasssword = () => {
-		setState(state => ({ ...state, showPassword: !state.showPassword }));
+		setState((state) => ({ ...state, showPassword: !state.showPassword }));
 	};
 
 	const { classes } = props;

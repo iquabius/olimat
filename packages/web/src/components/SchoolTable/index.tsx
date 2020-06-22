@@ -58,7 +58,7 @@ interface State {
 	rowsPerPage: number;
 }
 
-const SchoolTable: React.FC<Props> = props => {
+const SchoolTable: React.FC<Props> = (props) => {
 	const [state, setState] = React.useState<State>({
 		addDialogOpen: false,
 		order: 'asc',
@@ -70,11 +70,11 @@ const SchoolTable: React.FC<Props> = props => {
 	});
 
 	const handleOpenAddSchool = () => {
-		setState(state => ({ ...state, addDialogOpen: true }));
+		setState((state) => ({ ...state, addDialogOpen: true }));
 	};
 
 	const handleCloseAddSchool = () => {
-		setState(state => ({ ...state, addDialogOpen: false }));
+		setState((state) => ({ ...state, addDialogOpen: false }));
 	};
 
 	const handleRequestSort = (event, property) => {
@@ -90,15 +90,18 @@ const SchoolTable: React.FC<Props> = props => {
 				? state.schools.sort((a, b) => (b[orderBy] < a[orderBy] ? -1 : 1))
 				: state.schools.sort((a, b) => (a[orderBy] < b[orderBy] ? -1 : 1));
 
-		setState(state => ({ ...state, schools, order, orderBy }));
+		setState((state) => ({ ...state, schools, order, orderBy }));
 	};
 
 	const handleSelectAllClick = (event, checked) => {
 		if (checked) {
-			setState(state => ({ ...state, selected: state.schools.map(n => n.id) }));
+			setState((state) => ({
+				...state,
+				selected: state.schools.map((n) => n.id),
+			}));
 			return;
 		}
-		setState(state => ({ ...state, selected: [] }));
+		setState((state) => ({ ...state, selected: [] }));
 	};
 
 	const handleClick = (event, id) => {
@@ -119,18 +122,18 @@ const SchoolTable: React.FC<Props> = props => {
 			);
 		}
 
-		setState(state => ({ ...state, selected: newSelected }));
+		setState((state) => ({ ...state, selected: newSelected }));
 	};
 
 	const handleChangePage = (event, page) => {
-		setState(state => ({ ...state, page }));
+		setState((state) => ({ ...state, page }));
 	};
 
-	const handleChangeRowsPerPage = event => {
-		setState(state => ({ ...state, rowsPerPage: event.target.value }));
+	const handleChangeRowsPerPage = (event) => {
+		setState((state) => ({ ...state, rowsPerPage: event.target.value }));
 	};
 
-	const isSchoolSelected = id => state.selected.indexOf(id) !== -1;
+	const isSchoolSelected = (id) => state.selected.indexOf(id) !== -1;
 
 	const { classes } = props;
 	const { order, orderBy, selected, rowsPerPage, page } = state;
@@ -166,12 +169,12 @@ const SchoolTable: React.FC<Props> = props => {
 					<TableBody>
 						{schools
 							.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-							.map(school => {
+							.map((school) => {
 								const isSelected = isSchoolSelected(school.id);
 								return (
 									<TableRow
 										hover
-										onClick={event => handleClick(event, school.id)}
+										onClick={(event) => handleClick(event, school.id)}
 										role="checkbox"
 										aria-checked={isSelected}
 										tabIndex={-1}

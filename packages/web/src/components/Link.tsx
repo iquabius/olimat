@@ -59,7 +59,7 @@ export type LinkProps = LinkPropsBase &
 
 // A styled version of the Next.js Link component:
 // https://nextjs.org/docs/#with-link
-const LinkWithRef: React.FC<LinkProps> = props => {
+const LinkWithRef: React.FC<LinkProps> = (props) => {
 	const {
 		activeClassName = 'active',
 		className: classNameProps,

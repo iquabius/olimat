@@ -20,7 +20,7 @@ export const createSubmitHandler = (
 				input: { id: question.id, patch: formValuesToRequest(values) },
 			},
 		})
-			.then(resp => {
+			.then((resp) => {
 				console.log('UpdateForm addHandlers OK:');
 				console.log(resp);
 				enqueueSnackbar('Questão salva com sucesso', {
@@ -28,7 +28,7 @@ export const createSubmitHandler = (
 				});
 				Router.push(`/admin/questao?id=${question.id}`);
 			})
-			.catch(error => {
+			.catch((error) => {
 				// The component is and should not be aware of this being a GraphQL error.
 				enqueueSnackbar(`Erro ao salvar questão: "${error.message}"`, {
 					variant: 'error',

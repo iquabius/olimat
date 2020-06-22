@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-export default apolloClient =>
+export default (apolloClient) =>
 	apolloClient
 		.query({
 			query: gql`

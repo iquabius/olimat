@@ -377,7 +377,7 @@ const examsQuestions = [
  *
  * @param eIndex Index da prova na array 'exams' em data.ts
  */
-const isExamQuestion = eIndex => (question, questionIndex) => {
+const isExamQuestion = (eIndex) => (question, questionIndex) => {
 	return examsQuestions[eIndex].includes(questionIndex);
 };
 

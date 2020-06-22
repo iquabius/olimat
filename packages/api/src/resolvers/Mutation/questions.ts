@@ -13,7 +13,7 @@ export const questions: MutationResolvers.Resolvers = {
 		if (input.imageUrl !== '') {
 			const tempFile = path.join(ctx.config.uploads.tempDir, input.imageUrl);
 			const destFile = path.join(ctx.config.uploads.publicDir, input.imageUrl);
-			mv(tempFile, destFile, err => {
+			mv(tempFile, destFile, (err) => {
 				if (err) {
 					throw new Error(err);
 				}
@@ -65,7 +65,7 @@ export const questions: MutationResolvers.Resolvers = {
 			);
 			// Maybe we don't need 'mv' package.
 			// https://nodejs.org/api/fs.html#fs_fs_rename_oldpath_newpath_callback
-			mv(newFile, destNewFile, err => {
+			mv(newFile, destNewFile, (err) => {
 				console.log(`File moved from "${newFile}" to "${destNewFile}"`);
 				if (err) {
 					console.error(
@@ -80,7 +80,7 @@ export const questions: MutationResolvers.Resolvers = {
 				ctx.config.uploads.publicDir,
 				oldQuestion.imageUrl,
 			);
-			fs.unlink(oldFile, err => {
+			fs.unlink(oldFile, (err) => {
 				if (err) {
 					throw err;
 				}

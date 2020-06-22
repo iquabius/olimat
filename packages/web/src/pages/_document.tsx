@@ -40,7 +40,7 @@ class MyDocument extends Document {
 	}
 }
 
-MyDocument.getInitialProps = async ctx => {
+MyDocument.getInitialProps = async (ctx) => {
 	console.log('MyDocument.getInitialProps()');
 	// Is this still the same in version 9.0?
 	// Resolution order
@@ -71,7 +71,7 @@ MyDocument.getInitialProps = async ctx => {
 
 	ctx.renderPage = () =>
 		originalRenderPage({
-			enhanceApp: App => props => sheets.collect(<App {...props} />),
+			enhanceApp: (App) => (props) => sheets.collect(<App {...props} />),
 		});
 
 	const initialProps = await Document.getInitialProps(ctx);

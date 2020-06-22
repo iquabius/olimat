@@ -28,7 +28,7 @@ const QuestionFormChoicesBox = ({ formikProps }) => (
 					// helperText="Selecione o tipo da questão"
 					margin="normal"
 				>
-					{questionTypes.map(type => (
+					{questionTypes.map((type) => (
 						<MenuItem key={type.name} value={type.name}>
 							{type.description}
 						</MenuItem>
@@ -39,7 +39,7 @@ const QuestionFormChoicesBox = ({ formikProps }) => (
 				formikProps.values.choices.length > 0 ? (
 					<FieldArray
 						name="choices"
-						render={arrayHelpers => (
+						render={(arrayHelpers) => (
 							<React.Fragment>
 								{formikProps.values.choices.map((choice, index) => (
 									<TextField

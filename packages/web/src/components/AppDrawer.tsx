@@ -119,7 +119,7 @@ interface Props extends WithStyles<typeof styles> {
 	onOpen: ReactEventHandler;
 }
 
-const AppDrawer: React.FunctionComponent<Props> = props => {
+const AppDrawer: React.FunctionComponent<Props> = (props) => {
 	const {
 		classes,
 		className,

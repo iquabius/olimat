@@ -35,9 +35,10 @@ interface ExamDetailsConnectorProps {
 	children: (connectorProps: { exam: Exam }) => JSX.Element;
 }
 
-const ExamDetailsConnector: React.FunctionComponent<
-	ExamDetailsConnectorProps
-> = ({ children, id }) => {
+const ExamDetailsConnector: React.FunctionComponent<ExamDetailsConnectorProps> = ({
+	children,
+	id,
+}) => {
 	const { data, error, loading } = useQuery(examQuery, { variables: { id } });
 
 	if (error)

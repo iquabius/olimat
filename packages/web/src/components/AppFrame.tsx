@@ -103,7 +103,7 @@ function AppFrame(props: Props) {
 
 	return (
 		<PageTitle>
-			{title => {
+			{(title) => {
 				let disablePermanent = false;
 				let navIconClassName = '';
 				let appBarClassName = classes.appBar;
