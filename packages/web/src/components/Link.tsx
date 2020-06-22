@@ -1,4 +1,3 @@
-/* eslint-disable react/display-name */
 import * as React from 'react';
 import clsx from 'clsx';
 import { useRouter } from 'next/router';
@@ -45,6 +44,9 @@ const NextComposed = React.forwardRef<HTMLAnchorElement, NextComposedProps>(
 	},
 );
 
+// https://github.com/yannickcr/eslint-plugin-react/issues/2269
+NextComposed.displayName = 'NextComposed';
+
 interface LinkPropsBase {
 	activeClassName?: string;
 	innerRef?: React.Ref<HTMLAnchorElement>;
@@ -57,7 +59,7 @@ export type LinkProps = LinkPropsBase &
 
 // A styled version of the Next.js Link component:
 // https://nextjs.org/docs/#with-link
-function Link(props: LinkProps) {
+const LinkWithRef: React.FC<LinkProps> = props => {
 	const {
 		activeClassName = 'active',
 		className: classNameProps,
@@ -117,8 +119,12 @@ function Link(props: LinkProps) {
 			{...other}
 		/>
 	);
-}
+};
 
-export default React.forwardRef<HTMLAnchorElement, LinkProps>((props, ref) => (
-	<Link {...props} innerRef={ref} />
+const Link = React.forwardRef<HTMLAnchorElement, LinkProps>((props, ref) => (
+	<LinkWithRef {...props} innerRef={ref} />
 ));
+
+Link.displayName = 'Link';
+
+export default Link;
