@@ -4,8 +4,9 @@ import {
 	Theme,
 	withStyles,
 	WithStyles,
+	FabProps,
 } from '@material-ui/core';
-import React, { MouseEventHandler } from 'react';
+import React from 'react';
 
 const styles = (theme: Theme) =>
 	createStyles({
@@ -20,17 +21,19 @@ const styles = (theme: Theme) =>
 		},
 	});
 
-interface FAButtonProps extends WithStyles<typeof styles> {
-	onClick?: MouseEventHandler;
-}
+// Is there a better way to have FabProps & component props?
+type FAButtonProps = WithStyles<typeof styles> &
+	FabProps<React.ElementType, { component: React.ElementType }>;
 
 const FAButton: React.FunctionComponent<FAButtonProps> = ({
 	children,
 	classes,
+	component,
 	onClick,
 	...rest
 }) => (
 	<Fab
+		component={component}
 		onClick={onClick}
 		color="secondary"
 		className={classes.FAButton}

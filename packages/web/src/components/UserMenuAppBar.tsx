@@ -8,7 +8,7 @@ import { useApolloClient } from '@apollo/client';
 
 import redirect from '../utils/redirect';
 
-import Link from './Link';
+import Link, { LinkProps } from './Link';
 import PageContext from './PageContext';
 
 const UserMenuAppBar: React.FC = props => {
@@ -75,12 +75,9 @@ const UserMenuAppBar: React.FC = props => {
 					);
 				}
 				return (
-					<Button
-						color="inherit"
-						component={buttonProps => (
-							<Link naked href="/login" {...buttonProps} />
-						)}
-					>
+					// https://github.com/mui-org/material-ui/issues/16647
+					// @ts-ignore Passing a component makes the "href" required
+					<Button color="inherit" component={LoginLink}>
 						Login
 					</Button>
 				);
@@ -88,5 +85,10 @@ const UserMenuAppBar: React.FC = props => {
 		</PageContext.Consumer>
 	);
 };
+
+const LoginLink = React.forwardRef<HTMLAnchorElement, LinkProps>(
+	(props, ref) => <Link href="/login" naked ref={ref} {...props} />,
+);
+LoginLink.displayName = 'LoginLink';
 
 export default UserMenuAppBar;

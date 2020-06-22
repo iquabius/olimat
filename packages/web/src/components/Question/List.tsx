@@ -1,8 +1,8 @@
 import { createStyles, Theme, withStyles, WithStyles } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
-import Link from 'next/link';
 import React from 'react';
 
+import Link from '../Link';
 import FAButton from '../FAButton';
 import LoadMoreButton from '../LoadMoreButton';
 
@@ -25,11 +25,13 @@ const QuestionList: React.FC<Props> = props => {
 
 	return (
 		<React.Fragment>
-			<Link href="/admin/questao-criar">
-				<FAButton aria-label="Adicionar questão">
-					<AddIcon />
-				</FAButton>
-			</Link>
+			<FAButton
+				aria-label="Adicionar questão"
+				component={Link}
+				href="/admin/questao-criar"
+			>
+				<AddIcon />
+			</FAButton>
 			<ListConnector>
 				{({ questions, loadMoreHandler, loadingMore, hasMore }) => (
 					<div>

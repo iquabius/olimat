@@ -60,7 +60,7 @@ interface State {
 }
 
 class AppDrawerNavItem extends React.Component<Props, State> {
-	defaultProps = {
+	static defaultProps = {
 		openImmediately: false,
 	};
 
@@ -107,16 +107,12 @@ class AppDrawerNavItem extends React.Component<Props, State> {
 			return (
 				<ListItem className={classes.itemLeaf} disableGutters {...other}>
 					<Button
-						component={props => (
-							<Link
-								naked
-								activeClassName={classes.active}
-								href={href}
-								{...props}
-							/>
-						)}
+						component={Link}
+						naked
+						activeClassName={classes.active}
+						href={href}
 						className={clsx(classes.buttonLeaf, `depth-${depth}`)}
-						disableRipple
+						disableTouchRipple
 						onClick={onClick}
 						style={style}
 					>
