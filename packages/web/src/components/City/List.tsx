@@ -44,7 +44,7 @@ interface Props extends WithStyles<typeof styles> {
 	setAddDialogOpen: (open: boolean) => void;
 }
 
-const CityList: React.FC<Props> = props => {
+const CityList: React.FC<Props> = (props) => {
 	const [editingCityId, setEditingCityId] = React.useState(null);
 	const { loading, error, data } = useQuery(allCitiesQuery);
 	if (loading) return <p>Loading...</p>;
@@ -53,7 +53,7 @@ const CityList: React.FC<Props> = props => {
 	const { addDialogOpen, setAddDialogOpen, classes } = props;
 	const handleOpenAddCity = () => setAddDialogOpen(true);
 	const handleCloseAddCity = () => setAddDialogOpen(false);
-	const handleEditCity = id => () => setEditingCityId(id);
+	const handleEditCity = (id) => () => setEditingCityId(id);
 	const handleCloseEditCity = () => setEditingCityId(null);
 
 	return (

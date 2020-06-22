@@ -35,7 +35,7 @@ interface Props {
 }
 
 class EnhancedTableHead extends React.Component<Props> {
-	createSortHandler = property => event => {
+	createSortHandler = (property) => (event) => {
 		this.props.onRequestSort(event, property);
 	};
 
@@ -58,7 +58,7 @@ class EnhancedTableHead extends React.Component<Props> {
 							onChange={onSelectAllClick}
 						/>
 					</TableCell>
-					{columnData.map(column => {
+					{columnData.map((column) => {
 						return (
 							<TableCell
 								key={column.id}

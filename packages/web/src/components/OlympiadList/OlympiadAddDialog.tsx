@@ -27,7 +27,7 @@ interface Props {
 	open: boolean;
 }
 
-const OlympiadAddDialog: React.FC<Props> = props => {
+const OlympiadAddDialog: React.FC<Props> = (props) => {
 	const { open, onClose } = props;
 	const [newOlympiad] = useMutation(newOlympiadMutation);
 
@@ -137,13 +137,13 @@ const handleSubmitOlympiad = ({ newOlympiad, onClose }: OlympiadFormProps) => (
 			proxy.writeQuery({ query: allOlympiadsQuery, data: { olympiads } });
 		},
 	})
-		.then(response => {
+		.then((response) => {
 			console.log(`Mutation response: `);
 			console.log(response);
 			setSubmitting(false);
 			onClose();
 		})
-		.catch(error => {
+		.catch((error) => {
 			// Something went wrong, such as incorrect password, or no network
 			// available, etc.
 			console.error(error);

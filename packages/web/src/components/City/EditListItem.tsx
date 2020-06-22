@@ -49,13 +49,13 @@ const onSubmitEdit = (updateCity, handleCloseEdit) => (
 			name: values.name,
 		},
 	})
-		.then(response => {
+		.then((response) => {
 			console.log(`Update City Mutation response: `);
 			console.log(response);
 			setSubmitting(false);
 			handleCloseEdit();
 		})
-		.catch(error => {
+		.catch((error) => {
 			// Something went wrong, such as incorrect password, or no network
 			// available, etc.
 			console.error(error);
@@ -64,7 +64,7 @@ const onSubmitEdit = (updateCity, handleCloseEdit) => (
 
 const updateCache = (proxy, { data: { updateCity } }) => {
 	const data = proxy.readQuery({ query: allCitiesQuery });
-	const index = data.cities.map(c => c.id).indexOf(updateCity.id);
+	const index = data.cities.map((c) => c.id).indexOf(updateCity.id);
 	data.cities[index].name = updateCity.name;
 	proxy.writeQuery({ query: allCitiesQuery, data });
 };

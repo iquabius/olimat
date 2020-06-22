@@ -56,32 +56,32 @@ interface State {
 	showPassword: boolean;
 }
 
-const LoginForm: React.FC<Props> = props => {
+const LoginForm: React.FC<Props> = (props) => {
 	const [state, setState] = React.useState<State>({
 		password: '',
 		showPassword: false,
 		keepLoggedIn: false,
 	});
 
-	const handleChange = prop => event => {
+	const handleChange = (prop) => (event) => {
 		// https://reactjs.org/docs/events.html#event-pooling
 		event.persist();
-		setState(state => ({ ...state, [prop]: event.target.value } as any));
+		setState((state) => ({ ...state, [prop]: event.target.value } as any));
 	};
 
-	const handleMouseDownPassword = event => {
+	const handleMouseDownPassword = (event) => {
 		event.preventDefault();
 	};
 
 	const handleClickShowPasssword = () => {
-		setState(state => ({
+		setState((state) => ({
 			...state,
 			showPassword: !state.showPassword,
 		}));
 	};
 
-	const handleCheckbox = event => {
-		setState(state => ({ ...state, keepLoggedIn: event.target.checked }));
+	const handleCheckbox = (event) => {
+		setState((state) => ({ ...state, keepLoggedIn: event.target.checked }));
 	};
 
 	const { classes } = props;

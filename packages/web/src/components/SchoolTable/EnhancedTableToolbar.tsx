@@ -10,7 +10,7 @@ import FilterListIcon from '@material-ui/icons/FilterList';
 import clsx from 'clsx';
 import React, { MouseEventHandler } from 'react';
 
-const toolbarStyles = theme => ({
+const toolbarStyles = (theme) => ({
 	root: {
 		paddingRight: theme.spacing(),
 	},
@@ -40,7 +40,7 @@ interface Props extends WithStyles<typeof toolbarStyles> {
 	onOpenAddSchool: MouseEventHandler;
 }
 
-const EnhancedTableToolbar: React.FunctionComponent<Props> = props => {
+const EnhancedTableToolbar: React.FunctionComponent<Props> = (props) => {
 	const { numSelected, classes, onOpenAddSchool } = props;
 
 	return (

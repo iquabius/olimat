@@ -31,7 +31,7 @@ interface Props extends WithStyles<typeof styles> {
 	className?: string;
 }
 
-const AppContent: React.FunctionComponent<Props> = props => {
+const AppContent: React.FunctionComponent<Props> = (props) => {
 	const { className, classes, children } = props;
 
 	return (

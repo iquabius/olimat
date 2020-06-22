@@ -16,8 +16,8 @@ const MockErrorProvider = ({ children, graphqlErrors }) => {
 	const defaultErrors = [{ message: defaultError + tip }];
 	// This is just a link that swallows all operations and returns the same thing
 	// for every request: The specified error.
-	const link = new ApolloLink(operation => {
-		return new Observable(observer => {
+	const link = new ApolloLink((operation) => {
+		return new Observable((observer) => {
 			observer.next({
 				// Wait until @apollo/client v3 is stable
 				// @ts-ignore

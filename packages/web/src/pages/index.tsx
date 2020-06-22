@@ -67,7 +67,7 @@ const styles = (theme: Theme) =>
 		},
 	});
 
-const PageHome = props => {
+const PageHome = (props) => {
 	const classes = props.classes;
 
 	return (
@@ -101,7 +101,7 @@ const PageHome = props => {
 								{'Inscrições abertas de 21 de fevereiro a 2 de abril.'}
 							</Typography>
 							<Button
-								component={buttonProps => (
+								component={(buttonProps) => (
 									<Link
 										naked
 										href="/getting-started/installation"

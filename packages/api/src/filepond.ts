@@ -59,7 +59,7 @@ export const handlePost = (req, res, next) => {
 	const fileName = `${generate()}.${extension(uploadFile.mimetype)}`;
 	console.log('FILE: ');
 	console.log(uploadFile);
-	uploadFile.mv(`${config.uploads.tempDir}/${fileName}`, err => {
+	uploadFile.mv(`${config.uploads.tempDir}/${fileName}`, (err) => {
 		if (err) {
 			return res.status(500).send(err);
 		}

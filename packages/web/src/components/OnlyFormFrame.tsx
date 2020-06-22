@@ -35,7 +35,7 @@ const styles = (theme: Theme) =>
 		},
 	});
 
-const OnlyFormFrame = props => {
+const OnlyFormFrame = (props) => {
 	const { children, classes } = props;
 	return (
 		<React.Fragment>

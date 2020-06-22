@@ -17,7 +17,7 @@ interface Props {
 	open: boolean;
 }
 
-const SchoolAddDialog: React.FC<Props> = props => {
+const SchoolAddDialog: React.FC<Props> = (props) => {
 	const { open, onClose } = props;
 	const [newSchool] = useMutation(newSchoolMutation);
 
@@ -175,13 +175,13 @@ const handleSubmitSchool = ({ newSchool, onClose }: SchoolFormProps) => (
 			proxy.writeQuery({ query: allSchoolsQuery, data: { schools } });
 		},
 	})
-		.then(response => {
+		.then((response) => {
 			console.log(`Mutation response: `);
 			console.log(response);
 			setSubmitting(false);
 			onClose();
 		})
-		.catch(error => {
+		.catch((error) => {
 			// Something went wrong, such as incorrect password, or no network
 			// available, etc.
 			console.error(error);

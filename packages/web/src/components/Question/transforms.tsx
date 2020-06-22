@@ -15,7 +15,7 @@ const emptyChoices = [
 	{ text: '' },
 ];
 
-export const responseToFormValues = response => ({
+export const responseToFormValues = (response) => ({
 	id: response.id,
 	type: response.type,
 	wording: response.wording,
@@ -72,7 +72,7 @@ const choicesValuesToRequest = (choices, type) => {
 	);
 };
 
-export const formValuesToRequest = values => ({
+export const formValuesToRequest = (values) => ({
 	type: values.type,
 	wording: values.wording,
 	imageUrl: values.imageUrl,

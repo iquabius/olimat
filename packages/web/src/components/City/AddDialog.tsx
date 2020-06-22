@@ -28,13 +28,13 @@ const onSubmitCity = (newCity, onClose) => (values, { resetForm }) => {
 			name: values.name,
 		},
 	})
-		.then(response => {
+		.then((response) => {
 			console.log(`Mutation response: `);
 			console.log(response);
 			resetForm();
 			onClose();
 		})
-		.catch(error => {
+		.catch((error) => {
 			console.error(error);
 		});
 };

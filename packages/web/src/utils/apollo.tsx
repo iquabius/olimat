@@ -69,7 +69,7 @@ type WithApolloAppType = NextComponentType<
  * your App (_app.tsx) via HOC pattern.
  */
 export const withApollo = (AppComponent: AppType) => {
-	const WithApollo: WithApolloAppType = appProps => {
+	const WithApollo: WithApolloAppType = (appProps) => {
 		console.log('WithApollo rendering...');
 
 		// const { apolloClient, apolloState, ...pageProps } = pagePropsOriginal;
@@ -105,7 +105,7 @@ export const withApollo = (AppComponent: AppType) => {
 		WithApollo.displayName = `withApollo(${displayName})`;
 	}
 
-	WithApollo.getInitialProps = async appCtx => {
+	WithApollo.getInitialProps = async (appCtx) => {
 		// If we were wrapping a NextPage...
 		// const { AppTree, req, res } = pageCtx;
 		// ...instead of the AppType (_app.tsx)

@@ -23,7 +23,7 @@ const styles = (theme: Theme) =>
 
 // FilePond's file object has a property 'origin', but it holds an integer
 // value: 1 for input, 2 for limbo, and 3 for local
-const getFileOriginName = file => {
+const getFileOriginName = (file) => {
 	const originsMap = ['input', 'limbo', 'local'];
 	return originsMap[file.origin - 1];
 };
@@ -49,14 +49,14 @@ const QuestionFormFilePondField = ({
 	return (
 		<FilePond
 			name="imageUrl"
-			ref={ref => {
+			ref={(ref) => {
 				refGetter(ref);
 			}}
 			server="http://localhost:4000/upload"
 			onprocessfile={(error, file) => {
 				formikProps.setFieldValue('imageUrl', file.serverId);
 			}}
-			onupdatefiles={fileItems => {
+			onupdatefiles={(fileItems) => {
 				if (fileItems.length > 0) {
 					const [fileItem] = fileItems;
 					fileOrigin = getFileOriginName(fileItem);
@@ -66,7 +66,7 @@ const QuestionFormFilePondField = ({
 					// setImageFile(null);
 				}
 			}}
-			onremovefile={file => {
+			onremovefile={(file) => {
 				// "fileOrigin" está declarada no escopo do módulo, então seu valor
 				// persiste mesmo depois de trocar de página (sem recarregar).
 				// Talvez tenha um lugar melhor pra reiniciar "fileOrigin".

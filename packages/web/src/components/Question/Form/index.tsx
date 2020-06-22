@@ -40,7 +40,7 @@ interface Props {
 // This is used to keep a reference to FilePond, created in FilePondField
 // We need this to be able to 'clear' the pond when reseting the form.
 let filePond;
-const getFilePondRef = ref => {
+const getFilePondRef = (ref) => {
 	filePond = ref;
 };
 
@@ -59,9 +59,9 @@ const QuestionForm: React.FunctionComponent<Props> = ({
 			// to be able to encapsulate attaching state handling
 			// upon submission within the form. The details/create
 			// component just `addHandlers` to it's mutation.
-			const addHandlers: AddHandlersFn = promise =>
+			const addHandlers: AddHandlersFn = (promise) =>
 				promise.then(
-					result => {
+					(result) => {
 						formikBag.resetForm();
 						// Empties the pond (pun intended)
 						setImageFile(null);
@@ -69,7 +69,7 @@ const QuestionForm: React.FunctionComponent<Props> = ({
 						formikBag.setSubmitting(false);
 						return result;
 					},
-					error => {
+					(error) => {
 						formikBag.setSubmitting(false);
 						formikBag.setErrors(error.validationErrors);
 

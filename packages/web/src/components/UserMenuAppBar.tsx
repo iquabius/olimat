@@ -11,11 +11,11 @@ import redirect from '../utils/redirect';
 import Link, { LinkProps } from './Link';
 import PageContext from './PageContext';
 
-const UserMenuAppBar: React.FC = props => {
+const UserMenuAppBar: React.FC = (props) => {
 	const [state, setState] = React.useState({ anchorEl: null });
 	const client = useApolloClient();
 
-	const handleMenu = event => {
+	const handleMenu = (event) => {
 		setState({ anchorEl: event.currentTarget });
 	};
 

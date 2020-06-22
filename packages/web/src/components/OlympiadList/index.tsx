@@ -47,7 +47,7 @@ interface InnerProps extends WithStyles<typeof styles> {
 	setAddDialogOpen: (open: boolean) => void;
 }
 
-const OlympiadList: React.FunctionComponent<InnerProps> = props => {
+const OlympiadList: React.FunctionComponent<InnerProps> = (props) => {
 	const { addDialogOpen, setAddDialogOpen, classes } = props;
 	const { data, loading } = useQuery<Response>(allOlympiadsQuery);
 	const handleOpenAddOlympiad = () => setAddDialogOpen(true);
@@ -73,7 +73,7 @@ const OlympiadList: React.FunctionComponent<InnerProps> = props => {
 				open={addDialogOpen}
 				onClose={handleCloseAddOlympiad}
 			/>
-			{olympiads.map(olympiad => (
+			{olympiads.map((olympiad) => (
 				<ExpansionPanel key={olympiad.id}>
 					<ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
 						<div className={classes.column}>

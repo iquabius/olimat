@@ -141,7 +141,7 @@ export function useChangeTheme(): (
 ) => void {
 	const dispatch = React.useContext(DispatchContext);
 	return React.useCallback(
-		options => dispatch({ type: 'CHANGE', payload: options }),
+		(options) => dispatch({ type: 'CHANGE', payload: options }),
 		[dispatch],
 	);
 }

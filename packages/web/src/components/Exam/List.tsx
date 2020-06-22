@@ -28,7 +28,7 @@ const styles = (theme: Theme) =>
 // https://material-ui.com/components/lists/#SimpleList.tsx
 interface ExamItemProps extends ListItemProps<typeof Link, { button?: true }> {}
 
-const ExamItemLink: React.FunctionComponent<ExamItemProps> = props => {
+const ExamItemLink: React.FunctionComponent<ExamItemProps> = (props) => {
 	return <ListItem button={true} dense component={Link} {...props} />;
 };
 
@@ -39,7 +39,7 @@ const ExamList: React.FunctionComponent<Props> = ({ classes }) => {
 		<ListConnector>
 			{({ exams }) => (
 				<List className={classes.root}>
-					{exams.map(exam => (
+					{exams.map((exam) => (
 						<ExamItemLink
 							key={exam.id}
 							href={`/admin/provas/detalhes?id=${exam.id}`}

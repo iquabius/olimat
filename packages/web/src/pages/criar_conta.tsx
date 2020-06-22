@@ -18,7 +18,7 @@ const PageSignUp: NextPage = () => {
 	);
 };
 
-PageSignUp.getInitialProps = async context => {
+PageSignUp.getInitialProps = async (context) => {
 	const { loggedInUser } = await checkLoggedIn(context.apolloClient);
 
 	if (loggedInUser.me) {

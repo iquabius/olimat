@@ -63,7 +63,7 @@ interface Props extends WithStyles<typeof styles> {
 	question: Question;
 }
 
-const ListItem: React.FunctionComponent<Props> = props => {
+const ListItem: React.FunctionComponent<Props> = (props) => {
 	const { classes, question } = props;
 	const noImageNoChoices =
 		!question.imageUrl && question.choices && question.choices.length === 0;
