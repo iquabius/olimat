@@ -6,7 +6,7 @@ orbs:
 executors:
   prisma:
     docker:
-      - image: cypress/base:10
+      - image: cypress/base:14.0.0
       - image: postgres:10.13
         environment:
           POSTGRES_USER: prisma
