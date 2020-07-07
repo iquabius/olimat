@@ -10,7 +10,7 @@
     "@types/node": "10.17.26",
     "@typescript-eslint/eslint-plugin": "1.13.0",
     "@typescript-eslint/parser": "1.13.0",
-    "cypress": "4.9.0",
+    "cypress": "4.10.0",
     "cypress-testing-library": "2.6.0",
     "eslint": "7.4.0",
     "eslint-config-prettier": "6.11.0",
