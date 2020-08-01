@@ -12,7 +12,7 @@
     "@typescript-eslint/parser": "1.13.0",
     "cypress": "4.11.0",
     "cypress-testing-library": "2.6.0",
-    "eslint": "7.5.0",
+    "eslint": "7.6.0",
     "eslint-config-prettier": "6.11.0",
     "eslint-import-resolver-typescript": "1.1.1",
     "eslint-plugin-import": "2.22.0",
