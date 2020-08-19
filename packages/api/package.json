@@ -48,7 +48,7 @@
     "apollo": "2.30.2",
     "apollo-link": "1.2.14",
     "apollo-link-http": "1.5.17",
-    "apollo-server-testing": "2.15.0",
+    "apollo-server-testing": "2.16.1",
     "copyfiles": "2.3.0",
     "dotenv": "8.2.0",
     "graphql-code-generator": "0.16.1",
