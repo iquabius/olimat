@@ -8,7 +8,7 @@
     "@types/faker": "4.1.12",
     "@types/jest": "26.0.10",
     "@types/node": "10.17.28",
-    "@typescript-eslint/eslint-plugin": "1.13.0",
+    "@typescript-eslint/eslint-plugin": "3.9.1",
     "@typescript-eslint/parser": "1.13.0",
     "cypress": "4.12.1",
     "cypress-testing-library": "2.6.0",
