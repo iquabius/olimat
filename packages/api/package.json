@@ -22,7 +22,7 @@
     "graphql:generate-types": "gql-gen --config codegen.yml"
   },
   "dependencies": {
-    "apollo-server-express": "2.15.0",
+    "apollo-server-express": "2.16.1",
     "bcryptjs": "2.4.3",
     "cors": "2.8.5",
     "express": "4.17.1",
