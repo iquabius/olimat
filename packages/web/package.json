@@ -13,7 +13,7 @@
     "analyze": "cross-env ANALYZE=true next build"
   },
   "dependencies": {
-    "@apollo/client": "3.2.5",
+    "@apollo/client": "3.2.7",
     "@apollo/link-context": "2.0.0-beta.3",
     "@apollo/link-error": "2.0.0-beta.3",
     "@apollo/react-ssr": "4.0.0",
