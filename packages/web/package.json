@@ -28,7 +28,7 @@
     "filepond-plugin-image-exif-orientation": "1.0.4",
     "filepond-plugin-image-preview": "3.1.6",
     "formik": "1.5.8",
-    "graphql": "14.7.0",
+    "graphql": "15.7.2",
     "isomorphic-unfetch": "3.0.0",
     "jss": "10.4.0",
     "lodash": "4.17.21",
