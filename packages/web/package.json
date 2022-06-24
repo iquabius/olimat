@@ -57,7 +57,7 @@
     "faker": "4.1.0",
     "graphql-tools": "4.0.8",
     "jest-dom": "3.5.0",
-    "react-testing-library": "6.1.2",
+    "react-testing-library": "8.0.1",
     "rimraf": "3.0.2"
   },
   "repository": "github:iquabius/olimat"
