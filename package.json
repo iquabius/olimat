@@ -11,7 +11,7 @@
     "@typescript-eslint/eslint-plugin": "1.13.0",
     "@typescript-eslint/parser": "1.13.0",
     "cypress": "4.12.1",
-    "cypress-testing-library": "2.6.0",
+    "cypress-testing-library": "4.0.0",
     "eslint": "7.14.0",
     "eslint-config-prettier": "6.15.0",
     "eslint-import-resolver-typescript": "1.1.1",
