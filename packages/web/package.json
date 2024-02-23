@@ -55,7 +55,7 @@
     "@types/yup": "0.29.6",
     "cross-env": "7.0.2",
     "faker": "4.1.0",
-    "graphql-tools": "4.0.8",
+    "graphql-tools": "9.0.1",
     "jest-dom": "3.5.0",
     "react-testing-library": "6.1.2",
     "rimraf": "3.0.2"
