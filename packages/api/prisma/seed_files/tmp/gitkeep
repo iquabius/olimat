@@ -1,5 +1,0 @@
-The 'tmp' directory is used to save temporary files uploaded by the client, but
-that isn't recorded to the database yet (like an image loaded in a form that
-is still not submitted).
-
-'copyfiles' can't copy hidden files (.gitkeep). Even with the option --all.

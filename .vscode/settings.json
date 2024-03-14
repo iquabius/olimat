@@ -1,6 +1,4 @@
 {
-  "circleci.apiKey": "71b8fe885d9b5f6ff461fd86c8bfdd8acf2f4059",
-
   // ESLint + Prettier code formating
   //*
   "javascript.format.enable": false,
