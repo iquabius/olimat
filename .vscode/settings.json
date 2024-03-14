@@ -21,7 +21,7 @@
   // Prettier is run by ESLint as an autofixable rule, so we don't
   // need to run it separately:
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
+    "source.fixAll.eslint": "explicit"
   },
   // Otherwise, we could use 'esbenp.prettier-vscode' extension.
   // Formats our code using prettier followed by eslint --fix:
