@@ -17,7 +17,7 @@
     "@apollo/link-context": "2.0.0-beta.3",
     "@apollo/link-error": "2.0.0-beta.3",
     "@apollo/react-ssr": "4.0.0",
-    "@material-ui/core": "4.11.1",
+    "@mui/material": "5.0.0",
     "@material-ui/docs": "4.0.0-beta.3",
     "@material-ui/icons": "4.9.1",
     "@material-ui/styles": "4.11.1",
