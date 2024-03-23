@@ -1,35 +1,35 @@
 {
-  // ESLint + Prettier code formating
-  //*
-  "javascript.format.enable": false,
-  "typescript.format.enable": false,
-  // Disable formatOnSave for every language
-  "editor.formatOnSave": false,
-  // Enable per-language
-  "[javascript]": {
-    // We still use JavaScript for some configuration/setup files
-    "editor.formatOnSave": true
-  },
-  "[typescript]": {
-    "editor.formatOnSave": true
-  },
-  "[typescriptreact]": {
-    "editor.formatOnSave": true
-  },
-  // Prettier is run by ESLint as an autofixable rule, so we don't
-  // need to run it separately:
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit"
-  },
-  // Otherwise, we could use 'esbenp.prettier-vscode' extension.
-  // Formats our code using prettier followed by eslint --fix:
-  // "prettier.eslintIntegration": true,
-  // Parece que agora já vem ativado...
-  // "eslint.validate": [
-  //   "javascript",
-  //   "typescript",
-  //   "typescriptreact",
-  // ],
-  "typescript.tsdk": "node_modules/typescript/lib",
-  /**/
+	// ESLint + Prettier code formating
+	//*
+	"javascript.format.enable": false,
+	"typescript.format.enable": false,
+	// Disable formatOnSave for every language
+	"editor.formatOnSave": false,
+	// Enable per-language
+	"[javascript]": {
+		// We still use JavaScript for some configuration/setup files
+		"editor.formatOnSave": true
+	},
+	"[typescript]": {
+		"editor.formatOnSave": true
+	},
+	"[typescriptreact]": {
+		"editor.formatOnSave": true
+	},
+	// Prettier is run by ESLint as an autofixable rule, so we don't
+	// need to run it separately:
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": "explicit"
+	},
+	// Otherwise, we could use 'esbenp.prettier-vscode' extension.
+	// Formats our code using prettier followed by eslint --fix:
+	// "prettier.eslintIntegration": true,
+	// Parece que agora já vem ativado...
+	// "eslint.validate": [
+	//   "javascript",
+	//   "typescript",
+	//   "typescriptreact",
+	// ],
+	"typescript.tsdk": "node_modules/typescript/lib"
+	/**/
 }
