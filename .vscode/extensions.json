@@ -1,6 +1,3 @@
 {
-	"recommendations": [
-		"editorconfig.editorconfig",
-		"bradlc.vscode-tailwindcss"
-	]
+	"recommendations": ["editorconfig.editorconfig", "bradlc.vscode-tailwindcss"]
 }
