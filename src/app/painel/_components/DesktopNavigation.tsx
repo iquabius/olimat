@@ -18,7 +18,7 @@ export function DesktopNavigation() {
 				Painel
 			</Link>
 			<Link
-				href="#"
+				href="/painel/escolas"
 				className="text-muted-foreground transition-colors hover:text-foreground"
 			>
 				Escolas

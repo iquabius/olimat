@@ -25,7 +25,7 @@ export function MobileNavigation() {
 						Painel
 					</Link>
 					<Link
-						href="#"
+						href="/painel/escolas"
 						className="text-muted-foreground hover:text-foreground"
 					>
 						Escolas
