@@ -1,5 +1,5 @@
-import { DataTable } from "./_components/DataTable/DataTable";
-import { columns, type School } from "./_components/DataTable/columns";
+import { DataTable } from "./_components/data-table/data-table";
+import { columns, type School } from "./_components/data-table/columns";
 
 export default async function DashboardSchoolsPage() {
 	const data = await getData();
