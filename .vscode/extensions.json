@@ -2,6 +2,7 @@
 	"recommendations": [
 		"editorconfig.editorconfig",
 		"bradlc.vscode-tailwindcss",
-		"suhelmakkad.shadcn-ui"
+		"suhelmakkad.shadcn-ui",
+		"planbcoding.vscode-react-refactor"
 	]
 }
