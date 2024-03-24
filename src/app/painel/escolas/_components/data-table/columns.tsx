@@ -10,6 +10,7 @@ export type School = {
 	name: string;
 	city: string;
 	phoneNumber: string;
+	studentsQuantity: number;
 };
 
 export const columns: ColumnDef<School>[] = [
@@ -30,6 +31,10 @@ export const columns: ColumnDef<School>[] = [
 	{
 		accessorKey: "city",
 		header: "Cidade",
+	},
+	{
+		accessorKey: "studentsQuantity",
+		header: "Alunos",
 	},
 	{
 		accessorKey: "phoneNumber",
