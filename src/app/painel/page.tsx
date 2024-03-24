@@ -1,14 +1,13 @@
 import Link from "next/link";
 import {
-	Activity,
 	ArrowUpRight,
 	CircleUser,
-	CreditCard,
-	DollarSign,
+	FileQuestion,
+	LandPlot,
 	Menu,
 	Package2,
+	School,
 	Search,
-	Users,
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
@@ -56,31 +55,37 @@ export default function Dashboard() {
 						href="#"
 						className="text-foreground transition-colors hover:text-foreground"
 					>
-						Dashboard
+						Painel
 					</Link>
 					<Link
 						href="#"
 						className="text-muted-foreground transition-colors hover:text-foreground"
 					>
-						Orders
+						Escolas
 					</Link>
 					<Link
 						href="#"
 						className="text-muted-foreground transition-colors hover:text-foreground"
 					>
-						Products
+						Cidades
 					</Link>
 					<Link
 						href="#"
 						className="text-muted-foreground transition-colors hover:text-foreground"
 					>
-						Customers
+						Provas
 					</Link>
 					<Link
 						href="#"
 						className="text-muted-foreground transition-colors hover:text-foreground"
 					>
-						Analytics
+						Questões
+					</Link>
+					<Link
+						href="#"
+						className="text-muted-foreground transition-colors hover:text-foreground"
+					>
+						Olimpíadas
 					</Link>
 				</nav>
 				<Sheet>
@@ -104,31 +109,37 @@ export default function Dashboard() {
 								<span className="sr-only">Acme Inc</span>
 							</Link>
 							<Link href="#" className="hover:text-foreground">
-								Dashboard
+								Painel
 							</Link>
 							<Link
 								href="#"
 								className="text-muted-foreground hover:text-foreground"
 							>
-								Orders
+								Escolas
 							</Link>
 							<Link
 								href="#"
 								className="text-muted-foreground hover:text-foreground"
 							>
-								Products
+								Cidades
 							</Link>
 							<Link
 								href="#"
 								className="text-muted-foreground hover:text-foreground"
 							>
-								Customers
+								Provas
 							</Link>
 							<Link
 								href="#"
 								className="text-muted-foreground hover:text-foreground"
 							>
-								Analytics
+								Questões
+							</Link>
+							<Link
+								href="#"
+								className="text-muted-foreground hover:text-foreground"
+							>
+								Olimpíadas
 							</Link>
 						</nav>
 					</SheetContent>
@@ -139,7 +150,7 @@ export default function Dashboard() {
 							<Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
 							<Input
 								type="search"
-								placeholder="Search products..."
+								placeholder="Pesquisar escolas..."
 								className="pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px]"
 							/>
 						</div>
@@ -152,12 +163,12 @@ export default function Dashboard() {
 							</Button>
 						</DropdownMenuTrigger>
 						<DropdownMenuContent align="end">
-							<DropdownMenuLabel>My Account</DropdownMenuLabel>
+							<DropdownMenuLabel>Minha Conta</DropdownMenuLabel>
 							<DropdownMenuSeparator />
-							<DropdownMenuItem>Settings</DropdownMenuItem>
-							<DropdownMenuItem>Support</DropdownMenuItem>
+							<DropdownMenuItem>Configurações</DropdownMenuItem>
+							<DropdownMenuItem>Suporte</DropdownMenuItem>
 							<DropdownMenuSeparator />
-							<DropdownMenuItem>Logout</DropdownMenuItem>
+							<DropdownMenuItem>Sair</DropdownMenuItem>
 						</DropdownMenuContent>
 					</DropdownMenu>
 				</div>
@@ -167,53 +178,51 @@ export default function Dashboard() {
 					<Card>
 						<CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
 							<CardTitle className="text-sm font-medium">
-								Total Revenue
+								Total de Escolas
 							</CardTitle>
-							<DollarSign className="h-4 w-4 text-muted-foreground" />
+							<School className="h-4 w-4 text-muted-foreground" />
 						</CardHeader>
 						<CardContent>
-							<div className="text-2xl font-bold">$45,231.89</div>
+							<div className="text-2xl font-bold">143</div>
+							<p className="text-xs text-muted-foreground">+24 no último mês</p>
+						</CardContent>
+					</Card>
+					<Card>
+						<CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+							<CardTitle className="text-sm font-medium">
+								Escolas Pendentes
+							</CardTitle>
+							<School className="h-4 w-4 text-muted-foreground" />
+						</CardHeader>
+						<CardContent>
+							<div className="text-2xl font-bold">18</div>
 							<p className="text-xs text-muted-foreground">
-								+20.1% from last month
+								4 pendentes há mais de um mês
 							</p>
 						</CardContent>
 					</Card>
 					<Card>
 						<CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
 							<CardTitle className="text-sm font-medium">
-								Subscriptions
+								Questões Publicadas
 							</CardTitle>
-							<Users className="h-4 w-4 text-muted-foreground" />
+							<FileQuestion className="h-4 w-4 text-muted-foreground" />
 						</CardHeader>
 						<CardContent>
-							<div className="text-2xl font-bold">+2350</div>
+							<div className="text-2xl font-bold">666</div>
 							<p className="text-xs text-muted-foreground">
-								+180.1% from last month
+								133 publicadas este ano
 							</p>
 						</CardContent>
 					</Card>
 					<Card>
 						<CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-							<CardTitle className="text-sm font-medium">Sales</CardTitle>
-							<CreditCard className="h-4 w-4 text-muted-foreground" />
+							<CardTitle className="text-sm font-medium">Cidades</CardTitle>
+							<LandPlot className="h-4 w-4 text-muted-foreground" />
 						</CardHeader>
 						<CardContent>
-							<div className="text-2xl font-bold">+12,234</div>
-							<p className="text-xs text-muted-foreground">
-								+19% from last month
-							</p>
-						</CardContent>
-					</Card>
-					<Card>
-						<CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-							<CardTitle className="text-sm font-medium">Active Now</CardTitle>
-							<Activity className="h-4 w-4 text-muted-foreground" />
-						</CardHeader>
-						<CardContent>
-							<div className="text-2xl font-bold">+573</div>
-							<p className="text-xs text-muted-foreground">
-								+201 since last hour
-							</p>
+							<div className="text-2xl font-bold">25</div>
+							<p className="text-xs text-muted-foreground">+9 no último ano</p>
 						</CardContent>
 					</Card>
 				</div>
@@ -221,14 +230,14 @@ export default function Dashboard() {
 					<Card className="xl:col-span-2">
 						<CardHeader className="flex flex-row items-center">
 							<div className="grid gap-2">
-								<CardTitle>Transactions</CardTitle>
+								<CardTitle>Escolas</CardTitle>
 								<CardDescription>
-									Recent transactions from your store.
+									Escolas cadastradas recentemente.
 								</CardDescription>
 							</div>
 							<Button asChild size="sm" className="ml-auto gap-1">
 								<Link href="#">
-									View All
+									Ver Todas
 									<ArrowUpRight className="h-4 w-4" />
 								</Link>
 							</Button>
@@ -237,7 +246,7 @@ export default function Dashboard() {
 							<Table>
 								<TableHeader>
 									<TableRow>
-										<TableHead>Customer</TableHead>
+										<TableHead>Escola</TableHead>
 										<TableHead className="hidden xl:table-column">
 											Type
 										</TableHead>
@@ -245,17 +254,19 @@ export default function Dashboard() {
 											Status
 										</TableHead>
 										<TableHead className="hidden xl:table-column">
-											Date
+											Data
 										</TableHead>
-										<TableHead className="text-right">Amount</TableHead>
+										<TableHead className="text-right">Alunos</TableHead>
 									</TableRow>
 								</TableHeader>
 								<TableBody>
 									<TableRow>
 										<TableCell>
-											<div className="font-medium">Liam Johnson</div>
+											<div className="font-medium">
+												Guiomar de Campos Miranda
+											</div>
 											<div className="hidden text-sm text-muted-foreground md:inline">
-												liam@example.com
+												guiomar.miranda@escola.com
 											</div>
 										</TableCell>
 										<TableCell className="hidden xl:table-column">
@@ -269,13 +280,13 @@ export default function Dashboard() {
 										<TableCell className="hidden md:table-cell lg:hidden xl:table-column">
 											2023-06-23
 										</TableCell>
-										<TableCell className="text-right">$250.00</TableCell>
+										<TableCell className="text-right">26</TableCell>
 									</TableRow>
 									<TableRow>
 										<TableCell>
-											<div className="font-medium">Olivia Smith</div>
+											<div className="font-medium">Alfredo José da Silva</div>
 											<div className="hidden text-sm text-muted-foreground md:inline">
-												olivia@example.com
+												alfredo.jose@escola.com
 											</div>
 										</TableCell>
 										<TableCell className="hidden xl:table-column">
@@ -289,13 +300,15 @@ export default function Dashboard() {
 										<TableCell className="hidden md:table-cell lg:hidden xl:table-column">
 											2023-06-24
 										</TableCell>
-										<TableCell className="text-right">$150.00</TableCell>
+										<TableCell className="text-right">19</TableCell>
 									</TableRow>
 									<TableRow>
 										<TableCell>
-											<div className="font-medium">Noah Williams</div>
+											<div className="font-medium">
+												CESC - Centro Educacional Santa Cruz
+											</div>
 											<div className="hidden text-sm text-muted-foreground md:inline">
-												noah@example.com
+												cesc@escola.com
 											</div>
 										</TableCell>
 										<TableCell className="hidden xl:table-column">
@@ -309,13 +322,13 @@ export default function Dashboard() {
 										<TableCell className="hidden md:table-cell lg:hidden xl:table-column">
 											2023-06-25
 										</TableCell>
-										<TableCell className="text-right">$350.00</TableCell>
+										<TableCell className="text-right">22</TableCell>
 									</TableRow>
 									<TableRow>
 										<TableCell>
-											<div className="font-medium">Emma Brown</div>
+											<div className="font-medium">Herculano Borges</div>
 											<div className="hidden text-sm text-muted-foreground md:inline">
-												emma@example.com
+												herculano.borge@escola.com
 											</div>
 										</TableCell>
 										<TableCell className="hidden xl:table-column">
@@ -329,13 +342,13 @@ export default function Dashboard() {
 										<TableCell className="hidden md:table-cell lg:hidden xl:table-column">
 											2023-06-26
 										</TableCell>
-										<TableCell className="text-right">$450.00</TableCell>
+										<TableCell className="text-right">25</TableCell>
 									</TableRow>
 									<TableRow>
 										<TableCell>
-											<div className="font-medium">Liam Johnson</div>
+											<div className="font-medium">Ee Indígena Jula Pare</div>
 											<div className="hidden text-sm text-muted-foreground md:inline">
-												liam@example.com
+												bbg.eei.jula.pare@seduc.mt.gov.br
 											</div>
 										</TableCell>
 										<TableCell className="hidden xl:table-column">
@@ -349,7 +362,7 @@ export default function Dashboard() {
 										<TableCell className="hidden md:table-cell lg:hidden xl:table-column">
 											2023-06-27
 										</TableCell>
-										<TableCell className="text-right">$550.00</TableCell>
+										<TableCell className="text-right">27</TableCell>
 									</TableRow>
 								</TableBody>
 							</Table>
@@ -357,7 +370,7 @@ export default function Dashboard() {
 					</Card>
 					<Card>
 						<CardHeader>
-							<CardTitle>Recent Sales</CardTitle>
+							<CardTitle>Usuários</CardTitle>
 						</CardHeader>
 						<CardContent className="grid gap-8">
 							<div className="flex items-center gap-4">
@@ -367,13 +380,15 @@ export default function Dashboard() {
 								</Avatar>
 								<div className="grid gap-1">
 									<p className="text-sm font-medium leading-none">
-										Olivia Martin
+										Olívia Martins
 									</p>
 									<p className="text-sm text-muted-foreground">
-										olivia.martin@email.com
+										olivia.martins@email.com
 									</p>
 								</div>
-								<div className="ml-auto font-medium">+$1,999.00</div>
+								<div className="ml-auto font-medium">
+									<Badge variant="outline">Verificado</Badge>
+								</div>
 							</div>
 							<div className="flex items-center gap-4">
 								<Avatar className="hidden h-9 w-9 sm:flex">
@@ -381,14 +396,14 @@ export default function Dashboard() {
 									<AvatarFallback>JL</AvatarFallback>
 								</Avatar>
 								<div className="grid gap-1">
-									<p className="text-sm font-medium leading-none">
-										Jackson Lee
-									</p>
+									<p className="text-sm font-medium leading-none">Jean Lee</p>
 									<p className="text-sm text-muted-foreground">
-										jackson.lee@email.com
+										jean.lee@email.com
 									</p>
 								</div>
-								<div className="ml-auto font-medium">+$39.00</div>
+								<div className="ml-auto font-medium">
+									<Badge>Pendente</Badge>
+								</div>
 							</div>
 							<div className="flex items-center gap-4">
 								<Avatar className="hidden h-9 w-9 sm:flex">
@@ -397,43 +412,47 @@ export default function Dashboard() {
 								</Avatar>
 								<div className="grid gap-1">
 									<p className="text-sm font-medium leading-none">
-										Isabella Nguyen
+										Isabela Neves
 									</p>
 									<p className="text-sm text-muted-foreground">
-										isabella.nguyen@email.com
+										isabela.neves@email.com
 									</p>
 								</div>
-								<div className="ml-auto font-medium">+$299.00</div>
+								<div className="ml-auto font-medium">
+									<Badge variant="outline">Verificado</Badge>
+								</div>
 							</div>
 							<div className="flex items-center gap-4">
 								<Avatar className="hidden h-9 w-9 sm:flex">
 									<AvatarImage src="/avatars/04.png" alt="Avatar" />
-									<AvatarFallback>WK</AvatarFallback>
+									<AvatarFallback>WM</AvatarFallback>
 								</Avatar>
 								<div className="grid gap-1">
 									<p className="text-sm font-medium leading-none">
-										William Kim
+										Wagner Moura
 									</p>
 									<p className="text-sm text-muted-foreground">
-										will@email.com
+										wagner.moura@email.com
 									</p>
 								</div>
-								<div className="ml-auto font-medium">+$99.00</div>
+								<div className="ml-auto font-medium">
+									<Badge>Pendente</Badge>
+								</div>
 							</div>
 							<div className="flex items-center gap-4">
 								<Avatar className="hidden h-9 w-9 sm:flex">
 									<AvatarImage src="/avatars/05.png" alt="Avatar" />
-									<AvatarFallback>SD</AvatarFallback>
+									<AvatarFallback>SL</AvatarFallback>
 								</Avatar>
 								<div className="grid gap-1">
-									<p className="text-sm font-medium leading-none">
-										Sofia Davis
-									</p>
+									<p className="text-sm font-medium leading-none">Sofia Lima</p>
 									<p className="text-sm text-muted-foreground">
-										sofia.davis@email.com
+										sofia.lima@email.com
 									</p>
 								</div>
-								<div className="ml-auto font-medium">+$39.00</div>
+								<div className="ml-auto font-medium">
+									<Badge variant="outline">Verificado</Badge>
+								</div>
 							</div>
 						</CardContent>
 					</Card>
