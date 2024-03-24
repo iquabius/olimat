@@ -3,6 +3,7 @@
 		"editorconfig.editorconfig",
 		"bradlc.vscode-tailwindcss",
 		"suhelmakkad.shadcn-ui",
-		"planbcoding.vscode-react-refactor"
+		"planbcoding.vscode-react-refactor",
+		"deerawan.vscode-faker"
 	]
 }

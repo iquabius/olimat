@@ -30,6 +30,7 @@
 	//   "typescript",
 	//   "typescriptreact",
 	// ],
-	"typescript.tsdk": "node_modules/typescript/lib"
+	"typescript.tsdk": "node_modules/typescript/lib",
+	"faker.locale": "pt_BR"
 	/**/
 }
