@@ -4,8 +4,6 @@ import {
 	CircleUser,
 	FileQuestion,
 	LandPlot,
-	Menu,
-	Package2,
 	School,
 	Search,
 } from "lucide-react";
@@ -29,7 +27,6 @@ import {
 	DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
 import { Input } from "~/components/ui/input";
-import { Sheet, SheetContent, SheetTrigger } from "~/components/ui/sheet";
 import {
 	Table,
 	TableBody,
@@ -39,68 +36,14 @@ import {
 	TableRow,
 } from "~/components/ui/table";
 import { DesktopNavigation } from "./_components/DesktopNavigation";
+import { MobileNavigation } from "./_components/MobileNavigation";
 
 export default function Dashboard() {
 	return (
 		<div className="flex min-h-screen w-full flex-col">
 			<header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
 				<DesktopNavigation />
-				<Sheet>
-					<SheetTrigger asChild>
-						<Button
-							variant="outline"
-							size="icon"
-							className="shrink-0 md:hidden"
-						>
-							<Menu className="h-5 w-5" />
-							<span className="sr-only">Toggle navigation menu</span>
-						</Button>
-					</SheetTrigger>
-					<SheetContent side="left">
-						<nav className="grid gap-6 text-lg font-medium">
-							<Link
-								href="#"
-								className="flex items-center gap-2 text-lg font-semibold"
-							>
-								<Package2 className="h-6 w-6" />
-								<span className="sr-only">Acme Inc</span>
-							</Link>
-							<Link href="#" className="hover:text-foreground">
-								Painel
-							</Link>
-							<Link
-								href="#"
-								className="text-muted-foreground hover:text-foreground"
-							>
-								Escolas
-							</Link>
-							<Link
-								href="#"
-								className="text-muted-foreground hover:text-foreground"
-							>
-								Cidades
-							</Link>
-							<Link
-								href="#"
-								className="text-muted-foreground hover:text-foreground"
-							>
-								Provas
-							</Link>
-							<Link
-								href="#"
-								className="text-muted-foreground hover:text-foreground"
-							>
-								Questões
-							</Link>
-							<Link
-								href="#"
-								className="text-muted-foreground hover:text-foreground"
-							>
-								Olimpíadas
-							</Link>
-						</nav>
-					</SheetContent>
-				</Sheet>
+				<MobileNavigation />
 				<div className="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
 					<form className="ml-auto flex-1 sm:flex-initial">
 						<div className="relative">
