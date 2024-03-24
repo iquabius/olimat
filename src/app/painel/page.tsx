@@ -1,11 +1,5 @@
 import Link from "next/link";
-import {
-	ArrowUpRight,
-	CircleUser,
-	FileQuestion,
-	LandPlot,
-	School,
-} from "lucide-react";
+import { ArrowUpRight, FileQuestion, LandPlot, School } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import { Badge } from "~/components/ui/badge";
@@ -18,14 +12,6 @@ import {
 	CardTitle,
 } from "~/components/ui/card";
 import {
-	DropdownMenu,
-	DropdownMenuContent,
-	DropdownMenuItem,
-	DropdownMenuLabel,
-	DropdownMenuSeparator,
-	DropdownMenuTrigger,
-} from "~/components/ui/dropdown-menu";
-import {
 	Table,
 	TableBody,
 	TableCell,
@@ -36,6 +22,7 @@ import {
 import { DesktopNavigation } from "./_components/DesktopNavigation";
 import { MobileNavigation } from "./_components/MobileNavigation";
 import { SearchInput } from "./_components/SearchInput";
+import { UserMenu } from "./_components/UserMenu";
 
 export default function Dashboard() {
 	return (
@@ -44,23 +31,8 @@ export default function Dashboard() {
 				<DesktopNavigation />
 				<MobileNavigation />
 				<div className="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
-					<SearchInput></SearchInput>
-					<DropdownMenu>
-						<DropdownMenuTrigger asChild>
-							<Button variant="secondary" size="icon" className="rounded-full">
-								<CircleUser className="h-5 w-5" />
-								<span className="sr-only">Toggle user menu</span>
-							</Button>
-						</DropdownMenuTrigger>
-						<DropdownMenuContent align="end">
-							<DropdownMenuLabel>Minha Conta</DropdownMenuLabel>
-							<DropdownMenuSeparator />
-							<DropdownMenuItem>Configurações</DropdownMenuItem>
-							<DropdownMenuItem>Suporte</DropdownMenuItem>
-							<DropdownMenuSeparator />
-							<DropdownMenuItem>Sair</DropdownMenuItem>
-						</DropdownMenuContent>
-					</DropdownMenu>
+					<SearchInput />
+					<UserMenu />
 				</div>
 			</header>
 			<main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
