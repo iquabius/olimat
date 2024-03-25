@@ -23,7 +23,7 @@ import {
 } from "~/components/ui/drawer";
 import { Input } from "~/components/ui/input";
 import { Plus } from "lucide-react";
-import { z } from "zod";
+import { type z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import {
@@ -35,6 +35,9 @@ import {
 	FormLabel,
 	FormMessage,
 } from "~/components/ui/form";
+import { SchoolAddSchema } from "~/shared/schemas";
+import { api } from "~/trpc/react";
+import { useRouter } from "next/navigation";
 
 export function SchoolAddDialog() {
 	const [open, setOpen] = React.useState(false);
@@ -88,31 +91,31 @@ export function SchoolAddDialog() {
 	);
 }
 
-const SchoolAddSchema = z.object({
-	name: z.string().min(3, {
-		message: "Nome deve ter pelo menos 3 caracteres.",
-	}),
-	email: z.string().email(),
-	phoneNumber: z.string(),
-	pedagogicalCoordinator: z.string().min(3, {
-		message: "Nome do coordenador pedagógico deve ter pelo menos 3 caracteres.",
-	}),
-	principal: z.string().min(3, {
-		message: "Nome do diretor deve ter pelo menos 3 caracteres.",
-	}),
-});
-
 function SchoolAddForm({ className }: React.ComponentProps<"form">) {
 	const form = useForm<z.infer<typeof SchoolAddSchema>>({
 		resolver: zodResolver(SchoolAddSchema),
 		defaultValues: {
 			name: "",
+			email: "",
+			phoneNumber: "",
+			pedagogicalCoordinator: "",
+			principal: "",
 		},
+	});
+
+	const router = useRouter();
+	const createSchool = api.school.create.useMutation({
+		onSuccess: () => {
+			// TODO: Show a success Toast
+			router.refresh();
+		},
+		// TODO: Show an error Toast
 	});
 
 	const onSubmit = (values: z.infer<typeof SchoolAddSchema>) => {
 		// Do something
 		console.log({ values });
+		createSchool.mutate(values);
 	};
 
 	return (
