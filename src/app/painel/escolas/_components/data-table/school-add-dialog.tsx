@@ -22,8 +22,19 @@ import {
 	DrawerTrigger,
 } from "~/components/ui/drawer";
 import { Input } from "~/components/ui/input";
-import { Label } from "~/components/ui/label";
 import { Plus } from "lucide-react";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import {
+	Form,
+	FormControl,
+	FormDescription,
+	FormField,
+	FormItem,
+	FormLabel,
+	FormMessage,
+} from "~/components/ui/form";
 
 export function SchoolAddDialog() {
 	const [open, setOpen] = React.useState(false);
@@ -77,30 +88,107 @@ export function SchoolAddDialog() {
 	);
 }
 
+const SchoolAddSchema = z.object({
+	name: z.string().min(3, {
+		message: "Nome deve ter pelo menos 3 caracteres.",
+	}),
+	email: z.string().email(),
+	phoneNumber: z.string(),
+	pedagogicalCoordinator: z.string().min(3, {
+		message: "Nome do coordenador pedagógico deve ter pelo menos 3 caracteres.",
+	}),
+	principal: z.string().min(3, {
+		message: "Nome do diretor deve ter pelo menos 3 caracteres.",
+	}),
+});
+
 function SchoolAddForm({ className }: React.ComponentProps<"form">) {
+	const form = useForm<z.infer<typeof SchoolAddSchema>>({
+		resolver: zodResolver(SchoolAddSchema),
+		defaultValues: {
+			name: "",
+		},
+	});
+
+	const onSubmit = (values: z.infer<typeof SchoolAddSchema>) => {
+		// Do something
+		console.log({ values });
+	};
+
 	return (
-		<form className={cn("grid items-start gap-4", className)}>
-			<div className="grid gap-2">
-				<Label htmlFor="name">Nome</Label>
-				<Input id="name" />
-			</div>
-			<div className="grid gap-2">
-				<Label htmlFor="email">Email</Label>
-				<Input type="email" id="email" />
-			</div>
-			<div className="grid gap-2">
-				<Label htmlFor="phoneNumber">Telefone</Label>
-				<Input id="phoneNumber" />
-			</div>
-			<div className="grid gap-2">
-				<Label htmlFor="pedagogicalCoordinator">Coordenador Pedagógico</Label>
-				<Input id="pedagogicalCoordinator" />
-			</div>
-			<div className="grid gap-2">
-				<Label htmlFor="principal">Diretor</Label>
-				<Input id="principal" />
-			</div>
-			<Button type="submit">Salvar</Button>
-		</form>
+		<Form {...form}>
+			<form
+				onSubmit={form.handleSubmit(onSubmit)}
+				className={cn("grid items-start gap-4", className)}
+			>
+				<FormField
+					control={form.control}
+					name="name"
+					render={({ field }) => (
+						<FormItem>
+							<FormLabel>Nome</FormLabel>
+							<FormControl>
+								<Input {...field} />
+							</FormControl>
+							<FormDescription>Nome da escola.</FormDescription>
+							<FormMessage />
+						</FormItem>
+					)}
+				/>
+				<FormField
+					control={form.control}
+					name="email"
+					render={({ field }) => (
+						<FormItem>
+							<FormLabel>Email</FormLabel>
+							<FormControl>
+								<Input {...field} />
+							</FormControl>
+							<FormMessage />
+						</FormItem>
+					)}
+				/>
+				<FormField
+					control={form.control}
+					name="phoneNumber"
+					render={({ field }) => (
+						<FormItem>
+							<FormLabel>Telefone</FormLabel>
+							<FormControl>
+								<Input {...field} />
+							</FormControl>
+							<FormMessage />
+						</FormItem>
+					)}
+				/>
+				<FormField
+					control={form.control}
+					name="pedagogicalCoordinator"
+					render={({ field }) => (
+						<FormItem>
+							<FormLabel>Coordenador Pedagógico</FormLabel>
+							<FormControl>
+								<Input {...field} />
+							</FormControl>
+							<FormMessage />
+						</FormItem>
+					)}
+				/>
+				<FormField
+					control={form.control}
+					name="principal"
+					render={({ field }) => (
+						<FormItem>
+							<FormLabel>Diretor</FormLabel>
+							<FormControl>
+								<Input {...field} />
+							</FormControl>
+							<FormMessage />
+						</FormItem>
+					)}
+				/>
+				<Button type="submit">Salvar</Button>
+			</form>
+		</Form>
 	);
 }
