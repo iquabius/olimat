@@ -1,6 +1,7 @@
 <h1 align="center" style="color:RoyalBlue">OliMAT</h1>
 
 Testing PR email notification.
+After setting up my own email in repo settings.
 
 <div align="center">
 
