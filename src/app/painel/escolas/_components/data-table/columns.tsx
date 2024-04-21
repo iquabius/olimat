@@ -3,17 +3,11 @@
 import { type ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
 import { Button } from "~/components/ui/button";
+import { type RouterOutputs } from "~/trpc/shared";
 
-// We can use Zod schema here if we want
-export type School = {
-	id: string;
-	name: string;
-	city: string;
-	phoneNumber: string;
-	studentsQuantity: number;
-};
+type SchoolTableItem = RouterOutputs["school"]["findMany"][number];
 
-export const columns: ColumnDef<School>[] = [
+export const columns: ColumnDef<SchoolTableItem>[] = [
 	{
 		accessorKey: "name",
 		header: ({ column }) => {
