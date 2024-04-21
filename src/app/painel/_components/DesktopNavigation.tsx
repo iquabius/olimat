@@ -24,7 +24,7 @@ export function DesktopNavigation() {
 				Escolas
 			</Link>
 			<Link
-				href="#"
+				href="/painel/cidades"
 				className="text-muted-foreground transition-colors hover:text-foreground"
 			>
 				Cidades

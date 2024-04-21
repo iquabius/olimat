@@ -31,7 +31,7 @@ export function MobileNavigation() {
 						Escolas
 					</Link>
 					<Link
-						href="#"
+						href="/painel/cidades"
 						className="text-muted-foreground hover:text-foreground"
 					>
 						Cidades
