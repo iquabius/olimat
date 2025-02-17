@@ -1,6 +1,8 @@
 {
-  "name": "olimat",
-  "version": "0.1.0",
+  "name": "@olimat/web",
+  "license": "AGPL-3.0",
+  "version": "0.0.2",
+  "author": "Josias Iquabius <iquabius@gmail.com>",
   "private": true,
   "type": "module",
   "scripts": {
