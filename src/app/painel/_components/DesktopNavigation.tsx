@@ -12,7 +12,7 @@ export function DesktopNavigation() {
 				<span className="sr-only">Acme Inc</span>
 			</Link>
 			<Link
-				href="#"
+				href="/painel"
 				className="text-foreground transition-colors hover:text-foreground"
 			>
 				Painel

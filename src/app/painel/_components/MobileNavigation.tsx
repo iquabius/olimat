@@ -21,7 +21,7 @@ export function MobileNavigation() {
 						<Package2 className="h-6 w-6" />
 						<span className="sr-only">Acme Inc</span>
 					</Link>
-					<Link href="#" className="hover:text-foreground">
+					<Link href="/painel" className="hover:text-foreground">
 						Painel
 					</Link>
 					<Link

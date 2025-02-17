@@ -69,9 +69,9 @@ export function DataTable<TData, TValue>({
 						{table.getHeaderGroups().map((headerGroup) => (
 							<TableRow key={headerGroup.id}>
 								{headerGroup.headers.map((header) => {
-									console.log(
-										header.index === header.headerGroup.headers.length - 1,
-									);
+									// console.log(
+									// 	header.index === header.headerGroup.headers.length - 1,
+									// );
 
 									return (
 										<TableHead key={header.id}>
