@@ -1,12 +1,6 @@
-import { SchoolAddSchema } from "~/shared/schemas";
-import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
+import { createTRPCRouter, publicProcedure } from "../trpc";
 
 export const schoolRouter = createTRPCRouter({
-	create: protectedProcedure.input(SchoolAddSchema).mutation(({ input }) => {
-		// TODO: Set up School table
-		console.log({ input });
-		return input;
-	}),
 	findMany: publicProcedure.query(() => {
 		return [
 			{
