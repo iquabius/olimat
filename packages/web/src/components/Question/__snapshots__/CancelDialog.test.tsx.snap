@@ -1,3 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`doesn't render the dialog if it's closed 1`] = `<div />`;
