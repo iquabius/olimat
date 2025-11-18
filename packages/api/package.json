@@ -42,7 +42,7 @@
     "@types/graphql": "14.2.3",
     "@types/jsonwebtoken": "8.5.0",
     "@types/mime-types": "2.1.0",
-    "@types/mv": "2.1.1",
+    "@types/mv": "2.1.4",
     "@types/nock": "10.0.3",
     "@types/shortid": "0.0.29",
     "apollo": "2.33.11",
